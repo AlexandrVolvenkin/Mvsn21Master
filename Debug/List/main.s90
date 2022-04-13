@@ -1,0 +1,782 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          13/Apr/2022  19:25:34
+// Copyright 1996-2018 IAR Systems AB.
+//
+//    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+//    Command line =  
+//        -f C:\Users\ghost\AppData\Local\Temp\EWCF2A.tmp
+//        (--string_literals_in_flash
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
+//        --initializers_in_flash --root_variables --no_cse --no_inline
+//        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
+//        -DENABLE_BIT_DEFINITIONS -e -I
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ --eeprom_size 256
+//        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
+//    Locale       =  Russian_RUS.1251
+//    List file    =  
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\main.s90
+//
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        ERROR
+//NOTE: This module defines or uses C++ features that are not
+//      accessible from assembler code. Assembling this file will
+//      not produce an equivalent object file to the one produced
+//      by the C++ compiler.
+
+        EXTERN ?PROLOGUE4_L09
+
+        PUBWEAK ??InterruptEnable
+        PUBLIC ??MainReboot
+        PUBWEAK ??MeasureFlowControlSet
+        PUBWEAK ??WatchdogReset
+        PUBWEAK _A_ACSR
+        PUBWEAK _A_ADC
+        PUBWEAK _A_ADCSRA
+        PUBWEAK _A_ADCSRB
+        PUBWEAK _A_ADMUX
+        PUBWEAK _A_ASSR
+        PUBWEAK _A_CLKPR
+        PUBWEAK _A_DDRB
+        PUBWEAK _A_DDRC
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_DIDR0
+        PUBWEAK _A_DIDR1
+        PUBWEAK _A_EEAR
+        PUBWEAK _A_EECR
+        PUBWEAK _A_EEDR
+        PUBWEAK _A_EICRA
+        PUBWEAK _A_EIFR
+        PUBWEAK _A_EIMSK
+        PUBWEAK _A_GPIOR0
+        PUBWEAK _A_GPIOR1
+        PUBWEAK _A_GPIOR2
+        PUBWEAK _A_GTCCR
+        PUBWEAK _A_ICR1
+        PUBWEAK _A_MCUCR
+        PUBWEAK _A_MCUSR
+        PUBWEAK _A_OCR0A
+        PUBWEAK _A_OCR0B
+        PUBWEAK _A_OCR1A
+        PUBWEAK _A_OCR1B
+        PUBWEAK _A_OCR2A
+        PUBWEAK _A_OCR2B
+        PUBWEAK _A_OSCCAL
+        PUBWEAK _A_PCICR
+        PUBWEAK _A_PCIFR
+        PUBWEAK _A_PCMSK0
+        PUBWEAK _A_PCMSK1
+        PUBWEAK _A_PCMSK2
+        PUBWEAK _A_PINB
+        PUBWEAK _A_PINC
+        PUBWEAK _A_PIND
+        PUBWEAK _A_PORTB
+        PUBWEAK _A_PORTC
+        PUBWEAK _A_PORTD
+        PUBWEAK _A_PRR
+        PUBWEAK _A_SMCR
+        PUBWEAK _A_SP
+        PUBWEAK _A_SPCR
+        PUBWEAK _A_SPDR
+        PUBWEAK _A_SPMCSR
+        PUBWEAK _A_SPSR
+        PUBWEAK _A_SREG
+        PUBWEAK _A_TCCR0A
+        PUBWEAK _A_TCCR0B
+        PUBWEAK _A_TCCR1A
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TCCR1C
+        PUBWEAK _A_TCCR2A
+        PUBWEAK _A_TCCR2B
+        PUBWEAK _A_TCNT0
+        PUBWEAK _A_TCNT1
+        PUBWEAK _A_TCNT2
+        PUBWEAK _A_TIFR0
+        PUBWEAK _A_TIFR1
+        PUBWEAK _A_TIFR2
+        PUBWEAK _A_TIMSK0
+        PUBWEAK _A_TIMSK1
+        PUBWEAK _A_TIMSK2
+        PUBWEAK _A_TWAMR
+        PUBWEAK _A_TWAR
+        PUBWEAK _A_TWBR
+        PUBWEAK _A_TWCR
+        PUBWEAK _A_TWDR
+        PUBWEAK _A_TWSR
+        PUBWEAK _A_UBRR0
+        PUBWEAK _A_UCSR0A
+        PUBWEAK _A_UCSR0B
+        PUBWEAK _A_UCSR0C
+        PUBWEAK _A_UDR0
+        PUBWEAK _A_WDTCSR
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC main
+
+`?<Name CSpi 12>`   SYMBOL "CSpi"
+`?<Name CMvsn21 19>` SYMBOL "CMvsn21"
+??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 12>`
+??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 12>`
+??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 19>`
+
+        EXTERN ??CTimer
+        EXTERN ??Init
+        EXTERN ??Init_1
+        EXTERN ??Init_2
+        EXTERN ??SpiBusExchangeEnable
+        EXTERN ??SpiFsm
+        EXTERN ??m_auiSpiRxBuffer
+        EXTERN ??m_auiSpiTxBuffer
+        EXTERN ??m_uiMeasureFlowControl
+
+// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+//    1 //-----------------------------------------------------------------------------------------------------
+//    2 //  Source      : FileName.cpp
+//    3 //  Created     : 01.06.2022
+//    4 //  Author      : Alexandr Volvenkin
+//    5 //  email       : aav-36@mail.ru
+//    6 //  GitHub      : https://github.com/AlexandrVolvenkin
+//    7 //-----------------------------------------------------------------------------------------------------
+//    8 //-----------------------------------------------------------------------------------------------------
+//    9 #include "Platform.h"
+
+        ASEGN ABSOLUTE:DATA:ROOT,0c6H
+// union <unnamed> volatile __io _A_UDR0
+_A_UDR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0c4H
+// union <unnamed> volatile __io _A_UBRR0
+_A_UBRR0:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,0c2H
+// union <unnamed> volatile __io _A_UCSR0C
+_A_UCSR0C:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0c1H
+// union <unnamed> volatile __io _A_UCSR0B
+_A_UCSR0B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0c0H
+// union <unnamed> volatile __io _A_UCSR0A
+_A_UCSR0A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0bdH
+// union <unnamed> volatile __io _A_TWAMR
+_A_TWAMR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0bcH
+// union <unnamed> volatile __io _A_TWCR
+_A_TWCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0bbH
+// union <unnamed> volatile __io _A_TWDR
+_A_TWDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0baH
+// union <unnamed> volatile __io _A_TWAR
+_A_TWAR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b9H
+// union <unnamed> volatile __io _A_TWSR
+_A_TWSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b8H
+// union <unnamed> volatile __io _A_TWBR
+_A_TWBR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b6H
+// union <unnamed> volatile __io _A_ASSR
+_A_ASSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b4H
+// union <unnamed> volatile __io _A_OCR2B
+_A_OCR2B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b3H
+// union <unnamed> volatile __io _A_OCR2A
+_A_OCR2A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b2H
+// union <unnamed> volatile __io _A_TCNT2
+_A_TCNT2:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b1H
+// union <unnamed> volatile __io _A_TCCR2B
+_A_TCCR2B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,0b0H
+// union <unnamed> volatile __io _A_TCCR2A
+_A_TCCR2A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,08aH
+// union <unnamed> volatile __io _A_OCR1B
+_A_OCR1B:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,088H
+// union <unnamed> volatile __io _A_OCR1A
+_A_OCR1A:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,086H
+// union <unnamed> volatile __io _A_ICR1
+_A_ICR1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,084H
+// union <unnamed> volatile __io _A_TCNT1
+_A_TCNT1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,082H
+// union <unnamed> volatile __io _A_TCCR1C
+_A_TCCR1C:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,081H
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,080H
+// union <unnamed> volatile __io _A_TCCR1A
+_A_TCCR1A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,07fH
+// union <unnamed> volatile __io _A_DIDR1
+_A_DIDR1:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,07eH
+// union <unnamed> volatile __io _A_DIDR0
+_A_DIDR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,07cH
+// union <unnamed> volatile __io _A_ADMUX
+_A_ADMUX:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,07bH
+// union <unnamed> volatile __io _A_ADCSRB
+_A_ADCSRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,07aH
+// union <unnamed> volatile __io _A_ADCSRA
+_A_ADCSRA:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,078H
+// union <unnamed> volatile __io _A_ADC
+_A_ADC:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,070H
+// union <unnamed> volatile __io _A_TIMSK2
+_A_TIMSK2:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,06fH
+// union <unnamed> volatile __io _A_TIMSK1
+_A_TIMSK1:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,06eH
+// union <unnamed> volatile __io _A_TIMSK0
+_A_TIMSK0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,06dH
+// union <unnamed> volatile __io _A_PCMSK2
+_A_PCMSK2:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,06cH
+// union <unnamed> volatile __io _A_PCMSK1
+_A_PCMSK1:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,06bH
+// union <unnamed> volatile __io _A_PCMSK0
+_A_PCMSK0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,069H
+// union <unnamed> volatile __io _A_EICRA
+_A_EICRA:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,068H
+// union <unnamed> volatile __io _A_PCICR
+_A_PCICR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,066H
+// union <unnamed> volatile __io _A_OSCCAL
+_A_OSCCAL:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,064H
+// union <unnamed> volatile __io _A_PRR
+_A_PRR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,061H
+// union <unnamed> volatile __io _A_CLKPR
+_A_CLKPR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,060H
+// union <unnamed> volatile __io _A_WDTCSR
+_A_WDTCSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,05fH
+// union <unnamed> volatile __io _A_SREG
+_A_SREG:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,05dH
+// union <unnamed> volatile __io _A_SP
+_A_SP:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,057H
+// union <unnamed> volatile __io _A_SPMCSR
+_A_SPMCSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,055H
+// union <unnamed> volatile __io _A_MCUCR
+_A_MCUCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,054H
+// union <unnamed> volatile __io _A_MCUSR
+_A_MCUSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,053H
+// union <unnamed> volatile __io _A_SMCR
+_A_SMCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,050H
+// union <unnamed> volatile __io _A_ACSR
+_A_ACSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,04eH
+// union <unnamed> volatile __io _A_SPDR
+_A_SPDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,04dH
+// union <unnamed> volatile __io _A_SPSR
+_A_SPSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,04cH
+// union <unnamed> volatile __io _A_SPCR
+_A_SPCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,04bH
+// union <unnamed> volatile __io _A_GPIOR2
+_A_GPIOR2:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,04aH
+// union <unnamed> volatile __io _A_GPIOR1
+_A_GPIOR1:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,048H
+// union <unnamed> volatile __io _A_OCR0B
+_A_OCR0B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,047H
+// union <unnamed> volatile __io _A_OCR0A
+_A_OCR0A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,046H
+// union <unnamed> volatile __io _A_TCNT0
+_A_TCNT0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,045H
+// union <unnamed> volatile __io _A_TCCR0B
+_A_TCCR0B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,044H
+// union <unnamed> volatile __io _A_TCCR0A
+_A_TCCR0A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,043H
+// union <unnamed> volatile __io _A_GTCCR
+_A_GTCCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,041H
+// union <unnamed> volatile __io _A_EEAR
+_A_EEAR:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:ROOT,040H
+// union <unnamed> volatile __io _A_EEDR
+_A_EEDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,03fH
+// union <unnamed> volatile __io _A_EECR
+_A_EECR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,03eH
+// union <unnamed> volatile __io _A_GPIOR0
+_A_GPIOR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,03dH
+// union <unnamed> volatile __io _A_EIMSK
+_A_EIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,03cH
+// union <unnamed> volatile __io _A_EIFR
+_A_EIFR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,03bH
+// union <unnamed> volatile __io _A_PCIFR
+_A_PCIFR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,037H
+// union <unnamed> volatile __io _A_TIFR2
+_A_TIFR2:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,036H
+// union <unnamed> volatile __io _A_TIFR1
+_A_TIFR1:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,035H
+// union <unnamed> volatile __io _A_TIFR0
+_A_TIFR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,02bH
+// union <unnamed> volatile __io _A_PORTD
+_A_PORTD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,02aH
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,029H
+// union <unnamed> volatile __io _A_PIND
+_A_PIND:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,028H
+// union <unnamed> volatile __io _A_PORTC
+_A_PORTC:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,027H
+// union <unnamed> volatile __io _A_DDRC
+_A_DDRC:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,026H
+// union <unnamed> volatile __io _A_PINC
+_A_PINC:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,025H
+// union <unnamed> volatile __io _A_PORTB
+_A_PORTB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,024H
+// union <unnamed> volatile __io _A_DDRB
+_A_DDRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:ROOT,023H
+// union <unnamed> volatile __io _A_PINB
+_A_PINB:
+        DS8 1
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::WatchdogReset()
+??WatchdogReset:
+        WDR
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::InterruptEnable()
+??InterruptEnable:
+        SEI
+        RET
+//   10 //#include "Config.h"
+//   11 #include "Timer.h"
+//   12 #include "Mvsn21.h"
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CMvsn21::MeasureFlowControlSet(uint8_t)
+??MeasureFlowControlSet:
+        STS     ??m_uiMeasureFlowControl, R16
+        RET
+//   13 //#include "Modbus.h"
+//   14 //#include "ModbusRTU.h"
+//   15 //#include "InputDevice.h"
+//   16 
+//   17 
+//   18 
+//   19 
+//   20 ////-----------------------------------------------------------------------------------------------------
+//   21 //void MainCycle(void)
+//   22 //{
+//   23 //    if (xLedTimer.IsOverflow())
+//   24 //    {
+//   25 //        xLedTimer.Reset();
+//   26 //    }
+//   27 //}
+//   28 
+//   29 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//   30 void MainReboot()
+??MainReboot:
+//   31 {
+//   32 
+//   33 }
+        RET
+//   34 
+//   35 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//   36 int main()
+main:
+//   37 {
+        RCALL   ?PROLOGUE4_L09
+        SBIW    R29:R28, 12
+//   38 
+//   39     enum
+//   40     {
+//   41         MAIN_START,
+//   42         MAIN_FIRST_STEP,
+//   43         MAIN_SECOND_STEP,
+//   44         MAIN_THIRD_STEP,
+//   45         MAIN_FORTH_STEP,
+//   46         MAIN_THIRD_REBOOT,
+//   47         MAIN_STOP
+//   48     };
+//   49 
+//   50 //    CPlatform::WatchdogEnable();
+//   51     CPlatform::Init();
+        RCALL   ??Init
+//   52     CPlatform::InterruptEnable();
+        RCALL   ??InterruptEnable
+//   53     CTimer xStatusLedTimer(500);
+        LDI     R18, 244
+        LDI     R19, 1
+        MOVW    R17:R16, R29:R28
+        SUBI    R16, 250
+        SBCI    R17, 255
+        RCALL   ??CTimer
+//   54 //    CTimer xLedTimer(500);
+//   55     CTimer xPeripheryTimer(10);
+        LDI     R18, 10
+        LDI     R19, 0
+        MOVW    R17:R16, R29:R28
+        RCALL   ??CTimer
+//   56 //    CUart xUart0(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, &DDRC, DDC7, &PORTC, PC7);
+//   57 //    CPlatform::m_pxUart0 = &xUart0;
+//   58 
+//   59     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+        LDI     R18, LOW(??m_auiSpiTxBuffer)
+        LDI     R19, (??m_auiSpiTxBuffer) >> 8
+        LDI     R16, LOW(??m_auiSpiRxBuffer)
+        LDI     R17, (??m_auiSpiRxBuffer) >> 8
+        RCALL   ??Init_1
+//   60     CMvsn21::SpiBusExchangeEnable();
+        RCALL   ??SpiBusExchangeEnable
+//   61 
+//   62     CAdc::Init();
+        RCALL   ??Init_2
+//   63     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
+        LDI     R16, 0
+        RCALL   ??MeasureFlowControlSet
+//   64 
+//   65     uint8_t uiMainFsmState = MAIN_START;
+        LDI     R24, 0
+//   66     uint8_t uiStatusLedState = 0;;
+        LDI     R25, 0
+//   67     uint8_t uiLedState = 0;
+        LDI     R26, 0
+//   68     uint8_t uiWatchDogStepID = 0;
+        LDI     R27, 0
+//   69 
+//   70     while(1)
+//   71     {
+//   72         CMvsn21::SpiFsm();
+??main_0:
+        RCALL   ??SpiFsm
+//   73 //        CMvsn21::MeasureFsm();
+//   74 //
+//   75 //        if (xPeripheryTimer.IsOverflow())
+//   76 //        {
+//   77 //            xPeripheryTimer.Reset();
+//   78 //        }
+//   79 
+//   80 //        if (CSpi::DataExchangeIsOccur())
+//   81 //        {
+//   82 //            CSpi::DataExchangeIsOccurClear();
+//   83 //        }
+//   84 
+//   85         switch (uiMainFsmState)
+        MOV     R16, R24
+        SUBI    R16, 0
+        BREQ    ??main_1
+        DEC     R16
+        BREQ    ??main_2
+        DEC     R16
+        BREQ    ??main_2
+        SUBI    R16, 3
+        BREQ    ??main_3
+        DEC     R16
+        BREQ    ??main_2
+        RJMP    ??main_2
+//   86         {
+//   87         case MAIN_START:
+//   88             uiMainFsmState = MAIN_FIRST_STEP;
+??main_1:
+        LDI     R24, 1
+//   89             break;
+        RJMP    ??main_2
+//   90 
+//   91         case MAIN_FIRST_STEP:
+//   92 ////            MainCycle();
+//   93 //            if (xStatusLedTimer.IsOverflow())
+//   94 //            {
+//   95 //                xStatusLedTimer.Reset();
+//   96 //                if (uiStatusLedState)
+//   97 //                {
+//   98 //        CPlatform::TxLedOff();
+//   99 ////                    CPlatform::StatusLedOff();
+//  100 //                    uiStatusLedState = 0;
+//  101 //                }
+//  102 //                else
+//  103 //                {
+//  104 //        CPlatform::TxLedOn();
+//  105 ////                    CPlatform::StatusLedOn();
+//  106 //                    uiStatusLedState = 1;
+//  107 //                }
+//  108 //                uiWatchDogStepID |= 0x03;
+//  109 //            }
+//  110 
+//  111 //            if (xLedTimer.IsOverflow())
+//  112 //            {
+//  113 //                xLedTimer.Reset();
+//  114 //                if (uiLedState)
+//  115 //                {
+//  116 //                    CPlatform::TxLedOff();
+//  117 //                    uiLedState = 0;
+//  118 //                }
+//  119 //                else
+//  120 //                {
+//  121 //                    CPlatform::TxLedOn();
+//  122 //                    uiLedState = 1;
+//  123 //                }
+//  124 //            }
+//  125 
+//  126         case MAIN_SECOND_STEP:
+//  127             break;
+//  128 
+//  129         case MAIN_THIRD_REBOOT:
+//  130             MainReboot();
+??main_3:
+        RCALL   ??MainReboot
+//  131             break;
+//  132 
+//  133         case MAIN_STOP:
+//  134             break;
+//  135 
+//  136         default:
+//  137             break;
+//  138         }
+//  139 
+//  140 //        // все задачи программы ответили?
+//  141 //        if (uiWatchDogStepID == 0x03)
+//  142 //        {
+//  143 //            uiWatchDogStepID = 0;
+//  144         CPlatform::WatchdogReset();
+??main_2:
+        RCALL   ??WatchdogReset
+        RJMP    ??main_0
+//  145 //        }
+//  146 
+//  147 
+//  148     }
+//  149 
+//  150     return 0;
+//  151 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,020H
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,021H
+__?EEARL:
+
+        END
+// 
+//  87 bytes in segment ABSOLUTE
+// 106 bytes in segment CODE
+// 
+// 92 bytes of CODE memory (+ 14 bytes shared)
+//  0 bytes of DATA memory (+ 87 bytes shared)
+//
+//Errors: none
+//Warnings: 4

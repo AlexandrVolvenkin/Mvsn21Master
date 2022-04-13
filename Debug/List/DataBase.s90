@@ -1,0 +1,132 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          13/Apr/2022  19:25:34
+// Copyright 1996-2018 IAR Systems AB.
+//
+//    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\DataBase.cpp
+//    Command line =  
+//        -f C:\Users\ghost\AppData\Local\Temp\EWCE6C.tmp
+//        (--string_literals_in_flash
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\DataBase.cpp --cpu=m48
+//        -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
+//        --initializers_in_flash --root_variables --no_cse --no_inline
+//        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
+//        -DENABLE_BIT_DEFINITIONS -e -I
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ --eeprom_size 256
+//        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
+//    Locale       =  Russian_RUS.1251
+//    List file    =  
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\DataBase.s90
+//
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME DataBase
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        ERROR
+//NOTE: This module defines or uses C++ features that are not
+//      accessible from assembler code. Assembling this file will
+//      not produce an equivalent object file to the one produced
+//      by the C++ compiler.
+
+        EXTERN ?EPILOGUE_B2_L09
+        EXTERN ?PROLOGUE2_L09
+
+        PUBLIC ??CDataBase
+        PUBWEAK ??__vtbl
+        PUBLIC `??new CDataBase`
+        PUBLIC `?~CDataBase`
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+
+`?<Name CDataBase 4>` SYMBOL "CDataBase"
+??__vtbl            SYMBOL "__vtbl", `?<Name CDataBase 4>`
+
+        EXTERN `??operator delete`
+        EXTERN `??operator new`
+
+// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\DataBase.cpp
+//    1 #include "DataBase.h"
+//    2 
+//    3 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//    4 CDataBase::CDataBase()
+??CDataBase:
+//    5 {
+        LDI     R18, LOW(??__vtbl)
+        LDI     R19, (??__vtbl) >> 8
+        MOVW    R31:R30, R17:R16
+        ST      Z, R18
+        STD     Z+1, R19
+//    6     //ctor
+//    7 }
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 CDataBase &CDataBase::new CDataBase()
+`??new CDataBase`:
+        LDI     R16, 2
+        LDI     R17, 0
+        RCALL   `??operator new`
+        MOV     R18, R16
+        OR      R18, R17
+        BREQ    `??new CDataBase_1`
+        RCALL   ??CDataBase
+        RET
+`??new CDataBase_1`:
+        LDI     R16, 0
+        LDI     R17, 0
+        RET
+//    8 
+//    9 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//   10 CDataBase::~CDataBase()
+`?~CDataBase`:
+//   11 {
+        RCALL   ?PROLOGUE2_L09
+        MOVW    R25:R24, R17:R16
+        MOV     R16, R24
+        OR      R16, R25
+        BREQ    `?~CDataBase_1`
+        BST     R18, 0
+        BRTC    `?~CDataBase_1`
+//   12     //dtor
+//   13 }
+        MOVW    R17:R16, R25:R24
+        RCALL   `??operator delete`
+`?~CDataBase_1`:
+        LDI     R30, 2
+        RJMP    ?EPILOGUE_B2_L09
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,020H
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,021H
+__?EEARL:
+
+        RSEG NEAR_F:CODE:ROOT(0)
+// __vtbl_entry const __flash CDataBase::__vtbl[1]
+??__vtbl:
+        DC16 `?~CDataBase`/2
+
+        END
+//   14 
+//   15 //-----------------------------------------------------------------------------------------------------
+// 
+// 56 bytes in segment CODE
+//  2 bytes in segment NEAR_F
+// 
+// 56 bytes of CODE memory (+ 2 bytes shared)
+//
+//Errors: none
+//Warnings: none

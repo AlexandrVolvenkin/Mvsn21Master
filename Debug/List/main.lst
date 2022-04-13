@@ -1,0 +1,766 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR           13/Apr/2022  19:24:09
+# Copyright 1996-2018 IAR Systems AB.
+#
+#    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+#    Command line =  
+#        -f C:\Users\ghost\AppData\Local\Temp\EW7FCD.tmp
+#        (--string_literals_in_flash
+#        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
+#        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lCN
+#        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
+#        --initializers_in_flash --root_variables --no_cse --no_inline
+#        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
+#        -DENABLE_BIT_DEFINITIONS -e -I
+#        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ --eeprom_size 256
+#        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
+#    Locale       =  Russian_RUS.1251
+#    List file    =  
+#        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\main.lst
+#    Object file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj\main.r90
+#
+###############################################################################
+
+D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+      1          //-----------------------------------------------------------------------------------------------------
+      2          //  Source      : FileName.cpp
+      3          //  Created     : 01.06.2022
+      4          //  Author      : Alexandr Volvenkin
+      5          //  email       : aav-36@mail.ru
+      6          //  GitHub      : https://github.com/AlexandrVolvenkin
+      7          //-----------------------------------------------------------------------------------------------------
+      8          //-----------------------------------------------------------------------------------------------------
+      9          #include "Platform.h"
+
+   \                                 In  segment ABSOLUTE, at 0xc6, root
+   \   union <unnamed> volatile __io _A_UDR0
+   \                     _A_UDR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xc4, root
+   \   union <unnamed> volatile __io _A_UBRR0
+   \                     _A_UBRR0:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0xc2, root
+   \   union <unnamed> volatile __io _A_UCSR0C
+   \                     _A_UCSR0C:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xc1, root
+   \   union <unnamed> volatile __io _A_UCSR0B
+   \                     _A_UCSR0B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xc0, root
+   \   union <unnamed> volatile __io _A_UCSR0A
+   \                     _A_UCSR0A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xbd, root
+   \   union <unnamed> volatile __io _A_TWAMR
+   \                     _A_TWAMR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xbc, root
+   \   union <unnamed> volatile __io _A_TWCR
+   \                     _A_TWCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xbb, root
+   \   union <unnamed> volatile __io _A_TWDR
+   \                     _A_TWDR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xba, root
+   \   union <unnamed> volatile __io _A_TWAR
+   \                     _A_TWAR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb9, root
+   \   union <unnamed> volatile __io _A_TWSR
+   \                     _A_TWSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb8, root
+   \   union <unnamed> volatile __io _A_TWBR
+   \                     _A_TWBR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb6, root
+   \   union <unnamed> volatile __io _A_ASSR
+   \                     _A_ASSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb4, root
+   \   union <unnamed> volatile __io _A_OCR2B
+   \                     _A_OCR2B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb3, root
+   \   union <unnamed> volatile __io _A_OCR2A
+   \                     _A_OCR2A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb2, root
+   \   union <unnamed> volatile __io _A_TCNT2
+   \                     _A_TCNT2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb1, root
+   \   union <unnamed> volatile __io _A_TCCR2B
+   \                     _A_TCCR2B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb0, root
+   \   union <unnamed> volatile __io _A_TCCR2A
+   \                     _A_TCCR2A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x8a, root
+   \   union <unnamed> volatile __io _A_OCR1B
+   \                     _A_OCR1B:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x88, root
+   \   union <unnamed> volatile __io _A_OCR1A
+   \                     _A_OCR1A:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x86, root
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x84, root
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x82, root
+   \   union <unnamed> volatile __io _A_TCCR1C
+   \                     _A_TCCR1C:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x81, root
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x80, root
+   \   union <unnamed> volatile __io _A_TCCR1A
+   \                     _A_TCCR1A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7f, root
+   \   union <unnamed> volatile __io _A_DIDR1
+   \                     _A_DIDR1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7e, root
+   \   union <unnamed> volatile __io _A_DIDR0
+   \                     _A_DIDR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7c, root
+   \   union <unnamed> volatile __io _A_ADMUX
+   \                     _A_ADMUX:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7b, root
+   \   union <unnamed> volatile __io _A_ADCSRB
+   \                     _A_ADCSRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7a, root
+   \   union <unnamed> volatile __io _A_ADCSRA
+   \                     _A_ADCSRA:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x78, root
+   \   union <unnamed> volatile __io _A_ADC
+   \                     _A_ADC:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x70, root
+   \   union <unnamed> volatile __io _A_TIMSK2
+   \                     _A_TIMSK2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6f, root
+   \   union <unnamed> volatile __io _A_TIMSK1
+   \                     _A_TIMSK1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6e, root
+   \   union <unnamed> volatile __io _A_TIMSK0
+   \                     _A_TIMSK0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6d, root
+   \   union <unnamed> volatile __io _A_PCMSK2
+   \                     _A_PCMSK2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6c, root
+   \   union <unnamed> volatile __io _A_PCMSK1
+   \                     _A_PCMSK1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6b, root
+   \   union <unnamed> volatile __io _A_PCMSK0
+   \                     _A_PCMSK0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x69, root
+   \   union <unnamed> volatile __io _A_EICRA
+   \                     _A_EICRA:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x68, root
+   \   union <unnamed> volatile __io _A_PCICR
+   \                     _A_PCICR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x66, root
+   \   union <unnamed> volatile __io _A_OSCCAL
+   \                     _A_OSCCAL:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x64, root
+   \   union <unnamed> volatile __io _A_PRR
+   \                     _A_PRR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x61, root
+   \   union <unnamed> volatile __io _A_CLKPR
+   \                     _A_CLKPR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x60, root
+   \   union <unnamed> volatile __io _A_WDTCSR
+   \                     _A_WDTCSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x5f, root
+   \   union <unnamed> volatile __io _A_SREG
+   \                     _A_SREG:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x5d, root
+   \   union <unnamed> volatile __io _A_SP
+   \                     _A_SP:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x57, root
+   \   union <unnamed> volatile __io _A_SPMCSR
+   \                     _A_SPMCSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x55, root
+   \   union <unnamed> volatile __io _A_MCUCR
+   \                     _A_MCUCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x54, root
+   \   union <unnamed> volatile __io _A_MCUSR
+   \                     _A_MCUSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53, root
+   \   union <unnamed> volatile __io _A_SMCR
+   \                     _A_SMCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x50, root
+   \   union <unnamed> volatile __io _A_ACSR
+   \                     _A_ACSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e, root
+   \   union <unnamed> volatile __io _A_SPDR
+   \                     _A_SPDR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4d, root
+   \   union <unnamed> volatile __io _A_SPSR
+   \                     _A_SPSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4c, root
+   \   union <unnamed> volatile __io _A_SPCR
+   \                     _A_SPCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4b, root
+   \   union <unnamed> volatile __io _A_GPIOR2
+   \                     _A_GPIOR2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4a, root
+   \   union <unnamed> volatile __io _A_GPIOR1
+   \                     _A_GPIOR1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x48, root
+   \   union <unnamed> volatile __io _A_OCR0B
+   \                     _A_OCR0B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x47, root
+   \   union <unnamed> volatile __io _A_OCR0A
+   \                     _A_OCR0A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x46, root
+   \   union <unnamed> volatile __io _A_TCNT0
+   \                     _A_TCNT0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x45, root
+   \   union <unnamed> volatile __io _A_TCCR0B
+   \                     _A_TCCR0B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x44, root
+   \   union <unnamed> volatile __io _A_TCCR0A
+   \                     _A_TCCR0A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x43, root
+   \   union <unnamed> volatile __io _A_GTCCR
+   \                     _A_GTCCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x41, root
+   \   union <unnamed> volatile __io _A_EEAR
+   \                     _A_EEAR:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x40, root
+   \   union <unnamed> volatile __io _A_EEDR
+   \                     _A_EEDR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x3f, root
+   \   union <unnamed> volatile __io _A_EECR
+   \                     _A_EECR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x3e, root
+   \   union <unnamed> volatile __io _A_GPIOR0
+   \                     _A_GPIOR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x3d, root
+   \   union <unnamed> volatile __io _A_EIMSK
+   \                     _A_EIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x3c, root
+   \   union <unnamed> volatile __io _A_EIFR
+   \                     _A_EIFR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x3b, root
+   \   union <unnamed> volatile __io _A_PCIFR
+   \                     _A_PCIFR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x37, root
+   \   union <unnamed> volatile __io _A_TIFR2
+   \                     _A_TIFR2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x36, root
+   \   union <unnamed> volatile __io _A_TIFR1
+   \                     _A_TIFR1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x35, root
+   \   union <unnamed> volatile __io _A_TIFR0
+   \                     _A_TIFR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2b, root
+   \   union <unnamed> volatile __io _A_PORTD
+   \                     _A_PORTD:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2a, root
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x29, root
+   \   union <unnamed> volatile __io _A_PIND
+   \                     _A_PIND:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x28, root
+   \   union <unnamed> volatile __io _A_PORTC
+   \                     _A_PORTC:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x27, root
+   \   union <unnamed> volatile __io _A_DDRC
+   \                     _A_DDRC:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x26, root
+   \   union <unnamed> volatile __io _A_PINC
+   \                     _A_PINC:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x25, root
+   \   union <unnamed> volatile __io _A_PORTB
+   \                     _A_PORTB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x24, root
+   \   union <unnamed> volatile __io _A_DDRB
+   \                     _A_DDRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x23, root
+   \   union <unnamed> volatile __io _A_PINB
+   \                     _A_PINB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __version_3 void CPlatform::WatchdogReset()
+   \                     ??WatchdogReset:
+   \   00000000   95A8               WDR
+   \   00000002   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __version_3 void CPlatform::InterruptEnable()
+   \                     ??InterruptEnable:
+   \   00000000   9478               SEI
+   \   00000002   9508               RET
+     10          //#include "Config.h"
+     11          #include "Timer.h"
+     12          #include "Mvsn21.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __version_3 void CMvsn21::MeasureFlowControlSet(uint8_t)
+   \                     ??MeasureFlowControlSet:
+   \   00000000   9300....           STS     ??m_uiMeasureFlowControl, R16
+   \   00000004   9508               RET
+     13          //#include "Modbus.h"
+     14          //#include "ModbusRTU.h"
+     15          //#include "InputDevice.h"
+     16          
+     17          
+     18          
+     19          
+     20          ////-----------------------------------------------------------------------------------------------------
+     21          //void MainCycle(void)
+     22          //{
+     23          //    if (xLedTimer.IsOverflow())
+     24          //    {
+     25          //        xLedTimer.Reset();
+     26          //    }
+     27          //}
+     28          
+     29          //-----------------------------------------------------------------------------------------------------
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     30          void MainReboot()
+   \                     ??MainReboot:
+     31          {
+     32          
+     33          }
+   \   00000000   9508               RET
+     34          
+     35          //-----------------------------------------------------------------------------------------------------
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     36          int main()
+   \                     main:
+     37          {
+   \   00000000   ....               RCALL   ?PROLOGUE4_L09
+   \   00000002   972C               SBIW    R29:R28, 12
+     38          
+     39              enum
+     40              {
+     41                  MAIN_START,
+     42                  MAIN_FIRST_STEP,
+     43                  MAIN_SECOND_STEP,
+     44                  MAIN_THIRD_STEP,
+     45                  MAIN_FORTH_STEP,
+     46                  MAIN_THIRD_REBOOT,
+     47                  MAIN_STOP
+     48              };
+     49          
+     50          //    CPlatform::WatchdogEnable();
+     51              CPlatform::Init();
+   \   00000004   ....               RCALL   ??Init
+     52              CPlatform::InterruptEnable();
+   \   00000006   ....               RCALL   ??InterruptEnable
+     53              CTimer xStatusLedTimer(500);
+   \   00000008   EF24               LDI     R18, 244
+   \   0000000A   E031               LDI     R19, 1
+   \   0000000C   018E               MOVW    R17:R16, R29:R28
+   \   0000000E   5F0A               SUBI    R16, 250
+   \   00000010   4F1F               SBCI    R17, 255
+   \   00000012   ....               RCALL   ??CTimer
+     54          //    CTimer xLedTimer(500);
+     55              CTimer xPeripheryTimer(10);
+   \   00000014   E02A               LDI     R18, 10
+   \   00000016   E030               LDI     R19, 0
+   \   00000018   018E               MOVW    R17:R16, R29:R28
+   \   0000001A   ....               RCALL   ??CTimer
+     56          //    CUart xUart0(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, &DDRC, DDC7, &PORTC, PC7);
+     57          //    CPlatform::m_pxUart0 = &xUart0;
+     58          
+     59              CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+   \   0000001C   ....               LDI     R18, LOW(??m_auiSpiTxBuffer)
+   \   0000001E   ....               LDI     R19, (??m_auiSpiTxBuffer) >> 8
+   \   00000020   ....               LDI     R16, LOW(??m_auiSpiRxBuffer)
+   \   00000022   ....               LDI     R17, (??m_auiSpiRxBuffer) >> 8
+   \   00000024   ....               RCALL   ??Init_1
+     60              CMvsn21::SpiBusExchangeEnable();
+   \   00000026   ....               RCALL   ??SpiBusExchangeEnable
+     61          
+     62              CAdc::Init();
+   \   00000028   ....               RCALL   ??Init_2
+     63              CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
+   \   0000002A   E000               LDI     R16, 0
+   \   0000002C   ....               RCALL   ??MeasureFlowControlSet
+     64          
+     65              uint8_t uiMainFsmState = MAIN_START;
+   \   0000002E   E080               LDI     R24, 0
+     66              uint8_t uiStatusLedState = 0;;
+   \   00000030   E090               LDI     R25, 0
+     67              uint8_t uiLedState = 0;
+   \   00000032   E0A0               LDI     R26, 0
+     68              uint8_t uiWatchDogStepID = 0;
+   \   00000034   E0B0               LDI     R27, 0
+     69          
+     70              while(1)
+     71              {
+     72                  CMvsn21::SpiFsm();
+   \                     ??main_0:
+   \   00000036   ....               RCALL   ??SpiFsm
+     73          //        CMvsn21::MeasureFsm();
+     74          //
+     75          //        if (xPeripheryTimer.IsOverflow())
+     76          //        {
+     77          //            xPeripheryTimer.Reset();
+     78          //        }
+     79          
+     80          //        if (CSpi::DataExchangeIsOccur())
+     81          //        {
+     82          //            CSpi::DataExchangeIsOccurClear();
+     83          //        }
+     84          
+     85                  switch (uiMainFsmState)
+   \   00000038   2F08               MOV     R16, R24
+   \   0000003A   5000               SUBI    R16, 0
+   \   0000003C   F049               BREQ    ??main_1
+   \   0000003E   950A               DEC     R16
+   \   00000040   F051               BREQ    ??main_2
+   \   00000042   950A               DEC     R16
+   \   00000044   F041               BREQ    ??main_2
+   \   00000046   5003               SUBI    R16, 3
+   \   00000048   F029               BREQ    ??main_3
+   \   0000004A   950A               DEC     R16
+   \   0000004C   F021               BREQ    ??main_2
+   \   0000004E   C003               RJMP    ??main_2
+     86                  {
+     87                  case MAIN_START:
+     88                      uiMainFsmState = MAIN_FIRST_STEP;
+   \                     ??main_1:
+   \   00000050   E081               LDI     R24, 1
+     89                      break;
+   \   00000052   C001               RJMP    ??main_2
+     90          
+     91                  case MAIN_FIRST_STEP:
+     92          ////            MainCycle();
+     93          //            if (xStatusLedTimer.IsOverflow())
+     94          //            {
+     95          //                xStatusLedTimer.Reset();
+     96          //                if (uiStatusLedState)
+     97          //                {
+     98          //        CPlatform::TxLedOff();
+     99          ////                    CPlatform::StatusLedOff();
+    100          //                    uiStatusLedState = 0;
+    101          //                }
+    102          //                else
+    103          //                {
+    104          //        CPlatform::TxLedOn();
+    105          ////                    CPlatform::StatusLedOn();
+    106          //                    uiStatusLedState = 1;
+    107          //                }
+    108          //                uiWatchDogStepID |= 0x03;
+    109          //            }
+    110          
+    111          //            if (xLedTimer.IsOverflow())
+    112          //            {
+    113          //                xLedTimer.Reset();
+    114          //                if (uiLedState)
+    115          //                {
+    116          //                    CPlatform::TxLedOff();
+    117          //                    uiLedState = 0;
+    118          //                }
+    119          //                else
+    120          //                {
+    121          //                    CPlatform::TxLedOn();
+    122          //                    uiLedState = 1;
+    123          //                }
+    124          //            }
+    125          
+    126                  case MAIN_SECOND_STEP:
+    127                      break;
+    128          
+    129                  case MAIN_THIRD_REBOOT:
+    130                      MainReboot();
+   \                     ??main_3:
+   \   00000054   ....               RCALL   ??MainReboot
+    131                      break;
+    132          
+    133                  case MAIN_STOP:
+    134                      break;
+    135          
+    136                  default:
+    137                      break;
+    138                  }
+    139          
+    140          //        // все задачи программы ответили?
+    141          //        if (uiWatchDogStepID == 0x03)
+    142          //        {
+    143          //            uiWatchDogStepID = 0;
+    144                  CPlatform::WatchdogReset();
+   \                     ??main_2:
+   \   00000056   ....               RCALL   ??WatchdogReset
+   \   00000058   CFEE               RJMP    ??main_0
+    145          //        }
+    146          
+    147          
+    148              }
+    149          
+    150              return 0;
+    151          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+      0      2   CMvsn21::MeasureFlowControlSet(uint8_t)
+      0      2   CPlatform::InterruptEnable()
+      0      2   CPlatform::WatchdogReset()
+      0      2   MainReboot()
+     16      2   main()
+       16      2   -> CAdc::Init()
+       16      2   -> CMvsn21::MeasureFlowControlSet(uint8_t)
+       16      2   -> CMvsn21::SpiBusExchangeEnable()
+       16      2   -> CMvsn21::SpiFsm()
+       16      2   -> CPlatform::Init()
+       16      2   -> CPlatform::InterruptEnable()
+       16      2   -> CPlatform::WatchdogReset()
+       16      2   -> CSpi::Init(uint8_t *, uint8_t *)
+       16      2   -> CTimer::CTimer(uint16_t)
+       16      2   -> MainReboot()
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       6  CMvsn21::MeasureFlowControlSet(uint8_t)
+       4  CPlatform::InterruptEnable()
+       4  CPlatform::WatchdogReset()
+       2  MainReboot()
+       1  _A_ACSR
+       2  _A_ADC
+       1  _A_ADCSRA
+       1  _A_ADCSRB
+       1  _A_ADMUX
+       1  _A_ASSR
+       1  _A_CLKPR
+       1  _A_DDRB
+       1  _A_DDRC
+       1  _A_DDRD
+       1  _A_DIDR0
+       1  _A_DIDR1
+       2  _A_EEAR
+       1  _A_EECR
+       1  _A_EEDR
+       1  _A_EICRA
+       1  _A_EIFR
+       1  _A_EIMSK
+       1  _A_GPIOR0
+       1  _A_GPIOR1
+       1  _A_GPIOR2
+       1  _A_GTCCR
+       2  _A_ICR1
+       1  _A_MCUCR
+       1  _A_MCUSR
+       1  _A_OCR0A
+       1  _A_OCR0B
+       2  _A_OCR1A
+       2  _A_OCR1B
+       1  _A_OCR2A
+       1  _A_OCR2B
+       1  _A_OSCCAL
+       1  _A_PCICR
+       1  _A_PCIFR
+       1  _A_PCMSK0
+       1  _A_PCMSK1
+       1  _A_PCMSK2
+       1  _A_PINB
+       1  _A_PINC
+       1  _A_PIND
+       1  _A_PORTB
+       1  _A_PORTC
+       1  _A_PORTD
+       1  _A_PRR
+       1  _A_SMCR
+       2  _A_SP
+       1  _A_SPCR
+       1  _A_SPDR
+       1  _A_SPMCSR
+       1  _A_SPSR
+       1  _A_SREG
+       1  _A_TCCR0A
+       1  _A_TCCR0B
+       1  _A_TCCR1A
+       1  _A_TCCR1B
+       1  _A_TCCR1C
+       1  _A_TCCR2A
+       1  _A_TCCR2B
+       1  _A_TCNT0
+       2  _A_TCNT1
+       1  _A_TCNT2
+       1  _A_TIFR0
+       1  _A_TIFR1
+       1  _A_TIFR2
+       1  _A_TIMSK0
+       1  _A_TIMSK1
+       1  _A_TIMSK2
+       1  _A_TWAMR
+       1  _A_TWAR
+       1  _A_TWBR
+       1  _A_TWCR
+       1  _A_TWDR
+       1  _A_TWSR
+       2  _A_UBRR0
+       1  _A_UCSR0A
+       1  _A_UCSR0B
+       1  _A_UCSR0C
+       1  _A_UDR0
+       1  _A_WDTCSR
+      90  main()
+
+ 
+  87 bytes in segment ABSOLUTE
+ 106 bytes in segment CODE
+ 
+ 92 bytes of CODE memory (+ 14 bytes shared)
+  0 bytes of DATA memory (+ 87 bytes shared)
+
+Errors: none
+Warnings: 4
