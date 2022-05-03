@@ -70,7 +70,7 @@ int main()
     while(1)
     {
         CMvsn21::SpiFsm();
-//        CMvsn21::MeasureFsm();
+        CMvsn21::MeasureFsm();
 //
 //        if (xPeripheryTimer.IsOverflow())
 //        {

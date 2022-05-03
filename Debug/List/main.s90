@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          13/Apr/2022  19:25:34
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          03/May/2022  21:38:54
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWCF2A.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EWA0B1.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -133,6 +133,7 @@
         EXTERN ??Init
         EXTERN ??Init_1
         EXTERN ??Init_2
+        EXTERN ??MeasureFsm
         EXTERN ??SpiBusExchangeEnable
         EXTERN ??SpiFsm
         EXTERN ??m_auiSpiRxBuffer
@@ -661,7 +662,8 @@ main:
 //   72         CMvsn21::SpiFsm();
 ??main_0:
         RCALL   ??SpiFsm
-//   73 //        CMvsn21::MeasureFsm();
+//   73         CMvsn21::MeasureFsm();
+        RCALL   ??MeasureFsm
 //   74 //
 //   75 //        if (xPeripheryTimer.IsOverflow())
 //   76 //        {
@@ -773,9 +775,9 @@ __?EEARL:
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 106 bytes in segment CODE
+// 108 bytes in segment CODE
 // 
-// 92 bytes of CODE memory (+ 14 bytes shared)
+// 94 bytes of CODE memory (+ 14 bytes shared)
 //  0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

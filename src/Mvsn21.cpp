@@ -197,35 +197,35 @@ void CMvsn21::ChannelsToDiscreteInput(void)
 //        // Упакуем двухбитовые данные состояния восьми измерительных каналов одного чипа в дискретные входы.
 //        for (int8_t j = 0; j < MEASURE_CHANNEL_NUMBER; j++)
 //        {
-            // Упакуем двухбитовые данные состояния четырёх измерительных каналов в байт по четыре дискретных входа.
-            for (int8_t k= 0;
-                    k < (CHANNELS_IN_BYTE * MEASURE_CHANNEL_STATE_BIT_NUMBER);
-                    k += MEASURE_CHANNEL_STATE_BIT_NUMBER)
+        // Упакуем двухбитовые данные состояния четырёх измерительных каналов в байт по четыре дискретных входа.
+        for (int8_t k= 0;
+                k < (CHANNELS_IN_BYTE * MEASURE_CHANNEL_STATE_BIT_NUMBER);
+                k += MEASURE_CHANNEL_STATE_BIT_NUMBER)
+        {
+            // Упаковали все данные состояния измерительных каналов?
+            if (i < DISCRETE_INPUT_NUMBER)
             {
-                // Упаковали все данные состояния измерительных каналов?
-                if (i < DISCRETE_INPUT_NUMBER)
-                {
-                    // Отобразим данные состояния измерительных каналов на дискретные входы во временный буфер.
-                    auiDiscreteInputBitData[uiLength] =
-                        // Следующие два бита в байте.
-                        ((auiDiscreteInputBitData[uiLength] >> k) |
-                         // Выберем канал по индексу чипа, карты сопоставления измерительных каналов со входами модуля.
-                         (axChipsChannelsData[axMeasurementChannelRemap[i].uiChip].
-                          // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
-                          axMeasurementChannels[axMeasurementChannelRemap[i].uiChannel].
-                          // Состояние измерительного канала занимает два младших бита.
-                          m_uiState & 0x03));
-                    // Следующий дискретный вход.
-                    i++;
-                }
-                else
-                {
-                    // Упаковали все данные состояния измерительных каналов.
-                    goto EndStateDataPack;
-                }
+                // Отобразим данные состояния измерительных каналов на дискретные входы во временный буфер.
+                auiDiscreteInputBitData[uiLength] =
+                    // Следующие два бита в байте.
+                    ((auiDiscreteInputBitData[uiLength] >> k) |
+                     // Выберем канал по индексу чипа, карты сопоставления измерительных каналов со входами модуля.
+                     (axChipsChannelsData[axMeasurementChannelRemap[i].uiChip].
+                      // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
+                      axMeasurementChannels[axMeasurementChannelRemap[i].uiChannel].
+                      // Состояние измерительного канала занимает два младших бита.
+                      m_uiState & 0x03));
+                // Следующий дискретный вход.
+                i++;
             }
-            // Следующий байт.
-            uiLength++;
+            else
+            {
+                // Упаковали все данные состояния измерительных каналов.
+                goto EndStateDataPack;
+            }
+        }
+        // Следующий байт.
+        uiLength++;
 //        }
     }
 
@@ -243,7 +243,8 @@ int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t 
 //    puiResponse[0] = 2;
     uint8_t uiCrc = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
     puiResponse[uiLength++] = COMMAND_REPORT_TYPE;//0x55;//5;//
-    puiResponse[uiLength++] = MODULE_TYPE_MVSN21;7;//
+    puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
+    7;//
     puiResponse[uiLength++] = uiCrc;
 
     return uiLength;
@@ -369,6 +370,7 @@ void CMvsn21::MeasureFsm(void)
         CAdc::Enable();
         m_uiChannel = 0;
         ContinuousMeasure();
+        m_uiMeasureFlowControl = FSM_CONTINUOUS_MEASURE;
         break;
 
     case FSM_CONTINUOUS_MEASURE:

@@ -3,7 +3,7 @@ Warning[w52]: More than one definition for the byte at address 0x24 in common se
 #                                                                              #
 #      IAR Universal Linker V6.5.2.97                                          #
 #                                                                              #
-#           Link time     =  13/Apr/2022  19:29:59                             #
+#           Link time     =  03/May/2022  21:41:19                             #
 #           Target CPU    =  A90                                               #
 #           List file     =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Lis #
 #                            t\Mvsn21.map                                      #
@@ -14,7 +14,7 @@ Warning[w52]: More than one definition for the byte at address 0x24 in common se
 #                            \Mvsn21.d90                                       #
 #                            Format: ubrof8                                    #
 #                            UBROF version 8.0.2                               #
-#           Command line  =  -f C:\Users\ghost\AppData\Local\Temp\EWD787.tmp   #
+#           Command line  =  -f C:\Users\ghost\AppData\Local\Temp\EWD86A.tmp   #
 #                            (D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Ob #
 #                            j\Crc.r90                                         #
 #                            D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj #
@@ -115,7 +115,7 @@ Warning[w52]: More than one definition for the byte at address 0x24 in common se
                 *                                      *
                 ****************************************
 
-       Program entry at : CODE      000008E2  Relocatable, from module : ?C_STARTUP
+       Program entry at : CODE      00000AF4  Relocatable, from module : ?C_STARTUP
 
 
 
@@ -209,6 +209,14 @@ Absolute parts
 
   SEGMENTS IN THE MODULE
   ======================
+CODE
+  Relative segment, address: CODE 00000054 - 0000007B (0x28 bytes), align: 1
+  Segment part 9.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           usCrcSummOneByteCalculation(uint8_t *, uint16_t)
+                                   00000054        CMvsn21::ChannelsToDiscreteInput() (Mvsn21)
+    -------------------------------------------------------------------------
 ABSOLUTE
   Relative segment, address: DATA 0000001F, align: 0
   Segment part 1. ROOT 
@@ -238,12 +246,12 @@ ABSOLUTE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000054 - 00000069 (0x16 bytes), align: 1
+  Relative segment, address: CODE 0000007C - 00000091 (0x16 bytes), align: 1
   Segment part 9.             Intra module refs:   CDataBase::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CDataBase::~CDataBase()
-                                   00000054 
+                                   0000007C 
                calls direct
     -------------------------------------------------------------------------
 NEAR_F
@@ -538,7 +546,8 @@ ABSOLUTE
     -------------------------------------------------------------------------
 ABSOLUTE
   Relative segment, address: DATA 0000007C - 0000007C (0x1 bytes), align: 0
-  Segment part 27. ROOT       Intra module refs:   CAdc::Init() (Platform)
+  Segment part 27. ROOT       Intra module refs:   CAdc::ChannelSelect(uint8_t) (Platform)
+                                                   CAdc::Init() (Platform)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_ADMUX                0000007C 
@@ -558,7 +567,11 @@ ABSOLUTE
     -------------------------------------------------------------------------
 ABSOLUTE
   Relative segment, address: DATA 0000007A - 0000007A (0x1 bytes), align: 0
-  Segment part 29. ROOT       Intra module refs:   CAdc::Init() (Platform)
+  Segment part 29. ROOT       Intra module refs:   CAdc::Disable() (Platform)
+                                                   CAdc::Enable() (Platform)
+                                                   CAdc::Init() (Platform)
+                                                   CAdc::MeasureIsComlete() (Mvsn21)
+                                                   CAdc::Start() (Platform)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_ADCSRA               0000007A 
@@ -568,7 +581,7 @@ ABSOLUTE
     -------------------------------------------------------------------------
 ABSOLUTE
   Relative segment, address: DATA 00000078 - 00000079 (0x2 bytes), align: 0
-  Segment part 30. ROOT 
+  Segment part 30. ROOT       Intra module refs:   CAdc::GetMeasureValue() (Mvsn21)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_ADC                  00000078 
@@ -671,7 +684,8 @@ ABSOLUTE
     -------------------------------------------------------------------------
 ABSOLUTE
   Relative segment, address: DATA 00000064 - 00000064 (0x1 bytes), align: 0
-  Segment part 40. ROOT 
+  Segment part 40. ROOT       Intra module refs:   CAdc::Disable() (Platform)
+                                                   CAdc::Enable() (Platform)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_PRR                  00000064 
@@ -1079,43 +1093,43 @@ ABSOLUTE
            PINB                    00000023 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000006A - 0000006D (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000092 - 00000095 (0x4 bytes), align: 1
   Segment part 85.            Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::WatchdogReset()
-                                   0000006A 
+                                   00000092 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000006E - 00000071 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000096 - 00000099 (0x4 bytes), align: 1
   Segment part 86.            Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::InterruptEnable()
-                                   0000006E 
+                                   00000096 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000072 - 00000077 (0x6 bytes), align: 1
+  Relative segment, address: CODE 0000009A - 0000009F (0x6 bytes), align: 1
   Segment part 87.            Intra module refs:   SIG_INT0() (Platform)
                                                    main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::MeasureFlowControlSet(uint8_t)
-                                   00000072 
+                                   0000009A 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000078 - 00000079 (0x2 bytes), align: 1
+  Relative segment, address: CODE 000000A0 - 000000A1 (0x2 bytes), align: 1
   Segment part 88.            Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           MainReboot()            00000078 
+           MainReboot()            000000A0 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000007A - 000000D3 (0x5a bytes), align: 1
+  Relative segment, address: CODE 000000A2 - 000000FD (0x5c bytes), align: 1
   Segment part 89.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           main                    0000007A        ?cstartup_call_main (?C_STARTUP)
+           main                    000000A2        ?cstartup_call_main (?C_STARTUP)
                calls direct
 
     *************************************************************************
@@ -1126,21 +1140,29 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 000000D4 - 000000DF (0xc bytes), align: 1
+  Relative segment, address: CODE 000000FE - 00000109 (0xc bytes), align: 1
   Segment part 86.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMeasurementChannel::CMeasurementChannel()
-                                   000000D4        CMvsn21::TChipChannelData::TChipChannelData() (Mvsn21)
+                                   000000FE        CMvsn21::TChipChannelData::TChipChannelData() (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000000E0 - 000000F5 (0x16 bytes), align: 1
+  Relative segment, address: CODE 0000010A - 0000011F (0x16 bytes), align: 1
   Segment part 88.            Intra module refs:   CMeasurementChannel::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMeasurementChannel::~CMeasurementChannel()
-                                   000000E0        <Unnamed 1> (Mvsn21)
+                                   0000010A        <Unnamed 1> (Mvsn21)
                calls direct
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 00000120 - 0000014F (0x30 bytes), align: 1
+  Segment part 89.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMeasurementChannel::StatusCheck(uint16_t)
+                                   00000120        CMvsn21::MeasureFsm() (Mvsn21)
     -------------------------------------------------------------------------
 NEAR_F
   Relative segment, address: CODE 00000036 - 00000037 (0x2 bytes), align: 0
@@ -1158,11 +1180,11 @@ NEAR_F
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 000000F6 - 00000105 (0x10 bytes), align: 1
+  Relative segment, address: CODE 00000150 - 0000015F (0x10 bytes), align: 1
   Segment part 102.           Intra module refs:   CMvsn21::TChipChannelData::~TChipChannelData()
            LOCAL                   ADDRESS         
            =====                   =======         
-           <Unnamed 1>             000000F6 
+           <Unnamed 1>             00000150 
                calls direct
     -------------------------------------------------------------------------
 NEAR_Z
@@ -1199,14 +1221,15 @@ NEAR_Z
     -------------------------------------------------------------------------
 NEAR_Z
   Relative segment, address: DATA 000001C0 - 000001C0 (0x1 bytes), align: 0
-  Segment part 91. ROOT 
+  Segment part 91. ROOT       Intra module refs:   CMvsn21::ContinuousMeasure()
+                                                   CMvsn21::MeasureFsm()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::m_uiChannel    000001C0 
     -------------------------------------------------------------------------
 NEAR_Z
   Relative segment, address: DATA 000001C1 - 000001C1 (0x1 bytes), align: 0
-  Segment part 92. ROOT 
+  Segment part 92. ROOT       Intra module refs:   CMvsn21::MeasureFsm()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::m_uiMeasureFlowControl
@@ -1219,6 +1242,8 @@ NEAR_I
 NEAR_Z
   Relative segment, address: DATA 000001C2 - 00000209 (0x48 bytes), align: 0
   Segment part 93. ROOT       Intra module refs:   <Unnamed 0>
+                                                   CMvsn21::ChannelsToDiscreteInput()
+                                                   CMvsn21::MeasureFsm()
                                                    __sti__routine()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
@@ -1231,7 +1256,7 @@ NEAR_Z
     -------------------------------------------------------------------------
 NEAR_I
   Relative segment, address: DATA 0000018A - 000001B9 (0x30 bytes), align: 0
-  Segment part 98. ROOT 
+  Segment part 98. ROOT       Intra module refs:   CMvsn21::ChannelsToDiscreteInput()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::axMeasurementChannelRemap
@@ -1239,129 +1264,172 @@ NEAR_I
     -------------------------------------------------------------------------
 NEAR_Z
   Relative segment, address: DATA 0000020C - 00000217 (0xc bytes), align: 0
-  Segment part 100. ROOT      Intra module refs:   CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t)
+  Segment part 100. ROOT      Intra module refs:   CMvsn21::ChannelsToDiscreteInput()
+                                                   CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::auiDiscreteInputBitData
                                    0000020C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000106 - 0000011F (0x1a bytes), align: 1
+  Relative segment, address: CODE 00000160 - 00000179 (0x1a bytes), align: 1
   Segment part 105.           Intra module refs:   Segment part 101
            LOCAL                   ADDRESS         
            =====                   =======         
-           __sti__routine()        00000106 
+           __sti__routine()        00000160 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000120 - 00000133 (0x14 bytes), align: 1
+  Relative segment, address: CODE 0000017A - 0000018D (0x14 bytes), align: 1
   Segment part 106.           Intra module refs:   Segment part 95
            LOCAL                   ADDRESS         
            =====                   =======         
-           <Unnamed 0>             00000120 
+           <Unnamed 0>             0000017A 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000134 - 00000149 (0x16 bytes), align: 1
+  Relative segment, address: CODE 0000018E - 000001A3 (0x16 bytes), align: 1
   Segment part 107.           Intra module refs:   CMvsn21::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CMvsn21::~CMvsn21()     00000134 
+           CMvsn21::~CMvsn21()     0000018E 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000014A - 00000153 (0xa bytes), align: 1
+  Relative segment, address: CODE 000001A4 - 000001AD (0xa bytes), align: 1
   Segment part 110.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::SpiBusExchangeEnable()
-                                   0000014A        main (main)
+                                   000001A4        main (main)
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000154 - 00000163 (0x10 bytes), align: 1
+  Relative segment, address: CODE 000001AE - 000001BD (0x10 bytes), align: 1
   Segment part 112.           Intra module refs:   CMvsn21::SpiFsm()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CMvsn21::Reset()        00000154 
+           CMvsn21::Reset()        000001AE 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000164 - 00000167 (0x4 bytes), align: 1
+  Relative segment, address: CODE 000001BE - 000001C1 (0x4 bytes), align: 1
   Segment part 113.           Intra module refs:   CMvsn21::SpiFsm()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CMvsn21::Select()       00000164 
+           CMvsn21::Select()       000001BE 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000168 - 00000177 (0x10 bytes), align: 1
+  Relative segment, address: CODE 000001C2 - 000001D1 (0x10 bytes), align: 1
   Segment part 115.           Intra module refs:   CMvsn21::SpiFsm()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t)
-                                   00000168 
-               calls direct
-    -------------------------------------------------------------------------
-CODE
-  Relative segment, address: CODE 00000178 - 000001A7 (0x30 bytes), align: 1
-  Segment part 121.           Intra module refs:   CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t)
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           CMvsn21::ReportType(uint8_t *, uint8_t *, uint16_t)
-                                   00000178 
-    -------------------------------------------------------------------------
-CODE
-  Relative segment, address: CODE 000001A8 - 000001C1 (0x1a bytes), align: 1
-  Segment part 122.           Intra module refs:   CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t)
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t)
-                                   000001A8 
-               calls direct
-    -------------------------------------------------------------------------
-CODE
-  Relative segment, address: CODE 000001C2 - 000001FB (0x3a bytes), align: 1
-  Segment part 123.           Intra module refs:   CMvsn21::SpiFsm()
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t)
                                    000001C2 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000001FC - 000002BD (0xc2 bytes), align: 1
-  Segment part 124.
+  Relative segment, address: CODE 000001D2 - 0000029D (0xcc bytes), align: 1
+  Segment part 120.           Intra module refs:   CMvsn21::MeasureFsm()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CMvsn21::SpiFsm()       000001FC        main (main)
+           CMvsn21::ChannelsToDiscreteInput()
+                                   000001D2 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000002BE - 000002D7 (0x1a bytes), align: 1
+  Relative segment, address: CODE 0000029E - 000002CD (0x30 bytes), align: 1
+  Segment part 121.           Intra module refs:   CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMvsn21::ReportType(uint8_t *, uint8_t *, uint16_t)
+                                   0000029E 
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 000002CE - 000002E7 (0x1a bytes), align: 1
+  Segment part 122.           Intra module refs:   CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t)
+                                   000002CE 
+               calls direct
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 000002E8 - 00000321 (0x3a bytes), align: 1
+  Segment part 123.           Intra module refs:   CMvsn21::SpiFsm()
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t)
+                                   000002E8 
+               calls direct
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 00000322 - 000003E3 (0xc2 bytes), align: 1
+  Segment part 124.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMvsn21::SpiFsm()       00000322        main (main)
+               calls direct
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 000003E4 - 00000403 (0x20 bytes), align: 1
+  Segment part 125.           Intra module refs:   CMvsn21::MeasureFsm()
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMvsn21::ContinuousMeasure()
+                                   000003E4 
+               calls direct
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 00000404 - 0000045B (0x58 bytes), align: 1
+  Segment part 126.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CMvsn21::MeasureFsm()   00000404        main (main)
+               calls direct
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 0000045C - 00000475 (0x1a bytes), align: 1
   Segment part 127.           Intra module refs:   __sti__routine()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::TChipChannelData::TChipChannelData()
-                                   000002BE 
+                                   0000045C 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000002D8 - 000002E7 (0x10 bytes), align: 1
+  Relative segment, address: CODE 00000476 - 00000485 (0x10 bytes), align: 1
   Segment part 128.           Intra module refs:   <Unnamed 0>
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::TChipChannelData::~TChipChannelData()
-                                   000002D8 
+                                   00000476 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000002E8 - 000002ED (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000486 - 00000497 (0x12 bytes), align: 1
+  Segment part 129.           Intra module refs:   CMvsn21::MeasureFsm()
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CAdc::MeasureIsComlete()
+                                   00000486 
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 00000498 - 000004A1 (0xa bytes), align: 1
+  Segment part 130.           Intra module refs:   CMvsn21::MeasureFsm()
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CAdc::GetMeasureValue()
+                                   00000498 
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 000004A2 - 000004A7 (0x6 bytes), align: 1
   Segment part 131.           Intra module refs:   CMvsn21::Select()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CSpi::ByteIsReceived()
-                                   000002E8 
+                                   000004A2 
     -------------------------------------------------------------------------
 INITTAB
   Relative segment, address: CODE 00000046 - 0000004B (0x6 bytes), align: 0
@@ -1400,7 +1468,7 @@ INITTAB
                                    00000046 
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 00000C44 - 00000C49 (0x6 bytes), align: 0
+  Relative segment, address: CODE 00000E60 - 00000E65 (0x6 bytes), align: 0
   Segment part 95. ROOT       Intra module refs:   Segment part 94
     -------------------------------------------------------------------------
 INITTAB
@@ -1413,7 +1481,7 @@ INITTAB
                                    0000004C 
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 00000C4A - 00000C79 (0x30 bytes), align: 0
+  Relative segment, address: CODE 00000E66 - 00000E95 (0x30 bytes), align: 0
   Segment part 99. ROOT       Intra module refs:   CMvsn21::axMeasurementChannelRemap
     -------------------------------------------------------------------------
 DIFUNCT
@@ -1585,260 +1653,289 @@ NEAR_Z
                                    0000024F 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000002EE - 00000303 (0x16 bytes), align: 1
+  Relative segment, address: CODE 000004A8 - 000004BD (0x16 bytes), align: 1
   Segment part 126.           Intra module refs:   CAdc::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CAdc::~CAdc()           000002EE 
+           CAdc::~CAdc()           000004A8 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000304 - 0000031D (0x1a bytes), align: 1
+  Relative segment, address: CODE 000004BE - 000004D7 (0x1a bytes), align: 1
   Segment part 127.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CAdc::Init()            00000304        main (main)
+           CAdc::Init()            000004BE        main (main)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000031E - 00000333 (0x16 bytes), align: 1
+  Relative segment, address: CODE 000004D8 - 000004F7 (0x20 bytes), align: 1
+  Segment part 128.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CAdc::ChannelSelect(uint8_t)
+                                   000004D8        CMvsn21::ContinuousMeasure() (Mvsn21)
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 000004F8 - 00000503 (0xc bytes), align: 1
+  Segment part 130.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CAdc::Start()           000004F8        CMvsn21::ContinuousMeasure() (Mvsn21)
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 00000504 - 00000519 (0x16 bytes), align: 1
+  Segment part 132.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CAdc::Disable()         00000504        CMvsn21::MeasureFsm() (Mvsn21)
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 0000051A - 0000052F (0x16 bytes), align: 1
+  Segment part 133.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           CAdc::Enable()          0000051A        CMvsn21::MeasureFsm() (Mvsn21)
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 00000530 - 00000545 (0x16 bytes), align: 1
   Segment part 134.           Intra module refs:   CUart::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CUart::~CUart()         0000031E 
+           CUart::~CUart()         00000530 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000334 - 0000034F (0x1c bytes), align: 1
+  Relative segment, address: CODE 00000546 - 00000561 (0x1c bytes), align: 1
   Segment part 140.           Intra module refs:   CUart::TxcInterruptHandler()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CUart::Rs485RtsOff()    00000334 
+           CUart::Rs485RtsOff()    00000546 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000350 - 000003AF (0x60 bytes), align: 1
+  Relative segment, address: CODE 00000562 - 000005C1 (0x60 bytes), align: 1
   Segment part 144.           Intra module refs:   SIG_UART0_DATA()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CUart::UdreInterruptHandler()
-                                   00000350 
+                                   00000562 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000003B0 - 000003F5 (0x46 bytes), align: 1
+  Relative segment, address: CODE 000005C2 - 00000607 (0x46 bytes), align: 1
   Segment part 145.           Intra module refs:   SIG_UART0_TXC()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CUart::TxcInterruptHandler()
-                                   000003B0 
+                                   000005C2 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000003F6 - 00000441 (0x4c bytes), align: 1
+  Relative segment, address: CODE 00000608 - 00000653 (0x4c bytes), align: 1
   Segment part 146.           Intra module refs:   SIG_UART0_RECV()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CUart::RecvInterruptHandler()
-                                   000003F6 
+                                   00000608 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000442 - 00000471 (0x30 bytes), align: 1
+  Relative segment, address: CODE 00000654 - 00000683 (0x30 bytes), align: 1
   Segment part 147.           Intra module refs:   SIG_UART0_DATA()::??INTVEC 38
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SIG_UART0_DATA()        00000442 
+           SIG_UART0_DATA()        00000654 
                interrupt function
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000472 - 0000049D (0x2c bytes), align: 1
+  Relative segment, address: CODE 00000684 - 000006AF (0x2c bytes), align: 1
   Segment part 148.           Intra module refs:   SIG_UART0_TXC()::??INTVEC 40
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SIG_UART0_TXC()         00000472 
+           SIG_UART0_TXC()         00000684 
                interrupt function
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000049E - 000004D1 (0x34 bytes), align: 1
+  Relative segment, address: CODE 000006B0 - 000006E3 (0x34 bytes), align: 1
   Segment part 149.           Intra module refs:   SIG_UART0_RECV()::??INTVEC 36
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SIG_UART0_RECV()        0000049E 
+           SIG_UART0_RECV()        000006B0 
                interrupt function
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000004D2 - 000004E7 (0x16 bytes), align: 1
+  Relative segment, address: CODE 000006E4 - 000006F9 (0x16 bytes), align: 1
   Segment part 150.           Intra module refs:   CEeprom::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CEeprom::~CEeprom()     000004D2 
+           CEeprom::~CEeprom()     000006E4 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000004E8 - 000004FD (0x16 bytes), align: 1
+  Relative segment, address: CODE 000006FA - 0000070F (0x16 bytes), align: 1
   Segment part 155.           Intra module refs:   CSpi::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CSpi::~CSpi()           000004E8 
+           CSpi::~CSpi()           000006FA 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000004FE - 0000051B (0x1e bytes), align: 1
+  Relative segment, address: CODE 00000710 - 0000072D (0x1e bytes), align: 1
   Segment part 156.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CSpi::Init(uint8_t *, uint8_t *)
-                                   000004FE        main (main)
+                                   00000710        main (main)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000051C - 00000529 (0xe bytes), align: 1
+  Relative segment, address: CODE 0000072E - 0000073B (0xe bytes), align: 1
   Segment part 157.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CSpi::Enable()          0000051C 
+           CSpi::Enable()          0000072E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000052A - 00000533 (0xa bytes), align: 1
+  Relative segment, address: CODE 0000073C - 00000745 (0xa bytes), align: 1
   Segment part 158.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CSpi::Disable()         0000052A 
+           CSpi::Disable()         0000073C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000534 - 00000571 (0x3e bytes), align: 1
+  Relative segment, address: CODE 00000746 - 00000783 (0x3e bytes), align: 1
   Segment part 159.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CSpi::Reset()           00000534        CMvsn21::Reset() (Mvsn21)
+           CSpi::Reset()           00000746        CMvsn21::Reset() (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000572 - 000005CB (0x5a bytes), align: 1
+  Relative segment, address: CODE 00000784 - 000007DD (0x5a bytes), align: 1
   Segment part 160.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CSpi::Exchange(uint16_t)
-                                   00000572        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+                                   00000784        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005CC - 000005E1 (0x16 bytes), align: 1
+  Relative segment, address: CODE 000007DE - 000007F3 (0x16 bytes), align: 1
   Segment part 168.           Intra module refs:   CPlatform::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::~CPlatform()
-                                   000005CC 
+                                   000007DE 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005E2 - 000005F9 (0x18 bytes), align: 1
+  Relative segment, address: CODE 000007F4 - 0000080B (0x18 bytes), align: 1
   Segment part 169.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::Int0InterruptEnable()
-                                   000005E2        CMvsn21::SpiBusExchangeEnable() (Mvsn21)
+                                   000007F4        CMvsn21::SpiBusExchangeEnable() (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005FA - 00000689 (0x90 bytes), align: 1
+  Relative segment, address: CODE 0000080C - 0000089B (0x90 bytes), align: 1
   Segment part 171.           Intra module refs:   SIG_INT0()::??INTVEC 2
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SIG_INT0()              000005FA 
+           SIG_INT0()              0000080C 
                interrupt function
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000068A - 000006AF (0x26 bytes), align: 1
+  Relative segment, address: CODE 0000089C - 000008C1 (0x26 bytes), align: 1
   Segment part 172.           Intra module refs:   CPlatform::Init()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SystemTickInit()        0000068A 
+           SystemTickInit()        0000089C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000006B0 - 000006F3 (0x44 bytes), align: 1
+  Relative segment, address: CODE 000008C2 - 00000905 (0x44 bytes), align: 1
   Segment part 173.           Intra module refs:   SystemTickInterrupt()::??INTVEC 14
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SystemTickInterrupt()   000006B0 
+           SystemTickInterrupt()   000008C2 
                interrupt function
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000006F4 - 000006FB (0x8 bytes), align: 1
+  Relative segment, address: CODE 00000906 - 0000090D (0x8 bytes), align: 1
   Segment part 174.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CPlatform::Init()       000006F4        main (main)
+           CPlatform::Init()       00000906        main (main)
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000006FC - 00000703 (0x8 bytes), align: 1
+  Relative segment, address: CODE 0000090E - 00000915 (0x8 bytes), align: 1
   Segment part 175.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CSpi::DataExchangeInProgressClear()
-                                   000006FC 
+                                   0000090E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000704 - 0000070B (0x8 bytes), align: 1
+  Relative segment, address: CODE 00000916 - 0000091D (0x8 bytes), align: 1
   Segment part 176.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CSpi::DataExchangeInProgressSet()
-                                   00000704 
+                                   00000916 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000070C - 00000713 (0x8 bytes), align: 1
+  Relative segment, address: CODE 0000091E - 00000925 (0x8 bytes), align: 1
   Segment part 177.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CSpi::DataExchangeIsOccurSet()
-                                   0000070C 
+                                   0000091E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000714 - 00000725 (0x12 bytes), align: 1
+  Relative segment, address: CODE 00000926 - 00000937 (0x12 bytes), align: 1
   Segment part 178.           Intra module refs:   SystemTickInterrupt()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::IncrementSystemTick()
-                                   00000714 
+                                   00000926 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000726 - 00000729 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000938 - 0000093B (0x4 bytes), align: 1
   Segment part 179.           Intra module refs:   CPlatform::Init()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::StatusLedSetPinOutput()
-                                   00000726 
+                                   00000938 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000072A - 0000072D (0x4 bytes), align: 1
+  Relative segment, address: CODE 0000093C - 0000093F (0x4 bytes), align: 1
   Segment part 180.           Intra module refs:   CPlatform::Init()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::TxLedSetPinOutput()
-                                   0000072A 
+                                   0000093C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000072E - 00000731 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000940 - 00000943 (0x4 bytes), align: 1
   Segment part 181.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CPlatform::TxLedOn()    0000072E 
+           CPlatform::TxLedOn()    00000940 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000732 - 00000735 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000944 - 00000947 (0x4 bytes), align: 1
   Segment part 182.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CPlatform::TxLedOff()   00000732 
+           CPlatform::TxLedOff()   00000944 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000736 - 0000073B (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000948 - 0000094D (0x6 bytes), align: 1
   Segment part 183.           Intra module refs:   SIG_INT0()
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CMvsn21::FlowControlSet(uint8_t)
-                                   00000736 
+                                   00000948 
     -------------------------------------------------------------------------
 INTVEC
   Common segment, address: CODE 00000000 - 00000003 (0x4 bytes), align: 1
@@ -1927,15 +2024,15 @@ Absolute parts
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000073C - 000007CD (0x92 bytes), align: 1
+  Relative segment, address: CODE 0000094E - 000009DF (0x92 bytes), align: 1
   Segment part 0. ROOT        Intra module refs:   Segment part 1
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SpiInterrupt            0000073C 
+           SpiInterrupt            0000094E 
            LOCAL                   ADDRESS         
            =====                   =======         
-           ??SIG_SPI_STC_1         000007B0 
-           ??SIG_SPI_STC_2         000007BC 
+           ??SIG_SPI_STC_1         000009C2 
+           ??SIG_SPI_STC_2         000009CE 
     -------------------------------------------------------------------------
 INTVEC
   Common segment, address: CODE 00000000 - 00000025 (0x26 bytes), align: 1
@@ -1949,29 +2046,29 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 000007CE - 000007F1 (0x24 bytes), align: 1
+  Relative segment, address: CODE 000009E0 - 00000A03 (0x24 bytes), align: 1
   Segment part 88.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CTimer::CTimer(uint16_t)
-                                   000007CE        main (main)
+                                   000009E0        main (main)
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000007F2 - 00000807 (0x16 bytes), align: 1
+  Relative segment, address: CODE 00000A04 - 00000A19 (0x16 bytes), align: 1
   Segment part 90.            Intra module refs:   CTimer::__vtbl
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CTimer::~CTimer()       000007F2 
+           CTimer::~CTimer()       00000A04 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000808 - 00000811 (0xa bytes), align: 1
+  Relative segment, address: CODE 00000A1A - 00000A23 (0xa bytes), align: 1
   Segment part 94.            Intra module refs:   CTimer::CTimer(uint16_t)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CPlatform::GetSystemTick()
-                                   00000808 
+                                   00000A1A 
     -------------------------------------------------------------------------
 NEAR_F
   Relative segment, address: CODE 00000044 - 00000045 (0x2 bytes), align: 0
@@ -1988,30 +2085,30 @@ NEAR_F
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000812, align: 1
+  Relative segment, address: CODE 00000A24, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _exit                   00000812        ?cstartup_call_main (?C_STARTUP)
+           _exit                   00000A24        ?cstartup_call_main (?C_STARTUP)
                                                    exit (?exit)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000812 - 00000815 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000A24 - 00000A27 (0x4 bytes), align: 1
   Segment part 1.             Intra module refs:   __cstart_call_dtors
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000816 - 00000817 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000A28 - 00000A29 (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __cstart_call_dtors     00000816        __record_needed_destruction (?cppinit)
+           __cstart_call_dtors     00000A28        __record_needed_destruction (?cppinit)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000818 - 0000081B (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000A2A - 00000A2D (0x4 bytes), align: 1
   Segment part 4.             Intra module refs:   Segment part 1
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000081C - 0000081D (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000A2E - 00000A2F (0x2 bytes), align: 1
   Segment part 5.             Intra module refs:   _exit
 
     -------------------------------------------------------------------------
@@ -2020,11 +2117,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000081E - 00000823 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000A30 - 00000A35 (0x6 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           abort                   0000081E        __near_get_array_size(void *, __near_size_t) (?vec_newdel)
+           abort                   00000A30        __near_get_array_size(void *, __near_size_t) (?vec_newdel)
                                                    __record_needed_destruction (?cppinit)
                calls direct
 
@@ -2034,11 +2131,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000824 - 00000865 (0x42 bytes), align: 1
+  Relative segment, address: CODE 00000A36 - 00000A77 (0x42 bytes), align: 1
   Segment part 5.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __call_ctors            00000824        ?call_ctors (?C_STARTUP)
+           __call_ctors            00000A36        ?call_ctors (?C_STARTUP)
                calls indirect
     -------------------------------------------------------------------------
 NEAR_Z
@@ -2048,29 +2145,29 @@ NEAR_Z
                                                    __record_needed_destruction
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000866 - 00000895 (0x30 bytes), align: 1
+  Relative segment, address: CODE 00000A78 - 00000AA7 (0x30 bytes), align: 1
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            __record_needed_destruction
-                                   00000866        __sti__routine() (Mvsn21)
+                                   00000A78        __sti__routine() (Mvsn21)
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000896 - 00000899 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000AA8 - 00000AAB (0x4 bytes), align: 1
   Segment part 7.             Intra module refs:   __call_dtors
                                                    __record_needed_destruction
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000089A - 000008D7 (0x3e bytes), align: 1
+  Relative segment, address: CODE 00000AAC - 00000AE9 (0x3e bytes), align: 1
   Segment part 9.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __call_dtors            0000089A        __cstart_call_dtors (?_exit)
+           __call_dtors            00000AAC        __cstart_call_dtors (?_exit)
                calls indirect
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000008D8 - 000008E1 (0xa bytes), align: 1
+  Relative segment, address: CODE 00000AEA - 00000AF3 (0xa bytes), align: 1
   Segment part 10.            Intra module refs:   __call_dtors
                                                    __record_needed_destruction
 
@@ -2092,46 +2189,46 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 000008E2, align: 1
+  Relative segment, address: CODE 00000AF4, align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __program_start         000008E2        Absolute parts (?ABS_ENTRY_MOD)
-           ?C_STARTUP              000008E2        ?RESET (?RESET)
-           __RESTART               000008E2 
+           __program_start         00000AF4        Absolute parts (?ABS_ENTRY_MOD)
+           ?C_STARTUP              00000AF4        ?RESET (?RESET)
+           __RESTART               00000AF4 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000008E2 - 000008ED (0xc bytes), align: 1
+  Relative segment, address: CODE 00000AF4 - 00000AFF (0xc bytes), align: 1
   Segment part 5.             Intra module refs:   Segment part 2
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000008EE - 000008EF (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B00 - 00000B01 (0x2 bytes), align: 1
   Segment part 7.             Intra module refs:   Segment part 5
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?call_low_level_init    000008EE 
+           ?call_low_level_init    00000B00 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000008F0 - 000008F5 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000B02 - 00000B07 (0x6 bytes), align: 1
   Segment part 8.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?need_segment_init      000008F0        ?<Segment init: NEAR_I> (Mvsn21)
+           ?need_segment_init      00000B02        ?<Segment init: NEAR_I> (Mvsn21)
                                                    ?<Segment init: NEAR_Z> (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000008F6 - 000008FF (0xa bytes), align: 1
+  Relative segment, address: CODE 00000B08 - 00000B11 (0xa bytes), align: 1
   Segment part 10.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?call_ctors             000008F6        Segment part 101 (Mvsn21)
+           ?call_ctors             00000B08        Segment part 101 (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000900 - 00000905 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000B12 - 00000B17 (0x6 bytes), align: 1
   Segment part 11.            Intra module refs:   ?call_low_level_init
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?cstartup_call_main     00000900 
+           ?cstartup_call_main     00000B12 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?delop_0
@@ -2139,12 +2236,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000906 - 0000090F (0xa bytes), align: 1
+  Relative segment, address: CODE 00000B18 - 00000B21 (0xa bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            operator delete(void *)
-                                   00000906        CAdc::~CAdc() (Platform)
+                                   00000B18        CAdc::~CAdc() (Platform)
                                                    CDataBase::~CDataBase() (DataBase)
                                                    CEeprom::~CEeprom() (Platform)
                                                    CMeasurementChannel::~CMeasurementChannel() (MeasurementChannel)
@@ -2161,11 +2258,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000910 - 00000911 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B22 - 00000B23 (0x2 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           exit                    00000910        ?cstartup_call_main (?C_STARTUP)
+           exit                    00000B22        ?cstartup_call_main (?C_STARTUP)
                calls direct
 
     -------------------------------------------------------------------------
@@ -2174,11 +2271,13 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000912 - 00000921 (0x10 bytes), align: 1
+  Relative segment, address: CODE 00000B24 - 00000B33 (0x10 bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?S_EC_MUL_L02           00000912        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+           ?S_EC_MUL_L02           00000B24        CMvsn21::ChannelsToDiscreteInput() (Mvsn21)
+                                                   CMvsn21::MeasureFsm() (Mvsn21)
+                                                   __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
                                                    __near_get_array_size(void *, __near_size_t) (?vec_newdel)
 
@@ -2188,11 +2287,23 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000922 - 0000092B (0xa bytes), align: 1
+  Relative segment, address: CODE 00000B34 - 00000B3D (0xa bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?S_SHL_L02              00000926        CUart::Rs485RtsOff() (Platform)
+           ?S_SHL_L02              00000B38        CUart::Rs485RtsOff() (Platform)
+
+    -------------------------------------------------------------------------
+  LIBRARY MODULE, NAME : ?SS_SHR_L02
+
+  SEGMENTS IN THE MODULE
+  ======================
+CODE
+  Relative segment, address: CODE 00000B3E - 00000B47 (0xa bytes), align: 1
+  Segment part 0.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           ?SS_SHR_L02             00000B42        CMvsn21::ChannelsToDiscreteInput() (Mvsn21)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?US_DIVMOD_L02
@@ -2200,14 +2311,14 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000092C - 00000931 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000B48 - 00000B4D (0x6 bytes), align: 1
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?US_DIVMOD_L02          0000092C        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+           ?US_DIVMOD_L02          00000B48        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000932 - 00000951 (0x20 bytes), align: 1
+  Relative segment, address: CODE 00000B4E - 00000B6D (0x20 bytes), align: 1
   Segment part 3.             Intra module refs:   ?US_DIVMOD_L02
 
     -------------------------------------------------------------------------
@@ -2216,84 +2327,84 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000952 - 00000953 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B6E - 00000B6F (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE14_L09         00000952        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+           ?PROLOGUE14_L09         00000B6E        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000954 - 00000955 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B70 - 00000B71 (0x2 bytes), align: 1
   Segment part 3.             Intra module refs:   ?PROLOGUE14_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE13_L09         00000954 
+           ?PROLOGUE13_L09         00000B70 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000956 - 00000957 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B72 - 00000B73 (0x2 bytes), align: 1
   Segment part 4.             Intra module refs:   ?PROLOGUE13_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE12_L09         00000956 
+           ?PROLOGUE12_L09         00000B72 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000958 - 00000959 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B74 - 00000B75 (0x2 bytes), align: 1
   Segment part 5.             Intra module refs:   ?PROLOGUE12_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE11_L09         00000958 
+           ?PROLOGUE11_L09         00000B74 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000095A - 0000095B (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B76 - 00000B77 (0x2 bytes), align: 1
   Segment part 6.             Intra module refs:   ?PROLOGUE11_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE10_L09         0000095A 
+           ?PROLOGUE10_L09         00000B76 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000095C - 0000095D (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B78 - 00000B79 (0x2 bytes), align: 1
   Segment part 7.             Intra module refs:   ?PROLOGUE10_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE9_L09          0000095C 
+           ?PROLOGUE9_L09          00000B78 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000095E - 0000095F (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B7A - 00000B7B (0x2 bytes), align: 1
   Segment part 8.             Intra module refs:   ?PROLOGUE9_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE8_L09          0000095E        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+           ?PROLOGUE8_L09          00000B7A        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    __call_ctors (?cppinit)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000960 - 00000961 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B7C - 00000B7D (0x2 bytes), align: 1
   Segment part 9.             Intra module refs:   ?PROLOGUE8_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE7_L09          00000960 
+           ?PROLOGUE7_L09          00000B7C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000962 - 00000963 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B7E - 00000B7F (0x2 bytes), align: 1
   Segment part 10.            Intra module refs:   ?PROLOGUE7_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE6_L09          00000962        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+           ?PROLOGUE6_L09          00000B7E        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000964 - 00000965 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B80 - 00000B81 (0x2 bytes), align: 1
   Segment part 11.            Intra module refs:   ?PROLOGUE6_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE5_L09          00000964 
+           ?PROLOGUE5_L09          00000B80 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000966 - 00000967 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B82 - 00000B83 (0x2 bytes), align: 1
   Segment part 12.            Intra module refs:   ?PROLOGUE5_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE4_L09          00000966        CTimer::CTimer(uint16_t) (Timer)
+           ?PROLOGUE4_L09          00000B82        CTimer::CTimer(uint16_t) (Timer)
                                                    CUart::RecvInterruptHandler() (Platform)
                                                    CUart::Rs485RtsOff() (Platform)
                                                    CUart::TxcInterruptHandler() (Platform)
@@ -2305,22 +2416,23 @@ CODE
                                                    memcpy (?memcpy)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000968 - 00000969 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B84 - 00000B85 (0x2 bytes), align: 1
   Segment part 13.            Intra module refs:   ?PROLOGUE4_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE3_L09          00000968 
+           ?PROLOGUE3_L09          00000B84 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000096A - 0000096B (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B86 - 00000B87 (0x2 bytes), align: 1
   Segment part 14.            Intra module refs:   ?PROLOGUE3_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE2_L09          0000096A        <Unnamed 1> (Mvsn21)
+           ?PROLOGUE2_L09          00000B86        <Unnamed 1> (Mvsn21)
                                                    CAdc::~CAdc() (Platform)
                                                    CDataBase::~CDataBase() (DataBase)
                                                    CEeprom::~CEeprom() (Platform)
                                                    CMeasurementChannel::~CMeasurementChannel() (MeasurementChannel)
+                                                   CMvsn21::ChannelsToDiscreteInput() (Mvsn21)
                                                    CMvsn21::SpiFsm() (Mvsn21)
                                                    CMvsn21::TChipChannelData::TChipChannelData() (Mvsn21)
                                                    CMvsn21::~CMvsn21() (Mvsn21)
@@ -2331,14 +2443,14 @@ CODE
                                                    __near_get_array_size(void *, __near_size_t) (?vec_newdel)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000096C - 0000096D (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B88 - 00000B89 (0x2 bytes), align: 1
   Segment part 15.            Intra module refs:   ?PROLOGUE2_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE1_L09          0000096C 
+           ?PROLOGUE1_L09          00000B88 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000096E - 0000096F (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B8A - 00000B8B (0x2 bytes), align: 1
   Segment part 16.            Intra module refs:   ?PROLOGUE1_L09
 
     -------------------------------------------------------------------------
@@ -2347,84 +2459,84 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000970 - 00000971 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B8C - 00000B8D (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B14_L09       00000970        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+           ?EPILOGUE_B14_L09       00000B8C        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000972 - 00000973 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B8E - 00000B8F (0x2 bytes), align: 1
   Segment part 3.             Intra module refs:   ?EPILOGUE_B14_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B13_L09       00000972 
+           ?EPILOGUE_B13_L09       00000B8E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000974 - 00000975 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B90 - 00000B91 (0x2 bytes), align: 1
   Segment part 4.             Intra module refs:   ?EPILOGUE_B13_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B12_L09       00000974 
+           ?EPILOGUE_B12_L09       00000B90 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000976 - 00000977 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B92 - 00000B93 (0x2 bytes), align: 1
   Segment part 5.             Intra module refs:   ?EPILOGUE_B12_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B11_L09       00000976 
+           ?EPILOGUE_B11_L09       00000B92 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000978 - 00000979 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B94 - 00000B95 (0x2 bytes), align: 1
   Segment part 6.             Intra module refs:   ?EPILOGUE_B11_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B10_L09       00000978 
+           ?EPILOGUE_B10_L09       00000B94 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000097A - 0000097B (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B96 - 00000B97 (0x2 bytes), align: 1
   Segment part 7.             Intra module refs:   ?EPILOGUE_B10_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B9_L09        0000097A 
+           ?EPILOGUE_B9_L09        00000B96 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000097C - 0000097D (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B98 - 00000B99 (0x2 bytes), align: 1
   Segment part 8.             Intra module refs:   ?EPILOGUE_B9_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B8_L09        0000097C        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+           ?EPILOGUE_B8_L09        00000B98        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    __call_ctors (?cppinit)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000097E - 0000097F (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B9A - 00000B9B (0x2 bytes), align: 1
   Segment part 9.             Intra module refs:   ?EPILOGUE_B8_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B7_L09        0000097E 
+           ?EPILOGUE_B7_L09        00000B9A 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000980 - 00000981 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B9C - 00000B9D (0x2 bytes), align: 1
   Segment part 10.            Intra module refs:   ?EPILOGUE_B7_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B6_L09        00000980        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+           ?EPILOGUE_B6_L09        00000B9C        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000982 - 00000983 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B9E - 00000B9F (0x2 bytes), align: 1
   Segment part 11.            Intra module refs:   ?EPILOGUE_B6_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B5_L09        00000982 
+           ?EPILOGUE_B5_L09        00000B9E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000984 - 00000985 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA0 - 00000BA1 (0x2 bytes), align: 1
   Segment part 12.            Intra module refs:   ?EPILOGUE_B5_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B4_L09        00000984        CTimer::CTimer(uint16_t) (Timer)
+           ?EPILOGUE_B4_L09        00000BA0        CTimer::CTimer(uint16_t) (Timer)
                                                    CUart::RecvInterruptHandler() (Platform)
                                                    CUart::Rs485RtsOff() (Platform)
                                                    CUart::TxcInterruptHandler() (Platform)
@@ -2434,22 +2546,23 @@ CODE
                                                    memcpy (?memcpy)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000986 - 00000987 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA2 - 00000BA3 (0x2 bytes), align: 1
   Segment part 13.            Intra module refs:   ?EPILOGUE_B4_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B3_L09        00000986 
+           ?EPILOGUE_B3_L09        00000BA2 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000988 - 00000989 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA4 - 00000BA5 (0x2 bytes), align: 1
   Segment part 14.            Intra module refs:   ?EPILOGUE_B3_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B2_L09        00000988        <Unnamed 1> (Mvsn21)
+           ?EPILOGUE_B2_L09        00000BA4        <Unnamed 1> (Mvsn21)
                                                    CAdc::~CAdc() (Platform)
                                                    CDataBase::~CDataBase() (DataBase)
                                                    CEeprom::~CEeprom() (Platform)
                                                    CMeasurementChannel::~CMeasurementChannel() (MeasurementChannel)
+                                                   CMvsn21::ChannelsToDiscreteInput() (Mvsn21)
                                                    CMvsn21::SpiFsm() (Mvsn21)
                                                    CMvsn21::TChipChannelData::TChipChannelData() (Mvsn21)
                                                    CMvsn21::~CMvsn21() (Mvsn21)
@@ -2460,18 +2573,18 @@ CODE
                                                    __near_get_array_size(void *, __near_size_t) (?vec_newdel)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000098A - 0000098B (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA6 - 00000BA7 (0x2 bytes), align: 1
   Segment part 15.            Intra module refs:   ?EPILOGUE_B2_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B1_L09        0000098A 
+           ?EPILOGUE_B1_L09        00000BA6 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000098C - 00000995 (0xa bytes), align: 1
+  Relative segment, address: CODE 00000BA8 - 00000BB1 (0xa bytes), align: 1
   Segment part 16.            Intra module refs:   ?EPILOGUE_B1_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B0_L09        0000098C 
+           ?EPILOGUE_B0_L09        00000BA8 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR4_L10
@@ -2479,12 +2592,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R4_is_cg_reg
-                                   00000996        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+                                   00000BB2        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    __call_ctors (?cppinit)
@@ -2497,12 +2610,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R5_is_cg_reg
-                                   00000996        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+                                   00000BB2        CMvsn21::Exchange(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    __call_ctors (?cppinit)
@@ -2515,12 +2628,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R6_is_cg_reg
-                                   00000996        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+                                   00000BB2        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    __call_ctors (?cppinit)
                                                    __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
@@ -2531,12 +2644,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R7_is_cg_reg
-                                   00000996        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+                                   00000BB2        CMvsn21::SpiReply(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
                                                    __call_ctors (?cppinit)
                                                    __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
@@ -2547,12 +2660,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R8_is_cg_reg
-                                   00000996        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+                                   00000BB2        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
 
     -------------------------------------------------------------------------
@@ -2561,12 +2674,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R9_is_cg_reg
-                                   00000996        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+                                   00000BB2        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
 
     -------------------------------------------------------------------------
@@ -2575,12 +2688,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R10_is_cg_reg
-                                   00000996        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+                                   00000BB2        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
 
     -------------------------------------------------------------------------
@@ -2589,12 +2702,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R11_is_cg_reg
-                                   00000996        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+                                   00000BB2        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
 
     -------------------------------------------------------------------------
@@ -2603,12 +2716,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R12_is_cg_reg
-                                   00000996        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+                                   00000BB2        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
 
     -------------------------------------------------------------------------
@@ -2617,12 +2730,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996, align: 1
+  Relative segment, address: CODE 00000BB2, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R13_is_cg_reg
-                                   00000996        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
+                                   00000BB2        __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int) (?vec_newdel)
                                                    __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int) (?vec_newdel)
 
     -------------------------------------------------------------------------
@@ -2631,11 +2744,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000996 - 00000999 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000BB2 - 00000BB5 (0x4 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __low_level_init        00000996        ?call_low_level_init (?C_STARTUP)
+           __low_level_init        00000BB2        ?call_low_level_init (?C_STARTUP)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?memcpy
@@ -2643,11 +2756,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000099A - 000009B5 (0x1c bytes), align: 1
+  Relative segment, address: CODE 00000BB6 - 00000BD1 (0x1c bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           memcpy                  0000099A        CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
+           memcpy                  00000BB6        CMvsn21::ReadData(uint8_t *, uint8_t *, uint16_t) (Mvsn21)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?segment_init
@@ -2655,25 +2768,25 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 000009B6 - 000009C1 (0xc bytes), align: 1
+  Relative segment, address: CODE 00000BD2 - 00000BDD (0xc bytes), align: 1
   Segment part 3.             Intra module refs:   __segment_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           __memclr                000009B6 
+           __memclr                00000BD2 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000009C2 - 000009CD (0xc bytes), align: 1
+  Relative segment, address: CODE 00000BDE - 00000BE9 (0xc bytes), align: 1
   Segment part 4.             Intra module refs:   __segment_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           __flashcpy              000009C2 
+           __flashcpy              00000BDE 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000009CE - 00000A01 (0x34 bytes), align: 1
+  Relative segment, address: CODE 00000BEA - 00000C1D (0x34 bytes), align: 1
   Segment part 5.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __segment_init          000009CE        ?need_segment_init (?C_STARTUP)
+           __segment_init          00000BEA        ?need_segment_init (?C_STARTUP)
                calls direct
 
     -------------------------------------------------------------------------
@@ -2682,87 +2795,87 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A02 - 00000A11 (0x10 bytes), align: 1
+  Relative segment, address: CODE 00000C1E - 00000C2D (0x10 bytes), align: 1
   Segment part 9.             Intra module refs:   __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int)
            LOCAL                   ADDRESS         
            =====                   =======         
            __near_free_array(void *, __near_size_t, __near_delete_ptr, int)
-                                   00000A02 
+                                   00000C1E 
                calls indirect
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A12 - 00000A35 (0x24 bytes), align: 1
+  Relative segment, address: CODE 00000C2E - 00000C51 (0x24 bytes), align: 1
   Segment part 11.            Intra module refs:   __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int)
            LOCAL                   ADDRESS         
            =====                   =======         
            __near_get_array_size(void *, __near_size_t)
-                                   00000A12 
+                                   00000C2E 
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A36 - 00000AC1 (0x8c bytes), align: 1
+  Relative segment, address: CODE 00000C52 - 00000CDD (0x8c bytes), align: 1
   Segment part 14.            Intra module refs:   __near_vec_construct
            LOCAL                   ADDRESS         
            =====                   =======         
            __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int)
-                                   00000A36 
+                                   00000C52 
                calls direct and indirect
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000AC2 - 00000AC7 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000CDE - 00000CE3 (0x6 bytes), align: 1
   Segment part 15.            Intra module refs:   __near_array_new_general(void *, __near_size_t, __near_size_t, void *, __near_constructor_ptr, __near_destructor_ptr, __near_new_ptr, __near_delete_ptr, int, int)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000AC8 - 00000AD1 (0xa bytes), align: 1
+  Relative segment, address: CODE 00000CE4 - 00000CED (0xa bytes), align: 1
   Segment part 23.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __near_vec_construct    00000AC8        CMvsn21::TChipChannelData::TChipChannelData() (Mvsn21)
+           __near_vec_construct    00000CE4        CMvsn21::TChipChannelData::TChipChannelData() (Mvsn21)
                                                    __sti__routine() (Mvsn21)
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000AD2 - 00000ADB (0xa bytes), align: 1
+  Relative segment, address: CODE 00000CEE - 00000CF7 (0xa bytes), align: 1
   Segment part 24.            Intra module refs:   __near_vec_construct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000ADC - 00000ADD (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000CF8 - 00000CF9 (0x2 bytes), align: 1
   Segment part 25.            Intra module refs:   __near_vec_construct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000ADE - 00000AE1 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000CFA - 00000CFD (0x4 bytes), align: 1
   Segment part 26.            Intra module refs:   Segment part 25
                                                    Segment part 35
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000AE2 - 00000B55 (0x74 bytes), align: 1
+  Relative segment, address: CODE 00000CFE - 00000D71 (0x74 bytes), align: 1
   Segment part 28.            Intra module refs:   __near_vec_destroy
            LOCAL                   ADDRESS         
            =====                   =======         
            __near_array_delete_general(void *, __near_size_t, __near_size_t, __near_destructor_ptr, __near_delete_ptr, int)
-                                   00000AE2 
+                                   00000CFE 
                calls direct and indirect
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000B56 - 00000B59 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000D72 - 00000D75 (0x4 bytes), align: 1
   Segment part 32.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __near_vec_destroy      00000B56        <Unnamed 0> (Mvsn21)
+           __near_vec_destroy      00000D72        <Unnamed 0> (Mvsn21)
                                                    CMvsn21::TChipChannelData::~TChipChannelData() (Mvsn21)
                calls direct
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000B5A - 00000B5B (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000D76 - 00000D77 (0x2 bytes), align: 1
   Segment part 33.            Intra module refs:   __near_vec_destroy
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000B5C - 00000B5D (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000D78 - 00000D79 (0x2 bytes), align: 1
   Segment part 34.            Intra module refs:   Segment part 25
                                                    Segment part 33
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000B5E - 00000B61 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000D7A - 00000D7D (0x4 bytes), align: 1
   Segment part 35.            Intra module refs:   Segment part 34
 
     -------------------------------------------------------------------------
@@ -2771,11 +2884,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000B62 - 00000B63 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000D7E - 00000D7F (0x2 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __exit                  00000B62        Segment part 5 (?_exit)
+           __exit                  00000D7E        Segment part 5 (?_exit)
                                                    abort (?abort)
 
     -------------------------------------------------------------------------
@@ -2784,14 +2897,14 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000B64 - 00000C39 (0xd6 bytes), align: 1
+  Relative segment, address: CODE 00000D80 - 00000E55 (0xd6 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           free                    00000B64        operator delete(void *) (?delop_0)
+           free                    00000D80        operator delete(void *) (?delop_0)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C3A - 00000C43 (0xa bytes), align: 1
+  Relative segment, address: CODE 00000E56 - 00000E5F (0xa bytes), align: 1
   Segment part 4.             Intra module refs:   free
 
     -------------------------------------------------------------------------
@@ -2838,8 +2951,8 @@ INTVEC               CODE          00000000 - 00000029          2A   com    1
 NEAR_F               CODE          00000034 - 00000045          12   rel    0
 INITTAB              CODE          00000046 - 00000051           C   rel    0
 DIFUNCT              CODE          00000052 - 00000053           2   rel    0
-CODE                 CODE          00000054 - 00000C43         BF0   rel    1
-NEAR_ID              CODE          00000C44 - 00000C79          36   rel    0
+CODE                 CODE          00000054 - 00000E5F         E0C   rel    1
+NEAR_ID              CODE          00000E60 - 00000E95          36   rel    0
 ABSOLUTE             DATA               0000001F                     rel    0
                      DATA               00000020                   
                      DATA               00000021                   
@@ -2874,7 +2987,7 @@ NEAR_Z               DATA          000001BA - 00000255          9C   rel    0
                 *                                      *
                 ****************************************
 
- 3 184 bytes of CODE memory (+             10 range fill )
+ 3 724 bytes of CODE memory (+             10 range fill )
    342 bytes of DATA memory (+ 87 absolute )
 
 Errors: none
