@@ -1,22 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:16:25
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:45:38
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW400D.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW55.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
-//        --initializers_in_flash --root_variables --no_cse --no_inline
-//        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
-//        -DENABLE_BIT_DEFINITIONS -e -I
+//        --initializers_in_flash --root_variables --no_inline --no_cross_call
+//        --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
+//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Om --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\main.s90
@@ -33,8 +32,6 @@
 //      accessible from assembler code. Assembling this file will
 //      not produce an equivalent object file to the one produced
 //      by the C++ compiler.
-
-        EXTERN ?PROLOGUE4_L09
 
         PUBWEAK ??FlowControlSet
         PUBWEAK ??InterruptEnable
@@ -127,24 +124,30 @@
 
 `?<Name CModbus 1>` SYMBOL "CModbus"
 `?<Name CPlatform 5>` SYMBOL "CPlatform"
-`?<Name CMvsn21 17>` SYMBOL "CMvsn21"
-??m_aucRtuCoilsArray SYMBOL "m_aucRtuCoilsArray", `?<Name CMvsn21 17>`
-??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 17>`
-??m_aucRtuHoldingRegistersArray SYMBOL "m_aucRtuHoldingRegistersArray", `?<Name CMvsn21 17>`
-??m_aucRtuInputRegistersArray SYMBOL "m_aucRtuInputRegistersArray", `?<Name CMvsn21 17>`
-??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 17>`
-??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 17>`
+`?<Name CSpi 14>`   SYMBOL "CSpi"
+`?<Name CMvsn21 20>` SYMBOL "CMvsn21"
+??m_aucRtuCoilsArray SYMBOL "m_aucRtuCoilsArray", `?<Name CMvsn21 20>`
+??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 20>`
+??m_aucRtuHoldingRegistersArray SYMBOL "m_aucRtuHoldingRegistersArray", `?<Name CMvsn21 20>`
+??m_aucRtuInputRegistersArray SYMBOL "m_aucRtuInputRegistersArray", `?<Name CMvsn21 20>`
+??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 20>`
+??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 20>`
+??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 14>`
+??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 14>`
 ??m_pxUart0         SYMBOL "m_pxUart0", `?<Name CPlatform 5>`
 ??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CModbus 1>`
-??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 17>`
+??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 20>`
 
         EXTERN ??Execution
         EXTERN ??Init
         EXTERN ??Init_1
         EXTERN ??Init_2
+        EXTERN ??Init_3
         EXTERN ??MeasureFsm
         EXTERN ??ReceiveEnable
         EXTERN ??SlaveSet
+        EXTERN ??SpiBusExchangeEnable
+        EXTERN ??SpiFsm
         EXTERN ??UartBind
         EXTERN ??m_aucRtuCoilsArray
         EXTERN ??m_aucRtuDiscreteInputsArray
@@ -152,6 +155,8 @@
         EXTERN ??m_aucRtuInputRegistersArray
         EXTERN ??m_aui8ReceiveMessageBuff
         EXTERN ??m_aui8TransmitMessageBuff
+        EXTERN ??m_auiSpiRxBuffer
+        EXTERN ??m_auiSpiTxBuffer
         EXTERN ??m_pxUart0
         EXTERN ??m_uiFlowControl
         EXTERN ??m_uiMeasureFlowControl
@@ -620,7 +625,6 @@ _A_PINB:
 //   36 int main()
 main:
 //   37 {
-        RCALL   ?PROLOGUE4_L09
 //   38 
 //   39     enum
 //   40     {
@@ -644,22 +648,16 @@ main:
 //   56     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
         LDI     R16, 0
         ST      -Y, R16
-        LDI     R16, 0
         LDI     R17, 0
         ST      -Y, R17
-        ST      -Y, R16
-        LDI     R16, 0
-        ST      -Y, R16
-        LDI     R16, 0
-        LDI     R17, 0
         ST      -Y, R17
-        ST      -Y, R16
+        ST      -Y, R17
+        ST      -Y, R17
+        ST      -Y, R17
         LDI     R16, LOW(198)
-        LDI     R17, (198) >> 8
         ST      -Y, R17
         ST      -Y, R16
         LDI     R16, LOW(194)
-        LDI     R17, (194) >> 8
         ST      -Y, R17
         ST      -Y, R16
         LDI     R22, LOW(193)
@@ -669,7 +667,6 @@ main:
         LDI     R18, LOW(196)
         LDI     R19, (196) >> 8
         LDI     R16, LOW(197)
-        LDI     R17, (197) >> 8
         RCALL   ??UartBind
 //   57 //    CPlatform::m_pxUart0 = &xUart0;
 //   58 
@@ -693,16 +690,11 @@ main:
         LDI     R17, 0
         ST      -Y, R17
         ST      -Y, R16
-        LDI     R16, 8
-        LDI     R17, 0
         ST      -Y, R17
         ST      -Y, R16
         LDI     R16, 16
-        LDI     R17, 0
         ST      -Y, R17
         ST      -Y, R16
-        LDI     R16, 16
-        LDI     R17, 0
         ST      -Y, R17
         ST      -Y, R16
         LDI     R16, LOW(??m_aucRtuInputRegistersArray)
@@ -751,29 +743,32 @@ main:
         LDI     R16, 2
         RCALL   ??FlowControlSet
 //   78 
-//   79 //    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
-//   80 //    CMvsn21::SpiBusExchangeEnable();
+//   79     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+        LDI     R18, LOW(??m_auiSpiTxBuffer)
+        LDI     R19, (??m_auiSpiTxBuffer) >> 8
+        LDI     R16, LOW(??m_auiSpiRxBuffer)
+        LDI     R17, (??m_auiSpiRxBuffer) >> 8
+        RCALL   ??Init_2
+//   80     CMvsn21::SpiBusExchangeEnable();
+        RCALL   ??SpiBusExchangeEnable
 //   81 
 //   82     CAdc::Init();
-        RCALL   ??Init_2
+        RCALL   ??Init_3
 //   83     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
         LDI     R16, 0
         RCALL   ??MeasureFlowControlSet
 //   84 
 //   85     uint8_t uiMainFsmState = MAIN_START;
-        LDI     R24, 0
 //   86     uint8_t uiStatusLedState = 0;;
-        LDI     R25, 0
 //   87     uint8_t uiLedState = 0;
-        LDI     R26, 0
 //   88     uint8_t uiWatchDogStepID = 0;
-        LDI     R27, 0
 //   89 
 //   90     while(1)
 //   91     {
-//   92 //        CMvsn21::SpiFsm();
-//   93         CModbusRTU::Execution();
+//   92         CMvsn21::SpiFsm();
 ??main_0:
+        RCALL   ??SpiFsm
+//   93         CModbusRTU::Execution();
         RCALL   ??Execution
 //   94         CMvsn21::MeasureFsm();
         RCALL   ??MeasureFsm
@@ -878,10 +873,10 @@ __?EEARL:
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 224 bytes in segment CODE
+// 204 bytes in segment CODE
 //   2 bytes in segment NEAR_F
 // 
-// 206 bytes of CODE memory (+ 20 bytes shared)
+// 186 bytes of CODE memory (+ 20 bytes shared)
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

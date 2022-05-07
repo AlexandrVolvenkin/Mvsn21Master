@@ -549,20 +549,20 @@ uint8_t CEeprom::Write(uint16_t uiEepromDestination, uint8_t *pucRamSourse, uint
 
 
 
-////----------------------------------------- CSpi ----------------------------------------------------------------
-//uint8_t CSpi::m_uiExchangeByte;
-//uint8_t* CSpi::m_puiRxBuffer;
-//uint8_t* CSpi::m_puiTxBuffer;
-//uint16_t CSpi::m_nuiBuffByteCounter;
-//uint16_t CSpi::m_uiReceivedByteCounter;
-//bool CSpi::m_bfByteIsReceived;
-//bool CSpi::m_bfByteIsTransmited;
-//bool CSpi::m_bfDataExchangeInProgress;
-//bool CSpi::m_bfDataExchangeIsOccur;
-//bool CSpi::m_bfRxBuffOverflow;
-//uint8_t CSpi::m_auiSpiRxBuffer[];
-//uint8_t CSpi::m_auiSpiTxBuffer[];
-//
+//----------------------------------------- CSpi ----------------------------------------------------------------
+uint8_t CSpi::m_uiExchangeByte;
+uint8_t* CSpi::m_puiRxBuffer;
+uint8_t* CSpi::m_puiTxBuffer;
+uint16_t CSpi::m_nuiBuffByteCounter;
+uint16_t CSpi::m_uiReceivedByteCounter;
+bool CSpi::m_bfByteIsReceived;
+bool CSpi::m_bfByteIsTransmited;
+bool CSpi::m_bfDataExchangeInProgress;
+bool CSpi::m_bfDataExchangeIsOccur;
+bool CSpi::m_bfRxBuffOverflow;
+uint8_t CSpi::m_auiSpiRxBuffer[];
+uint8_t CSpi::m_auiSpiTxBuffer[];
+
 ////-----------------------------------------------------------------------------------------------------
 //CSpi::CSpi()
 //{
@@ -574,105 +574,105 @@ uint8_t CEeprom::Write(uint16_t uiEepromDestination, uint8_t *pucRamSourse, uint
 //{
 //
 //}
+
+//-----------------------------------------------------------------------------------------------------
+void CSpi::Init(uint8_t *puiRxBuffer, uint8_t *puiTxBuffer)
+{
+//    m_puiRxBuffer = m_auiSpiRxBuffer;
+//    m_puiTxBuffer = m_auiSpiTxBuffer;
+    m_puiRxBuffer = puiRxBuffer;
+    m_puiTxBuffer = puiTxBuffer;
+//    // Master mode.
+//    SPCR = 0;
+//    SPCR  |= (BIT(SPR1));		// Slave,  57600.
 //
-////-----------------------------------------------------------------------------------------------------
-//void CSpi::Init(uint8_t *puiRxBuffer, uint8_t *puiTxBuffer)
-//{
-////    m_puiRxBuffer = m_auiSpiRxBuffer;
-////    m_puiTxBuffer = m_auiSpiTxBuffer;
-//    m_puiRxBuffer = puiRxBuffer;
-//    m_puiTxBuffer = puiTxBuffer;
-////    // Master mode.
-////    SPCR = 0;
-////    SPCR  |= (BIT(SPR1));		// Slave,  57600.
-////
-////    DDRB  |= (BIT(SPI_MOSI));
-//
+//    DDRB  |= (BIT(SPI_MOSI));
+
+    // Slave mode.
+    DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
+    SPCR |= (1 << SPR1);
+};
+
+//-----------------------------------------------------------------------------------------------------
+void CSpi::Enable(void)
+{
 //    // Slave mode.
 //    DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
-//    SPCR |= (1 << SPR1);
-//};
-//
-////-----------------------------------------------------------------------------------------------------
-//void CSpi::Enable(void)
-//{
-////    // Slave mode.
-////    DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
-//    // разрешим SS.
-//    PORTB &= ~Bit(PB1);
-//    // разрешим SPI.
-//    // разрешим прерывание SPI_STC.
-//    SPCR |= ((1 << SPE) | (1 << SPIE));
-//    SPDR = 0;
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CSpi::Disable(void)
-//{
-//    // Slave mode.
-////    // запретим прерывание SPI_STC.
-////    PORTB &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
-////    DDRB  &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
-//    // запретим SS.
-//    PORTB |= Bit(PB1);
-//    SPCR &= ~((1 << SPE) | (1 << SPIE));
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CSpi::Reset(void)
-//{
-//    m_nuiBuffByteCounter = 0;
-//    m_uiReceivedByteCounter = 0;
-//    m_bfByteIsReceived = 0;
-//    m_bfByteIsTransmited = 0;
-//    m_bfDataExchangeInProgress = 0;
-//    m_bfDataExchangeIsOccur = 0;
-//    m_bfRxBuffOverflow = 0;
-//    m_uiExchangeByte = 0;
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//int16_t CSpi::Exchange(void)
-//{
-//    m_bfByteIsReceived = 0;
-//
-//    if (m_bfRxBuffOverflow)
-//    {
-//        return -1;
-//    }
-//    if (BUFFER_LENGTH <= m_nuiBuffByteCounter)
-//    {
-//        return -1;
-//    }
-//    else if (m_nuiBuffByteCounter)
-//    {
-////        CPlatform::InterruptDisable();
-//
-////        *puiDestination = m_uiExchangeByte;
-////        m_uiExchangeByte = 0x78;//*puiSourse;
-//
-//        uint8_t uiCounter = m_nuiBuffByteCounter;
-////        m_nuiBuffByteCounter = 0;
-//
-////        CPlatform::InterruptEnable();
-//
-//        return uiCounter;
-//    }
-//    else if (0 == m_nuiBuffByteCounter)
-//    {
-//        return 0;
-//    }
-//
-//    return 0;
-//}
-//
+    // разрешим SS.
+    PORTB &= ~Bit(PB1);
+    // разрешим SPI.
+    // разрешим прерывание SPI_STC.
+    SPCR |= ((1 << SPE) | (1 << SPIE));
+    SPDR = 0;
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CSpi::Disable(void)
+{
+    // Slave mode.
+//    // запретим прерывание SPI_STC.
+//    PORTB &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
+//    DDRB  &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
+    // запретим SS.
+    PORTB |= Bit(PB1);
+    SPCR &= ~((1 << SPE) | (1 << SPIE));
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CSpi::Reset(void)
+{
+    m_nuiBuffByteCounter = 0;
+    m_uiReceivedByteCounter = 0;
+    m_bfByteIsReceived = 0;
+    m_bfByteIsTransmited = 0;
+    m_bfDataExchangeInProgress = 0;
+    m_bfDataExchangeIsOccur = 0;
+    m_bfRxBuffOverflow = 0;
+    m_uiExchangeByte = 0;
+}
+
+//-----------------------------------------------------------------------------------------------------
+int16_t CSpi::Exchange(void)
+{
+    m_bfByteIsReceived = 0;
+
+    if (m_bfRxBuffOverflow)
+    {
+        return -1;
+    }
+    if (BUFFER_LENGTH <= m_nuiBuffByteCounter)
+    {
+        return -1;
+    }
+    else if (m_nuiBuffByteCounter)
+    {
+//        CPlatform::InterruptDisable();
+
+//        *puiDestination = m_uiExchangeByte;
+//        m_uiExchangeByte = 0x78;//*puiSourse;
+
+        uint8_t uiCounter = m_nuiBuffByteCounter;
+//        m_nuiBuffByteCounter = 0;
+
+//        CPlatform::InterruptEnable();
+
+        return uiCounter;
+    }
+    else if (0 == m_nuiBuffByteCounter)
+    {
+        return 0;
+    }
+
+    return 0;
+}
+
 ////-----------------------------------------------------------------------------------------------------
 //uint8_t CSpi::Read(uint8_t *pucRamDestination, uint16_t uiEepromSourse, uint16_t nuiLength)
 //{
 //
 //    return 1;
 //}
-//
+
 ////-----------------------------------------------------------------------------------------------------
 //void CSpi::RecvInterruptHandler(void)
 //{
@@ -796,57 +796,57 @@ uint8_t CPlatform::uiSlaveSelectIsHigh;
 //
 //}
 
-////-----------------------------------------------------------------------------------------------------
-//// INT0
-////-----------------------------------------------------------------------------------------------------
-//void CPlatform::Int0InterruptEnable(void)
-//{
-//    // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
-//    EICRA &= ~(Bit(ISC01) | Bit(ISC00));
-//    EICRA |= (Bit(ISC01) | Bit(ISC00));
-//    // разрешение внешнего прерывания INT0.
-//    EIMSK |= Bit(INT0);
-//}
-////-----------------------------------------------------------------------------------------------------
-//void CPlatform::Int0InterruptDisable(void)
-//{
-//    // запретим внешнее прерывание INT0.
-//    EIMSK &= ~Bit(INT0);
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//#pragma vector = INT0_vect
-//__interrupt void SIG_INT0(void)
-//{
-//    // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI)?
-//    if (!(BIT_IS_SET(PIND, SPI_SS5)))
-//    {
-//        // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI).
-//        // установим флаг - вход SS0 переходил в 1(запущен демон ПАС).
-//        CPlatform::uiSlaveSelectIsHigh = 1;
+//-----------------------------------------------------------------------------------------------------
+// INT0
+//-----------------------------------------------------------------------------------------------------
+void CPlatform::Int0InterruptEnable(void)
+{
+    // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
+    EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+    EICRA |= (Bit(ISC01) | Bit(ISC00));
+    // разрешение внешнего прерывания INT0.
+    EIMSK |= Bit(INT0);
+}
+//-----------------------------------------------------------------------------------------------------
+void CPlatform::Int0InterruptDisable(void)
+{
+    // запретим внешнее прерывание INT0.
+    EIMSK &= ~Bit(INT0);
+}
+
+//-----------------------------------------------------------------------------------------------------
+#pragma vector = INT0_vect
+__interrupt void SIG_INT0(void)
+{
+    // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI)?
+    if (!(BIT_IS_SET(PIND, SPI_SS5)))
+    {
+        // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI).
+        // установим флаг - вход SS0 переходил в 1(запущен демон ПАС).
+        CPlatform::uiSlaveSelectIsHigh = 1;
 //        CSpi::DataExchangeInProgressClear();
-//        // запретим SPI.
-//        CSpi::Disable();
-//        // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
-//        EICRA &= ~(Bit(ISC01) | Bit(ISC00));
-//        EICRA |= (Bit(ISC01) | Bit(ISC00));
-//        // установим флаг - произошел обмен данными по SPI.
-//        CSpi::DataExchangeIsOccurSet();
-//        CMvsn21::FlowControlSet(CMvsn21::FSM_IDDLE);
-//        CPlatform::TxLedOff();
-//    }
-//    else
-//    {
+        // запретим SPI.
+        CSpi::Disable();
+        // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
+        EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+        EICRA |= (Bit(ISC01) | Bit(ISC00));
+        // установим флаг - произошел обмен данными по SPI.
+        CSpi::DataExchangeIsOccurSet();
+        CMvsn21::FlowControlSet(CMvsn21::FSM_IDDLE);
+        CPlatform::TxLedOff();
+    }
+    else
+    {
 //        CSpi::DataExchangeInProgressSet();
-//        CSpi::Enable();
-//        // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
-//        EICRA &= ~(Bit(ISC01) | Bit(ISC00));
-//        EICRA |= (Bit(ISC01));
-//        CMvsn21::FlowControlSet(CMvsn21::FSM_START);
-//        CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
-//        CPlatform::TxLedOn();
-//    }
-//}
+        CSpi::Enable();
+        // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
+        EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+        EICRA |= (Bit(ISC01));
+        CMvsn21::FlowControlSet(CMvsn21::FSM_START);
+        CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
+        CPlatform::TxLedOn();
+    }
+}
 
 //-----------------------------------------------------------------------------------------------------
 void SystemTickInit(void)

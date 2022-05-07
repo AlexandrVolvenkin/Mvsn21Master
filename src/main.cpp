@@ -76,8 +76,8 @@ int main()
     CModbusRTU::ReceiveEnable();
     CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
 
-//    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
-//    CMvsn21::SpiBusExchangeEnable();
+    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+    CMvsn21::SpiBusExchangeEnable();
 
     CAdc::Init();
     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
@@ -89,7 +89,7 @@ int main()
 
     while(1)
     {
-//        CMvsn21::SpiFsm();
+        CMvsn21::SpiFsm();
         CModbusRTU::Execution();
         CMvsn21::MeasureFsm();
 //

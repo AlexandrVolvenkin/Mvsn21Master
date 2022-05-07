@@ -98,50 +98,50 @@ uint8_t CMvsn21::m_aui8TransmitMessageBuff[];
 //
 //}
 //
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::SpiBusExchangeEnable(void)
-//{
-//    CPlatform::Int0InterruptEnable();
-//    m_uiFlowControl = FSM_START;
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::SpiBusExchangeDisable(void)
-//{
-//    CPlatform::Int0InterruptDisable();
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::Reset(void)
-//{
-//    m_uiMessageLength = 0;
-//    CSpi::Reset();
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//uint8_t CMvsn21::Select(void)
-//{
-//    return CSpi::ByteIsReceived();
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//int16_t CMvsn21::Exchange(void)
-//{
-//    return CSpi::Exchange();
-//}
-//
-////-----------------------------------------------------------------------------------------------------------------
-//uint8_t CMvsn21::FrameIsReceived(void)
-//{
-//    return CSpi::m_bfDataExchangeIsOccur;
-//};
-//
-////-----------------------------------------------------------------------------------------------------------------
-//uint16_t CMvsn21::GetFrameLength(void)
-//{
-//    return CSpi::GetFrameLength();
-//}
-//
+//-----------------------------------------------------------------------------------------------------
+void CMvsn21::SpiBusExchangeEnable(void)
+{
+    CPlatform::Int0InterruptEnable();
+    m_uiFlowControl = FSM_START;
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CMvsn21::SpiBusExchangeDisable(void)
+{
+    CPlatform::Int0InterruptDisable();
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CMvsn21::Reset(void)
+{
+    m_uiMessageLength = 0;
+    CSpi::Reset();
+}
+
+//-----------------------------------------------------------------------------------------------------
+uint8_t CMvsn21::Select(void)
+{
+    return CSpi::ByteIsReceived();
+}
+
+//-----------------------------------------------------------------------------------------------------
+int16_t CMvsn21::Exchange(void)
+{
+    return CSpi::Exchange();
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+uint8_t CMvsn21::FrameIsReceived(void)
+{
+    return CSpi::m_bfDataExchangeIsOccur;
+};
+
+//-----------------------------------------------------------------------------------------------------------------
+uint16_t CMvsn21::GetFrameLength(void)
+{
+    return CSpi::GetFrameLength();
+}
+
 ////-----------------------------------------------------------------------------------------------------------------
 //int8_t CMvsn21::FrameCheck(void)
 //{
@@ -248,125 +248,125 @@ uint8_t CMvsn21::m_aui8TransmitMessageBuff[];
 //        usCrcSummOneByteCalculation(&puiMessage[2], (uiLength - 2));
 //}
 
-////-----------------------------------------------------------------------------------------------------------------
-//int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//{
-////    *(puiResponse - 1) = 4;
-////    puiResponse[0] = 2;
-//    uint8_t uiCrc = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
-////    puiResponse[uiLength++] = 0;
-//    puiResponse[uiLength++] = COMMAND_REPORT_TYPE;
-//    puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
-//    puiResponse[uiLength++] = uiCrc;
-//
-//    return uiLength;
-//}
-//
-////-----------------------------------------------------------------------------------------------------------------
-//int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//{
-////    // Закончено измерение входных каналов?
-////    if (m_uiMeasureFlowControl == FSM_IDDLE)
-////    {
-//    memcpy(puiResponse, auiDiscreteInputBitData, 10);
-////    }
-////    else
-////    {
-////        // Протокол обмена данными по шине Spi.
-////        // Первый байт - пустой.
-////        puiResponse[uiLength++] = 0;
-////        // Второй байт - "эхо".
-////        puiResponse[uiLength++] = COMMAND_DATA_NOT_READY;
-////        // Третий байт - команда обмен данными.
-////        puiResponse[uiLength++] = COMMAND_DATA_NOT_READY;
-////
-////
-//////    // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
-//////    puiMessage[uiLength] =
-//////        usCrcSummOneByteCalculation(&puiMessage[2], (uiLength - 2));
-////    }
-//    return uiLength;
-//}
+//-----------------------------------------------------------------------------------------------------------------
+int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+{
+//    *(puiResponse - 1) = 4;
+//    puiResponse[0] = 2;
+    uint8_t uiCrc = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
+//    puiResponse[uiLength++] = 0;
+    puiResponse[uiLength++] = COMMAND_REPORT_TYPE;
+    puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
+    puiResponse[uiLength++] = uiCrc;
 
-////-----------------------------------------------------------------------------------------------------------------
-//int16_t CMvsn21::SpiReply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
-//{
-//    uint16_t uiLength = uiFrameLength;
-//    // Какой поступил запрос?
-//    switch (puiRequest[0])
-//    {
-//    case COMMAND_REPORT_TYPE:
-//        uiLength = ReportType(puiRequest, puiResponse, uiLength);
-//        break;
-//
-//    case COMMAND_READ_DATA:
-//        uiLength = ReadData(puiRequest, puiResponse, uiLength);
-//        break;
-//
-//    case COMMAND_READ_DATA_BASE:
-////        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
-//        break;
-//
-//    case COMMAND_WRITE_DATA_BASE:
-////        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
-//        break;
-//
-//    default:
-//        break;
-//    }
-//    return uiLength;
-//}
+    return uiLength;
+}
 
-////-----------------------------------------------------------------------------------------------------------------
-//void CMvsn21::SpiFsm(void)
-//{
-//    int16_t iReceivedCounter;
-//
-//    switch (m_uiFlowControl)
+//-----------------------------------------------------------------------------------------------------------------
+int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+{
+//    // Закончено измерение входных каналов?
+//    if (m_uiMeasureFlowControl == FSM_IDDLE)
 //    {
-//    case FSM_IDDLE:
-//        break;
-//
-//    case FSM_START:
-//        Reset();
-//        m_uiFlowControl = FSM_WAITING_MESSAGE;
-//        break;
-//
-//    case FSM_WAITING_MESSAGE:
-//        if (Select())
-//        {
-//            iReceivedCounter = Exchange();
-//
-//            if (iReceivedCounter > 0)
-//            {
-//                m_uiMessageLength += iReceivedCounter;
-//
-//                if (SpiReply(CSpi::m_puiRxBuffer, CSpi::m_puiTxBuffer, m_uiMessageLength))
-//                {
-//                    m_uiFlowControl = FSM_DATA_EXCHANGE_END_WAITING;
-//                }
-//                else
-//                {
-//                    m_uiFlowControl = FSM_IDDLE;
-//                }
-//            }
-//            else if (iReceivedCounter == -1)
-//            {
-//                m_uiFlowControl = FSM_IDDLE;
-//            }
-//        }
-//
-//        break;
-//
-//    case FSM_DATA_EXCHANGE_END_WAITING:
-//
-//        break;
-//
-//    default:
-//        break;
+    memcpy(puiResponse, auiDiscreteInputBitData, 10);
 //    }
+//    else
+//    {
+//        // Протокол обмена данными по шине Spi.
+//        // Первый байт - пустой.
+//        puiResponse[uiLength++] = 0;
+//        // Второй байт - "эхо".
+//        puiResponse[uiLength++] = COMMAND_DATA_NOT_READY;
+//        // Третий байт - команда обмен данными.
+//        puiResponse[uiLength++] = COMMAND_DATA_NOT_READY;
 //
-//}
+//
+////    // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
+////    puiMessage[uiLength] =
+////        usCrcSummOneByteCalculation(&puiMessage[2], (uiLength - 2));
+//    }
+    return uiLength;
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+int16_t CMvsn21::SpiReply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
+{
+    uint16_t uiLength = uiFrameLength;
+    // Какой поступил запрос?
+    switch (puiRequest[0])
+    {
+    case COMMAND_REPORT_TYPE:
+        uiLength = ReportType(puiRequest, puiResponse, uiLength);
+        break;
+
+    case COMMAND_READ_DATA:
+        uiLength = ReadData(puiRequest, puiResponse, uiLength);
+        break;
+
+    case COMMAND_READ_DATA_BASE:
+//        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
+        break;
+
+    case COMMAND_WRITE_DATA_BASE:
+//        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
+        break;
+
+    default:
+        break;
+    }
+    return uiLength;
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+void CMvsn21::SpiFsm(void)
+{
+    int16_t iReceivedCounter;
+
+    switch (m_uiFlowControl)
+    {
+    case FSM_IDDLE:
+        break;
+
+    case FSM_START:
+        Reset();
+        m_uiFlowControl = FSM_WAITING_MESSAGE;
+        break;
+
+    case FSM_WAITING_MESSAGE:
+        if (Select())
+        {
+            iReceivedCounter = Exchange();
+
+            if (iReceivedCounter > 0)
+            {
+                m_uiMessageLength += iReceivedCounter;
+
+                if (SpiReply(CSpi::m_puiRxBuffer, CSpi::m_puiTxBuffer, m_uiMessageLength))
+                {
+                    m_uiFlowControl = FSM_DATA_EXCHANGE_END_WAITING;
+                }
+                else
+                {
+                    m_uiFlowControl = FSM_IDDLE;
+                }
+            }
+            else if (iReceivedCounter == -1)
+            {
+                m_uiFlowControl = FSM_IDDLE;
+            }
+        }
+
+        break;
+
+    case FSM_DATA_EXCHANGE_END_WAITING:
+
+        break;
+
+    default:
+        break;
+    }
+
+}
 
 ////-----------------------------------------------------------------------------------------------------
 //uint8_t CMvsn21::ContinuousMeasure(void)

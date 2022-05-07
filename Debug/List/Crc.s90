@@ -1,22 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:16:25
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:45:38
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Crc.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW3FBE.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EWFFF7.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Crc.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
-//        --initializers_in_flash --root_variables --no_cse --no_inline
-//        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
-//        -DENABLE_BIT_DEFINITIONS -e -I
+//        --initializers_in_flash --root_variables --no_inline --no_cross_call
+//        --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
+//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Om --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\Crc.s90
@@ -100,71 +99,64 @@
 //   56 unsigned short usCrc16(unsigned char *puiSource, unsigned short nusLength)
 ??usCrc16:
 //   57 {
-        MOVW    R31:R30, R17:R16
 //   58     unsigned short usCrc = 0xFFFF;
-        LDI     R16, 255
-        LDI     R17, 255
+        LDI     R22, 255
+        LDI     R23, 255
+        RJMP    ??usCrc16_1
 //   59     unsigned char ucCounter;
 //   60 
 //   61     while (nusLength != 0)
-??usCrc16_1:
-        MOV     R21, R18
-        OR      R21, R19
-        BREQ    ??usCrc16_2
 //   62     {
 //   63         usCrc = usCrc ^ (unsigned short)(*puiSource++);
-        LD      R22, Z
-        LDI     R23, 0
-        EOR     R16, R22
-        EOR     R17, R23
-        ADIW    R31:R30, 1
 //   64         ucCounter = 8;
-        LDI     R20, 8
 //   65         while(ucCounter != 0)
-??usCrc16_3:
-        TST     R20
-        BREQ    ??usCrc16_4
 //   66         {
 //   67             if (usCrc & 0x0001)
-        BST     R16, 0
-        BRTC    ??usCrc16_5
 //   68             {
 //   69                 usCrc = usCrc >> 1 ^ 0xA001;
-        LSR     R17
-        ROR     R16
-        LDI     R21, 1
-        EOR     R16, R21
-        LDI     R21, 160
-        EOR     R17, R21
-        RJMP    ??usCrc16_6
 //   70             }
 //   71             else usCrc = usCrc >> 1;
-??usCrc16_5:
-        LSR     R17
-        ROR     R16
 //   72             ucCounter--;
-??usCrc16_6:
-        DEC     R20
-        RJMP    ??usCrc16_3
 //   73         }
 //   74         nusLength--;
-??usCrc16_4:
+??usCrc16_2:
         SUBI    R18, 1
         SBCI    R19, 0
-        RJMP    ??usCrc16_1
+??usCrc16_1:
+        MOV     R20, R18
+        OR      R20, R19
+        BREQ    ??usCrc16_3
+        MOVW    R31:R30, R17:R16
+        LD      R20, Z+
+        MOVW    R17:R16, R31:R30
+        EOR     R22, R20
+        LDI     R20, 8
+        RJMP    ??usCrc16_4
+??usCrc16_5:
+        DEC     R20
+??usCrc16_4:
+        TST     R20
+        BREQ    ??usCrc16_2
+        MOVW    R1:R0, R23:R22
+        LSR     R1
+        ROR     R0
+        BST     R22, 0
+        MOVW    R23:R22, R1:R0
+        BRTC    ??usCrc16_5
+        LDI     R21, 1
+        EOR     R22, R21
+        LDI     R21, 160
+        EOR     R23, R21
+        RJMP    ??usCrc16_5
 //   75     }
 //   76     usCrc = usCrc>>8 ^ usCrc<<8;
-??usCrc16_2:
-        MOVW    R1:R0, R17:R16
-        MOV     R0, R1
-        CLR     R1
-        MOVW    R23:R22, R17:R16
-        MOV     R23, R22
-        LDI     R22, 0
-        MOVW    R17:R16, R1:R0
-        EOR     R16, R22
-        EOR     R17, R23
 //   77     return usCrc;
+??usCrc16_3:
+        MOVW    R17:R16, R23:R22
+        MOV     R16, R17
+        LDI     R17, 0
+        MOV     R23, R22
+        EOR     R17, R23
         RET
 //   78 }
 
@@ -284,9 +276,9 @@ __?EEARL:
 //  182 //}
 //  183 
 // 
-// 80 bytes in segment CODE
+// 68 bytes in segment CODE
 // 
-// 80 bytes of CODE memory
+// 68 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
