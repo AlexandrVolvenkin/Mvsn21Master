@@ -160,8 +160,17 @@ public:
     static void Disable(void);
     static bool MeasureIsComlete(void)
     {
+//        if (BitIsClear(ADCSRA, ADSC))
+//        {
+//            return 1;
+//        }
+//        else
+//        {
+//            return 0;
+//        }
         if (BitIsSet(ADCSRA, ADIF))
         {
+            SetBit(ADCSRA, ADIF);
             return 1;
         }
         else
@@ -169,11 +178,7 @@ public:
             return 0;
         }
     };
-    static uint8_t GetMeasureValue(void)
-    {
-        return ((static_cast<uint16_t>(ADCH) << 8) |
-                (static_cast<uint16_t>(ADCL)));
-    };
+    static uint16_t GetMeasureValue(void);
 //    static __interrupt void SIG_ADC(void);
 
 protected:
@@ -355,9 +360,7 @@ public:
     static void Enable(void);
     static void Disable(void);
     static void RecvInterruptHandler(void);
-    static int16_t Exchange(uint16_t );
-    static uint8_t Exchange(uint8_t );
-    static int16_t Exchange(uint8_t * , uint8_t * , uint16_t );
+    static int16_t Exchange(void);
     static uint8_t Read(uint8_t * , uint16_t , uint16_t );
     static uint8_t Write(uint16_t , uint8_t * , uint16_t );
     static void Reset(void);
@@ -401,7 +404,11 @@ public:
     {
         m_bfByteIsReceived = 0;
     }
-
+//-----------------------------------------------------------------------------------------------------
+    static uint16_t GetFrameLength(void)
+    {
+        return m_nuiBuffByteCounter;
+    }
 
     static const uint8_t BUFFER_LENGTH = 16;
 //-----------------------------------------------------------------------------------------------------

@@ -12,6 +12,7 @@
 #include "Device.h"
 #include "Driver.h"
 #include "MeasurementChannel.h"
+#include "DataTypes.h"
 
 
 
@@ -27,19 +28,27 @@ enum
 };
 
 //-----------------------------------------------------------------------------------------------------
+// Обмен данными модуля ввода дискретных сигналов МВДС9 с МЦП
+// * Запрос на циклический обмен:$42
+// Ответ:$42-данные готовы(ЭХО), $24-данные не готовы, конец связи
+// * На выходе:сост.входов - 4б, доп.байт - 1б -> в sec1 - sec1+4
+// байт 1:D0,D1-сост.вх.1, D2,D3-сост.вх.2,D4,D5-сост.вх.3,D6,D7-сост.вх.4
+// байт 2:D0,D1-сост.вх.5, D2,D3-сост.вх.6,D4,D5-сост.вх.7,D6,D7-сост.вх.8
+// байт 3:D0,D1-сост.вх.9, D2,D3-сост.вх.10,D4,D5-сост.вх.11,D6,D7-сост.вх.12
+// байт 4:D0,D1-сост.вх.13, D2,D3-сост.вх.14,D4,D5-сост.вх.15,D6,D7-сост.вх.16
+// байт 4:D0,D1-сост.вх.17, D2,D3-сост.вх.18,D4,D5-сост.вх.19,D6,D7-сост.вх.20
+// байт 6:D0,D1-сост.вх.21, D2,D3-сост.вх.22,D4,D5-сост.вх.23,D6,D7-сост.вх.24
+// байт 7: в ПАС-05 не используется
+// байт 8: доп. байт
+// байт 9: КС байтов 1-9
+
+//  состояние входов в байтах 1-3:
+//  четные биты (D0,D2,D4,D6) =0 - разомкнуто (OFF), =1 - замкнуто (ON)
+//  нечетные биты (D1,D3,D5,D7) =0 - достоверно, =1 - недостоверно
+
 class CMvsn21 : virtual public CDevice
 {
 public:
-
-    enum
-    {
-        MASTER_DATA_EXCHANGE_MAX_MESSAGE_LENGTH = 64,
-        MEASURE_CHANNEL_NUMBER = 8,
-        DISCRETE_INPUT_NUMBER = 24,
-        MEASURE_CHANNEL_STATE_BIT_NUMBER = 2,
-        CHANNELS_IN_BYTE = 4,
-        CHIP_NUMBER = 3,
-    };
 
     enum
     {
@@ -65,17 +74,6 @@ public:
         COMMAND_REPORT_TYPE = 0x91,
     };
 
-    struct TChipChannelData
-    {
-        CMeasurementChannel axMeasurementChannels[MEASURE_CHANNEL_NUMBER];
-    };
-
-    struct TChannelRemap
-    {
-        uint8_t uiChip;
-        uint8_t uiChannel;
-    };
-
     CMvsn21(uint8_t uiType, CDriver* pxDriver);
     virtual ~CMvsn21();
     static uint16_t TypeReport(uint8_t * , uint16_t );
@@ -86,8 +84,7 @@ public:
     static void Reset(void);
     static int16_t Receive(void);
     static uint8_t Select(void);
-    static int16_t Receive(uint8_t * , uint16_t );
-    static int16_t Exchange(uint8_t *, uint8_t *, uint16_t  );
+    static int16_t Exchange(void);
     static uint8_t FrameIsReceived(void);
     static uint16_t GetFrameLength(void);
     static int8_t FrameCheck(void);
@@ -97,7 +94,7 @@ public:
     static int16_t SpiReply(uint8_t * , uint8_t * , uint16_t );
     static void SpiFsm(void);
     static void ChannelsToDiscreteInput(void);
-    static uint8_t ContinuousMeasure(void);
+//    static uint8_t ContinuousMeasure(void);
     static void MeasureFsm(void);
     static uint8_t FlowControlGet(void)
     {

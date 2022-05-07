@@ -58,8 +58,10 @@
 		<Unit filename="SerialMT/SpiMT.cpp" />
 		<Unit filename="SerialMT/SpiMT.h" />
 		<Unit filename="include/Config.h" />
+		<Unit filename="include/Configuration.h" />
 		<Unit filename="include/Crc.h" />
 		<Unit filename="include/DataBase.h" />
+		<Unit filename="include/DataTypes.h" />
 		<Unit filename="include/Device.h" />
 		<Unit filename="include/Driver.h" />
 		<Unit filename="include/InputDevice.h" />

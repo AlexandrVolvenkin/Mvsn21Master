@@ -38,7 +38,7 @@ void CAdc::Init(void)
 //-----------------------------------------------------------------------------------------------------
 void CAdc::ChannelSelect(uint8_t uiChannel)
 {
-    ADMUX &= ~(uiChannel & 0x0F);
+    ADMUX &= ~(0x0F);
     ADMUX |= (uiChannel & 0x0F);
 }
 
@@ -55,22 +55,25 @@ void CAdc::StartSingle(void)
 void CAdc::Start(void)
 {
     // Включаем АЦП.
-//    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
+////    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
     ADCSRA |= (BIT(ADEN) | BIT(ADSC));
+//    ADCSRA |= (BIT(ADSC));
 }
 
 //-----------------------------------------------------------------------------------------------------
 void CAdc::Stop(void)
 {
     // Выключаем АЦП.
-    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
+    ADCSRA &= ~(BIT(ADEN) | BIT(ADSC));
+//    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
 }
 
 //-----------------------------------------------------------------------------------------------------
 void CAdc::Disable(void)
 {
     // Выключаем АЦП.
-    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
+//    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
+    ADCSRA &= ~(BIT(ADEN) | BIT(ADSC));
     // Включаем режим пониженного энергопотребления.
     PRR |= BIT(PRADC);
 }
@@ -84,6 +87,15 @@ void CAdc::Enable(void)
 //    ADCSRA |= (BIT(ADEN) | BIT(ADIE));
     ADCSRA |= BIT(ADEN);
 }
+
+//-----------------------------------------------------------------------------------------------------
+uint16_t CAdc::GetMeasureValue(void)
+{
+    uint16_t uiData;
+    uiData = (static_cast<uint16_t>(ADCL));
+    uiData |= (static_cast<uint16_t>(ADCH) << 8);
+    return uiData;
+};
 
 ////-----------------------------------------------------------------------------------------------------
 //#pragma vector = ADC_vect
@@ -536,26 +548,15 @@ void CSpi::Reset(void)
 }
 
 //-----------------------------------------------------------------------------------------------------
-int16_t CSpi::Exchange(uint16_t uiLength)
+int16_t CSpi::Exchange(void)
 {
-//    SPDR = uiData;
-//
-//    while(!(SPSR & BIT(SPIF)))		// Ожидание конца передачи
-//    {
-////  if(!(SPSR & BIT(MSTR))) break;	// Защита от перехода в режим Slave
-//    };
-//
-//
-//    return  SPDR;
-
-
     m_bfByteIsReceived = 0;
 
     if (m_bfRxBuffOverflow)
     {
         return -1;
     }
-    if (uiLength <= m_nuiBuffByteCounter)
+    if (BUFFER_LENGTH <= m_nuiBuffByteCounter)
     {
         return -1;
     }
@@ -579,48 +580,6 @@ int16_t CSpi::Exchange(uint16_t uiLength)
     }
 
     return 0;
-}
-
-//-----------------------------------------------------------------------------------------------------
-int16_t CSpi::Exchange(uint8_t *puiDestination, uint8_t *puiSourse, uint16_t uiLength)
-{
-    m_bfByteIsReceived = 0;
-
-    if (m_bfRxBuffOverflow)
-    {
-        return -1;
-    }
-    if (uiLength <= m_nuiBuffByteCounter)
-    {
-        return -1;
-    }
-    else if (m_nuiBuffByteCounter)
-    {
-//        CPlatform::InterruptDisable();
-
-//        *puiDestination = m_uiExchangeByte;
-//        m_uiExchangeByte = 0x78;//*puiSourse;
-
-        uint8_t uiCounter = m_nuiBuffByteCounter;
-//        m_nuiBuffByteCounter = 0;
-
-//        CPlatform::InterruptEnable();
-
-        return uiCounter;
-    }
-    else if (0 == m_nuiBuffByteCounter)
-    {
-        return 0;
-    }
-
-    return 0;
-}
-
-//-----------------------------------------------------------------------------------------------------
-uint8_t CSpi::Write(uint16_t uiEepromDestination, uint8_t *pucRamSourse, uint16_t nuiLength)
-{
-
-    return 1;
 }
 
 //-----------------------------------------------------------------------------------------------------
