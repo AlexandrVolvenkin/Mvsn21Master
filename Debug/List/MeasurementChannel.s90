@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          04/May/2022  22:41:27
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:16:25
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\MeasurementChannel.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW42FA.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW4108.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\MeasurementChannel.cpp
 //        --cpu=m48 -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj
@@ -14,7 +14,8 @@
 //        --initializers_in_flash --root_variables --no_cse --no_inline
 //        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
 //        -DENABLE_BIT_DEFINITIONS -e -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ --eeprom_size 256
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
 //        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
 //    Locale       =  Russian_RUS.1251
@@ -34,14 +35,7 @@
 //      not produce an equivalent object file to the one produced
 //      by the C++ compiler.
 
-        EXTERN ?EPILOGUE_B2_L09
-        EXTERN ?PROLOGUE2_L09
-
-        PUBLIC ??CMeasurementChannel
         PUBLIC ??StatusCheck
-        PUBWEAK ??__vtbl
-        PUBLIC `??new CMeasurementChannel`
-        PUBLIC `?~CMeasurementChannel`
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
         PUBWEAK _A_ADCSRA
@@ -124,12 +118,6 @@
         PUBWEAK __?EEARL
         PUBWEAK __?EECR
         PUBWEAK __?EEDR
-
-`?<Name CMeasurementChannel 4>` SYMBOL "CMeasurementChannel"
-??__vtbl            SYMBOL "__vtbl", `?<Name CMeasurementChannel 4>`
-
-        EXTERN `??operator delete`
-        EXTERN `??operator new`
 
 // D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\MeasurementChannel.cpp
 //    1 //-----------------------------------------------------------------------------------------------------
@@ -537,57 +525,17 @@ _A_DDRB:
 _A_PINB:
         DS8 1
 //   10 
-//   11 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   12 CMeasurementChannel::CMeasurementChannel()
-??CMeasurementChannel:
-//   13 {
-        LDI     R18, LOW(??__vtbl)
-        LDI     R19, (??__vtbl) >> 8
-        MOVW    R31:R30, R17:R16
-        STD     Z+1, R18
-        STD     Z+2, R19
-//   14     //ctor
-//   15 }
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 CMeasurementChannel &CMeasurementChannel::new CMeasurementChannel()
-`??new CMeasurementChannel`:
-        LDI     R16, 3
-        LDI     R17, 0
-        RCALL   `??operator new`
-        MOV     R18, R16
-        OR      R18, R17
-        BREQ    `??new CMeasurementChannel_1`
-        RCALL   ??CMeasurementChannel
-        RET
-`??new CMeasurementChannel_1`:
-        LDI     R16, 0
-        LDI     R17, 0
-        RET
-//   16 
-//   17 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   18 CMeasurementChannel::~CMeasurementChannel()
-`?~CMeasurementChannel`:
-//   19 {
-        RCALL   ?PROLOGUE2_L09
-        MOVW    R25:R24, R17:R16
-        MOV     R16, R24
-        OR      R16, R25
-        BREQ    `?~CMeasurementChannel_1`
-        BST     R18, 0
-        BRTC    `?~CMeasurementChannel_1`
-//   20     //dtor
-//   21 }
-        MOVW    R17:R16, R25:R24
-        RCALL   `??operator delete`
-`?~CMeasurementChannel_1`:
-        LDI     R30, 2
-        RJMP    ?EPILOGUE_B2_L09
+//   11 ////-----------------------------------------------------------------------------------------------------
+//   12 //CMeasurementChannel::CMeasurementChannel()
+//   13 //{
+//   14 //    //ctor
+//   15 //}
+//   16 //
+//   17 ////-----------------------------------------------------------------------------------------------------
+//   18 //CMeasurementChannel::~CMeasurementChannel()
+//   19 //{
+//   20 //    //dtor
+//   21 //}
 //   22 
 //   23 //-----------------------------------------------------------------------------------------------------
 //   24 // Обработка блока данных от АЦП.
@@ -675,19 +623,13 @@ __?EEDR:
         ASEGN ABSOLUTE:DATA:NOROOT,021H
 __?EEARL:
 
-        RSEG NEAR_F:CODE:ROOT(0)
-// __vtbl_entry const __flash CMeasurementChannel::__vtbl[1]
-??__vtbl:
-        DC16 `?~CMeasurementChannel`/2
-
         END
 // 
-//  87 bytes in segment ABSOLUTE
-// 104 bytes in segment CODE
-//   2 bytes in segment NEAR_F
+// 87 bytes in segment ABSOLUTE
+// 48 bytes in segment CODE
 // 
-// 104 bytes of CODE memory (+  2 bytes shared)
-//   0 bytes of DATA memory (+ 87 bytes shared)
+// 48 bytes of CODE memory
+//  0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
 //Warnings: 1

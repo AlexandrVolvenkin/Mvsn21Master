@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          04/May/2022  22:41:27
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:16:27
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Timer.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW4657.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW460C.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Timer.cpp --cpu=m48 -ms
 //        -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -13,7 +13,8 @@
 //        --initializers_in_flash --root_variables --no_cse --no_inline
 //        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
 //        -DENABLE_BIT_DEFINITIONS -e -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ --eeprom_size 256
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
 //        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
 //    Locale       =  Russian_RUS.1251
@@ -39,14 +40,11 @@
         EXTERN ?PROLOGUE4_L09
 
         PUBLIC ??CTimer
-        PUBLIC ??CTimer_1
         PUBWEAK ??GetSystemTick
         PUBLIC ??IsOverflow
         PUBLIC ??Reset
-        PUBLIC ??Set
         PUBWEAK ??__vtbl
         PUBLIC `??new CTimer`
-        PUBLIC `??new CTimer_1`
         PUBLIC `?~CTimer`
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
@@ -133,8 +131,8 @@
 
 `?<Name CPlatform 0>` SYMBOL "CPlatform"
 ??m_uiSystemTick    SYMBOL "m_uiSystemTick", `?<Name CPlatform 0>`
-`?<Name CTimer 9>`  SYMBOL "CTimer"
-??__vtbl            SYMBOL "__vtbl", `?<Name CTimer 9>`
+`?<Name CTimer 6>`  SYMBOL "CTimer"
+??__vtbl            SYMBOL "__vtbl", `?<Name CTimer 6>`
 
         EXTERN ??m_uiSystemTick
         EXTERN `??operator delete`
@@ -545,44 +543,28 @@ _A_DDRB:
 // union <unnamed> volatile __io _A_PINB
 _A_PINB:
         DS8 1
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 uint16_t CPlatform::GetSystemTick()
+??GetSystemTick:
+        LDI     R30, LOW(??m_uiSystemTick)
+        LDI     R31, (??m_uiSystemTick) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        RET
 //   10 #include "Timer.h"
 //   11 
-//   12 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   13 CTimer::CTimer()
-??CTimer:
-//   14 {
-        LDI     R18, LOW(??__vtbl)
-        LDI     R19, (??__vtbl) >> 8
-        MOVW    R31:R30, R17:R16
-        STD     Z+4, R18
-        STD     Z+5, R19
-//   15 
-//   16 }
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 CTimer &CTimer::new CTimer()
-`??new CTimer`:
-        LDI     R16, 6
-        LDI     R17, 0
-        RCALL   `??operator new`
-        MOV     R18, R16
-        OR      R18, R17
-        BREQ    `??new CTimer_2`
-        RCALL   ??CTimer
-        RET
-`??new CTimer_2`:
-        LDI     R16, 0
-        LDI     R17, 0
-        RET
+//   12 ////-----------------------------------------------------------------------------------------------------
+//   13 //CTimer::CTimer()
+//   14 //{
+//   15 //
+//   16 //}
 //   17 
 //   18 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
 //   19 CTimer::CTimer(uint16_t uiTime)
-??CTimer_1:
+??CTimer:
 //   20 {
         RCALL   ?PROLOGUE4_L09
         MOVW    R27:R26, R17:R16
@@ -608,7 +590,7 @@ _A_PINB:
 
         RSEG CODE:CODE:NOROOT(1)
 // __version_3 CTimer &CTimer::new CTimer(uint16_t)
-`??new CTimer_1`:
+`??new CTimer`:
         RCALL   ?PROLOGUE2_L09
         MOVW    R25:R24, R17:R16
         LDI     R16, 6
@@ -616,14 +598,14 @@ _A_PINB:
         RCALL   `??operator new`
         MOV     R18, R16
         OR      R18, R17
-        BREQ    `??new CTimer_3`
+        BREQ    `??new CTimer_1`
         MOVW    R19:R18, R25:R24
-        RCALL   ??CTimer_1
-        RJMP    `??new CTimer_4`
-`??new CTimer_3`:
+        RCALL   ??CTimer
+        RJMP    `??new CTimer_2`
+`??new CTimer_1`:
         LDI     R16, 0
         LDI     R17, 0
-`??new CTimer_4`:
+`??new CTimer_2`:
         LDI     R30, 2
         RJMP    ?EPILOGUE_B2_L09
 //   24 
@@ -648,27 +630,12 @@ _A_PINB:
         LDI     R30, 2
         RJMP    ?EPILOGUE_B2_L09
 //   30 
-//   31 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   32 void CTimer::Set(uint16_t uiTime)
-??Set:
-//   33 {
-        RCALL   ?PROLOGUE4_L09
-        MOVW    R27:R26, R17:R16
-        MOVW    R25:R24, R19:R18
-//   34     m_uiLastSystemTick = CPlatform::GetSystemTick();
-        RCALL   ??GetSystemTick
-        MOVW    R31:R30, R27:R26
-        STD     Z+2, R16
-        STD     Z+3, R17
-//   35     m_uiTime = uiTime;
-        ST      X+, R24
-        ST      X, R25
-        SBIW    R27:R26, 1
-//   36 }
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
+//   31 ////-----------------------------------------------------------------------------------------------------
+//   32 //void CTimer::Set(uint16_t uiTime)
+//   33 //{
+//   34 //    m_uiLastSystemTick = CPlatform::GetSystemTick();
+//   35 //    m_uiTime = uiTime;
+//   36 //}
 //   37 
 //   38 //-----------------------------------------------------------------------------------------------------
 
@@ -725,15 +692,6 @@ _A_PINB:
 //   55     }
 //   56 }
 
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 uint16_t CPlatform::GetSystemTick()
-??GetSystemTick:
-        LDI     R30, LOW(??m_uiSystemTick)
-        LDI     R31, (??m_uiSystemTick) >> 8
-        LD      R16, Z
-        LDD     R17, Z+1
-        RET
-
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
 __?EECR:
 
@@ -754,10 +712,10 @@ __?EEARL:
 //   59 
 // 
 //  87 bytes in segment ABSOLUTE
-// 210 bytes in segment CODE
+// 152 bytes in segment CODE
 //   2 bytes in segment NEAR_F
 // 
-// 200 bytes of CODE memory (+ 12 bytes shared)
+// 142 bytes of CODE memory (+ 12 bytes shared)
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

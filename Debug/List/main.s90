@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          04/May/2022  22:41:26
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:16:25
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW420F.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW400D.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -13,7 +13,8 @@
 //        --initializers_in_flash --root_variables --no_cse --no_inline
 //        --no_code_motion --no_cross_call --no_clustering --no_tbaa --debug
 //        -DENABLE_BIT_DEFINITIONS -e -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ --eeprom_size 256
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
 //        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -On --eec++)
 //    Locale       =  Russian_RUS.1251
@@ -35,6 +36,7 @@
 
         EXTERN ?PROLOGUE4_L09
 
+        PUBWEAK ??FlowControlSet
         PUBWEAK ??InterruptEnable
         PUBLIC ??MainReboot
         PUBWEAK ??MeasureFlowControlSet
@@ -123,21 +125,35 @@
         PUBWEAK __?EEDR
         PUBLIC main
 
-`?<Name CSpi 12>`   SYMBOL "CSpi"
-`?<Name CMvsn21 19>` SYMBOL "CMvsn21"
-??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 12>`
-??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 12>`
-??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 19>`
+`?<Name CModbus 1>` SYMBOL "CModbus"
+`?<Name CPlatform 5>` SYMBOL "CPlatform"
+`?<Name CMvsn21 17>` SYMBOL "CMvsn21"
+??m_aucRtuCoilsArray SYMBOL "m_aucRtuCoilsArray", `?<Name CMvsn21 17>`
+??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 17>`
+??m_aucRtuHoldingRegistersArray SYMBOL "m_aucRtuHoldingRegistersArray", `?<Name CMvsn21 17>`
+??m_aucRtuInputRegistersArray SYMBOL "m_aucRtuInputRegistersArray", `?<Name CMvsn21 17>`
+??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 17>`
+??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 17>`
+??m_pxUart0         SYMBOL "m_pxUart0", `?<Name CPlatform 5>`
+??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CModbus 1>`
+??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 17>`
 
-        EXTERN ??CTimer
+        EXTERN ??Execution
         EXTERN ??Init
         EXTERN ??Init_1
         EXTERN ??Init_2
         EXTERN ??MeasureFsm
-        EXTERN ??SpiBusExchangeEnable
-        EXTERN ??SpiFsm
-        EXTERN ??m_auiSpiRxBuffer
-        EXTERN ??m_auiSpiTxBuffer
+        EXTERN ??ReceiveEnable
+        EXTERN ??SlaveSet
+        EXTERN ??UartBind
+        EXTERN ??m_aucRtuCoilsArray
+        EXTERN ??m_aucRtuDiscreteInputsArray
+        EXTERN ??m_aucRtuHoldingRegistersArray
+        EXTERN ??m_aucRtuInputRegistersArray
+        EXTERN ??m_aui8ReceiveMessageBuff
+        EXTERN ??m_aui8TransmitMessageBuff
+        EXTERN ??m_pxUart0
+        EXTERN ??m_uiFlowControl
         EXTERN ??m_uiMeasureFlowControl
 
 // D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
@@ -566,8 +582,14 @@ _A_PINB:
 ??MeasureFlowControlSet:
         STS     ??m_uiMeasureFlowControl, R16
         RET
-//   13 //#include "Modbus.h"
-//   14 //#include "ModbusRTU.h"
+//   13 #include "Modbus.h"
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CModbus::FlowControlSet(uint8_t)
+??FlowControlSet:
+        STS     ??m_uiFlowControl, R16
+        RET
+//   14 #include "ModbusRTU.h"
 //   15 //#include "InputDevice.h"
 //   16 
 //   17 
@@ -599,7 +621,6 @@ _A_PINB:
 main:
 //   37 {
         RCALL   ?PROLOGUE4_L09
-        SBIW    R29:R28, 12
 //   38 
 //   39     enum
 //   40     {
@@ -617,151 +638,230 @@ main:
         RCALL   ??Init
 //   52     CPlatform::InterruptEnable();
         RCALL   ??InterruptEnable
-//   53     CTimer xStatusLedTimer(500);
-        LDI     R18, 244
-        LDI     R19, 1
-        MOVW    R17:R16, R29:R28
-        SUBI    R16, 250
-        SBCI    R17, 255
-        RCALL   ??CTimer
+//   53 //    CTimer xStatusLedTimer(500);
 //   54 //    CTimer xLedTimer(500);
-//   55     CTimer xPeripheryTimer(10);
-        LDI     R18, 10
-        LDI     R19, 0
-        MOVW    R17:R16, R29:R28
-        RCALL   ??CTimer
-//   56 //    CUart xUart0(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, &DDRC, DDC7, &PORTC, PC7);
+//   55 //    CTimer xPeripheryTimer(10);
+//   56     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
+        LDI     R16, 0
+        ST      -Y, R16
+        LDI     R16, 0
+        LDI     R17, 0
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, 0
+        ST      -Y, R16
+        LDI     R16, 0
+        LDI     R17, 0
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(198)
+        LDI     R17, (198) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(194)
+        LDI     R17, (194) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R22, LOW(193)
+        LDI     R23, (193) >> 8
+        LDI     R20, LOW(192)
+        LDI     R21, (192) >> 8
+        LDI     R18, LOW(196)
+        LDI     R19, (196) >> 8
+        LDI     R16, LOW(197)
+        LDI     R17, (197) >> 8
+        RCALL   ??UartBind
 //   57 //    CPlatform::m_pxUart0 = &xUart0;
 //   58 
-//   59     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
-        LDI     R18, LOW(??m_auiSpiTxBuffer)
-        LDI     R19, (??m_auiSpiTxBuffer) >> 8
-        LDI     R16, LOW(??m_auiSpiRxBuffer)
-        LDI     R17, (??m_auiSpiRxBuffer) >> 8
+//   59 //    CModbusRTU xModbusRtuOne;
+//   60     CModbusRTU::Init(CPlatform::m_pxUart0,
+//   61                        MODBUS_RTU_BAUD_RATE,
+//   62                        'N',
+//   63                        8,
+//   64                        1,
+//   65                        CMvsn21::m_aui8ReceiveMessageBuff,
+//   66                        CMvsn21::m_aui8TransmitMessageBuff,
+//   67                        CMvsn21::m_aucRtuCoilsArray,
+//   68                        CMvsn21::m_aucRtuDiscreteInputsArray,
+//   69                        CMvsn21::m_aucRtuHoldingRegistersArray,
+//   70                        CMvsn21::m_aucRtuInputRegistersArray,
+//   71                        COILS_WORK_ARRAY_LENGTH,
+//   72                        DISCRETE_INPUTS_ARRAY_LENGTH,
+//   73                        HOLDING_REGISTERS_ARRAY_LENGTH,
+//   74                        INPUT_REGISTERS_ARRAY_LENGTH);
+        LDI     R16, 8
+        LDI     R17, 0
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, 8
+        LDI     R17, 0
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, 16
+        LDI     R17, 0
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, 16
+        LDI     R17, 0
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(??m_aucRtuInputRegistersArray)
+        LDI     R17, (??m_aucRtuInputRegistersArray) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(??m_aucRtuHoldingRegistersArray)
+        LDI     R17, (??m_aucRtuHoldingRegistersArray) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(??m_aucRtuDiscreteInputsArray)
+        LDI     R17, (??m_aucRtuDiscreteInputsArray) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(??m_aucRtuCoilsArray)
+        LDI     R17, (??m_aucRtuCoilsArray) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(??m_aui8TransmitMessageBuff)
+        LDI     R17, (??m_aui8TransmitMessageBuff) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, LOW(??m_aui8ReceiveMessageBuff)
+        LDI     R17, (??m_aui8ReceiveMessageBuff) >> 8
+        ST      -Y, R17
+        ST      -Y, R16
+        LDI     R16, 1
+        ST      -Y, R16
+        LDI     R19, 8
+        LDI     R18, 78
+        LDI     R20, 128
+        LDI     R21, 37
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(??m_pxUart0)
+        LDI     R31, (??m_pxUart0) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
         RCALL   ??Init_1
-//   60     CMvsn21::SpiBusExchangeEnable();
-        RCALL   ??SpiBusExchangeEnable
-//   61 
-//   62     CAdc::Init();
+//   75     CModbusRTU::SlaveSet(1);
+        LDI     R16, 1
+        RCALL   ??SlaveSet
+//   76     CModbusRTU::ReceiveEnable();
+        RCALL   ??ReceiveEnable
+//   77     CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
+        LDI     R16, 2
+        RCALL   ??FlowControlSet
+//   78 
+//   79 //    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+//   80 //    CMvsn21::SpiBusExchangeEnable();
+//   81 
+//   82     CAdc::Init();
         RCALL   ??Init_2
-//   63     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
+//   83     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
         LDI     R16, 0
         RCALL   ??MeasureFlowControlSet
-//   64 
-//   65     uint8_t uiMainFsmState = MAIN_START;
-        LDI     R24, 0
-//   66     uint8_t uiStatusLedState = 0;;
-        LDI     R25, 0
-//   67     uint8_t uiLedState = 0;
-        LDI     R26, 0
-//   68     uint8_t uiWatchDogStepID = 0;
-        LDI     R27, 0
-//   69 
-//   70     while(1)
-//   71     {
-//   72         CMvsn21::SpiFsm();
-??main_0:
-        RCALL   ??SpiFsm
-//   73         CMvsn21::MeasureFsm();
-        RCALL   ??MeasureFsm
-//   74 //
-//   75 //        if (xPeripheryTimer.IsOverflow())
-//   76 //        {
-//   77 //            xPeripheryTimer.Reset();
-//   78 //        }
-//   79 
-//   80 //        if (CSpi::DataExchangeIsOccur())
-//   81 //        {
-//   82 //            CSpi::DataExchangeIsOccurClear();
-//   83 //        }
 //   84 
-//   85         switch (uiMainFsmState)
-        MOV     R16, R24
-        SUBI    R16, 0
-        BREQ    ??main_1
-        DEC     R16
-        BREQ    ??main_2
-        DEC     R16
-        BREQ    ??main_2
-        SUBI    R16, 3
-        BREQ    ??main_3
-        DEC     R16
-        BREQ    ??main_2
-        RJMP    ??main_2
-//   86         {
-//   87         case MAIN_START:
-//   88             uiMainFsmState = MAIN_FIRST_STEP;
-??main_1:
-        LDI     R24, 1
-//   89             break;
-        RJMP    ??main_2
-//   90 
-//   91         case MAIN_FIRST_STEP:
-//   92 ////            MainCycle();
-//   93 //            if (xStatusLedTimer.IsOverflow())
-//   94 //            {
-//   95 //                xStatusLedTimer.Reset();
-//   96 //                if (uiStatusLedState)
-//   97 //                {
-//   98 //        CPlatform::TxLedOff();
-//   99 ////                    CPlatform::StatusLedOff();
-//  100 //                    uiStatusLedState = 0;
-//  101 //                }
-//  102 //                else
-//  103 //                {
-//  104 //        CPlatform::TxLedOn();
-//  105 ////                    CPlatform::StatusLedOn();
-//  106 //                    uiStatusLedState = 1;
-//  107 //                }
-//  108 //                uiWatchDogStepID |= 0x03;
-//  109 //            }
-//  110 
-//  111 //            if (xLedTimer.IsOverflow())
-//  112 //            {
-//  113 //                xLedTimer.Reset();
-//  114 //                if (uiLedState)
-//  115 //                {
-//  116 //                    CPlatform::TxLedOff();
-//  117 //                    uiLedState = 0;
-//  118 //                }
-//  119 //                else
-//  120 //                {
-//  121 //                    CPlatform::TxLedOn();
-//  122 //                    uiLedState = 1;
-//  123 //                }
-//  124 //            }
-//  125 
-//  126         case MAIN_SECOND_STEP:
-//  127             break;
-//  128 
-//  129         case MAIN_THIRD_REBOOT:
-//  130             MainReboot();
-??main_3:
-        RCALL   ??MainReboot
-//  131             break;
-//  132 
-//  133         case MAIN_STOP:
-//  134             break;
-//  135 
-//  136         default:
-//  137             break;
-//  138         }
-//  139 
-//  140 //        // все задачи программы ответили?
-//  141 //        if (uiWatchDogStepID == 0x03)
-//  142 //        {
-//  143 //            uiWatchDogStepID = 0;
-//  144         CPlatform::WatchdogReset();
-??main_2:
+//   85     uint8_t uiMainFsmState = MAIN_START;
+        LDI     R24, 0
+//   86     uint8_t uiStatusLedState = 0;;
+        LDI     R25, 0
+//   87     uint8_t uiLedState = 0;
+        LDI     R26, 0
+//   88     uint8_t uiWatchDogStepID = 0;
+        LDI     R27, 0
+//   89 
+//   90     while(1)
+//   91     {
+//   92 //        CMvsn21::SpiFsm();
+//   93         CModbusRTU::Execution();
+??main_0:
+        RCALL   ??Execution
+//   94         CMvsn21::MeasureFsm();
+        RCALL   ??MeasureFsm
+//   95 //
+//   96 //        if (xPeripheryTimer.IsOverflow())
+//   97 //        {
+//   98 //            xPeripheryTimer.Reset();
+//   99 //        }
+//  100 
+//  101 //        if (CSpi::DataExchangeIsOccur())
+//  102 //        {
+//  103 //            CSpi::DataExchangeIsOccurClear();
+//  104 //        }
+//  105 
+//  106 //        switch (uiMainFsmState)
+//  107 //        {
+//  108 //        case MAIN_START:
+//  109 //            uiMainFsmState = MAIN_FIRST_STEP;
+//  110 //            break;
+//  111 //
+//  112 //        case MAIN_FIRST_STEP:
+//  113 //////            MainCycle();
+//  114 ////            if (xStatusLedTimer.IsOverflow())
+//  115 ////            {
+//  116 ////                xStatusLedTimer.Reset();
+//  117 ////                if (uiStatusLedState)
+//  118 ////                {
+//  119 ////        CPlatform::TxLedOff();
+//  120 //////                    CPlatform::StatusLedOff();
+//  121 ////                    uiStatusLedState = 0;
+//  122 ////                }
+//  123 ////                else
+//  124 ////                {
+//  125 ////        CPlatform::TxLedOn();
+//  126 //////                    CPlatform::StatusLedOn();
+//  127 ////                    uiStatusLedState = 1;
+//  128 ////                }
+//  129 ////                uiWatchDogStepID |= 0x03;
+//  130 ////            }
+//  131 //
+//  132 ////            if (xLedTimer.IsOverflow())
+//  133 ////            {
+//  134 ////                xLedTimer.Reset();
+//  135 ////                if (uiLedState)
+//  136 ////                {
+//  137 ////                    CPlatform::TxLedOff();
+//  138 ////                    uiLedState = 0;
+//  139 ////                }
+//  140 ////                else
+//  141 ////                {
+//  142 ////                    CPlatform::TxLedOn();
+//  143 ////                    uiLedState = 1;
+//  144 ////                }
+//  145 ////            }
+//  146 //
+//  147 //        case MAIN_SECOND_STEP:
+//  148 //            break;
+//  149 //
+//  150 //        case MAIN_THIRD_REBOOT:
+//  151 //            MainReboot();
+//  152 //            break;
+//  153 //
+//  154 //        case MAIN_STOP:
+//  155 //            break;
+//  156 //
+//  157 //        default:
+//  158 //            break;
+//  159 //        }
+//  160 
+//  161 //        // все задачи программы ответили?
+//  162 //        if (uiWatchDogStepID == 0x03)
+//  163 //        {
+//  164 //            uiWatchDogStepID = 0;
+//  165         CPlatform::WatchdogReset();
         RCALL   ??WatchdogReset
         RJMP    ??main_0
-//  145 //        }
-//  146 
-//  147 
-//  148     }
-//  149 
-//  150     return 0;
-//  151 }
+        REQUIRE _A_UBRR0
+        REQUIRE _A_UCSR0A
+        REQUIRE _A_UCSR0B
+        REQUIRE _A_UCSR0C
+        REQUIRE _A_UDR0
+//  166 //        }
+//  167 
+//  168 
+//  169     }
+//  170 
+//  171     return 0;
+//  172 }
 
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
 __?EECR:
@@ -772,13 +872,17 @@ __?EEDR:
         ASEGN ABSOLUTE:DATA:NOROOT,021H
 __?EEARL:
 
+        RSEG NEAR_F:CODE:ROOT(0)
+        DC8 0, 0
+
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 108 bytes in segment CODE
+// 224 bytes in segment CODE
+//   2 bytes in segment NEAR_F
 // 
-// 94 bytes of CODE memory (+ 14 bytes shared)
-//  0 bytes of DATA memory (+ 87 bytes shared)
+// 206 bytes of CODE memory (+ 20 bytes shared)
+//   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
-//Warnings: 5
+//Warnings: 11
