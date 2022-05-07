@@ -2123,4 +2123,7 @@
     <file>
         <name>$PROJ_DIR$\src\Platform.cpp</name>
     </file>
+    <file>
+        <name>$PROJ_DIR$\src\SpiInt.asm</name>
+    </file>
 </project>

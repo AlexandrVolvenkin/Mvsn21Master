@@ -21,38 +21,38 @@ TChipChannelData CMvsn21::axChipsChannelsData[CHIP_NUMBER];
 //CMeasurementChannel CMvsn21::axSlave1MeasurementChannels[];
 //CMeasurementChannel CMvsn21::axSlave2MeasurementChannels[];
 // Сопоставление входа каналу.
-//__flash TChannelRemap CMvsn21::axMeasurementChannelRemap[] =
-//{
-//    // Нумерация входов сверху вниз.
-//    // разъём X1.
-//    {0, 6},
-//    {0, 7},
-//    {0, 0},
-//    {0, 1},
-//    {0, 2},
-//    {0, 3},
-//    // разъём X2.
-//    {0, 4},
-//    {0, 5},
-//    {1, 6},
-//    {1, 7},
-//    {1, 0},
-//    {1, 1},
-//    // разъём X3.
-//    {1, 2},
-//    {1, 3},
-//    {1, 4},
-//    {1, 5},
-//    {2, 6},
-//    {2, 7},
-//    // разъём X4.
-//    {2, 0},
-//    {2, 1},
-//    {2, 2},
-//    {2, 3},
-//    {2, 4},
-//    {2, 5},
-//};
+__flash TChannelRemap CMvsn21::axMeasurementChannelRemap[] =
+{
+    // Нумерация входов сверху вниз.
+    // разъём X1.
+    {0, 6},
+    {0, 7},
+    {0, 0},
+    {0, 1},
+    {0, 2},
+    {0, 3},
+    // разъём X2.
+    {0, 4},
+    {0, 5},
+    {1, 6},
+    {1, 7},
+    {1, 0},
+    {1, 1},
+    // разъём X3.
+    {1, 2},
+    {1, 3},
+    {1, 4},
+    {1, 5},
+    {2, 6},
+    {2, 7},
+    // разъём X4.
+    {2, 0},
+    {2, 1},
+    {2, 2},
+    {2, 3},
+    {2, 4},
+    {2, 5},
+};
 uint8_t CMvsn21::auiDiscreteInputBitData[];
 
 uint8_t CMvsn21::m_aucRtuCoilsArray[];
@@ -186,67 +186,67 @@ uint16_t CMvsn21::GetFrameLength(void)
 ////    }
 //}
 
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::ChannelsToDiscreteInput(void)
-//{
-//    uint8_t uiLength = 0;
-//    uint8_t *puiMessage = auiDiscreteInputBitData;
-////    TChannelRemap __flash *pxMeasurementChannelRemap;
-////    pxMeasurementChannelRemap = &axMeasurementChannelRemap[0];
-//
-//    // Протокол обмена данными по шине Spi.
-//    // Первый байт - пустой.
-//    puiMessage[uiLength++] = 0;
-////    // Второй байт - "эхо".
-////    puiMessage[uiLength++] = COMMAND_READ_DATA;
-//    // Третий байт - команда обмен данными.
+//-----------------------------------------------------------------------------------------------------
+void CMvsn21::ChannelsToDiscreteInput(void)
+{
+    uint8_t uiLength = 0;
+    uint8_t *puiMessage = auiDiscreteInputBitData;
+//    TChannelRemap __flash *pxMeasurementChannelRemap;
+//    pxMeasurementChannelRemap = &axMeasurementChannelRemap[0];
+
+    // Протокол обмена данными по шине Spi.
+    // Первый байт - пустой.
+    puiMessage[uiLength++] = 0;
+//    // Второй байт - "эхо".
 //    puiMessage[uiLength++] = COMMAND_READ_DATA;
-//
-//
-//    // Следующие шесть байт - данные состояния дискретных входов.
-//    // Упакуем двухбитовые данные состояния измерительных каналов всех чипов в дискретные входы.
-//    // i - индекс дискретных входов.
-//    for (int8_t i = 0; i < DISCRETE_INPUT_NUMBER; )
-//    {
-//        puiMessage[uiLength] = 0;
-////        // Упакуем двухбитовые данные состояния восьми измерительных каналов одного чипа в дискретные входы.
-//        // Упакуем двухбитовые данные состояния четырёх измерительных каналов в байт по четыре дискретных входа.
-//        for (int8_t j= 0;
-//                j < (CHANNELS_IN_BYTE * MEASURE_CHANNEL_STATE_BIT_NUMBER);
-//                j += MEASURE_CHANNEL_STATE_BIT_NUMBER)
-//        {
-//            // Упаковали все данные состояния измерительных каналов?
-//            if (i < DISCRETE_INPUT_NUMBER)
-//            {
-//                // Отобразим данные состояния измерительных каналов на дискретные входы во временный буфер.
-//                puiMessage[uiLength] |=
-//                    // Следующие два бита в байте.
-//                    // Выберем канал по индексу чипа, карты сопоставления измерительных каналов со входами модуля.
-//                    ((axChipsChannelsData[axMeasurementChannelRemap[i].uiChip].
-//                      // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
-//                      axMeasurementChannels[axMeasurementChannelRemap[i].uiChannel].
-//                      // Состояние измерительного канала занимает два младших бита.
-//                      m_uiState & 0x03) << j);
-//                // Следующий дискретный вход.
-//                i++;
-//            }
-//            else
-//            {
-//                // Упаковали все данные состояния измерительных каналов.
-//                goto EndStateDataPack;
-//            }
-//        }
-//        // Следующий байт.
-//        uiLength++;
-//        puiMessage[uiLength] = 0;
-//    }
-//
-//EndStateDataPack:
-//
-//    // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
-//    puiMessage[uiLength] =
-//        usCrcSummOneByteCalculation(&puiMessage[2], (uiLength - 2));
-//}
+    // Третий байт - команда обмен данными.
+    puiMessage[uiLength++] = COMMAND_READ_DATA;
+
+
+    // Следующие шесть байт - данные состояния дискретных входов.
+    // Упакуем двухбитовые данные состояния измерительных каналов всех чипов в дискретные входы.
+    // i - индекс дискретных входов.
+    for (int8_t i = 0; i < DISCRETE_INPUT_NUMBER; )
+    {
+        puiMessage[uiLength] = 0;
+//        // Упакуем двухбитовые данные состояния восьми измерительных каналов одного чипа в дискретные входы.
+        // Упакуем двухбитовые данные состояния четырёх измерительных каналов в байт по четыре дискретных входа.
+        for (int8_t j= 0;
+                j < (CHANNELS_IN_BYTE * MEASURE_CHANNEL_STATE_BIT_NUMBER);
+                j += MEASURE_CHANNEL_STATE_BIT_NUMBER)
+        {
+            // Упаковали все данные состояния измерительных каналов?
+            if (i < DISCRETE_INPUT_NUMBER)
+            {
+                // Отобразим данные состояния измерительных каналов на дискретные входы во временный буфер.
+                puiMessage[uiLength] |=
+                    // Следующие два бита в байте.
+                    // Выберем канал по индексу чипа, карты сопоставления измерительных каналов со входами модуля.
+                    ((axChipsChannelsData[axMeasurementChannelRemap[i].uiChip].
+                      // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
+                      axMeasurementChannels[axMeasurementChannelRemap[i].uiChannel].
+                      // Состояние измерительного канала занимает два младших бита.
+                      m_uiState & 0x03) << j);
+                // Следующий дискретный вход.
+                i++;
+            }
+            else
+            {
+                // Упаковали все данные состояния измерительных каналов.
+                goto EndStateDataPack;
+            }
+        }
+        // Следующий байт.
+        uiLength++;
+        puiMessage[uiLength] = 0;
+    }
+
+EndStateDataPack:
+
+    // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
+    puiMessage[uiLength] =
+        usCrcSummOneByteCalculation(&puiMessage[2], (uiLength - 2));
+}
 
 //-----------------------------------------------------------------------------------------------------------------
 int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
@@ -415,7 +415,7 @@ void CMvsn21::MeasureFsm(void)
             else
             {
                 CAdc::Disable();
-//                ChannelsToDiscreteInput();
+                ChannelsToDiscreteInput();
                 m_uiMeasureFlowControl = FSM_IDDLE;
             }
         }
