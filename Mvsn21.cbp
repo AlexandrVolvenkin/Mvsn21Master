@@ -51,15 +51,11 @@
 			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x01 0x02 -offset -0x01 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hfs -Intel " />
 			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x02 0x03 -offset -0x02 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).efs -Intel " />
 		</ExtraCommands>
-		<Unit filename="SerialMT/ModbusMT.cpp" />
-		<Unit filename="SerialMT/ModbusMT.h" />
-		<Unit filename="SerialMT/SerialMT.cpp" />
-		<Unit filename="SerialMT/SerialMT.h" />
-		<Unit filename="SerialMT/SpiMT.cpp" />
-		<Unit filename="SerialMT/SpiMT.h" />
 		<Unit filename="include/Config.h" />
+		<Unit filename="include/Configuration.h" />
 		<Unit filename="include/Crc.h" />
 		<Unit filename="include/DataBase.h" />
+		<Unit filename="include/DataTypes.h" />
 		<Unit filename="include/Device.h" />
 		<Unit filename="include/Driver.h" />
 		<Unit filename="include/InputDevice.h" />

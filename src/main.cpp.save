@@ -52,9 +52,9 @@ int main()
     CPlatform::InterruptEnable();
 //    CTimer xStatusLedTimer(500);
 //    CTimer xLedTimer(500);
-    CTimer xPeripheryTimer(10);
-    CUart xUart0(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
-    CPlatform::m_pxUart0 = &xUart0;
+//    CTimer xPeripheryTimer(10);
+    CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
+//    CPlatform::m_pxUart0 = &xUart0;
 
 //    CModbusRTU xModbusRtuOne;
     CModbusRTU::Init(CPlatform::m_pxUart0,
@@ -73,8 +73,8 @@ int main()
                        HOLDING_REGISTERS_ARRAY_LENGTH,
                        INPUT_REGISTERS_ARRAY_LENGTH);
     CModbusRTU::SlaveSet(1);
-    xModbusRtuOne.ReceiveEnable();
-    xModbusRtuOne.FlowControlSet(CModbus::START_REQUEST);
+    CModbusRTU::ReceiveEnable();
+    CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
 
 //    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
 //    CMvsn21::SpiBusExchangeEnable();
@@ -90,7 +90,7 @@ int main()
     while(1)
     {
 //        CMvsn21::SpiFsm();
-        xModbusRtuOne.Execution();
+        CModbusRTU::Execution();
         CMvsn21::MeasureFsm();
 //
 //        if (xPeripheryTimer.IsOverflow())

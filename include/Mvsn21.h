@@ -77,25 +77,23 @@ public:
 ////    CMvsn21(uint8_t uiType, CDriver* pxDriver);
 //    CMvsn21(uint8_t uiType);
 //    virtual ~CMvsn21();
-    static uint16_t TypeReport(uint8_t * , uint16_t );
-    static void SlaveSelectInterruptEnable(void);
-    static void SlaveSelectInterruptDisable(void);
+//    static uint16_t TypeReport(uint8_t * , uint16_t );
+//    static void SlaveSelectInterruptEnable(void);
+//    static void SlaveSelectInterruptDisable(void);
     static void SpiBusExchangeEnable(void);
     static void SpiBusExchangeDisable(void);
     static void Reset(void);
-    static int16_t Receive(void);
     static uint8_t Select(void);
     static int16_t Exchange(void);
-    static uint8_t FrameIsReceived(void);
-    static uint16_t GetFrameLength(void);
-//    static int8_t FrameCheck(void);
-//    static int8_t FrameCheck(uint8_t * , uint16_t );
+//    static uint8_t FrameIsReceived(void);
+//    static uint16_t GetFrameLength(void);
+////    static int8_t FrameCheck(void);
+////    static int8_t FrameCheck(uint8_t * , uint16_t );
     static int16_t ReportType(uint8_t * , uint8_t * , uint16_t );
     static int16_t ReadData(uint8_t * , uint8_t * , uint16_t );
     static int16_t SpiReply(uint8_t * , uint8_t * , uint16_t );
     static void SpiFsm(void);
-    static void ChannelsToDiscreteInput(void);
-////    static uint8_t ContinuousMeasure(void);
+//    static void ChannelsToDiscreteInput(void);
     static void MeasureFsm(void);
     static uint8_t FlowControlGet(void)
     {

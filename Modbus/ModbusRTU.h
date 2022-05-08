@@ -110,27 +110,7 @@ private:
     // таймоут по отсутствию подтверждения.
     const static uint8_t m_uiConfirmationTimeout = 500;
     const static uint8_t m_uiTransmitDelayTimeout = 5;
-
-//    friend class CModbusMasterRTU;
 };
-
-//-----------------------------------------------------------------------------------------------------
-
-
-
-
-////-----------------------------------------------------------------------------------------------------
-//class CModbusMasterRTU : virtual public CModbusRTU
-//{
-//public:
-//    CModbusMasterRTU();
-//    virtual ~CModbusMasterRTU();
-//    void Execution(void);
-//
-//protected:
-//private:
-//
-//};
 
 //-----------------------------------------------------------------------------------------------------
 #endif // CMODBUSRTU_H

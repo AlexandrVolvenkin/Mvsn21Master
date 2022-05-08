@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:55:25
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          08/May/2022  08:03:54
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWF465.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW4BD3.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -125,18 +125,18 @@
 `?<Name CModbus 1>` SYMBOL "CModbus"
 `?<Name CPlatform 5>` SYMBOL "CPlatform"
 `?<Name CSpi 14>`   SYMBOL "CSpi"
-`?<Name CMvsn21 20>` SYMBOL "CMvsn21"
-??m_aucRtuCoilsArray SYMBOL "m_aucRtuCoilsArray", `?<Name CMvsn21 20>`
-??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 20>`
-??m_aucRtuHoldingRegistersArray SYMBOL "m_aucRtuHoldingRegistersArray", `?<Name CMvsn21 20>`
-??m_aucRtuInputRegistersArray SYMBOL "m_aucRtuInputRegistersArray", `?<Name CMvsn21 20>`
-??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 20>`
-??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 20>`
+`?<Name CMvsn21 23>` SYMBOL "CMvsn21"
+??m_aucRtuCoilsArray SYMBOL "m_aucRtuCoilsArray", `?<Name CMvsn21 23>`
+??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 23>`
+??m_aucRtuHoldingRegistersArray SYMBOL "m_aucRtuHoldingRegistersArray", `?<Name CMvsn21 23>`
+??m_aucRtuInputRegistersArray SYMBOL "m_aucRtuInputRegistersArray", `?<Name CMvsn21 23>`
+??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 23>`
+??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 23>`
 ??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 14>`
 ??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 14>`
 ??m_pxUart0         SYMBOL "m_pxUart0", `?<Name CPlatform 5>`
 ??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CModbus 1>`
-??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 20>`
+??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 23>`
 
         EXTERN ??Execution
         EXTERN ??Init
@@ -695,6 +695,7 @@ main:
         LDI     R16, 16
         ST      -Y, R17
         ST      -Y, R16
+        LDI     R16, 8
         ST      -Y, R17
         ST      -Y, R16
         LDI     R16, LOW(??m_aucRtuInputRegistersArray)
@@ -873,10 +874,10 @@ __?EEARL:
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 204 bytes in segment CODE
+// 206 bytes in segment CODE
 //   2 bytes in segment NEAR_F
 // 
-// 186 bytes of CODE memory (+ 20 bytes shared)
+// 188 bytes of CODE memory (+ 20 bytes shared)
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

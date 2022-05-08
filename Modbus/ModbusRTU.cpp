@@ -85,11 +85,11 @@ void CModbusRTU::Init(CUart* pxDevice,
     m_uiHoldingRegistersNumber = uiHoldingRegistersNumber;
 
     CUart::Init(m_uiBaudRate,
-                       m_cParity,
-                       m_uiDataBit,
-                       m_uiStopBit,
-                       puiRxBuffer,
-                       puiTxBuffer);
+                m_cParity,
+                m_uiDataBit,
+                m_uiStopBit,
+                puiRxBuffer,
+                puiTxBuffer);
 }
 
 //-----------------------------------------------------------------------------------------------------
@@ -160,12 +160,6 @@ uint8_t CModbusRTU::MessageIsSended(void)
     return CUart::FrameIsSended();
 }
 
-////-----------------------------------------------------------------------------------------------------
-//int16_t CModbusRTU::Receive(void)
-//{
-//    return CUart::Read();
-//}
-
 //-----------------------------------------------------------------------------------------------------
 uint8_t CModbusRTU::Select(void)
 {
@@ -181,6 +175,11 @@ int16_t CModbusRTU::Receive(uint8_t *puiDestination, uint16_t uiLength)
 //-----------------------------------------------------------------------------------------------------
 uint8_t CModbusRTU::FrameIsReceived(void)
 {
+    int16_t uiData;
+    uiData = CPlatform::GetSystemTick();
+    uiData = m_uiLastSystemTime;
+    uiData = m_uiGuardTimeout;
+
     if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
             m_uiGuardTimeout)
     {
@@ -246,28 +245,6 @@ void CModbusRTU::GetSystemTime(void)
     m_uiLastSystemTime = CPlatform::GetSystemTick();
 }
 
-////-----------------------------------------------------------------------------------------------------
-//int8_t CModbusRTU::FrameCheck(void)
-//{
-//    if (CUart::m_nuiRxBuffByteCounter < _MIN_MESSAGE_LENGTH)
-//    {
-//        return 0;
-//    }
-//
-//    uint16_t uiCrc = ((static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 1]) << 8) |
-//                      (static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 2])));
-//
-//    if (usCrc16(m_puiRxBuffer,
-//                (CUart::m_nuiRxBuffByteCounter - _MODBUS_RTU_CHECKSUM_LENGTH)) == uiCrc)
-//    {
-//        return 1;
-//    }
-//    else
-//    {
-//        return 0;
-//    }
-//}
-
 //-----------------------------------------------------------------------------------------------------
 int8_t CModbusRTU::FrameCheck(uint8_t *puiSourse, uint16_t uiLength)
 {
@@ -278,8 +255,6 @@ int8_t CModbusRTU::FrameCheck(uint8_t *puiSourse, uint16_t uiLength)
 
     uint16_t uiCrc = ((static_cast<uint16_t>(puiSourse[uiLength - 1]) << 8) |
                       (static_cast<uint16_t>(puiSourse[uiLength - 2])));
-    uint16_t uiCrcTemp = usCrc16(puiSourse,
-                                 (uiLength - _MODBUS_RTU_CHECKSUM_LENGTH));
     if (usCrc16(puiSourse,
                 (uiLength - _MODBUS_RTU_CHECKSUM_LENGTH)) == uiCrc)
     {
@@ -503,162 +478,3 @@ void CModbusRTU::Execution(void)
 }
 //-----------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-////-----------------------------------------------------------------------------------------------------
-//CModbusMasterRTU::CModbusMasterRTU()
-//{
-//
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//CModbusMasterRTU::~CModbusMasterRTU()
-//{
-//
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CModbusMasterRTU::Execution(void)
-//{
-//    int16_t iReceivedCounter;
-//
-//    switch (m_uiFlowControl)
-//    {
-//    case IDDLE:
-//        break;
-//
-//    case START:
-//        Reset();
-//        GetSystemTime();
-//        m_uiMessageLength = 0;
-//        m_uiFlowControl = FRAME_TRANSMIT;
-//        break;
-//
-//    case WAITING_MESSAGE_INDICATION:
-//        if (Select())
-//        {
-//            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
-//
-//            if (iReceivedCounter > 0)
-//            {
-//                m_uiMessageLength += iReceivedCounter;
-//                GetSystemTime();
-//                m_uiFlowControl = RECEIVE_MESSAGE;
-//            }
-//            else if (iReceivedCounter == -1)
-//            {
-//                m_uiFlowControl = START;
-//            }
-//        }
-//
-//        if (ReceiveTimeIsOver())
-//        {
-//            m_uiFlowControl = START;
-//        }
-//
-//        break;
-//
-//    case START_MESSAGE_CONFIRMATION:
-//        Reset();
-//        GetSystemTime();
-//        m_uiMessageLength = 0;
-//        m_uiFlowControl = WAITING_MESSAGE_CONFIRMATION;
-//        break;
-//
-//    case WAITING_MESSAGE_CONFIRMATION:
-//        if (Select())
-//        {
-//            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
-//
-//            if (iReceivedCounter > 0)
-//            {
-//                m_uiMessageLength += iReceivedCounter;
-//                GetSystemTime();
-//                m_uiFlowControl = RECEIVE_MESSAGE;
-//            }
-//            else if (iReceivedCounter == -1)
-//            {
-//                m_uiFlowControl = START;
-//            }
-//        }
-//
-//        if (ConfirmationReceiveTimeIsOver())
-//        {
-//            m_uiFlowControl = START;
-//        }
-//
-//        break;
-//
-//    case RECEIVE_MESSAGE:
-//        if (Select())
-//        {
-//            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
-//
-//            if (iReceivedCounter > 0)
-//            {
-//                m_uiMessageLength += iReceivedCounter;
-//                GetSystemTime();
-//            }
-//            else if (iReceivedCounter == -1)
-//            {
-//                m_uiFlowControl = START;
-//            }
-//        }
-//
-//        if (FrameIsReceived())
-//        {
-//            if (FrameCheck(m_puiRxBuffer, m_uiMessageLength))
-//            {
-//                m_uiFlowControl = REPLY;
-//            }
-//            else
-//            {
-//                m_uiFlowControl = START;
-//            }
-//        }
-//
-//        break;
-//
-//    case REPLY:
-//        if (Reply(m_puiRxBuffer, m_puiTxBuffer, m_uiMessageLength))
-//        {
-//            CPlatform::TxLedOn();
-//            m_uiFlowControl = FRAME_TRANSMIT;
-//        }
-//        else
-//        {
-//            CPlatform::TxLedOff();
-//            m_uiFlowControl = START;
-//        }
-//        break;
-//
-//    case FRAME_TRANSMIT:
-//        Reset();
-//        GetSystemTime();
-//        m_uiFlowControl = WAITING_FRAME_TRANSMIT;
-//        break;
-//
-//    case WAITING_FRAME_TRANSMIT:
-//        if (TransmitDelayTimeIsOver())
-//        {
-//            SendMessage(m_puiTxBuffer, m_uiMessageLength);
-//            m_uiFlowControl = FRAME_TRANSMIT_END_WAITING;
-//        }
-//        break;
-//
-//    case FRAME_TRANSMIT_END_WAITING:
-//        if (MessageIsSended())
-//        {
-//            CPlatform::TxLedOff();
-//            m_uiFlowControl = IDDLE;
-//        }
-//
-//        break;
-//
-//    default:
-//        break;
-//    }
-//}

@@ -42,14 +42,14 @@ void CAdc::ChannelSelect(uint8_t uiChannel)
     ADMUX |= (uiChannel & 0x0F);
 }
 
-//-----------------------------------------------------------------------------------------------------
-void CAdc::StartSingle(void)
-{
-    // Отключаем режим пониженного энергопотребления.
-    PRR &= ~BIT(PRADC);
-    // Включаем АЦП.
-    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
-}
+////-----------------------------------------------------------------------------------------------------
+//void CAdc::StartSingle(void)
+//{
+//    // Отключаем режим пониженного энергопотребления.
+//    PRR &= ~BIT(PRADC);
+//    // Включаем АЦП.
+//    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
+//}
 
 //-----------------------------------------------------------------------------------------------------
 void CAdc::Start(void)
@@ -154,10 +154,10 @@ bool CUart::m_bfRxBuffOverflow;
 
 //-----------------------------------------------------------------------------------------------------
 void CUart::UartBind(volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
-                volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
-                volatile uint8_t *ucsrc, volatile uint8_t *udr,
-                volatile uint8_t *rs485ddr, volatile uint8_t rs485ddpin,
-                volatile uint8_t *rs485port, volatile uint8_t rs485pin)
+                     volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
+                     volatile uint8_t *ucsrc, volatile uint8_t *udr,
+                     volatile uint8_t *rs485ddr, volatile uint8_t rs485ddpin,
+                     volatile uint8_t *rs485port, volatile uint8_t rs485pin)
 {
     m_UBRRH = ubrrh;
     m_UBRRL = ubrrl;
@@ -165,16 +165,16 @@ void CUart::UartBind(volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
     m_UCSRB = ucsrb;
     m_UCSRC = ucsrc;
     m_UDR = udr;
-    m_rs485ddr = rs485ddr;
-    m_rs485ddpin = rs485ddpin;
-    m_rs485port = rs485port;
-    m_rs485pin = rs485pin;
-
-    if (m_rs485ddr)
-    {
-        *m_rs485ddr |= Bit(m_rs485ddpin);
-        *m_rs485port &= ~(Bit(m_rs485pin));
-    }
+//    m_rs485ddr = rs485ddr;
+//    m_rs485ddpin = rs485ddpin;
+//    m_rs485port = rs485port;
+//    m_rs485pin = rs485pin;
+//
+//    if (m_rs485ddr)
+//    {
+//        *m_rs485ddr |= Bit(m_rs485ddpin);
+//        *m_rs485port &= ~(Bit(m_rs485pin));
+//    }
 }
 
 ////-----------------------------------------------------------------------------------------------------
@@ -422,6 +422,7 @@ void CUart::TxcInterruptHandler(void)
 //    {
 //        Rs485RtsOff();
 //    }
+    CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
     *m_UCSRA |= (1 << RXC0);
     *m_UCSRB |= (1 << RXEN0) | (1 << RXCIE0);
     m_bfFrameIsSended = 1;
@@ -441,7 +442,7 @@ void CUart::RecvInterruptHandler(void)
     }
     else
     {
-        m_puiRxBuffer[m_nuiRxBuffByteCounter++] = *m_UDR;
+        m_auiIntermediateBuff[m_nuiRxBuffByteCounter++] = *m_UDR;
         m_bfByteIsReceived = 1;
     }
 }
@@ -488,9 +489,6 @@ __interrupt void SIG_UART0_RECV(void)
 //
 //}
 
-// SFR_W_N(0x21, EEAR, Dummy15, Dummy14, Dummy13, Dummy12, Dummy11, Dummy10, Dummy9, Dummy8, EEAR7, EEAR6, EEAR5, EEAR4, EEAR3, EEAR2, EEAR1, EEAR0)
-// SFR_B_N(0x20, EEDR, EEDR7, EEDR6, EEDR5, EEDR4, EEDR3, EEDR2, EEDR1, EEDR0)
-// SFR_B_N(0x1F, EECR, Dummy7, Dummy6, EEPM1, EEPM0, EERIE, EEMPE, EEPE, EERE)
 //-----------------------------------------------------------------------------------------------------
 uint8_t CEeprom::ReadByte(uint16_t ui16EepromSourse)
 {
@@ -563,17 +561,17 @@ bool CSpi::m_bfRxBuffOverflow;
 uint8_t CSpi::m_auiSpiRxBuffer[];
 uint8_t CSpi::m_auiSpiTxBuffer[];
 
-////-----------------------------------------------------------------------------------------------------
-//CSpi::CSpi()
-//{
-//
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//CSpi::~CSpi()
-//{
-//
-//}
+//-----------------------------------------------------------------------------------------------------
+CSpi::CSpi()
+{
+
+}
+
+//-----------------------------------------------------------------------------------------------------
+CSpi::~CSpi()
+{
+
+}
 
 //-----------------------------------------------------------------------------------------------------
 void CSpi::Init(uint8_t *puiRxBuffer, uint8_t *puiTxBuffer)
@@ -672,7 +670,7 @@ int16_t CSpi::Exchange(void)
 //
 //    return 1;
 //}
-
+//
 ////-----------------------------------------------------------------------------------------------------
 //void CSpi::RecvInterruptHandler(void)
 //{
@@ -824,7 +822,7 @@ __interrupt void SIG_INT0(void)
         // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI).
         // установим флаг - вход SS0 переходил в 1(запущен демон ПАС).
         CPlatform::uiSlaveSelectIsHigh = 1;
-//        CSpi::DataExchangeInProgressClear();
+        CSpi::DataExchangeInProgressClear();
         // запретим SPI.
         CSpi::Disable();
         // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
@@ -837,7 +835,7 @@ __interrupt void SIG_INT0(void)
     }
     else
     {
-//        CSpi::DataExchangeInProgressSet();
+        CSpi::DataExchangeInProgressSet();
         CSpi::Enable();
         // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
@@ -884,48 +882,48 @@ void SystemTickInit(void)
 #endif //TIMER2_INTERRUPT
 
 #ifdef TIMER1_INTERRUPT
-
-    unsigned long ulCompareMatch;
-    unsigned char ucLowByte;
-
-    /* Using 16bit timer 1 to generate the tick.  Correct fuses must be
-    selected for the configCPU_CLOCK_HZ clock. */
-
-    ulCompareMatch = CPlatform::F_CPU / MAIN_TIMER_TICK_RATE_HZ;
-
-    /* We only have 16 bits so have to scale to get our required tick rate. */
-    ulCompareMatch /= portCLOCK_PRESCALER;
-
-    /* Adjust for correct value. */
-    ulCompareMatch -= ( unsigned long ) 1;
-
-    /* Setup compare match value for compare match A.  Interrupts are disabled
-    before this is called so we need not worry here. */
-    OCR1A = ulCompareMatch;
-
-    /* Setup clock source and compare match behaviour. */
-    TCCR1A &= ~(_BV(WGM11) | _BV(WGM10));
-    ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
-    TCCR1B = ucLowByte;
-
-    /* Enable the interrupt - this is okay as interrupt are currently globally
-    disabled. */
-    ucLowByte = TIMSK;
-    ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
-    TIMSK = ucLowByte;
+//
+//    unsigned long ulCompareMatch;
+//    unsigned char ucLowByte;
+//
+//    /* Using 16bit timer 1 to generate the tick.  Correct fuses must be
+//    selected for the configCPU_CLOCK_HZ clock. */
+//
+//    ulCompareMatch = CPlatform::F_CPU / MAIN_TIMER_TICK_RATE_HZ;
+//
+//    /* We only have 16 bits so have to scale to get our required tick rate. */
+//    ulCompareMatch /= portCLOCK_PRESCALER;
+//
+//    /* Adjust for correct value. */
+//    ulCompareMatch -= ( unsigned long ) 1;
+//
+//    /* Setup compare match value for compare match A.  Interrupts are disabled
+//    before this is called so we need not worry here. */
+//    OCR1A = ulCompareMatch;
+//
+//    /* Setup clock source and compare match behaviour. */
+//    TCCR1A &= ~(_BV(WGM11) | _BV(WGM10));
+//    ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
+//    TCCR1B = ucLowByte;
+//
+//    /* Enable the interrupt - this is okay as interrupt are currently globally
+//    disabled. */
+//    ucLowByte = TIMSK;
+//    ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
+//    TIMSK = ucLowByte;
 
 #endif //TIMER1_INTERRUPT
 
 }
 
-//-----------------------------------------------------------------------------------------------------
-#ifdef TIMER1_INTERRUPT
-// Прерывание TIMER1_COMPA_vect
-__interrupt void SystemTickInterrupt(void)
-{
-    CPlatform::IncrementSystemTick();
-}
-#endif //TIMER1_INTERRUPT
+////-----------------------------------------------------------------------------------------------------
+//#ifdef TIMER1_INTERRUPT
+//// Прерывание TIMER1_COMPA_vect
+//__interrupt void SystemTickInterrupt(void)
+//{
+//    CPlatform::IncrementSystemTick();
+//}
+//#endif //TIMER1_INTERRUPT
 //-----------------------------------------------------------------------------------------------------
 #ifdef TIMER2_INTERRUPT
 // Прерывание TIMER2_COMP_vect
@@ -946,78 +944,3 @@ void CPlatform::Init(void)
 //    StatusLedSetPinOutput();
 //    TxLedSetPinOutput();
 }
-
-
-
-//
-//        PUSH R16
-//        LDS     R16, ??m_uiExchangeByte
-//        OUT     0x0F, R16
-//        POP R16
-//
-//        ST      -Y, R31
-//          CFI R31 Frame(CFA_Y, -1)
-//          CFI CFA_Y Y+1
-//        ST      -Y, R30
-//          CFI R30 Frame(CFA_Y, -2)
-//          CFI CFA_Y Y+2
-//        ST      -Y, R19
-//          CFI R19 Frame(CFA_Y, -3)
-//          CFI CFA_Y Y+3
-//        ST      -Y, R18
-//          CFI R18 Frame(CFA_Y, -4)
-//          CFI CFA_Y Y+4
-//        ST      -Y, R17
-//          CFI R17 Frame(CFA_Y, -5)
-//          CFI CFA_Y Y+5
-//        ST      -Y, R16
-//          CFI R16 Frame(CFA_Y, -6)
-//          CFI CFA_Y Y+6
-//        IN      R19, 0x3F
-//;        LDS     R16, ??m_uiExchangeByte
-//;        OUT     0x2E, R16
-//        IN      R16, 0x2E
-//        STS     ??m_uiExchangeByte, R16
-//        LDS     R16, ??m_nuiBuffByteCounter
-//        LDS     R17, (??m_nuiBuffByteCounter + 1)
-//        CPI     R16, 0
-//        LDI     R18, 1
-//        CPC     R17, R18
-//        BRCC    ??SIG_SPI_STC_1
-//        LDI     R30, LOW(??m_nuiBuffByteCounter)
-//        LDI     R31, (??m_nuiBuffByteCounter) >> 8
-//        LD      R16, Z
-//        LDD     R17, Z+1
-//        SUBI    R16, 255
-//        SBCI    R17, 255
-//        ST      Z, R16
-//        STD     Z+1, R17
-//        LDI     R16, 1
-//        STS     ??m_bfByteIsReceived, R16
-//        RJMP    ??SIG_SPI_STC_2
-//??SIG_SPI_STC_1:
-//        LDI     R16, 1
-//        STS     ??m_bfRxBuffOverflow, R16
-//        LDI     R16, 1
-//        STS     ??m_bfByteIsReceived, R16
-//??SIG_SPI_STC_2:
-//        OUT     0x3F, R19
-//        LD      R16, Y+
-//          CFI R16 SameValue
-//          CFI CFA_Y Y+5
-//        LD      R17, Y+
-//          CFI R17 SameValue
-//          CFI CFA_Y Y+4
-//        LD      R18, Y+
-//          CFI R18 SameValue
-//          CFI CFA_Y Y+3
-//        LD      R19, Y+
-//          CFI R19 SameValue
-//          CFI CFA_Y Y+2
-//        LD      R30, Y+
-//          CFI R30 SameValue
-//          CFI CFA_Y Y+1
-//        LD      R31, Y+
-//          CFI R31 SameValue
-//          CFI CFA_Y Y+0
-//        RETI

@@ -153,7 +153,7 @@ public:
 //    virtual ~CAdc();
     static void Init();
     static void ChannelSelect(uint8_t );
-    static void StartSingle(void);
+//    static void StartSingle(void);
     static void Start(void);
     static void Stop(void);
     static void Enable(void);
@@ -356,38 +356,38 @@ enum
 
 enum
 {
-    SPI_MAX_BUFF_LENGTH = 16,
+    SPI_MAX_BUFF_LENGTH = 64,
 };
 
 class CSpi
 {
 public:
-//    CSpi();
-//    virtual ~CSpi();
+    CSpi();
+    virtual ~CSpi();
 
     static void Init(uint8_t * , uint8_t * );
     static void Enable(void);
     static void Disable(void);
     static void RecvInterruptHandler(void);
     static int16_t Exchange(void);
-//    static uint8_t Read(uint8_t * , uint16_t , uint16_t );
-//    static uint8_t Write(uint16_t , uint8_t * , uint16_t );
+    static uint8_t Read(uint8_t * , uint16_t , uint16_t );
+    static uint8_t Write(uint16_t , uint8_t * , uint16_t );
     static void Reset(void);
-////-----------------------------------------------------------------------------------------------------
-//    static uint8_t DataExchangeInProgress(void)
-//    {
-//        return m_bfDataExchangeInProgress;
-//    }
-////-----------------------------------------------------------------------------------------------------
-//    static void DataExchangeInProgressClear(void)
-//    {
-//        m_bfDataExchangeInProgress = 0;
-//    }
-////-----------------------------------------------------------------------------------------------------
-//    static void DataExchangeInProgressSet(void)
-//    {
-//        m_bfDataExchangeInProgress = 1;
-//    }
+//-----------------------------------------------------------------------------------------------------
+    static uint8_t DataExchangeInProgress(void)
+    {
+        return m_bfDataExchangeInProgress;
+    }
+//-----------------------------------------------------------------------------------------------------
+    static void DataExchangeInProgressClear(void)
+    {
+        m_bfDataExchangeInProgress = 0;
+    }
+//-----------------------------------------------------------------------------------------------------
+    static void DataExchangeInProgressSet(void)
+    {
+        m_bfDataExchangeInProgress = 1;
+    }
 //-----------------------------------------------------------------------------------------------------
     static uint8_t DataExchangeIsOccur(void)
     {
@@ -501,23 +501,23 @@ public:
         return m_uiSystemTick;
     }
 
-//-----------------------------------------------------------------------------------------------------
-    static void StatusLedSetPinOutput(void)
-    {
-        DDRD |=  BIT(DDD3);
-    };
-
-//-----------------------------------------------------------------------------------------------------
-    static void StatusLedOn(void)
-    {
-        PORTD &= ~BIT(PD3);
-    };
-
-//-----------------------------------------------------------------------------------------------------
-    static void StatusLedOff(void)
-    {
-        PORTD |=  BIT(PD3);
-    };
+////-----------------------------------------------------------------------------------------------------
+//    static void StatusLedSetPinOutput(void)
+//    {
+//        DDRD |=  BIT(DDD3);
+//    };
+//
+////-----------------------------------------------------------------------------------------------------
+//    static void StatusLedOn(void)
+//    {
+//        PORTD &= ~BIT(PD3);
+//    };
+//
+////-----------------------------------------------------------------------------------------------------
+//    static void StatusLedOff(void)
+//    {
+//        PORTD |=  BIT(PD3);
+//    };
 //-----------------------------------------------------------------------------------------------------------------
     static void TxLedSetPinOutput(void)
     {

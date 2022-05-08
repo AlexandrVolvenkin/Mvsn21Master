@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          07/May/2022  10:53:25
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          08/May/2022  08:03:55
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Platform.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW1FF7.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW4DE8.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Platform.cpp --cpu=m48
 //        -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -41,12 +41,14 @@
         EXTERN ?PROLOGUE4_L09
         EXTERN ?PROLOGUE5_L09
         EXTERN ?Register_R4_is_cg_reg
-        EXTERN ?S_SHL_L02
         EXTERN ?UL_DIVMOD_L03
         EXTERN ?need_segment_init
 
         PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBLIC ??CSpi
         PUBLIC ??ChannelSelect
+        PUBWEAK ??DataExchangeInProgressClear
+        PUBWEAK ??DataExchangeInProgressSet
         PUBWEAK ??DataExchangeIsOccurSet
         PUBLIC ??Disable
         PUBLIC ??Disable_1
@@ -82,7 +84,6 @@
         PUBLIC ??SIG_UART0_TXC
         PUBWEAK `??SIG_UART0_TXC::??INTVEC 40`
         PUBLIC ??Start
-        PUBLIC ??StartSingle
         PUBLIC ??Stop
         PUBLIC ??SystemTickInit
         PUBLIC ??SystemTickInterrupt
@@ -95,6 +96,7 @@
         PUBLIC ??Write
         PUBLIC ??WriteByte
         PUBLIC ??Write_1
+        PUBWEAK ??__vtbl
         PUBLIC ??m_UBRRH
         PUBLIC ??m_UBRRL
         PUBLIC ??m_UCSRA
@@ -129,7 +131,9 @@
         PUBLIC ??m_uiExchangeByte
         PUBLIC ??m_uiReceivedByteCounter
         PUBLIC ??m_uiSystemTick
+        PUBLIC `??new CSpi`
         PUBLIC ??uiSlaveSelectIsHigh
+        PUBLIC `?~CSpi`
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
         PUBWEAK _A_ADCSRA
@@ -216,10 +220,10 @@
 `?<Name CMvsn21 0>` SYMBOL "CMvsn21"
 ??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CMvsn21 0>`
 ??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 0>`
-`?<Name CAdc 3>`    SYMBOL "CAdc"
 `?<Name CSpi 7>`    SYMBOL "CSpi"
-`?<Name CUart 12>`  SYMBOL "CUart"
-`?<Name CPlatform 31>` SYMBOL "CPlatform"
+`?<Name CAdc 13>`   SYMBOL "CAdc"
+`?<Name CUart 25>`  SYMBOL "CUart"
+`?<Name CPlatform 44>` SYMBOL "CPlatform"
 
 `??SIG_INT0::??INTVEC 2` SYMBOL "??INTVEC 2", ??SIG_INT0
 
@@ -230,44 +234,47 @@
 `??SIG_UART0_TXC::??INTVEC 40` SYMBOL "??INTVEC 40", ??SIG_UART0_TXC
 
 `??SystemTickInterrupt::??INTVEC 14` SYMBOL "??INTVEC 14", ??SystemTickInterrupt
-??m_UBRRH           SYMBOL "m_UBRRH", `?<Name CUart 12>`
-??m_UBRRL           SYMBOL "m_UBRRL", `?<Name CUart 12>`
-??m_UCSRA           SYMBOL "m_UCSRA", `?<Name CUart 12>`
-??m_UCSRB           SYMBOL "m_UCSRB", `?<Name CUart 12>`
-??m_UCSRC           SYMBOL "m_UCSRC", `?<Name CUart 12>`
-??m_UDR             SYMBOL "m_UDR", `?<Name CUart 12>`
-??m_auiIntermediateBuff SYMBOL "m_auiIntermediateBuff", `?<Name CUart 12>`
+??__vtbl            SYMBOL "__vtbl", `?<Name CSpi 7>`
+??m_UBRRH           SYMBOL "m_UBRRH", `?<Name CUart 25>`
+??m_UBRRL           SYMBOL "m_UBRRL", `?<Name CUart 25>`
+??m_UCSRA           SYMBOL "m_UCSRA", `?<Name CUart 25>`
+??m_UCSRB           SYMBOL "m_UCSRB", `?<Name CUart 25>`
+??m_UCSRC           SYMBOL "m_UCSRC", `?<Name CUart 25>`
+??m_UDR             SYMBOL "m_UDR", `?<Name CUart 25>`
+??m_auiIntermediateBuff SYMBOL "m_auiIntermediateBuff", `?<Name CUart 25>`
 ??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 7>`
 ??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 7>`
-??m_bfByteIsReceived SYMBOL "m_bfByteIsReceived", `?<Name CUart 12>`
+??m_bfByteIsReceived SYMBOL "m_bfByteIsReceived", `?<Name CUart 25>`
 ??m_bfByteIsReceived_1 SYMBOL "m_bfByteIsReceived", `?<Name CSpi 7>`
 ??m_bfByteIsTransmited SYMBOL "m_bfByteIsTransmited", `?<Name CSpi 7>`
 ??m_bfDataExchangeInProgress SYMBOL "m_bfDataExchangeInProgress", `?<Name CSpi 7>`
 ??m_bfDataExchangeIsOccur SYMBOL "m_bfDataExchangeIsOccur", `?<Name CSpi 7>`
-??m_bfFrameIsSended SYMBOL "m_bfFrameIsSended", `?<Name CUart 12>`
-??m_bfRxBuffOverflow SYMBOL "m_bfRxBuffOverflow", `?<Name CUart 12>`
+??m_bfFrameIsSended SYMBOL "m_bfFrameIsSended", `?<Name CUart 25>`
+??m_bfRxBuffOverflow SYMBOL "m_bfRxBuffOverflow", `?<Name CUart 25>`
 ??m_bfRxBuffOverflow_1 SYMBOL "m_bfRxBuffOverflow", `?<Name CSpi 7>`
-??m_fbMeasureIsComlete SYMBOL "m_fbMeasureIsComlete", `?<Name CAdc 3>`
+??m_fbMeasureIsComlete SYMBOL "m_fbMeasureIsComlete", `?<Name CAdc 13>`
 ??m_nuiBuffByteCounter SYMBOL "m_nuiBuffByteCounter", `?<Name CSpi 7>`
-??m_nuiRxBuffByteCounter SYMBOL "m_nuiRxBuffByteCounter", `?<Name CUart 12>`
-??m_nuiTxBuffByteCounter SYMBOL "m_nuiTxBuffByteCounter", `?<Name CUart 12>`
-??m_puiRxBuffer     SYMBOL "m_puiRxBuffer", `?<Name CUart 12>`
+??m_nuiRxBuffByteCounter SYMBOL "m_nuiRxBuffByteCounter", `?<Name CUart 25>`
+??m_nuiTxBuffByteCounter SYMBOL "m_nuiTxBuffByteCounter", `?<Name CUart 25>`
+??m_puiRxBuffer     SYMBOL "m_puiRxBuffer", `?<Name CUart 25>`
 ??m_puiRxBuffer_1   SYMBOL "m_puiRxBuffer", `?<Name CSpi 7>`
-??m_puiTxBuffer     SYMBOL "m_puiTxBuffer", `?<Name CUart 12>`
+??m_puiTxBuffer     SYMBOL "m_puiTxBuffer", `?<Name CUart 25>`
 ??m_puiTxBuffer_1   SYMBOL "m_puiTxBuffer", `?<Name CSpi 7>`
-??m_pxUart0         SYMBOL "m_pxUart0", `?<Name CPlatform 31>`
-??m_pxUart1         SYMBOL "m_pxUart1", `?<Name CPlatform 31>`
-??m_rs485ddpin      SYMBOL "m_rs485ddpin", `?<Name CUart 12>`
-??m_rs485ddr        SYMBOL "m_rs485ddr", `?<Name CUart 12>`
-??m_rs485pin        SYMBOL "m_rs485pin", `?<Name CUart 12>`
-??m_rs485port       SYMBOL "m_rs485port", `?<Name CUart 12>`
+??m_pxUart0         SYMBOL "m_pxUart0", `?<Name CPlatform 44>`
+??m_pxUart1         SYMBOL "m_pxUart1", `?<Name CPlatform 44>`
+??m_rs485ddpin      SYMBOL "m_rs485ddpin", `?<Name CUart 25>`
+??m_rs485ddr        SYMBOL "m_rs485ddr", `?<Name CUart 25>`
+??m_rs485pin        SYMBOL "m_rs485pin", `?<Name CUart 25>`
+??m_rs485port       SYMBOL "m_rs485port", `?<Name CUart 25>`
 ??m_uiExchangeByte  SYMBOL "m_uiExchangeByte", `?<Name CSpi 7>`
 ??m_uiReceivedByteCounter SYMBOL "m_uiReceivedByteCounter", `?<Name CSpi 7>`
-??m_uiSystemTick    SYMBOL "m_uiSystemTick", `?<Name CPlatform 31>`
-??uiSlaveSelectIsHigh SYMBOL "uiSlaveSelectIsHigh", `?<Name CPlatform 31>`
+??m_uiSystemTick    SYMBOL "m_uiSystemTick", `?<Name CPlatform 44>`
+??uiSlaveSelectIsHigh SYMBOL "uiSlaveSelectIsHigh", `?<Name CPlatform 44>`
 
         EXTERN ??m_uiFlowControl
         EXTERN ??m_uiMeasureFlowControl
+        EXTERN `??operator delete`
+        EXTERN `??operator new`
 
 // D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Platform.cpp
 //    1 //-----------------------------------------------------------------------------------------------------
@@ -673,65 +680,7 @@ _A_DDRB:
 // union <unnamed> volatile __io _A_PINB
 _A_PINB:
         DS8 1
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CSpi::DataExchangeIsOccurSet()
-??DataExchangeIsOccurSet:
-        LDI     R16, 1
-        STS     (??m_nuiBuffByteCounter + 8), R16
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CPlatform::InterruptEnable()
-??InterruptEnable:
-        SEI
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CPlatform::InterruptDisable()
-??InterruptDisable:
-        CLI
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CPlatform::IncrementSystemTick()
-??IncrementSystemTick:
-        LDI     R30, LOW(??m_uiSystemTick)
-        LDI     R31, (??m_uiSystemTick) >> 8
-        LD      R16, Z
-        LDD     R17, Z+1
-        SUBI    R16, 255
-        SBCI    R17, 255
-        ST      Z, R16
-        STD     Z+1, R17
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CPlatform::TxLedOn()
-??TxLedOn:
-        CBI     0x0B, 0x03
-        RET
-        REQUIRE _A_PORTD
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CPlatform::TxLedOff()
-??TxLedOff:
-        SBI     0x0B, 0x03
-        RET
-        REQUIRE _A_PORTD
 //    9 #include "Mvsn21.h"
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CMvsn21::FlowControlSet(uint8_t)
-??FlowControlSet:
-        STS     ??m_uiFlowControl, R16
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 void CMvsn21::MeasureFlowControlSet(uint8_t)
-??MeasureFlowControlSet:
-        STS     ??m_uiMeasureFlowControl, R16
-        RET
 //   10 
 //   11 // ATMega48
 //   12 
@@ -754,166 +703,77 @@ _A_PINB:
 //   24 //}
 //   25 
 //   26 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   27 void CAdc::Init(void)
-??Init:
 //   28 {
 //   29     // Отключаем цифровые входные буферы на линиях АЦП.
 //   30     DIDR0  = 0x3F;
-        LDI     R16, 63
-        STS     _A_DIDR0, R16
 //   31     // SCK/128
 //   32     ADCSRA = CAdc::DIV128;
-        LDI     R16, 7
-        STS     _A_ADCSRA, R16
 //   33     ADCSRB = 0x00;
-        LDI     R16, 0
-        STS     _A_ADCSRB, R16
 //   34     // Внутренний источник опорного напряжения Vref = 1.1V
 //   35     ADMUX = (BIT(REFS1) | BIT(REFS0));
-        LDI     R16, 192
-        STS     _A_ADMUX, R16
 //   36 }
-        RET
-        REQUIRE _A_DIDR0
-        REQUIRE _A_ADCSRA
-        REQUIRE _A_ADCSRB
-        REQUIRE _A_ADMUX
 //   37 
 //   38 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   39 void CAdc::ChannelSelect(uint8_t uiChannel)
-??ChannelSelect:
 //   40 {
 //   41     ADMUX &= ~(0x0F);
-        LDS     R17, _A_ADMUX
-        ANDI    R17, 0xF0
-        STS     _A_ADMUX, R17
 //   42     ADMUX |= (uiChannel & 0x0F);
-        ANDI    R16, 0x0F
-        LDS     R17, _A_ADMUX
-        OR      R17, R16
-        STS     _A_ADMUX, R17
 //   43 }
-        RET
-        REQUIRE _A_ADMUX
 //   44 
-//   45 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   46 void CAdc::StartSingle(void)
-??StartSingle:
-//   47 {
-//   48     // Отключаем режим пониженного энергопотребления.
-//   49     PRR &= ~BIT(PRADC);
-        LDS     R16, 100
-        ANDI    R16, 0xFE
-        STS     100, R16
-//   50     // Включаем АЦП.
-//   51     ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
-        LDS     R16, _A_ADCSRA
-        ORI     R16, 0xC8
-        STS     _A_ADCSRA, R16
-//   52 }
-        RET
-        REQUIRE _A_PRR
-        REQUIRE _A_ADCSRA
+//   45 ////-----------------------------------------------------------------------------------------------------
+//   46 //void CAdc::StartSingle(void)
+//   47 //{
+//   48 //    // Отключаем режим пониженного энергопотребления.
+//   49 //    PRR &= ~BIT(PRADC);
+//   50 //    // Включаем АЦП.
+//   51 //    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
+//   52 //}
 //   53 
 //   54 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   55 void CAdc::Start(void)
-??Start:
 //   56 {
 //   57     // Включаем АЦП.
 //   58 ////    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
 //   59     ADCSRA |= (BIT(ADEN) | BIT(ADSC));
-        LDS     R16, _A_ADCSRA
-        ORI     R16, 0xC0
-        STS     _A_ADCSRA, R16
 //   60 //    ADCSRA |= (BIT(ADSC));
 //   61 }
-        RET
-        REQUIRE _A_ADCSRA
 //   62 
 //   63 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   64 void CAdc::Stop(void)
-??Stop:
 //   65 {
 //   66     // Выключаем АЦП.
 //   67     ADCSRA &= ~(BIT(ADEN) | BIT(ADSC));
-        LDS     R16, _A_ADCSRA
-        ANDI    R16, 0x3F
-        STS     _A_ADCSRA, R16
 //   68 //    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
 //   69 }
-        RET
-        REQUIRE _A_ADCSRA
 //   70 
 //   71 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   72 void CAdc::Disable(void)
-??Disable:
 //   73 {
 //   74     // Выключаем АЦП.
 //   75 //    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
 //   76     ADCSRA &= ~(BIT(ADEN) | BIT(ADSC));
-        LDS     R16, _A_ADCSRA
-        ANDI    R16, 0x3F
-        STS     _A_ADCSRA, R16
 //   77     // Включаем режим пониженного энергопотребления.
 //   78     PRR |= BIT(PRADC);
-        LDS     R16, 100
-        ORI     R16, 0x01
-        STS     100, R16
 //   79 }
-        RET
-        REQUIRE _A_ADCSRA
-        REQUIRE _A_PRR
 //   80 
 //   81 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   82 void CAdc::Enable(void)
-??Enable:
 //   83 {
 //   84     // Отключаем режим пониженного энергопотребления.
 //   85     PRR &= ~BIT(PRADC);
-        LDS     R16, 100
-        ANDI    R16, 0xFE
-        STS     100, R16
 //   86     // Включаем АЦП.
 //   87 //    ADCSRA |= (BIT(ADEN) | BIT(ADIE));
 //   88     ADCSRA |= BIT(ADEN);
-        LDS     R16, 122
-        ORI     R16, 0x80
-        STS     122, R16
 //   89 }
-        RET
-        REQUIRE _A_PRR
-        REQUIRE _A_ADCSRA
 //   90 
 //   91 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //   92 uint16_t CAdc::GetMeasureValue(void)
-??GetMeasureValue:
 //   93 {
 //   94     uint16_t uiData;
 //   95     uiData = (static_cast<uint16_t>(ADCL));
-        LDS     R16, _A_ADC
-        LDI     R17, 0
 //   96     uiData |= (static_cast<uint16_t>(ADCH) << 8);
-        LDS     R19, 121
-        OR      R17, R19
 //   97     return uiData;
-        RET
-        REQUIRE _A_ADC
 //   98 };
 //   99 
 //  100 ////-----------------------------------------------------------------------------------------------------
@@ -950,12 +810,8 @@ _A_PINB:
 ??m_UDR:
         DS8 2
 //  118 volatile uint8_t* CUart::m_rs485ddr;
-??m_rs485ddr:
-        DS8 2
 //  119 volatile uint8_t CUart::m_rs485ddpin;
 //  120 volatile uint8_t* CUart::m_rs485port;
-??m_rs485port:
-        DS8 2
 //  121 volatile uint8_t CUart::m_rs485pin;
 //  122 
 //  123 uint8_t* CUart::m_puiTxBuffer;
@@ -970,10 +826,6 @@ _A_PINB:
 //  126 uint16_t CUart::m_nuiRxBuffByteCounter;
 ??m_nuiRxBuffByteCounter:
         DS8 2
-??m_rs485ddpin:
-        DS8 1
-??m_rs485pin:
-        DS8 1
 //  127 uint8_t CUart::m_auiIntermediateBuff[UART_INTERMEDIATE_BUFF_LENGTH];
 ??m_auiIntermediateBuff:
         DS8 16
@@ -985,6 +837,26 @@ _A_PINB:
         DS8 1
 //  130 bool CUart::m_bfRxBuffOverflow;
 ??m_bfRxBuffOverflow:
+        DS8 1
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+??m_rs485ddr:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+??m_rs485ddpin:
+        DS8 1
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+??m_rs485port:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+??m_rs485pin:
         DS8 1
 //  131 
 //  132 ////-----------------------------------------------------------------------------------------------------
@@ -1011,88 +883,29 @@ _A_PINB:
 //  153 //}
 //  154 
 //  155 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  156 void CUart::UartBind(volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
-??UartBind:
-//  157                 volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
-//  158                 volatile uint8_t *ucsrc, volatile uint8_t *udr,
-//  159                 volatile uint8_t *rs485ddr, volatile uint8_t rs485ddpin,
-//  160                 volatile uint8_t *rs485port, volatile uint8_t rs485pin)
+//  157                      volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
+//  158                      volatile uint8_t *ucsrc, volatile uint8_t *udr,
+//  159                      volatile uint8_t *rs485ddr, volatile uint8_t rs485ddpin,
+//  160                      volatile uint8_t *rs485port, volatile uint8_t rs485pin)
 //  161 {
-        RCALL   ?PROLOGUE4_L09
 //  162     m_UBRRH = ubrrh;
-        LDI     R30, LOW(??m_UBRRH)
-        LDI     R31, (??m_UBRRH) >> 8
-        ST      Z, R16
-        STD     Z+1, R17
 //  163     m_UBRRL = ubrrl;
-        STD     Z+2, R18
-        STD     Z+3, R19
 //  164     m_UCSRA = ucsra;
-        STD     Z+4, R20
-        STD     Z+5, R21
 //  165     m_UCSRB = ucsrb;
-        STD     Z+6, R22
-        STD     Z+7, R23
 //  166     m_UCSRC = ucsrc;
-        LDD     R16, Y+4
-        LDD     R17, Y+5
-        STD     Z+8, R16
-        STD     Z+9, R17
 //  167     m_UDR = udr;
-        LDD     R16, Y+6
-        LDD     R17, Y+7
-        STD     Z+10, R16
-        STD     Z+11, R17
-//  168     m_rs485ddr = rs485ddr;
-        LDD     R16, Y+8
-        LDD     R17, Y+9
-        STD     Z+12, R16
-        STD     Z+13, R17
-//  169     m_rs485ddpin = rs485ddpin;
-        LDD     R16, Y+10
-        STD     Z+24, R16
-//  170     m_rs485port = rs485port;
-        LDD     R16, Y+11
-        LDD     R17, Y+12
-        STD     Z+14, R16
-        STD     Z+15, R17
-//  171     m_rs485pin = rs485pin;
-        LDD     R16, Y+13
-        STD     Z+25, R16
-//  172 
-//  173     if (m_rs485ddr)
-        LDD     R26, Z+12
-        LDD     R27, Z+13
-        MOV     R16, R26
-        OR      R16, R27
-        BREQ    ??UartBind_1
-//  174     {
-//  175         *m_rs485ddr |= Bit(m_rs485ddpin);
-        LDD     R20, Z+24
-        LDI     R16, 1
-        LDI     R17, 0
-        RCALL   ?S_SHL_L02
-        LD      R17, X
-        OR      R17, R16
-        ST      X, R17
-//  176         *m_rs485port &= ~(Bit(m_rs485pin));
-        LDD     R20, Z+25
-        LDI     R16, 1
-        LDI     R17, 0
-        RCALL   ?S_SHL_L02
-        COM     R16
-        LDD     R26, Z+14
-        LDD     R27, Z+15
-        LD      R17, X
-        AND     R17, R16
-        ST      X, R17
-//  177     }
+//  168 //    m_rs485ddr = rs485ddr;
+//  169 //    m_rs485ddpin = rs485ddpin;
+//  170 //    m_rs485port = rs485port;
+//  171 //    m_rs485pin = rs485pin;
+//  172 //
+//  173 //    if (m_rs485ddr)
+//  174 //    {
+//  175 //        *m_rs485ddr |= Bit(m_rs485ddpin);
+//  176 //        *m_rs485port &= ~(Bit(m_rs485pin));
+//  177 //    }
 //  178 }
-??UartBind_1:
-        LDI     R30, 14
-        RJMP    ?EPILOGUE_B4_L09
 //  179 
 //  180 ////-----------------------------------------------------------------------------------------------------
 //  181 //CUart::~CUart()
@@ -1101,222 +914,81 @@ _A_PINB:
 //  184 //}
 //  185 
 //  186 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  187 void CUart::Init(uint32_t ulBaudRate,
-??Init_1:
 //  188                  uint8_t ucParity,
 //  189                  uint8_t ucDataBits,
 //  190                  uint8_t ucStopBit,
 //  191                  uint8_t *puiRxBuffer,
 //  192                  uint8_t *puiTxBuffer)
 //  193 {
-        RCALL   ?PROLOGUE5_L09
-        REQUIRE ?Register_R4_is_cg_reg
-        MOV     R24, R20
-        MOV     R4, R21
-        MOV     R25, R22
 //  194     m_puiRxBuffer = puiRxBuffer;
-        LDI     R26, LOW(??m_UBRRH)
-        LDI     R27, (??m_UBRRH) >> 8
-        LDD     R20, Y+5
-        LDD     R21, Y+6
-        MOVW    R31:R30, R27:R26
-        STD     Z+20, R20
-        STD     Z+21, R21
 //  195     m_puiTxBuffer = puiTxBuffer;
-        LDD     R20, Y+7
-        LDD     R21, Y+8
-        STD     Z+16, R20
-        STD     Z+17, R21
 //  196 
 //  197     /* Set the baud rate */
 //  198     uint16_t uiBaudRateTemp = (F_CPU / (ulBaudRate * 16UL) - 1);
-        LDI     R20, 4
-        RCALL   ?L_SHL_L03
-        MOVW    R21:R20, R17:R16
-        MOVW    R23:R22, R19:R18
-        LDI     R16, 0
-        LDI     R17, 128
-        LDI     R18, 112
-        LDI     R19, 0
-        RCALL   ?UL_DIVMOD_L03
-        MOVW    R19:R18, R17:R16
-        SUBI    R18, 1
-        SBCI    R19, 0
 //  199     *m_UBRRL = uiBaudRateTemp;
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+2
-        LDD     R17, Z+3
-        MOVW    R31:R30, R17:R16
-        ST      Z, R18
 //  200     *m_UBRRH = (uiBaudRateTemp >> 8);
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 1
-        ST      Z, R19
 //  201 
 //  202     /* Set data bits (7, 8 bits) */
 //  203     switch (ucDataBits)
-        MOV     R16, R4
-        SUBI    R16, 7
-        BREQ    ??Init_4
-        DEC     R16
-        BRNE    ??Init_5
 //  204     {
 //  205     case 8:
 //  206         *m_UCSRC |= (1 << UCSZ00) | (1 << UCSZ01);
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+8
-        LDD     R17, Z+9
-        MOVW    R31:R30, R17:R16
-        LD      R16, Z
-        ORI     R16, 0x06
-        RJMP    ??Init_6
 //  207         break;
 //  208     case 7:
 //  209         *m_UCSRC |= (1 << UCSZ01);
-??Init_4:
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+8
-        LDD     R17, Z+9
-        MOVW    R31:R30, R17:R16
-        LD      R16, Z
-        ORI     R16, 0x04
-??Init_6:
-        ST      Z, R16
 //  210         break;
 //  211     }
 //  212 
 //  213     /* Set parity */
 //  214     if (ucParity == 'N')
-??Init_5:
-        CPI     R24, 78
-        BREQ    ??Init_7
 //  215     {
 //  216         /* None */
 //  217     }
 //  218     else if (ucParity == 'E')
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+8
-        LDD     R17, Z+9
-        CPI     R24, 69
-        MOVW    R31:R30, R17:R16
-        LD      R16, Z
-        BRNE    ??Init_8
 //  219     {
 //  220         /* Even */
 //  221         *m_UCSRC |= (1 << UPM01);
-        ORI     R16, 0x20
-        RJMP    ??Init_9
 //  222     }
 //  223     else
 //  224     {
 //  225         /* Odd */
 //  226         *m_UCSRC |= (1 << UPM01) | (1 << UPM00);
-??Init_8:
-        ORI     R16, 0x30
-??Init_9:
-        ST      Z, R16
 //  227     }
 //  228 
 //  229     /* Stop bit (1 or 2) */
 //  230     if (ucStopBit == 1)
-??Init_7:
-        CPI     R25, 1
-        BREQ    ??Init_10
 //  231     {
 //  232 
 //  233     }
 //  234     else if (ucStopBit == 2) /* 2 */
-        CPI     R25, 2
-        BRNE    ??Init_10
 //  235     {
 //  236         *m_UCSRC |= (1 << USBS0);
-        MOVW    R31:R30, R27:R26
-        LDD     R26, Z+8
-        LDD     R27, Z+9
-        LD      R16, X
-        ORI     R16, 0x08
-        ST      X, R16
 //  237     }
 //  238 }
-??Init_10:
-        LDI     R30, 9
-        RJMP    ?EPILOGUE_B5_L09
 //  239 
 //  240 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  241 void CUart::Reset(void)
-??Reset:
 //  242 {
 //  243     m_nuiRxBuffByteCounter = 0;
-        LDI     R30, LOW(??m_UBRRH)
-        LDI     R31, (??m_UBRRH) >> 8
-        LDI     R16, 0
-        STD     Z+22, R16
-        STD     Z+23, R16
 //  244     m_bfByteIsReceived = 0;
-        STD     Z+42, R16
 //  245     m_bfFrameIsSended = 0;
-        STD     Z+43, R16
 //  246     m_bfRxBuffOverflow = 0;
-        STD     Z+44, R16
 //  247 }
-        RET
 //  248 
 //  249 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  250 void CUart::Enable(void)
-??Enable_1:
 //  251 {
-        RCALL   ?PROLOGUE4_L09
 //  252     *m_UCSRA |= (1 << RXC0);
-        LDI     R30, LOW(??m_UBRRH)
-        LDI     R31, (??m_UBRRH) >> 8
-        LDD     R26, Z+4
-        LDD     R27, Z+5
-        LD      R16, X
-        ORI     R16, 0x80
-        ST      X, R16
 //  253     *m_UCSRB |= (1 << RXEN0) | (1 << RXCIE0);
-        LDD     R26, Z+6
-        LDD     R27, Z+7
-        LD      R16, X
-        ORI     R16, 0x90
-        ST      X, R16
 //  254 }
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
 //  255 
 //  256 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  257 void CUart::Disable(void)
-??Disable_1:
 //  258 {
-        RCALL   ?PROLOGUE4_L09
 //  259     *m_UCSRB &= ~((1 << TXEN0) | (1 << TXCIE0));
-        LDI     R26, LOW((??m_UBRRH + 6))
-        LDI     R27, HIGH((??m_UBRRH + 6))
-        LD      R30, X+
-        LD      R31, X
-        LD      R16, Z
-        ANDI    R16, 0xB7
-        ST      Z, R16
 //  260     *m_UCSRB &= ~((1 << RXEN0) | (1 << RXCIE0));
-        LDI     R26, LOW((??m_UBRRH + 6))
-        LDI     R27, HIGH((??m_UBRRH + 6))
-        LD      R30, X+
-        LD      R31, X
-        LD      R16, Z
-        ANDI    R16, 0x6F
-        ST      Z, R16
 //  261 }
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
 //  262 
 //  263 ////-----------------------------------------------------------------------------------------------------
 //  264 //void CUart::Rs485RtsOn(void)
@@ -1331,38 +1003,13 @@ _A_PINB:
 //  273 //}
 //  274 
 //  275 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  276 int16_t CUart::Write(uint8_t *puiSource, uint16_t uiLength)
-??Write:
 //  277 {
-        RCALL   ?PROLOGUE4_L09
 //  278     m_puiTxBuffer = (uint8_t*)puiSource;
-        LDI     R26, LOW(??m_UBRRH)
-        LDI     R27, (??m_UBRRH) >> 8
-        MOVW    R31:R30, R27:R26
-        STD     Z+16, R16
-        STD     Z+17, R17
 //  279     m_nuiTxBuffByteCounter = uiLength;
-        STD     Z+18, R18
-        STD     Z+19, R19
 //  280 
 //  281     *m_UCSRA &= ~(1 << RXC0);
-        ADIW    R27:R26, 4
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 5
-        LD      R16, Z
-        ANDI    R16, 0x7F
-        ST      Z, R16
 //  282     *m_UCSRB &= ~((1 << RXEN0) | (1 << RXCIE0));
-        ADIW    R27:R26, 6
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 7
-        LD      R16, Z
-        ANDI    R16, 0x6F
-        ST      Z, R16
 //  283 
 //  284 //    if (m_rs485ddr)
 //  285 //    {
@@ -1371,125 +1018,48 @@ _A_PINB:
 //  288 //    UDR0 = *pucUsartTxBuff++;
 //  289     //    UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
 //  290     *m_UCSRA |= (1 << TXC0) | (1 << UDRE0);
-        ADIW    R27:R26, 4
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 5
-        LD      R16, Z
-        ORI     R16, 0x60
-        ST      Z, R16
 //  291     *m_UCSRB |= (1 << TXEN0) | (1 << UDRIE0);
-        MOVW    R31:R30, R27:R26
-        LDD     R26, Z+6
-        LDD     R27, Z+7
-        LD      R16, X
-        ORI     R16, 0x28
-        ST      X, R16
 //  292 
 //  293     return 1;
-        LDI     R16, 1
-        LDI     R17, 0
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
 //  294 }
 //  295 
 //  296 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  297 int16_t CUart::Read(uint8_t *puiDestination, uint16_t uiLength)
-??Read:
 //  298 {
-        RCALL   ?PROLOGUE4_L09
-        MOVW    R25:R24, R17:R16
 //  299     m_bfByteIsReceived = 0;
-        LDI     R26, LOW(??m_UBRRH)
-        LDI     R27, (??m_UBRRH) >> 8
-        LDI     R16, 0
-        STS     (??m_UBRRH + 42), R16
 //  300 
 //  301     if (m_bfRxBuffOverflow)
-        LDS     R16, (??m_UBRRH + 44)
-        TST     R16
-        BRNE    ??Read_2
 //  302     {
 //  303         return -1;
 //  304     }
 //  305 
 //  306     if (uiLength <= m_nuiRxBuffByteCounter)
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+22
-        LDD     R17, Z+23
-        CP      R16, R18
-        CPC     R17, R19
-        BRCS    ??Read_3
 //  307     {
 //  308         return -1;
-??Read_2:
-        LDI     R16, 255
-        LDI     R17, 255
-        RJMP    ??Read_4
 //  309     }
 //  310     else if (m_nuiRxBuffByteCounter)
-??Read_3:
-        OR      R16, R17
-        BREQ    ??Read_5
 //  311     {
 //  312 //        *m_UCSRB &= ~((1 << RXEN0) | (1 << RXCIE0));
 //  313         CPlatform::InterruptDisable();
-        RCALL   ??InterruptDisable
 //  314 //
 //  315         for (int16_t i = 0; i < m_nuiRxBuffByteCounter; i++)
-        LDI     R16, 0
-        LDI     R17, 0
-        RJMP    ??Read_6
 //  316         {
 //  317             puiDestination[i] = m_auiIntermediateBuff[i];
-??Read_7:
-        ADD     R30, R16
-        ADC     R31, R17
-        LDD     R18, Z+26
-        MOVW    R31:R30, R25:R24
-        ADD     R30, R16
-        ADC     R31, R17
-        ST      Z, R18
 //  318         }
-        SUBI    R16, 255
-        SBCI    R17, 255
-??Read_6:
-        MOVW    R31:R30, R27:R26
-        LDD     R18, Z+22
-        LDD     R19, Z+23
-        CP      R16, R18
-        CPC     R17, R19
-        BRCS    ??Read_7
 //  319 
 //  320         uint8_t uiCounter = m_nuiRxBuffByteCounter;
-        MOV     R24, R18
 //  321         m_nuiRxBuffByteCounter = 0;
-        LDI     R16, 0
-        STD     Z+22, R16
-        STD     Z+23, R16
 //  322 
 //  323 //        *m_UCSRB |= (1 << RXEN0) | (1 << RXCIE0);
 //  324         CPlatform::InterruptEnable();
-        RCALL   ??InterruptEnable
 //  325 
 //  326         return uiCounter;
-        MOV     R16, R24
-        RJMP    ??Read_8
 //  327     }
 //  328     else if (0 == m_nuiRxBuffByteCounter)
 //  329     {
 //  330         return 0;
 //  331     }
 //  332     return 0;
-??Read_5:
-        LDI     R16, 0
-??Read_8:
-        LDI     R17, 0
-??Read_4:
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
 //  333 }
 //  334 
 //  335 ////-----------------------------------------------------------------------------------------------------
@@ -1560,448 +1130,181 @@ _A_PINB:
 //  400 //}
 //  401 
 //  402 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  403 void CUart::UdreInterruptHandler(void)
-??UdreInterruptHandler:
 //  404 {
-        RCALL   ?PROLOGUE4_L09
 //  405     if (m_nuiTxBuffByteCounter == 0)
-        LDI     R26, LOW(??m_UBRRH)
-        LDI     R27, (??m_UBRRH) >> 8
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+18
-        LDD     R17, Z+19
-        OR      R16, R17
-        BRNE    ??UdreInterruptHandler_1
 //  406     {
 //  407         *m_UCSRB &= ~((1 << UDRIE0));
-        ADIW    R27:R26, 6
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 7
-        LD      R16, Z
-        ANDI    R16, 0xDF
-        ST      Z, R16
 //  408         *m_UCSRA |= (1 << TXC0);
-        ADIW    R27:R26, 4
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 5
-        LD      R16, Z
-        ORI     R16, 0x40
-        ST      Z, R16
 //  409         *m_UCSRB |= (1 << TXCIE0);
-        MOVW    R31:R30, R27:R26
-        LDD     R26, Z+6
-        LDD     R27, Z+7
-        LD      R16, X
-        ORI     R16, 0x40
-        ST      X, R16
 //  410         return;
-        RJMP    ??UdreInterruptHandler_2
 //  411     }
 //  412     *m_UDR = *m_puiTxBuffer++;
-??UdreInterruptHandler_1:
-        ADIW    R27:R26, 16
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 17
-        LD      R16, Z
-        ADIW    R27:R26, 10
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 11
-        ST      Z, R16
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+16
-        LDD     R17, Z+17
-        SUBI    R16, 255
-        SBCI    R17, 255
-        STD     Z+16, R16
-        STD     Z+17, R17
 //  413     m_nuiTxBuffByteCounter--;
-        LDD     R16, Z+18
-        LDD     R17, Z+19
-        SUBI    R16, 1
-        SBCI    R17, 0
-        STD     Z+18, R16
-        STD     Z+19, R17
 //  414 }
-??UdreInterruptHandler_2:
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
 //  415 
 //  416 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
 //  417 void CUart::TxcInterruptHandler(void)
-??TxcInterruptHandler:
 //  418 {
-        RCALL   ?PROLOGUE4_L09
 //  419     *m_UCSRB &= ~((1 << TXEN0) | (1 << TXCIE0));
-        LDI     R26, LOW(??m_UBRRH)
-        LDI     R27, (??m_UBRRH) >> 8
-        ADIW    R27:R26, 6
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 7
-        LD      R16, Z
-        ANDI    R16, 0xB7
-        ST      Z, R16
 //  420 
 //  421 //    if (m_rs485ddr)
 //  422 //    {
 //  423 //        Rs485RtsOff();
 //  424 //    }
-//  425     *m_UCSRA |= (1 << RXC0);
-        ADIW    R27:R26, 4
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 5
-        LD      R16, Z
-        ORI     R16, 0x80
-        ST      Z, R16
-//  426     *m_UCSRB |= (1 << RXEN0) | (1 << RXCIE0);
-        MOVW    R31:R30, R27:R26
-        LDD     R26, Z+6
-        LDD     R27, Z+7
-        LD      R16, X
-        ORI     R16, 0x90
-        ST      X, R16
-//  427     m_bfFrameIsSended = 1;
-        LDI     R16, 1
-        STS     (??m_UBRRH + 43), R16
-//  428     return;
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
-//  429 }
-//  430 
-//  431 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  432 void CUart::RecvInterruptHandler(void)
-??RecvInterruptHandler:
-//  433 {
-        RCALL   ?PROLOGUE4_L09
-//  434     // промежуточный буфер приёма переполнен?
-//  435     if (m_nuiRxBuffByteCounter >=
-//  436             UART_MAX_BUFF_LENGTH)
-        LDI     R26, LOW(??m_UBRRH)
-        LDI     R27, (??m_UBRRH) >> 8
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+22
-        LDD     R17, Z+23
-        CPI     R16, 64
-        LDI     R18, 0
-        CPC     R17, R18
-        BRCS    ??RecvInterruptHandler_1
-//  437     {
-//  438         m_bfRxBuffOverflow = 1;
-        LDI     R16, 1
-        STS     (??m_UBRRH + 44), R16
-//  439         // не инкрементируем pucUsartRxBuff, чтобы не выйти за границы буфера.
-//  440         m_bfByteIsReceived = 1;
-        RJMP    ??RecvInterruptHandler_2
-//  441     }
-//  442     else
-//  443     {
-//  444         m_puiRxBuffer[m_nuiRxBuffByteCounter++] = *m_UDR;
-??RecvInterruptHandler_1:
-        ADIW    R27:R26, 10
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 11
-        LD      R18, Z
-        ADIW    R27:R26, 20
-        LD      R30, X+
-        LD      R31, X
-        SBIW    R27:R26, 21
-        ADD     R30, R16
-        ADC     R31, R17
-        ST      Z, R18
-        MOVW    R31:R30, R27:R26
-        LDD     R16, Z+22
-        LDD     R17, Z+23
-        SUBI    R16, 255
-        SBCI    R17, 255
-        STD     Z+22, R16
-        STD     Z+23, R17
-//  445         m_bfByteIsReceived = 1;
-        LDI     R16, 1
-??RecvInterruptHandler_2:
-        STS     (??m_UBRRH + 42), R16
-//  446     }
-//  447 }
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
-//  448 
-//  449 //-----------------------------------------------------------------------------------------------------
-//  450 // Прерывание по пустому регистру данных UDR
-//  451 #pragma vector = USART_UDRE_vect
-
-        RSEG CODE:CODE:NOROOT(1)
-        CALL_GRAPH_ROOT ??SIG_UART0_DATA, "interrupt"
-//  452 __interrupt void SIG_UART0_DATA(void)
-??SIG_UART0_DATA:
-//  453 {
-        ST      -Y, R31
-        ST      -Y, R30
-        ST      -Y, R0
-        ST      -Y, R18
-        ST      -Y, R17
-        ST      -Y, R16
-        IN      R18, 0x3F
-//  454     CUart::UdreInterruptHandler();
-        RCALL   ??UdreInterruptHandler
-//  455 }
-        OUT     0x3F, R18
-        LD      R16, Y+
-        LD      R17, Y+
-        LD      R18, Y+
-        LD      R0, Y+
-        LD      R30, Y+
-        LD      R31, Y+
-        RETI
-//  456 
-//  457 //-----------------------------------------------------------------------------------------------------
-//  458 // Прерывание по завершению передачи UART
-//  459 #pragma vector = USART_TX_vect
-
-        RSEG CODE:CODE:NOROOT(1)
-        CALL_GRAPH_ROOT ??SIG_UART0_TXC, "interrupt"
-//  460 __interrupt void SIG_UART0_TXC(void)
-??SIG_UART0_TXC:
-//  461 {
-        ST      -Y, R31
-        ST      -Y, R30
-        ST      -Y, R0
-        ST      -Y, R17
-        ST      -Y, R16
-        IN      R17, 0x3F
-//  462     CUart::TxcInterruptHandler();
-        RCALL   ??TxcInterruptHandler
-//  463 }
-        OUT     0x3F, R17
-        LD      R16, Y+
-        LD      R17, Y+
-        LD      R0, Y+
-        LD      R30, Y+
-        LD      R31, Y+
-        RETI
-//  464 
-//  465 //-----------------------------------------------------------------------------------------------------
-//  466 // Прерывание по завершению приема UART
-//  467 #pragma vector = USART_RX_vect
-
-        RSEG CODE:CODE:NOROOT(1)
-        CALL_GRAPH_ROOT ??SIG_UART0_RECV, "interrupt"
-//  468 __interrupt void SIG_UART0_RECV(void)
-??SIG_UART0_RECV:
-//  469 {
-        ST      -Y, R31
-        ST      -Y, R30
-        ST      -Y, R0
-        ST      -Y, R19
-        ST      -Y, R18
-        ST      -Y, R17
-        ST      -Y, R16
-        IN      R19, 0x3F
-//  470     CUart::RecvInterruptHandler();
-        RCALL   ??RecvInterruptHandler
-//  471 }
-        OUT     0x3F, R19
-        LD      R16, Y+
-        LD      R17, Y+
-        LD      R18, Y+
-        LD      R19, Y+
-        LD      R0, Y+
-        LD      R30, Y+
-        LD      R31, Y+
-        RETI
-//  472 
-//  473 //-----------------------------------------------------------------------------------------------------
-//  474 
+//  425     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
+//  426     *m_UCSRA |= (1 << RXC0);
+//  427     *m_UCSRB |= (1 << RXEN0) | (1 << RXCIE0);
+//  428     m_bfFrameIsSended = 1;
+//  429     return;
+//  430 }
+//  431 
+//  432 //-----------------------------------------------------------------------------------------------------
+//  433 void CUart::RecvInterruptHandler(void)
+//  434 {
+//  435     // промежуточный буфер приёма переполнен?
+//  436     if (m_nuiRxBuffByteCounter >=
+//  437             UART_MAX_BUFF_LENGTH)
+//  438     {
+//  439         m_bfRxBuffOverflow = 1;
+//  440         // не инкрементируем pucUsartRxBuff, чтобы не выйти за границы буфера.
+//  441         m_bfByteIsReceived = 1;
+//  442     }
+//  443     else
+//  444     {
+//  445         m_auiIntermediateBuff[m_nuiRxBuffByteCounter++] = *m_UDR;
+//  446         m_bfByteIsReceived = 1;
+//  447     }
+//  448 }
+//  449 
+//  450 //-----------------------------------------------------------------------------------------------------
+//  451 // Прерывание по пустому регистру данных UDR
+//  452 #pragma vector = USART_UDRE_vect
+//  453 __interrupt void SIG_UART0_DATA(void)
+//  454 {
+//  455     CUart::UdreInterruptHandler();
+//  456 }
+//  457 
+//  458 //-----------------------------------------------------------------------------------------------------
+//  459 // Прерывание по завершению передачи UART
+//  460 #pragma vector = USART_TX_vect
+//  461 __interrupt void SIG_UART0_TXC(void)
+//  462 {
+//  463     CUart::TxcInterruptHandler();
+//  464 }
+//  465 
+//  466 //-----------------------------------------------------------------------------------------------------
+//  467 // Прерывание по завершению приема UART
+//  468 #pragma vector = USART_RX_vect
+//  469 __interrupt void SIG_UART0_RECV(void)
+//  470 {
+//  471     CUart::RecvInterruptHandler();
+//  472 }
+//  473 
+//  474 //-----------------------------------------------------------------------------------------------------
 //  475 
 //  476 
 //  477 
 //  478 
-//  479 ////----------------------------------------- EEPROM ----------------------------------------------------------------
-//  480 //CEeprom::CEeprom()
-//  481 //{
-//  482 //
-//  483 //}
-//  484 //
-//  485 ////-----------------------------------------------------------------------------------------------------
-//  486 //CEeprom::~CEeprom()
-//  487 //{
-//  488 //
-//  489 //}
-//  490 
-//  491 // SFR_W_N(0x21, EEAR, Dummy15, Dummy14, Dummy13, Dummy12, Dummy11, Dummy10, Dummy9, Dummy8, EEAR7, EEAR6, EEAR5, EEAR4, EEAR3, EEAR2, EEAR1, EEAR0)
-//  492 // SFR_B_N(0x20, EEDR, EEDR7, EEDR6, EEDR5, EEDR4, EEDR3, EEDR2, EEDR1, EEDR0)
-//  493 // SFR_B_N(0x1F, EECR, Dummy7, Dummy6, EEPM1, EEPM0, EERIE, EEMPE, EEPE, EERE)
-//  494 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  495 uint8_t CEeprom::ReadByte(uint16_t ui16EepromSourse)
-??ReadByte:
-??ReadByte_1:
-//  496 {
-//  497     __watchdog_reset();
-//  498     while (BitIsSet(EECR, EEPE))
-//  499     {
-//  500         __watchdog_reset();
-        WDR
-//  501     }
-        SBIC    0x1F, 0x01
-        RJMP    ??ReadByte_1
-//  502     __disable_interrupt();
-        CLI
-//  503     EEAR = ui16EepromSourse;
-        OUT     0x22, R17
-        OUT     0x21, R16
-//  504     SetBit(EECR, EERE);
-        SBI     0x1F, 0x00
-//  505     __enable_interrupt();
-        SEI
-//  506     return EEDR;
-        IN      R16, 0x20
-        RET
-        REQUIRE _A_EECR
-        REQUIRE _A_EEAR
-        REQUIRE _A_EEDR
-//  507 }
-//  508 
-//  509 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  510 void CEeprom::WriteByte(uint16_t ui16EepromDestination, uint8_t ucData)
-??WriteByte:
-??WriteByte_1:
-//  511 {
-//  512     __watchdog_reset();
-//  513     while (BitIsSet(EECR, EEPE))
-//  514     {
-//  515         __watchdog_reset();
-        WDR
-//  516     }
-        SBIC    0x1F, 0x01
-        RJMP    ??WriteByte_1
-//  517     __disable_interrupt();
-        CLI
-//  518     EEAR = ui16EepromDestination;
-        OUT     0x22, R17
-        OUT     0x21, R16
-//  519     EEDR = ucData;
-        OUT     0x20, R18
-//  520     EECR |= (1<<EEMPE);
-        SBI     0x1F, 0x02
-//  521     EECR |= (1<<EEPE);
-        SBI     0x1F, 0x01
-//  522     __enable_interrupt();
-        SEI
-//  523 }
-        RET
-        REQUIRE _A_EECR
-        REQUIRE _A_EEAR
-        REQUIRE _A_EEDR
-//  524 
-//  525 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  526 uint8_t CEeprom::Read(uint8_t *pucRamDestination, uint16_t uiEepromSourse, uint16_t nuiLength)
-??Read_1:
-//  527 {
-        MOVW    R31:R30, R17:R16
-        RJMP    ??Read_9
-//  528     while (nuiLength != 0)
-//  529     {
-//  530         *pucRamDestination++ = ReadByte(uiEepromSourse++);
-??Read_10:
-        MOVW    R17:R16, R19:R18
-        RCALL   ??ReadByte
-        SUBI    R18, 255
-        SBCI    R19, 255
-        ST      Z+, R16
-//  531         nuiLength--;
-        SUBI    R20, 1
-        SBCI    R21, 0
-//  532     }
-??Read_9:
-        MOV     R16, R20
-        OR      R16, R21
-        BRNE    ??Read_10
-//  533     return 1;
-        LDI     R16, 1
-        RET
-//  534 }
-//  535 
-//  536 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  537 uint8_t CEeprom::Write(uint16_t uiEepromDestination, uint8_t *pucRamSourse, uint16_t nuiLength)
-??Write_1:
-//  538 {
-        RCALL   ?PROLOGUE2_L09
-        MOVW    R25:R24, R17:R16
-        MOVW    R31:R30, R19:R18
-        RJMP    ??Write_2
-//  539     while (nuiLength != 0)
-//  540     {
-//  541         WriteByte((uiEepromDestination++), (*pucRamSourse++));
-??Write_3:
-        LD      R18, Z+
-        MOVW    R17:R16, R25:R24
-        RCALL   ??WriteByte
-        ADIW    R25:R24, 1
-//  542         nuiLength--;
-        SUBI    R20, 1
-        SBCI    R21, 0
-//  543     }
-??Write_2:
-        MOV     R16, R20
-        OR      R16, R21
-        BRNE    ??Write_3
-//  544     return 1;
-        LDI     R16, 1
-        LDI     R30, 2
-        RJMP    ?EPILOGUE_B2_L09
-//  545 }
-//  546 //-----------------------------------------------------------------------------------------------------
+//  479 
+//  480 ////----------------------------------------- EEPROM ----------------------------------------------------------------
+//  481 //CEeprom::CEeprom()
+//  482 //{
+//  483 //
+//  484 //}
+//  485 //
+//  486 ////-----------------------------------------------------------------------------------------------------
+//  487 //CEeprom::~CEeprom()
+//  488 //{
+//  489 //
+//  490 //}
+//  491 
+//  492 //-----------------------------------------------------------------------------------------------------
+//  493 uint8_t CEeprom::ReadByte(uint16_t ui16EepromSourse)
+//  494 {
+//  495     __watchdog_reset();
+//  496     while (BitIsSet(EECR, EEPE))
+//  497     {
+//  498         __watchdog_reset();
+//  499     }
+//  500     __disable_interrupt();
+//  501     EEAR = ui16EepromSourse;
+//  502     SetBit(EECR, EERE);
+//  503     __enable_interrupt();
+//  504     return EEDR;
+//  505 }
+//  506 
+//  507 //-----------------------------------------------------------------------------------------------------
+//  508 void CEeprom::WriteByte(uint16_t ui16EepromDestination, uint8_t ucData)
+//  509 {
+//  510     __watchdog_reset();
+//  511     while (BitIsSet(EECR, EEPE))
+//  512     {
+//  513         __watchdog_reset();
+//  514     }
+//  515     __disable_interrupt();
+//  516     EEAR = ui16EepromDestination;
+//  517     EEDR = ucData;
+//  518     EECR |= (1<<EEMPE);
+//  519     EECR |= (1<<EEPE);
+//  520     __enable_interrupt();
+//  521 }
+//  522 
+//  523 //-----------------------------------------------------------------------------------------------------
+//  524 uint8_t CEeprom::Read(uint8_t *pucRamDestination, uint16_t uiEepromSourse, uint16_t nuiLength)
+//  525 {
+//  526     while (nuiLength != 0)
+//  527     {
+//  528         *pucRamDestination++ = ReadByte(uiEepromSourse++);
+//  529         nuiLength--;
+//  530     }
+//  531     return 1;
+//  532 }
+//  533 
+//  534 //-----------------------------------------------------------------------------------------------------
+//  535 uint8_t CEeprom::Write(uint16_t uiEepromDestination, uint8_t *pucRamSourse, uint16_t nuiLength)
+//  536 {
+//  537     while (nuiLength != 0)
+//  538     {
+//  539         WriteByte((uiEepromDestination++), (*pucRamSourse++));
+//  540         nuiLength--;
+//  541     }
+//  542     return 1;
+//  543 }
+//  544 //-----------------------------------------------------------------------------------------------------
+//  545 
+//  546 
 //  547 
 //  548 
 //  549 
-//  550 
-//  551 
-//  552 //----------------------------------------- CSpi ----------------------------------------------------------------
+//  550 //----------------------------------------- CSpi ----------------------------------------------------------------
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//  553 uint8_t CSpi::m_uiExchangeByte;
-//  554 uint8_t* CSpi::m_puiRxBuffer;
-//  555 uint8_t* CSpi::m_puiTxBuffer;
-//  556 uint16_t CSpi::m_nuiBuffByteCounter;
+//  551 uint8_t CSpi::m_uiExchangeByte;
+//  552 uint8_t* CSpi::m_puiRxBuffer;
+//  553 uint8_t* CSpi::m_puiTxBuffer;
+//  554 uint16_t CSpi::m_nuiBuffByteCounter;
 ??m_nuiBuffByteCounter:
         DS8 2
-//  557 uint16_t CSpi::m_uiReceivedByteCounter;
+//  555 uint16_t CSpi::m_uiReceivedByteCounter;
 ??m_uiReceivedByteCounter:
         DS8 2
 ??m_uiExchangeByte:
         DS8 1
-//  558 bool CSpi::m_bfByteIsReceived;
+//  556 bool CSpi::m_bfByteIsReceived;
 ??m_bfByteIsReceived_1:
         DS8 1
-//  559 bool CSpi::m_bfByteIsTransmited;
+//  557 bool CSpi::m_bfByteIsTransmited;
 ??m_bfByteIsTransmited:
         DS8 1
-//  560 bool CSpi::m_bfDataExchangeInProgress;
+//  558 bool CSpi::m_bfDataExchangeInProgress;
 ??m_bfDataExchangeInProgress:
         DS8 1
-//  561 bool CSpi::m_bfDataExchangeIsOccur;
+//  559 bool CSpi::m_bfDataExchangeIsOccur;
 ??m_bfDataExchangeIsOccur:
         DS8 1
-//  562 bool CSpi::m_bfRxBuffOverflow;
+//  560 bool CSpi::m_bfRxBuffOverflow;
 ??m_bfRxBuffOverflow_1:
         DS8 1
 
@@ -2014,405 +1317,538 @@ _A_PINB:
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//  563 uint8_t CSpi::m_auiSpiRxBuffer[];
+//  561 uint8_t CSpi::m_auiSpiRxBuffer[];
 ??m_auiSpiRxBuffer:
         DS8 16
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//  564 uint8_t CSpi::m_auiSpiTxBuffer[];
+//  562 uint8_t CSpi::m_auiSpiTxBuffer[];
 ??m_auiSpiTxBuffer:
         DS8 16
-//  565 
-//  566 ////-----------------------------------------------------------------------------------------------------
-//  567 //CSpi::CSpi()
-//  568 //{
-//  569 //
-//  570 //}
-//  571 //
-//  572 ////-----------------------------------------------------------------------------------------------------
-//  573 //CSpi::~CSpi()
-//  574 //{
-//  575 //
-//  576 //}
-//  577 
-//  578 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  579 void CSpi::Init(uint8_t *puiRxBuffer, uint8_t *puiTxBuffer)
-??Init_2:
-//  580 {
-//  581 //    m_puiRxBuffer = m_auiSpiRxBuffer;
-//  582 //    m_puiTxBuffer = m_auiSpiTxBuffer;
-//  583     m_puiRxBuffer = puiRxBuffer;
-        LDI     R30, LOW(??m_puiRxBuffer_1)
-        LDI     R31, (??m_puiRxBuffer_1) >> 8
+??CSpi:
+        LDI     R18, LOW(??__vtbl)
+        LDI     R19, (??__vtbl) >> 8
+        MOVW    R31:R30, R17:R16
+        ST      Z, R18
+        STD     Z+1, R19
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 CSpi &CSpi::new CSpi()
+`??new CSpi`:
+        LDI     R16, 2
+        LDI     R17, 0
+        RCALL   `??operator new`
+        MOV     R18, R16
+        OR      R18, R17
+        BREQ    `??new CSpi_1`
+        RCALL   ??CSpi
+        RET
+`??new CSpi_1`:
+        LDI     R16, 0
+        LDI     R17, 0
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+??Init:
+        LDI     R16, 63
+        STS     _A_DIDR0, R16
+        LDI     R16, 7
+        STS     _A_ADCSRA, R16
+        LDI     R16, 0
+        STS     _A_ADCSRB, R16
+        LDI     R16, 192
+        STS     _A_ADMUX, R16
+        RET
+        REQUIRE _A_DIDR0
+        REQUIRE _A_ADCSRA
+        REQUIRE _A_ADCSRB
+        REQUIRE _A_ADMUX
+
+        RSEG CODE:CODE:NOROOT(1)
+??ChannelSelect:
+        LDS     R17, _A_ADMUX
+        ANDI    R17, 0xF0
+        STS     _A_ADMUX, R17
+        ANDI    R16, 0x0F
+        LDS     R17, _A_ADMUX
+        OR      R17, R16
+        STS     _A_ADMUX, R17
+        RET
+        REQUIRE _A_ADMUX
+
+        RSEG CODE:CODE:NOROOT(1)
+??Start:
+        LDS     R16, _A_ADCSRA
+        ORI     R16, 0xC0
+        STS     _A_ADCSRA, R16
+        RET
+        REQUIRE _A_ADCSRA
+
+        RSEG CODE:CODE:NOROOT(1)
+??Stop:
+        LDS     R16, _A_ADCSRA
+        ANDI    R16, 0x3F
+        STS     _A_ADCSRA, R16
+        RET
+        REQUIRE _A_ADCSRA
+
+        RSEG CODE:CODE:NOROOT(1)
+??Disable:
+        LDS     R16, _A_ADCSRA
+        ANDI    R16, 0x3F
+        STS     _A_ADCSRA, R16
+        LDS     R16, 100
+        ORI     R16, 0x01
+        STS     100, R16
+        RET
+        REQUIRE _A_ADCSRA
+        REQUIRE _A_PRR
+
+        RSEG CODE:CODE:NOROOT(1)
+??Enable:
+        LDS     R16, 100
+        ANDI    R16, 0xFE
+        STS     100, R16
+        LDS     R16, 122
+        ORI     R16, 0x80
+        STS     122, R16
+        RET
+        REQUIRE _A_PRR
+        REQUIRE _A_ADCSRA
+
+        RSEG CODE:CODE:NOROOT(1)
+??GetMeasureValue:
+        LDS     R16, _A_ADC
+        LDI     R17, 0
+        LDS     R19, 121
+        OR      R17, R19
+        RET
+        REQUIRE _A_ADC
+
+        RSEG CODE:CODE:NOROOT(1)
+??UartBind:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R30, LOW(??m_UBRRH)
+        LDI     R31, (??m_UBRRH) >> 8
         ST      Z, R16
         STD     Z+1, R17
-//  584     m_puiTxBuffer = puiTxBuffer;
         STD     Z+2, R18
         STD     Z+3, R19
-//  585 //    // Master mode.
-//  586 //    SPCR = 0;
-//  587 //    SPCR  |= (BIT(SPR1));		// Slave,  57600.
-//  588 //
-//  589 //    DDRB  |= (BIT(SPI_MOSI));
-//  590 
-//  591     // Slave mode.
-//  592     DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
-        IN      R16, 0x04
-        ORI     R16, 0x12
-        OUT     0x04, R16
-//  593     SPCR |= (1 << SPR1);
-        IN      R16, 0x2C
-        ORI     R16, 0x02
-        OUT     0x2C, R16
-//  594 };
-        RET
-        REQUIRE _A_DDRB
-        REQUIRE _A_SPCR
-//  595 
-//  596 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  597 void CSpi::Enable(void)
-??Enable_2:
-//  598 {
-//  599 //    // Slave mode.
-//  600 //    DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
-//  601     // разрешим SS.
-//  602     PORTB &= ~Bit(PB1);
-        CBI     0x05, 0x01
-//  603     // разрешим SPI.
-//  604     // разрешим прерывание SPI_STC.
-//  605     SPCR |= ((1 << SPE) | (1 << SPIE));
-        IN      R16, 0x2C
-        ORI     R16, 0xC0
-        OUT     0x2C, R16
-//  606     SPDR = 0;
-        LDI     R16, 0
-        OUT     0x2E, R16
-//  607 }
-        RET
-        REQUIRE _A_PORTB
-        REQUIRE _A_SPCR
-        REQUIRE _A_SPDR
-//  608 
-//  609 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  610 void CSpi::Disable(void)
-??Disable_2:
-//  611 {
-//  612     // Slave mode.
-//  613 //    // запретим прерывание SPI_STC.
-//  614 //    PORTB &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
-//  615 //    DDRB  &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
-//  616     // запретим SS.
-//  617     PORTB |= Bit(PB1);
-        SBI     0x05, 0x01
-//  618     SPCR &= ~((1 << SPE) | (1 << SPIE));
-        IN      R16, 0x2C
-        ANDI    R16, 0x3F
-        OUT     0x2C, R16
-//  619 }
-        RET
-        REQUIRE _A_PORTB
-        REQUIRE _A_SPCR
-//  620 
-//  621 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  622 void CSpi::Reset(void)
-??Reset_1:
-//  623 {
-//  624     m_nuiBuffByteCounter = 0;
-        LDI     R30, LOW(??m_nuiBuffByteCounter)
-        LDI     R31, (??m_nuiBuffByteCounter) >> 8
-        LDI     R16, 0
-        ST      Z, R16
-        STD     Z+1, R16
-//  625     m_uiReceivedByteCounter = 0;
-        STD     Z+2, R16
-        STD     Z+3, R16
-//  626     m_bfByteIsReceived = 0;
-        STD     Z+5, R16
-//  627     m_bfByteIsTransmited = 0;
-        STD     Z+6, R16
-//  628     m_bfDataExchangeInProgress = 0;
-        STD     Z+7, R16
-//  629     m_bfDataExchangeIsOccur = 0;
+        STD     Z+4, R20
+        STD     Z+5, R21
+        STD     Z+6, R22
+        STD     Z+7, R23
+        LDD     R16, Y+4
+        LDD     R17, Y+5
         STD     Z+8, R16
-//  630     m_bfRxBuffOverflow = 0;
-        STD     Z+9, R16
-//  631     m_uiExchangeByte = 0;
-        STD     Z+4, R16
-//  632 }
-        RET
-//  633 
-//  634 //-----------------------------------------------------------------------------------------------------
+        STD     Z+9, R17
+        LDD     R16, Y+6
+        LDD     R17, Y+7
+        STD     Z+10, R16
+        STD     Z+11, R17
+        LDI     R30, 14
+        RJMP    ?EPILOGUE_B4_L09
 
         RSEG CODE:CODE:NOROOT(1)
-//  635 int16_t CSpi::Exchange(void)
-??Exchange:
-//  636 {
-        RCALL   ?PROLOGUE2_L09
-//  637     m_bfByteIsReceived = 0;
-        LDI     R30, LOW(??m_nuiBuffByteCounter)
-        LDI     R31, (??m_nuiBuffByteCounter) >> 8
+??Init_1:
+        RCALL   ?PROLOGUE5_L09
+        REQUIRE ?Register_R4_is_cg_reg
+        MOV     R24, R20
+        MOV     R4, R21
+        MOV     R25, R22
+        LDI     R26, LOW(??m_UBRRH)
+        LDI     R27, (??m_UBRRH) >> 8
+        LDD     R20, Y+5
+        LDD     R21, Y+6
+        MOVW    R31:R30, R27:R26
+        STD     Z+16, R20
+        STD     Z+17, R21
+        LDD     R20, Y+7
+        LDD     R21, Y+8
+        STD     Z+12, R20
+        STD     Z+13, R21
+        LDI     R20, 4
+        RCALL   ?L_SHL_L03
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
         LDI     R16, 0
-        STD     Z+5, R16
-//  638 
-//  639     if (m_bfRxBuffOverflow)
-        LDD     R16, Z+9
+        LDI     R17, 128
+        LDI     R18, 112
+        LDI     R19, 0
+        RCALL   ?UL_DIVMOD_L03
+        MOVW    R19:R18, R17:R16
+        SUBI    R18, 1
+        SBCI    R19, 0
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+2
+        LDD     R17, Z+3
+        MOVW    R31:R30, R17:R16
+        ST      Z, R18
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 1
+        ST      Z, R19
+        MOV     R16, R4
+        SUBI    R16, 7
+        BREQ    ??Init_4
+        DEC     R16
+        BRNE    ??Init_5
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+8
+        LDD     R17, Z+9
+        MOVW    R31:R30, R17:R16
+        LD      R16, Z
+        ORI     R16, 0x06
+        RJMP    ??Init_6
+??Init_4:
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+8
+        LDD     R17, Z+9
+        MOVW    R31:R30, R17:R16
+        LD      R16, Z
+        ORI     R16, 0x04
+??Init_6:
+        ST      Z, R16
+??Init_5:
+        CPI     R24, 78
+        BREQ    ??Init_7
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+8
+        LDD     R17, Z+9
+        CPI     R24, 69
+        MOVW    R31:R30, R17:R16
+        LD      R16, Z
+        BRNE    ??Init_8
+        ORI     R16, 0x20
+        RJMP    ??Init_9
+??Init_8:
+        ORI     R16, 0x30
+??Init_9:
+        ST      Z, R16
+??Init_7:
+        CPI     R25, 1
+        BREQ    ??Init_10
+        CPI     R25, 2
+        BRNE    ??Init_10
+        MOVW    R31:R30, R27:R26
+        LDD     R26, Z+8
+        LDD     R27, Z+9
+        LD      R16, X
+        ORI     R16, 0x08
+        ST      X, R16
+??Init_10:
+        LDI     R30, 9
+        RJMP    ?EPILOGUE_B5_L09
+
+        RSEG CODE:CODE:NOROOT(1)
+??Reset:
+        LDI     R30, LOW(??m_UBRRH)
+        LDI     R31, (??m_UBRRH) >> 8
+        LDI     R16, 0
+        STD     Z+18, R16
+        STD     Z+19, R16
+        STD     Z+36, R16
+        STD     Z+37, R16
+        STD     Z+38, R16
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+??Enable_1:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R30, LOW(??m_UBRRH)
+        LDI     R31, (??m_UBRRH) >> 8
+        LDD     R26, Z+4
+        LDD     R27, Z+5
+        LD      R16, X
+        ORI     R16, 0x80
+        ST      X, R16
+        LDD     R26, Z+6
+        LDD     R27, Z+7
+        LD      R16, X
+        ORI     R16, 0x90
+        ST      X, R16
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
+
+        RSEG CODE:CODE:NOROOT(1)
+??Disable_1:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R26, LOW((??m_UBRRH + 6))
+        LDI     R27, HIGH((??m_UBRRH + 6))
+        LD      R30, X+
+        LD      R31, X
+        LD      R16, Z
+        ANDI    R16, 0xB7
+        ST      Z, R16
+        LDI     R26, LOW((??m_UBRRH + 6))
+        LDI     R27, HIGH((??m_UBRRH + 6))
+        LD      R30, X+
+        LD      R31, X
+        LD      R16, Z
+        ANDI    R16, 0x6F
+        ST      Z, R16
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
+
+        RSEG CODE:CODE:NOROOT(1)
+??Write:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R26, LOW(??m_UBRRH)
+        LDI     R27, (??m_UBRRH) >> 8
+        MOVW    R31:R30, R27:R26
+        STD     Z+12, R16
+        STD     Z+13, R17
+        STD     Z+14, R18
+        STD     Z+15, R19
+        ADIW    R27:R26, 4
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 5
+        LD      R16, Z
+        ANDI    R16, 0x7F
+        ST      Z, R16
+        ADIW    R27:R26, 6
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 7
+        LD      R16, Z
+        ANDI    R16, 0x6F
+        ST      Z, R16
+        ADIW    R27:R26, 4
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 5
+        LD      R16, Z
+        ORI     R16, 0x60
+        ST      Z, R16
+        MOVW    R31:R30, R27:R26
+        LDD     R26, Z+6
+        LDD     R27, Z+7
+        LD      R16, X
+        ORI     R16, 0x28
+        ST      X, R16
+        LDI     R16, 1
+        LDI     R17, 0
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
+
+        RSEG CODE:CODE:NOROOT(1)
+??Read:
+        RCALL   ?PROLOGUE4_L09
+        MOVW    R25:R24, R17:R16
+        LDI     R26, LOW(??m_UBRRH)
+        LDI     R27, (??m_UBRRH) >> 8
+        LDI     R16, 0
+        STS     (??m_UBRRH + 36), R16
+        LDS     R16, (??m_UBRRH + 38)
         TST     R16
-        BRNE    ??Exchange_1
-//  640     {
-//  641         return -1;
-//  642     }
-//  643     if (BUFFER_LENGTH <= m_nuiBuffByteCounter)
-        LD      R24, Z
-        LDD     R25, Z+1
-        SBIW    R25:R24, 16
-        BRCS    ??Exchange_2
-//  644     {
-//  645         return -1;
-??Exchange_1:
+        BRNE    ??Read_2
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+18
+        LDD     R17, Z+19
+        CP      R16, R18
+        CPC     R17, R19
+        BRCS    ??Read_3
+??Read_2:
         LDI     R16, 255
         LDI     R17, 255
-        RJMP    ??Exchange_3
-//  646     }
-//  647     else if (m_nuiBuffByteCounter)
-??Exchange_2:
-        LD      R16, Z
-        LDD     R17, Z+1
+        RJMP    ??Read_4
+??Read_3:
         OR      R16, R17
-        BREQ    ??Exchange_4
-//  648     {
-//  649 //        CPlatform::InterruptDisable();
-//  650 
-//  651 //        *puiDestination = m_uiExchangeByte;
-//  652 //        m_uiExchangeByte = 0x78;//*puiSourse;
-//  653 
-//  654         uint8_t uiCounter = m_nuiBuffByteCounter;
-//  655 //        m_nuiBuffByteCounter = 0;
-//  656 
-//  657 //        CPlatform::InterruptEnable();
-//  658 
-//  659         return uiCounter;
-        LD      R16, Z
-        RJMP    ??Exchange_5
-//  660     }
-//  661     else if (0 == m_nuiBuffByteCounter)
-//  662     {
-//  663         return 0;
-//  664     }
-//  665 
-//  666     return 0;
-??Exchange_4:
+        BREQ    ??Read_5
+        RCALL   ??InterruptDisable
         LDI     R16, 0
-??Exchange_5:
         LDI     R17, 0
-??Exchange_3:
-        LDI     R30, 2
-        RJMP    ?EPILOGUE_B2_L09
-//  667 }
-//  668 
-//  669 ////-----------------------------------------------------------------------------------------------------
-//  670 //uint8_t CSpi::Read(uint8_t *pucRamDestination, uint16_t uiEepromSourse, uint16_t nuiLength)
-//  671 //{
-//  672 //
-//  673 //    return 1;
-//  674 //}
-//  675 
-//  676 ////-----------------------------------------------------------------------------------------------------
-//  677 //void CSpi::RecvInterruptHandler(void)
-//  678 //{
-//  679 ////    SPDR = m_uiExchangeByte;
-//  680 ////    m_uiExchangeByte = SPDR;
-//  681 ////    // буфер приёма не переполнен?
-//  682 ////    if (m_nuiBuffByteCounter <
-//  683 ////            SPI_MAX_BUFF_LENGTH)
-//  684 ////    {
-//  685 ////        m_nuiBuffByteCounter++;
-//  686 ////        m_bfByteIsReceived = 1;
-//  687 ////    }
-//  688 ////    else
-//  689 ////    {
-//  690 ////        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
-//  691 ////        // установим флаг - произошел обмен данными по SPI.
-//  692 ////        m_bfRxBuffOverflow = 1;
-//  693 ////        m_bfByteIsReceived = 1;
-//  694 ////    }
-//  695 //
-//  696 //
-//  697 ////    SPDR = m_uiExchangeByte;
-//  698 ////    m_puiRxBuffer[m_nuiBuffByteCounter] = SPDR;
-//  699 ////    m_uiExchangeByte = m_puiTxBuffer[m_nuiBuffByteCounter];
-//  700 ////    // буфер приёма не переполнен?
-//  701 ////    if (m_nuiBuffByteCounter <
-//  702 ////            SPI_MAX_BUFF_LENGTH)
-//  703 ////    {
-//  704 ////        m_nuiBuffByteCounter++;
-//  705 ////        m_bfByteIsReceived = 1;
-//  706 ////    }
-//  707 ////    else
-//  708 ////    {
-//  709 ////        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
-//  710 ////        // установим флаг - произошел обмен данными по SPI.
-//  711 ////        m_bfRxBuffOverflow = 1;
-//  712 ////        m_bfByteIsReceived = 1;
-//  713 ////    }
-//  714 //}
-//  715 
-//  716 ////-----------------------------------------------------------------------------------------------------
-//  717 //#pragma vector = SPI_STC_vect
-//  718 //__interrupt void SIG_SPI_STC(void)
-//  719 //{
-//  720 ////    if (CSpi::m_bfByteIsTransmited)
-//  721 ////    {
-//  722 ////        SPDR = CSpi::m_uiExchangeByte;
-//  723 ////    }
-//  724 ////    else
-//  725 ////    {
-//  726 ////        // Первый байт не передаём, чтобы прошло "эхо".
-//  727 ////        CSpi::m_bfByteIsTransmited = 1;
-//  728 ////        SPDR = SPDR;//0x91;//
-//  729 ////    }
-//  730 //    SPDR = CSpi::m_uiExchangeByte;
-//  731 //    CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
-//  732 //    CSpi::m_uiExchangeByte = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter + 1];
-//  733 //
-//  734 //    // буфер приёма не переполнен?
-//  735 //    if (CSpi::m_nuiBuffByteCounter <
-//  736 //            CSpi::BUFFER_LENGTH)
-//  737 //    {
-//  738 //        CSpi::m_nuiBuffByteCounter++;
-//  739 //        CSpi::m_bfByteIsReceived = 1;
-//  740 //    }
-//  741 //    else
-//  742 //    {
-//  743 //        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
-//  744 //        // установим флаг - произошел обмен данными по SPI.
-//  745 //        CSpi::m_bfRxBuffOverflow = 1;
-//  746 //        CSpi::m_bfByteIsReceived = 1;
-//  747 //    }
-//  748 //}
-//  749 
-//  750 //-----------------------------------------------------------------------------------------------------
-//  751 
-//  752 
-//  753 
-//  754 
-//  755 
-//  756 //-----------------------------------------------------------------------------------------------------
-//  757 //// delay
-//  758 //void delay_ms(uint16_t millisecs)
-//  759 //{
-//  760 //    while(millisecs--)
-//  761 //    {
-//  762 //        delay_us(1000);
-//  763 //    }
-//  764 //}
-//  765 //void delay_s(uint16_t secs)
-//  766 //{
-//  767 //    while(secs--)
-//  768 //    {
-//  769 //        __delay_cycles(F_CPU);
-//  770 //    }
-//  771 //}
-//  772 //void delay_mins(uint16_t minutes)
-//  773 //{
-//  774 //    while(minutes--)
-//  775 //    {
-//  776 //        __delay_cycles(60*F_CPU);
-//  777 //    }
-//  778 //}
-//  779 
-//  780 //-----------------------------------------------------------------------------------------------------
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//  781 uint16_t CPlatform::m_uiSystemTick;
-??m_uiSystemTick:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//  782 CUart* CPlatform::m_pxUart0;
-??m_pxUart0:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//  783 CUart* CPlatform::m_pxUart1;
-??m_pxUart1:
-        DS8 2
-//  784 //CSpi* CPlatform::m_pxSpi;
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//  785 uint8_t CPlatform::uiSlaveSelectIsHigh;
-??uiSlaveSelectIsHigh:
-        DS8 1
-//  786 
-//  787 ////-----------------------------------------------------------------------------------------------------
-//  788 //CPlatform::CPlatform()
-//  789 //{
-//  790 //
-//  791 //}
-//  792 //
-//  793 ////-----------------------------------------------------------------------------------------------------
-//  794 //CPlatform::~CPlatform()
-//  795 //{
-//  796 //
-//  797 //}
-//  798 
-//  799 //-----------------------------------------------------------------------------------------------------
-//  800 // INT0
-//  801 //-----------------------------------------------------------------------------------------------------
+        RJMP    ??Read_6
+??Read_7:
+        ADD     R30, R16
+        ADC     R31, R17
+        LDD     R18, Z+20
+        MOVW    R31:R30, R25:R24
+        ADD     R30, R16
+        ADC     R31, R17
+        ST      Z, R18
+        SUBI    R16, 255
+        SBCI    R17, 255
+??Read_6:
+        MOVW    R31:R30, R27:R26
+        LDD     R18, Z+18
+        LDD     R19, Z+19
+        CP      R16, R18
+        CPC     R17, R19
+        BRCS    ??Read_7
+        MOV     R24, R18
+        LDI     R16, 0
+        STD     Z+18, R16
+        STD     Z+19, R16
+        RCALL   ??InterruptEnable
+        MOV     R16, R24
+        RJMP    ??Read_8
+??Read_5:
+        LDI     R16, 0
+??Read_8:
+        LDI     R17, 0
+??Read_4:
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
 
         RSEG CODE:CODE:NOROOT(1)
-//  802 void CPlatform::Int0InterruptEnable(void)
-??Int0InterruptEnable:
-//  803 {
-//  804     // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
-//  805     EICRA &= ~(Bit(ISC01) | Bit(ISC00));
-        LDS     R16, _A_EICRA
-        ANDI    R16, 0xFC
-        STS     _A_EICRA, R16
-//  806     EICRA |= (Bit(ISC01) | Bit(ISC00));
-        LDS     R16, _A_EICRA
-        ORI     R16, 0x03
-        STS     _A_EICRA, R16
-//  807     // разрешение внешнего прерывания INT0.
-//  808     EIMSK |= Bit(INT0);
-        SBI     0x1D, 0x00
-//  809 }
-        RET
-        REQUIRE _A_EICRA
-        REQUIRE _A_EIMSK
-//  810 //-----------------------------------------------------------------------------------------------------
+??UdreInterruptHandler:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R26, LOW(??m_UBRRH)
+        LDI     R27, (??m_UBRRH) >> 8
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+14
+        LDD     R17, Z+15
+        OR      R16, R17
+        BRNE    ??UdreInterruptHandler_1
+        ADIW    R27:R26, 6
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 7
+        LD      R16, Z
+        ANDI    R16, 0xDF
+        ST      Z, R16
+        ADIW    R27:R26, 4
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 5
+        LD      R16, Z
+        ORI     R16, 0x40
+        ST      Z, R16
+        MOVW    R31:R30, R27:R26
+        LDD     R26, Z+6
+        LDD     R27, Z+7
+        LD      R16, X
+        ORI     R16, 0x40
+        ST      X, R16
+        RJMP    ??UdreInterruptHandler_2
+??UdreInterruptHandler_1:
+        ADIW    R27:R26, 12
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 13
+        LD      R16, Z
+        ADIW    R27:R26, 10
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 11
+        ST      Z, R16
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+12
+        LDD     R17, Z+13
+        SUBI    R16, 255
+        SBCI    R17, 255
+        STD     Z+12, R16
+        STD     Z+13, R17
+        LDD     R16, Z+14
+        LDD     R17, Z+15
+        SUBI    R16, 1
+        SBCI    R17, 0
+        STD     Z+14, R16
+        STD     Z+15, R17
+??UdreInterruptHandler_2:
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
 
         RSEG CODE:CODE:NOROOT(1)
-//  811 void CPlatform::Int0InterruptDisable(void)
-??Int0InterruptDisable:
-//  812 {
-//  813     // запретим внешнее прерывание INT0.
-//  814     EIMSK &= ~Bit(INT0);
-        CBI     0x1D, 0x00
-//  815 }
-        RET
-        REQUIRE _A_EIMSK
-//  816 
-//  817 //-----------------------------------------------------------------------------------------------------
-//  818 #pragma vector = INT0_vect
+??TxcInterruptHandler:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R26, LOW(??m_UBRRH)
+        LDI     R27, (??m_UBRRH) >> 8
+        ADIW    R27:R26, 6
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 7
+        LD      R16, Z
+        ANDI    R16, 0xB7
+        ST      Z, R16
+        LDI     R16, 1
+        RCALL   ??MeasureFlowControlSet
+        ADIW    R27:R26, 4
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 5
+        LD      R16, Z
+        ORI     R16, 0x80
+        ST      Z, R16
+        MOVW    R31:R30, R27:R26
+        LDD     R26, Z+6
+        LDD     R27, Z+7
+        LD      R16, X
+        ORI     R16, 0x90
+        ST      X, R16
+        LDI     R16, 1
+        STS     (??m_UBRRH + 37), R16
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
 
         RSEG CODE:CODE:NOROOT(1)
-        CALL_GRAPH_ROOT ??SIG_INT0, "interrupt"
-//  819 __interrupt void SIG_INT0(void)
-??SIG_INT0:
-//  820 {
+??RecvInterruptHandler:
+        RCALL   ?PROLOGUE4_L09
+        LDI     R26, LOW(??m_UBRRH)
+        LDI     R27, (??m_UBRRH) >> 8
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+18
+        LDD     R17, Z+19
+        CPI     R16, 64
+        LDI     R18, 0
+        CPC     R17, R18
+        BRCS    ??RecvInterruptHandler_1
+        LDI     R16, 1
+        STS     (??m_UBRRH + 38), R16
+        RJMP    ??RecvInterruptHandler_2
+??RecvInterruptHandler_1:
+        ADIW    R27:R26, 10
+        LD      R30, X+
+        LD      R31, X
+        SBIW    R27:R26, 11
+        LD      R18, Z
+        LDI     R30, LOW(??m_UBRRH)
+        LDI     R31, (??m_UBRRH) >> 8
+        ADD     R30, R16
+        ADC     R31, R17
+        STD     Z+20, R18
+        MOVW    R31:R30, R27:R26
+        LDD     R16, Z+18
+        LDD     R17, Z+19
+        SUBI    R16, 255
+        SBCI    R17, 255
+        STD     Z+18, R16
+        STD     Z+19, R17
+        LDI     R16, 1
+??RecvInterruptHandler_2:
+        STS     (??m_UBRRH + 36), R16
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
+
+        RSEG CODE:CODE:NOROOT(1)
+        CALL_GRAPH_ROOT ??SIG_UART0_DATA, "interrupt"
+??SIG_UART0_DATA:
+        ST      -Y, R31
+        ST      -Y, R30
+        ST      -Y, R0
+        ST      -Y, R18
+        ST      -Y, R17
+        ST      -Y, R16
+        IN      R18, 0x3F
+        RCALL   ??UdreInterruptHandler
+        OUT     0x3F, R18
+        LD      R16, Y+
+        LD      R17, Y+
+        LD      R18, Y+
+        LD      R0, Y+
+        LD      R30, Y+
+        LD      R31, Y+
+        RETI
+
+        RSEG CODE:CODE:NOROOT(1)
+        CALL_GRAPH_ROOT ??SIG_UART0_TXC, "interrupt"
+??SIG_UART0_TXC:
         ST      -Y, R24
         ST      -Y, R31
         ST      -Y, R30
@@ -2429,64 +1865,598 @@ _A_PINB:
         ST      -Y, R17
         ST      -Y, R16
         IN      R24, 0x3F
-//  821     // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI)?
-//  822     if (!(BIT_IS_SET(PIND, SPI_SS5)))
-        SBIC    0x09, 0x02
-        RJMP    ??SIG_INT0_1
-//  823     {
-//  824         // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI).
-//  825         // установим флаг - вход SS0 переходил в 1(запущен демон ПАС).
-//  826         CPlatform::uiSlaveSelectIsHigh = 1;
+        RCALL   ??TxcInterruptHandler
+        OUT     0x3F, R24
+        LD      R16, Y+
+        LD      R17, Y+
+        LD      R18, Y+
+        LD      R19, Y+
+        LD      R20, Y+
+        LD      R21, Y+
+        LD      R22, Y+
+        LD      R23, Y+
+        LD      R0, Y+
+        LD      R1, Y+
+        LD      R2, Y+
+        LD      R3, Y+
+        LD      R30, Y+
+        LD      R31, Y+
+        LD      R24, Y+
+        RETI
+
+        RSEG CODE:CODE:NOROOT(1)
+        CALL_GRAPH_ROOT ??SIG_UART0_RECV, "interrupt"
+??SIG_UART0_RECV:
+        ST      -Y, R31
+        ST      -Y, R30
+        ST      -Y, R0
+        ST      -Y, R19
+        ST      -Y, R18
+        ST      -Y, R17
+        ST      -Y, R16
+        IN      R19, 0x3F
+        RCALL   ??RecvInterruptHandler
+        OUT     0x3F, R19
+        LD      R16, Y+
+        LD      R17, Y+
+        LD      R18, Y+
+        LD      R19, Y+
+        LD      R0, Y+
+        LD      R30, Y+
+        LD      R31, Y+
+        RETI
+
+        RSEG CODE:CODE:NOROOT(1)
+??ReadByte:
+??ReadByte_1:
+        WDR
+        SBIC    0x1F, 0x01
+        RJMP    ??ReadByte_1
+        CLI
+        OUT     0x22, R17
+        OUT     0x21, R16
+        SBI     0x1F, 0x00
+        SEI
+        IN      R16, 0x20
+        RET
+        REQUIRE _A_EECR
+        REQUIRE _A_EEAR
+        REQUIRE _A_EEDR
+
+        RSEG CODE:CODE:NOROOT(1)
+??WriteByte:
+??WriteByte_1:
+        WDR
+        SBIC    0x1F, 0x01
+        RJMP    ??WriteByte_1
+        CLI
+        OUT     0x22, R17
+        OUT     0x21, R16
+        OUT     0x20, R18
+        SBI     0x1F, 0x02
+        SBI     0x1F, 0x01
+        SEI
+        RET
+        REQUIRE _A_EECR
+        REQUIRE _A_EEAR
+        REQUIRE _A_EEDR
+
+        RSEG CODE:CODE:NOROOT(1)
+??Read_1:
+        MOVW    R31:R30, R17:R16
+        RJMP    ??Read_9
+??Read_10:
+        MOVW    R17:R16, R19:R18
+        RCALL   ??ReadByte
+        SUBI    R18, 255
+        SBCI    R19, 255
+        ST      Z+, R16
+        SUBI    R20, 1
+        SBCI    R21, 0
+??Read_9:
+        MOV     R16, R20
+        OR      R16, R21
+        BRNE    ??Read_10
         LDI     R16, 1
-        STS     ??uiSlaveSelectIsHigh, R16
-//  827 //        CSpi::DataExchangeInProgressClear();
-//  828         // запретим SPI.
-//  829         CSpi::Disable();
-        RCALL   ??Disable_2
-//  830         // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
-//  831         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+??Write_1:
+        RCALL   ?PROLOGUE2_L09
+        MOVW    R25:R24, R17:R16
+        MOVW    R31:R30, R19:R18
+        RJMP    ??Write_2
+??Write_3:
+        LD      R18, Z+
+        MOVW    R17:R16, R25:R24
+        RCALL   ??WriteByte
+        ADIW    R25:R24, 1
+        SUBI    R20, 1
+        SBCI    R21, 0
+??Write_2:
+        MOV     R16, R20
+        OR      R16, R21
+        BRNE    ??Write_3
+        LDI     R16, 1
+        LDI     R30, 2
+        RJMP    ?EPILOGUE_B2_L09
+//  563 
+//  564 //-----------------------------------------------------------------------------------------------------
+//  565 CSpi::CSpi()
+//  566 {
+//  567 
+//  568 }
+//  569 
+//  570 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  571 CSpi::~CSpi()
+`?~CSpi`:
+//  572 {
+        MOV     R20, R16
+        OR      R20, R17
+        BREQ    `?~CSpi_1`
+        BST     R18, 0
+        BRTC    `?~CSpi_1`
+//  573 
+//  574 }
+        RCALL   `??operator delete`
+`?~CSpi_1`:
+        RET
+//  575 
+//  576 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  577 void CSpi::Init(uint8_t *puiRxBuffer, uint8_t *puiTxBuffer)
+??Init_2:
+//  578 {
+//  579 //    m_puiRxBuffer = m_auiSpiRxBuffer;
+//  580 //    m_puiTxBuffer = m_auiSpiTxBuffer;
+//  581     m_puiRxBuffer = puiRxBuffer;
+        LDI     R30, LOW(??m_puiRxBuffer_1)
+        LDI     R31, (??m_puiRxBuffer_1) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+//  582     m_puiTxBuffer = puiTxBuffer;
+        STD     Z+2, R18
+        STD     Z+3, R19
+//  583 //    // Master mode.
+//  584 //    SPCR = 0;
+//  585 //    SPCR  |= (BIT(SPR1));		// Slave,  57600.
+//  586 //
+//  587 //    DDRB  |= (BIT(SPI_MOSI));
+//  588 
+//  589     // Slave mode.
+//  590     DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
+        IN      R16, 0x04
+        ORI     R16, 0x12
+        OUT     0x04, R16
+//  591     SPCR |= (1 << SPR1);
+        IN      R16, 0x2C
+        ORI     R16, 0x02
+        OUT     0x2C, R16
+//  592 };
+        RET
+        REQUIRE _A_DDRB
+        REQUIRE _A_SPCR
+//  593 
+//  594 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  595 void CSpi::Enable(void)
+??Enable_2:
+//  596 {
+//  597 //    // Slave mode.
+//  598 //    DDRB  |= (Bit(SPI_MISO) | Bit(DDB1));
+//  599     // разрешим SS.
+//  600     PORTB &= ~Bit(PB1);
+        CBI     0x05, 0x01
+//  601     // разрешим SPI.
+//  602     // разрешим прерывание SPI_STC.
+//  603     SPCR |= ((1 << SPE) | (1 << SPIE));
+        IN      R16, 0x2C
+        ORI     R16, 0xC0
+        OUT     0x2C, R16
+//  604     SPDR = 0;
+        LDI     R16, 0
+        OUT     0x2E, R16
+//  605 }
+        RET
+        REQUIRE _A_PORTB
+        REQUIRE _A_SPCR
+        REQUIRE _A_SPDR
+//  606 
+//  607 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  608 void CSpi::Disable(void)
+??Disable_2:
+//  609 {
+//  610     // Slave mode.
+//  611 //    // запретим прерывание SPI_STC.
+//  612 //    PORTB &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
+//  613 //    DDRB  &= ~(Bit(SPI_MOSI) | Bit(SPI_MISO) | Bit(SPI_SCK));
+//  614     // запретим SS.
+//  615     PORTB |= Bit(PB1);
+        SBI     0x05, 0x01
+//  616     SPCR &= ~((1 << SPE) | (1 << SPIE));
+        IN      R16, 0x2C
+        ANDI    R16, 0x3F
+        OUT     0x2C, R16
+//  617 }
+        RET
+        REQUIRE _A_PORTB
+        REQUIRE _A_SPCR
+//  618 
+//  619 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  620 void CSpi::Reset(void)
+??Reset_1:
+//  621 {
+//  622     m_nuiBuffByteCounter = 0;
+        LDI     R30, LOW(??m_nuiBuffByteCounter)
+        LDI     R31, (??m_nuiBuffByteCounter) >> 8
+        LDI     R16, 0
+        ST      Z, R16
+        STD     Z+1, R16
+//  623     m_uiReceivedByteCounter = 0;
+        STD     Z+2, R16
+        STD     Z+3, R16
+//  624     m_bfByteIsReceived = 0;
+        STD     Z+5, R16
+//  625     m_bfByteIsTransmited = 0;
+        STD     Z+6, R16
+//  626     m_bfDataExchangeInProgress = 0;
+        STD     Z+7, R16
+//  627     m_bfDataExchangeIsOccur = 0;
+        STD     Z+8, R16
+//  628     m_bfRxBuffOverflow = 0;
+        STD     Z+9, R16
+//  629     m_uiExchangeByte = 0;
+        STD     Z+4, R16
+//  630 }
+        RET
+//  631 
+//  632 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  633 int16_t CSpi::Exchange(void)
+??Exchange:
+//  634 {
+        RCALL   ?PROLOGUE2_L09
+//  635     m_bfByteIsReceived = 0;
+        LDI     R30, LOW(??m_nuiBuffByteCounter)
+        LDI     R31, (??m_nuiBuffByteCounter) >> 8
+        LDI     R16, 0
+        STD     Z+5, R16
+//  636 
+//  637     if (m_bfRxBuffOverflow)
+        LDD     R16, Z+9
+        TST     R16
+        BRNE    ??Exchange_1
+//  638     {
+//  639         return -1;
+//  640     }
+//  641     if (BUFFER_LENGTH <= m_nuiBuffByteCounter)
+        LD      R24, Z
+        LDD     R25, Z+1
+        SBIW    R25:R24, 16
+        BRCS    ??Exchange_2
+//  642     {
+//  643         return -1;
+??Exchange_1:
+        LDI     R16, 255
+        LDI     R17, 255
+        RJMP    ??Exchange_3
+//  644     }
+//  645     else if (m_nuiBuffByteCounter)
+??Exchange_2:
+        LD      R16, Z
+        LDD     R17, Z+1
+        OR      R16, R17
+        BREQ    ??Exchange_4
+//  646     {
+//  647 //        CPlatform::InterruptDisable();
+//  648 
+//  649 //        *puiDestination = m_uiExchangeByte;
+//  650 //        m_uiExchangeByte = 0x78;//*puiSourse;
+//  651 
+//  652         uint8_t uiCounter = m_nuiBuffByteCounter;
+//  653 //        m_nuiBuffByteCounter = 0;
+//  654 
+//  655 //        CPlatform::InterruptEnable();
+//  656 
+//  657         return uiCounter;
+        LD      R16, Z
+        RJMP    ??Exchange_5
+//  658     }
+//  659     else if (0 == m_nuiBuffByteCounter)
+//  660     {
+//  661         return 0;
+//  662     }
+//  663 
+//  664     return 0;
+??Exchange_4:
+        LDI     R16, 0
+??Exchange_5:
+        LDI     R17, 0
+??Exchange_3:
+        LDI     R30, 2
+        RJMP    ?EPILOGUE_B2_L09
+//  665 }
+//  666 
+//  667 ////-----------------------------------------------------------------------------------------------------
+//  668 //uint8_t CSpi::Read(uint8_t *pucRamDestination, uint16_t uiEepromSourse, uint16_t nuiLength)
+//  669 //{
+//  670 //
+//  671 //    return 1;
+//  672 //}
+//  673 //
+//  674 ////-----------------------------------------------------------------------------------------------------
+//  675 //void CSpi::RecvInterruptHandler(void)
+//  676 //{
+//  677 ////    SPDR = m_uiExchangeByte;
+//  678 ////    m_uiExchangeByte = SPDR;
+//  679 ////    // буфер приёма не переполнен?
+//  680 ////    if (m_nuiBuffByteCounter <
+//  681 ////            SPI_MAX_BUFF_LENGTH)
+//  682 ////    {
+//  683 ////        m_nuiBuffByteCounter++;
+//  684 ////        m_bfByteIsReceived = 1;
+//  685 ////    }
+//  686 ////    else
+//  687 ////    {
+//  688 ////        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+//  689 ////        // установим флаг - произошел обмен данными по SPI.
+//  690 ////        m_bfRxBuffOverflow = 1;
+//  691 ////        m_bfByteIsReceived = 1;
+//  692 ////    }
+//  693 //
+//  694 //
+//  695 ////    SPDR = m_uiExchangeByte;
+//  696 ////    m_puiRxBuffer[m_nuiBuffByteCounter] = SPDR;
+//  697 ////    m_uiExchangeByte = m_puiTxBuffer[m_nuiBuffByteCounter];
+//  698 ////    // буфер приёма не переполнен?
+//  699 ////    if (m_nuiBuffByteCounter <
+//  700 ////            SPI_MAX_BUFF_LENGTH)
+//  701 ////    {
+//  702 ////        m_nuiBuffByteCounter++;
+//  703 ////        m_bfByteIsReceived = 1;
+//  704 ////    }
+//  705 ////    else
+//  706 ////    {
+//  707 ////        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+//  708 ////        // установим флаг - произошел обмен данными по SPI.
+//  709 ////        m_bfRxBuffOverflow = 1;
+//  710 ////        m_bfByteIsReceived = 1;
+//  711 ////    }
+//  712 //}
+//  713 
+//  714 ////-----------------------------------------------------------------------------------------------------
+//  715 //#pragma vector = SPI_STC_vect
+//  716 //__interrupt void SIG_SPI_STC(void)
+//  717 //{
+//  718 ////    if (CSpi::m_bfByteIsTransmited)
+//  719 ////    {
+//  720 ////        SPDR = CSpi::m_uiExchangeByte;
+//  721 ////    }
+//  722 ////    else
+//  723 ////    {
+//  724 ////        // Первый байт не передаём, чтобы прошло "эхо".
+//  725 ////        CSpi::m_bfByteIsTransmited = 1;
+//  726 ////        SPDR = SPDR;//0x91;//
+//  727 ////    }
+//  728 //    SPDR = CSpi::m_uiExchangeByte;
+//  729 //    CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+//  730 //    CSpi::m_uiExchangeByte = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter + 1];
+//  731 //
+//  732 //    // буфер приёма не переполнен?
+//  733 //    if (CSpi::m_nuiBuffByteCounter <
+//  734 //            CSpi::BUFFER_LENGTH)
+//  735 //    {
+//  736 //        CSpi::m_nuiBuffByteCounter++;
+//  737 //        CSpi::m_bfByteIsReceived = 1;
+//  738 //    }
+//  739 //    else
+//  740 //    {
+//  741 //        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+//  742 //        // установим флаг - произошел обмен данными по SPI.
+//  743 //        CSpi::m_bfRxBuffOverflow = 1;
+//  744 //        CSpi::m_bfByteIsReceived = 1;
+//  745 //    }
+//  746 //}
+//  747 
+//  748 //-----------------------------------------------------------------------------------------------------
+//  749 
+//  750 
+//  751 
+//  752 
+//  753 
+//  754 //-----------------------------------------------------------------------------------------------------
+//  755 //// delay
+//  756 //void delay_ms(uint16_t millisecs)
+//  757 //{
+//  758 //    while(millisecs--)
+//  759 //    {
+//  760 //        delay_us(1000);
+//  761 //    }
+//  762 //}
+//  763 //void delay_s(uint16_t secs)
+//  764 //{
+//  765 //    while(secs--)
+//  766 //    {
+//  767 //        __delay_cycles(F_CPU);
+//  768 //    }
+//  769 //}
+//  770 //void delay_mins(uint16_t minutes)
+//  771 //{
+//  772 //    while(minutes--)
+//  773 //    {
+//  774 //        __delay_cycles(60*F_CPU);
+//  775 //    }
+//  776 //}
+//  777 
+//  778 //-----------------------------------------------------------------------------------------------------
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//  779 uint16_t CPlatform::m_uiSystemTick;
+??m_uiSystemTick:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//  780 CUart* CPlatform::m_pxUart0;
+??m_pxUart0:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//  781 CUart* CPlatform::m_pxUart1;
+??m_pxUart1:
+        DS8 2
+//  782 //CSpi* CPlatform::m_pxSpi;
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//  783 uint8_t CPlatform::uiSlaveSelectIsHigh;
+??uiSlaveSelectIsHigh:
+        DS8 1
+//  784 
+//  785 ////-----------------------------------------------------------------------------------------------------
+//  786 //CPlatform::CPlatform()
+//  787 //{
+//  788 //
+//  789 //}
+//  790 //
+//  791 ////-----------------------------------------------------------------------------------------------------
+//  792 //CPlatform::~CPlatform()
+//  793 //{
+//  794 //
+//  795 //}
+//  796 
+//  797 //-----------------------------------------------------------------------------------------------------
+//  798 // INT0
+//  799 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  800 void CPlatform::Int0InterruptEnable(void)
+??Int0InterruptEnable:
+//  801 {
+//  802     // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
+//  803     EICRA &= ~(Bit(ISC01) | Bit(ISC00));
         LDS     R16, _A_EICRA
         ANDI    R16, 0xFC
         STS     _A_EICRA, R16
-//  832         EICRA |= (Bit(ISC01) | Bit(ISC00));
+//  804     EICRA |= (Bit(ISC01) | Bit(ISC00));
         LDS     R16, _A_EICRA
         ORI     R16, 0x03
         STS     _A_EICRA, R16
-//  833         // установим флаг - произошел обмен данными по SPI.
-//  834         CSpi::DataExchangeIsOccurSet();
-        RCALL   ??DataExchangeIsOccurSet
-//  835         CMvsn21::FlowControlSet(CMvsn21::FSM_IDDLE);
-        LDI     R16, 0
-        RCALL   ??FlowControlSet
-//  836         CPlatform::TxLedOff();
-        RCALL   ??TxLedOff
-        RJMP    ??SIG_INT0_2
-//  837     }
-//  838     else
-//  839     {
-//  840 //        CSpi::DataExchangeInProgressSet();
-//  841         CSpi::Enable();
-??SIG_INT0_1:
-        RCALL   ??Enable_2
-//  842         // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
-//  843         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+//  805     // разрешение внешнего прерывания INT0.
+//  806     EIMSK |= Bit(INT0);
+        SBI     0x1D, 0x00
+//  807 }
+        RET
+        REQUIRE _A_EICRA
+        REQUIRE _A_EIMSK
+//  808 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  809 void CPlatform::Int0InterruptDisable(void)
+??Int0InterruptDisable:
+//  810 {
+//  811     // запретим внешнее прерывание INT0.
+//  812     EIMSK &= ~Bit(INT0);
+        CBI     0x1D, 0x00
+//  813 }
+        RET
+        REQUIRE _A_EIMSK
+//  814 
+//  815 //-----------------------------------------------------------------------------------------------------
+//  816 #pragma vector = INT0_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+        CALL_GRAPH_ROOT ??SIG_INT0, "interrupt"
+//  817 __interrupt void SIG_INT0(void)
+??SIG_INT0:
+//  818 {
+        ST      -Y, R24
+        ST      -Y, R31
+        ST      -Y, R30
+        ST      -Y, R3
+        ST      -Y, R2
+        ST      -Y, R1
+        ST      -Y, R0
+        ST      -Y, R23
+        ST      -Y, R22
+        ST      -Y, R21
+        ST      -Y, R20
+        ST      -Y, R19
+        ST      -Y, R18
+        ST      -Y, R17
+        ST      -Y, R16
+        IN      R24, 0x3F
+//  819     // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI)?
+//  820     if (!(BIT_IS_SET(PIND, SPI_SS5)))
+        SBIC    0x09, 0x02
+        RJMP    ??SIG_INT0_1
+//  821     {
+//  822         // прерывание INT0 произошло по переднему фронту(закончен обмен данными по SPI).
+//  823         // установим флаг - вход SS0 переходил в 1(запущен демон ПАС).
+//  824         CPlatform::uiSlaveSelectIsHigh = 1;
+        LDI     R16, 1
+        STS     ??uiSlaveSelectIsHigh, R16
+//  825         CSpi::DataExchangeInProgressClear();
+        RCALL   ??DataExchangeInProgressClear
+//  826         // запретим SPI.
+//  827         CSpi::Disable();
+        RCALL   ??Disable_2
+//  828         // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
+//  829         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
         LDS     R16, _A_EICRA
         ANDI    R16, 0xFC
         STS     _A_EICRA, R16
-//  844         EICRA |= (Bit(ISC01));
+//  830         EICRA |= (Bit(ISC01) | Bit(ISC00));
+        LDS     R16, _A_EICRA
+        ORI     R16, 0x03
+        STS     _A_EICRA, R16
+//  831         // установим флаг - произошел обмен данными по SPI.
+//  832         CSpi::DataExchangeIsOccurSet();
+        RCALL   ??DataExchangeIsOccurSet
+//  833         CMvsn21::FlowControlSet(CMvsn21::FSM_IDDLE);
+        LDI     R16, 0
+        RCALL   ??FlowControlSet
+//  834         CPlatform::TxLedOff();
+        RCALL   ??TxLedOff
+        RJMP    ??SIG_INT0_2
+//  835     }
+//  836     else
+//  837     {
+//  838         CSpi::DataExchangeInProgressSet();
+??SIG_INT0_1:
+        RCALL   ??DataExchangeInProgressSet
+//  839         CSpi::Enable();
+        RCALL   ??Enable_2
+//  840         // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
+//  841         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+        LDS     R16, _A_EICRA
+        ANDI    R16, 0xFC
+        STS     _A_EICRA, R16
+//  842         EICRA |= (Bit(ISC01));
         LDS     R16, 105
         ORI     R16, 0x02
         STS     105, R16
-//  845         CMvsn21::FlowControlSet(CMvsn21::FSM_START);
+//  843         CMvsn21::FlowControlSet(CMvsn21::FSM_START);
         LDI     R16, 1
         RCALL   ??FlowControlSet
-//  846         CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
+//  844         CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
         LDI     R16, 1
         RCALL   ??MeasureFlowControlSet
-//  847         CPlatform::TxLedOn();
+//  845         CPlatform::TxLedOn();
         RCALL   ??TxLedOn
-//  848     }
-//  849 }
+//  846     }
+//  847 }
 ??SIG_INT0_2:
         OUT     0x3F, R24
         LD      R16, Y+
@@ -2507,114 +2477,114 @@ _A_PINB:
         RETI
         REQUIRE _A_PIND
         REQUIRE _A_EICRA
-//  850 
-//  851 //-----------------------------------------------------------------------------------------------------
+//  848 
+//  849 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  852 void SystemTickInit(void)
+//  850 void SystemTickInit(void)
 ??SystemTickInit:
-//  853 {
-//  854 #define MAIN_TIMER_TICK_RATE_HZ 1000
-//  855 
-//  856 //#define TIMER1_INTERRUPT
-//  857 #define TIMER2_INTERRUPT
-//  858 
-//  859 
-//  860 #ifdef TIMER2_INTERRUPT
-//  861     /* Hardware constants for timer 2. */
-//  862 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM21) )
-//  863 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS21) | _BV(CS20)) )
-//  864 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
-//  865 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE2A) )
-//  866 #endif //TIMER2_INTERRUPT
-//  867 
-//  868 #ifdef TIMER1_INTERRUPT
-//  869     /* Hardware constants for timer 1. */
-//  870 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM12) )
-//  871 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS11) | _BV(CS10)) )
-//  872 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
-//  873 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE1A) )
-//  874 #endif //TIMER1_INTERRUPT
+//  851 {
+//  852 #define MAIN_TIMER_TICK_RATE_HZ 1000
+//  853 
+//  854 //#define TIMER1_INTERRUPT
+//  855 #define TIMER2_INTERRUPT
+//  856 
+//  857 
+//  858 #ifdef TIMER2_INTERRUPT
+//  859     /* Hardware constants for timer 2. */
+//  860 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM21) )
+//  861 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS21) | _BV(CS20)) )
+//  862 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
+//  863 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE2A) )
+//  864 #endif //TIMER2_INTERRUPT
+//  865 
+//  866 #ifdef TIMER1_INTERRUPT
+//  867     /* Hardware constants for timer 1. */
+//  868 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM12) )
+//  869 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS11) | _BV(CS10)) )
+//  870 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
+//  871 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE1A) )
+//  872 #endif //TIMER1_INTERRUPT
+//  873 
+//  874 #ifdef TIMER2_INTERRUPT
 //  875 
-//  876 #ifdef TIMER2_INTERRUPT
-//  877 
-//  878     OCR2A = (((F_CPU / MAIN_TIMER_TICK_RATE_HZ) / 128) - 1);
+//  876     OCR2A = (((F_CPU / MAIN_TIMER_TICK_RATE_HZ) / 128) - 1);
         LDI     R16, 56
         STS     _A_OCR2A, R16
-//  879     TCCR2A |= (Bit(WGM21));
+//  877     TCCR2A |= (Bit(WGM21));
         LDS     R16, 176
         ORI     R16, 0x02
         STS     176, R16
-//  880     TCCR2B |= (Bit(CS22) | Bit(CS20));
+//  878     TCCR2B |= (Bit(CS22) | Bit(CS20));
         LDS     R16, _A_TCCR2B
         ORI     R16, 0x05
         STS     _A_TCCR2B, R16
-//  881 
-//  882     TIMSK2 |= Bit(OCIE2A);
+//  879 
+//  880     TIMSK2 |= Bit(OCIE2A);
         LDS     R16, 112
         ORI     R16, 0x02
         STS     112, R16
+//  881 
+//  882 #endif //TIMER2_INTERRUPT
 //  883 
-//  884 #endif //TIMER2_INTERRUPT
-//  885 
-//  886 #ifdef TIMER1_INTERRUPT
-//  887 
-//  888     unsigned long ulCompareMatch;
-//  889     unsigned char ucLowByte;
-//  890 
-//  891     /* Using 16bit timer 1 to generate the tick.  Correct fuses must be
-//  892     selected for the configCPU_CLOCK_HZ clock. */
-//  893 
-//  894     ulCompareMatch = CPlatform::F_CPU / MAIN_TIMER_TICK_RATE_HZ;
-//  895 
-//  896     /* We only have 16 bits so have to scale to get our required tick rate. */
-//  897     ulCompareMatch /= portCLOCK_PRESCALER;
-//  898 
-//  899     /* Adjust for correct value. */
-//  900     ulCompareMatch -= ( unsigned long ) 1;
-//  901 
-//  902     /* Setup compare match value for compare match A.  Interrupts are disabled
-//  903     before this is called so we need not worry here. */
-//  904     OCR1A = ulCompareMatch;
-//  905 
-//  906     /* Setup clock source and compare match behaviour. */
-//  907     TCCR1A &= ~(_BV(WGM11) | _BV(WGM10));
-//  908     ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
-//  909     TCCR1B = ucLowByte;
-//  910 
-//  911     /* Enable the interrupt - this is okay as interrupt are currently globally
-//  912     disabled. */
-//  913     ucLowByte = TIMSK;
-//  914     ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
-//  915     TIMSK = ucLowByte;
+//  884 #ifdef TIMER1_INTERRUPT
+//  885 //
+//  886 //    unsigned long ulCompareMatch;
+//  887 //    unsigned char ucLowByte;
+//  888 //
+//  889 //    /* Using 16bit timer 1 to generate the tick.  Correct fuses must be
+//  890 //    selected for the configCPU_CLOCK_HZ clock. */
+//  891 //
+//  892 //    ulCompareMatch = CPlatform::F_CPU / MAIN_TIMER_TICK_RATE_HZ;
+//  893 //
+//  894 //    /* We only have 16 bits so have to scale to get our required tick rate. */
+//  895 //    ulCompareMatch /= portCLOCK_PRESCALER;
+//  896 //
+//  897 //    /* Adjust for correct value. */
+//  898 //    ulCompareMatch -= ( unsigned long ) 1;
+//  899 //
+//  900 //    /* Setup compare match value for compare match A.  Interrupts are disabled
+//  901 //    before this is called so we need not worry here. */
+//  902 //    OCR1A = ulCompareMatch;
+//  903 //
+//  904 //    /* Setup clock source and compare match behaviour. */
+//  905 //    TCCR1A &= ~(_BV(WGM11) | _BV(WGM10));
+//  906 //    ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
+//  907 //    TCCR1B = ucLowByte;
+//  908 //
+//  909 //    /* Enable the interrupt - this is okay as interrupt are currently globally
+//  910 //    disabled. */
+//  911 //    ucLowByte = TIMSK;
+//  912 //    ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
+//  913 //    TIMSK = ucLowByte;
+//  914 
+//  915 #endif //TIMER1_INTERRUPT
 //  916 
-//  917 #endif //TIMER1_INTERRUPT
-//  918 
-//  919 }
+//  917 }
         RET
         REQUIRE _A_OCR2A
         REQUIRE _A_TCCR2A
         REQUIRE _A_TCCR2B
         REQUIRE _A_TIMSK2
-//  920 
-//  921 //-----------------------------------------------------------------------------------------------------
-//  922 #ifdef TIMER1_INTERRUPT
-//  923 // Прерывание TIMER1_COMPA_vect
-//  924 __interrupt void SystemTickInterrupt(void)
-//  925 {
-//  926     CPlatform::IncrementSystemTick();
-//  927 }
-//  928 #endif //TIMER1_INTERRUPT
-//  929 //-----------------------------------------------------------------------------------------------------
-//  930 #ifdef TIMER2_INTERRUPT
-//  931 // Прерывание TIMER2_COMP_vect
-//  932 #pragma vector = TIMER2_COMPA_vect	// Прерывание по совпадению TMR2 с OCR2
+//  918 
+//  919 ////-----------------------------------------------------------------------------------------------------
+//  920 //#ifdef TIMER1_INTERRUPT
+//  921 //// Прерывание TIMER1_COMPA_vect
+//  922 //__interrupt void SystemTickInterrupt(void)
+//  923 //{
+//  924 //    CPlatform::IncrementSystemTick();
+//  925 //}
+//  926 //#endif //TIMER1_INTERRUPT
+//  927 //-----------------------------------------------------------------------------------------------------
+//  928 #ifdef TIMER2_INTERRUPT
+//  929 // Прерывание TIMER2_COMP_vect
+//  930 #pragma vector = TIMER2_COMPA_vect	// Прерывание по совпадению TMR2 с OCR2
 
         RSEG CODE:CODE:NOROOT(1)
         CALL_GRAPH_ROOT ??SystemTickInterrupt, "interrupt"
-//  933 __interrupt void SystemTickInterrupt(void)
+//  931 __interrupt void SystemTickInterrupt(void)
 ??SystemTickInterrupt:
-//  934 {
+//  932 {
         ST      -Y, R24
         ST      -Y, R31
         ST      -Y, R30
@@ -2631,9 +2601,9 @@ _A_PINB:
         ST      -Y, R17
         ST      -Y, R16
         IN      R24, 0x3F
-//  935     CPlatform::IncrementSystemTick();
+//  933     CPlatform::IncrementSystemTick();
         RCALL   ??IncrementSystemTick
-//  936 }
+//  934 }
         OUT     0x3F, R24
         LD      R16, Y+
         LD      R17, Y+
@@ -2651,22 +2621,94 @@ _A_PINB:
         LD      R31, Y+
         LD      R24, Y+
         RETI
-//  937 #endif //TIMER2_INTERRUPT
+//  935 #endif //TIMER2_INTERRUPT
+//  936 
+//  937 
 //  938 
 //  939 
-//  940 
-//  941 
-//  942 //-----------------------------------------------------------------------------------------------------
+//  940 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  943 void CPlatform::Init(void)
+//  941 void CPlatform::Init(void)
 ??Init_3:
-//  944 {
-//  945     SystemTickInit();
+//  942 {
+//  943     SystemTickInit();
         RCALL   ??SystemTickInit
-//  946 //    StatusLedSetPinOutput();
-//  947 //    TxLedSetPinOutput();
-//  948 }
+//  944 //    StatusLedSetPinOutput();
+//  945 //    TxLedSetPinOutput();
+//  946 }
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CSpi::DataExchangeInProgressClear()
+??DataExchangeInProgressClear:
+        LDI     R16, 0
+        STS     (??m_nuiBuffByteCounter + 7), R16
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CSpi::DataExchangeInProgressSet()
+??DataExchangeInProgressSet:
+        LDI     R16, 1
+        STS     (??m_nuiBuffByteCounter + 7), R16
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CSpi::DataExchangeIsOccurSet()
+??DataExchangeIsOccurSet:
+        LDI     R16, 1
+        STS     (??m_nuiBuffByteCounter + 8), R16
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::InterruptEnable()
+??InterruptEnable:
+        SEI
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::InterruptDisable()
+??InterruptDisable:
+        CLI
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::IncrementSystemTick()
+??IncrementSystemTick:
+        LDI     R30, LOW(??m_uiSystemTick)
+        LDI     R31, (??m_uiSystemTick) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::TxLedOn()
+??TxLedOn:
+        CBI     0x0B, 0x03
+        RET
+        REQUIRE _A_PORTD
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CPlatform::TxLedOff()
+??TxLedOff:
+        SBI     0x0B, 0x03
+        RET
+        REQUIRE _A_PORTD
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CMvsn21::FlowControlSet(uint8_t)
+??FlowControlSet:
+        STS     ??m_uiFlowControl, R16
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+// __version_3 void CMvsn21::MeasureFlowControlSet(uint8_t)
+??MeasureFlowControlSet:
+        STS     ??m_uiMeasureFlowControl, R16
         RET
 
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
@@ -2710,91 +2752,22 @@ __?EEARL:
         DC16    0
         REQUIRE ?need_segment_init
 
+        RSEG NEAR_F:CODE:ROOT(0)
+// __vtbl_entry const __flash CSpi::__vtbl[1]
+??__vtbl:
+        DC16 `?~CSpi`/2
+
         END
-//  949 
-//  950 
-//  951 
-//  952 //
-//  953 //        PUSH R16
-//  954 //        LDS     R16, ??m_uiExchangeByte
-//  955 //        OUT     0x0F, R16
-//  956 //        POP R16
-//  957 //
-//  958 //        ST      -Y, R31
-//  959 //          CFI R31 Frame(CFA_Y, -1)
-//  960 //          CFI CFA_Y Y+1
-//  961 //        ST      -Y, R30
-//  962 //          CFI R30 Frame(CFA_Y, -2)
-//  963 //          CFI CFA_Y Y+2
-//  964 //        ST      -Y, R19
-//  965 //          CFI R19 Frame(CFA_Y, -3)
-//  966 //          CFI CFA_Y Y+3
-//  967 //        ST      -Y, R18
-//  968 //          CFI R18 Frame(CFA_Y, -4)
-//  969 //          CFI CFA_Y Y+4
-//  970 //        ST      -Y, R17
-//  971 //          CFI R17 Frame(CFA_Y, -5)
-//  972 //          CFI CFA_Y Y+5
-//  973 //        ST      -Y, R16
-//  974 //          CFI R16 Frame(CFA_Y, -6)
-//  975 //          CFI CFA_Y Y+6
-//  976 //        IN      R19, 0x3F
-//  977 //;        LDS     R16, ??m_uiExchangeByte
-//  978 //;        OUT     0x2E, R16
-//  979 //        IN      R16, 0x2E
-//  980 //        STS     ??m_uiExchangeByte, R16
-//  981 //        LDS     R16, ??m_nuiBuffByteCounter
-//  982 //        LDS     R17, (??m_nuiBuffByteCounter + 1)
-//  983 //        CPI     R16, 0
-//  984 //        LDI     R18, 1
-//  985 //        CPC     R17, R18
-//  986 //        BRCC    ??SIG_SPI_STC_1
-//  987 //        LDI     R30, LOW(??m_nuiBuffByteCounter)
-//  988 //        LDI     R31, (??m_nuiBuffByteCounter) >> 8
-//  989 //        LD      R16, Z
-//  990 //        LDD     R17, Z+1
-//  991 //        SUBI    R16, 255
-//  992 //        SBCI    R17, 255
-//  993 //        ST      Z, R16
-//  994 //        STD     Z+1, R17
-//  995 //        LDI     R16, 1
-//  996 //        STS     ??m_bfByteIsReceived, R16
-//  997 //        RJMP    ??SIG_SPI_STC_2
-//  998 //??SIG_SPI_STC_1:
-//  999 //        LDI     R16, 1
-// 1000 //        STS     ??m_bfRxBuffOverflow, R16
-// 1001 //        LDI     R16, 1
-// 1002 //        STS     ??m_bfByteIsReceived, R16
-// 1003 //??SIG_SPI_STC_2:
-// 1004 //        OUT     0x3F, R19
-// 1005 //        LD      R16, Y+
-// 1006 //          CFI R16 SameValue
-// 1007 //          CFI CFA_Y Y+5
-// 1008 //        LD      R17, Y+
-// 1009 //          CFI R17 SameValue
-// 1010 //          CFI CFA_Y Y+4
-// 1011 //        LD      R18, Y+
-// 1012 //          CFI R18 SameValue
-// 1013 //          CFI CFA_Y Y+3
-// 1014 //        LD      R19, Y+
-// 1015 //          CFI R19 SameValue
-// 1016 //          CFI CFA_Y Y+2
-// 1017 //        LD      R30, Y+
-// 1018 //          CFI R30 SameValue
-// 1019 //          CFI CFA_Y Y+1
-// 1020 //        LD      R31, Y+
-// 1021 //          CFI R31 SameValue
-// 1022 //          CFI CFA_Y Y+0
-// 1023 //        RETI
 // 
 //    87 bytes in segment ABSOLUTE
-// 1 586 bytes in segment CODE
+// 1 604 bytes in segment CODE
 //     6 bytes in segment INITTAB
 //    10 bytes in segment INTVEC
+//     2 bytes in segment NEAR_F
 //    99 bytes in segment NEAR_Z
 // 
-// 1 532 bytes of CODE memory (+ 70 bytes shared)
+// 1 534 bytes of CODE memory (+ 88 bytes shared)
 //    99 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
-//Warnings: 3
+//Warnings: 1
