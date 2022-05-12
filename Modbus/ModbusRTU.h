@@ -63,24 +63,27 @@ public:
                      uint16_t uiInputRegistersNumber,
                      uint16_t uiHoldingRegistersNumber);
     static void Reset(void);
-    static int8_t ReceiveEnable(void);
-    static int8_t ReceiveDisable(void);
+    static void ReceiveEnable(void);
+    static void ReceiveDisable(void);
+    static void TransmitEnable(void);
+    static void TransmitDisable(void);
     static int16_t RequestBasis(uint8_t uiSlave,
                                 uint8_t uiFunctionCode,
                                 uint16_t uiAddress,
                                 uint16_t uiBitNumber,
                                 uint8_t *puiRequest);
-    static int16_t ResponseBasis(uint8_t , uint8_t , uint8_t * );
+//    static int16_t ResponseBasis(uint8_t , uint8_t , uint8_t * );
     static int16_t Tail(uint8_t * , uint16_t );
     static int16_t Send(uint8_t * , uint16_t );
     static uint8_t MessageIsSended(void);
     static int16_t Receive(void);
     static uint8_t Select(void);
     static int16_t Receive(uint8_t * , uint16_t );
-    static uint8_t FrameIsReceived(void);
-    static uint8_t ReceiveTimeIsOver(void);
-    static uint8_t ConfirmationReceiveTimeIsOver(void);
-    static uint8_t TransmitDelayTimeIsOver(void);
+//    static uint8_t FrameIsReceived(void);
+//    static uint8_t ReceiveTimeIsOver(void);
+//    static uint8_t ConfirmationReceiveTimeIsOver(void);
+//    static uint8_t TransmitDelayTimeIsOver(void);
+    static int8_t TimeIsOver(uint16_t uiTimeout);
     static void GetSystemTime(void);
     static uint16_t GetFrameLength(void);
 //    static int8_t FrameCheck(void);
@@ -104,12 +107,12 @@ private:
     /* Parity: 'N', 'O', 'E' */
     static char m_cParity;
     // таймоут по отсутствию следующего байта 3.5 бода.
-    const static uint8_t m_uiGuardTimeout = _MODBUS_RTU_35_TIMEOUT;
+    const static uint16_t m_uiGuardTimeout = _MODBUS_RTU_35_TIMEOUT;
     // таймоут по отсутствию сообщения.
-    const static uint8_t m_uiReceiveTimeout = 15000;
+    const static uint16_t m_uiReceiveTimeout = 15000;
     // таймоут по отсутствию подтверждения.
-    const static uint8_t m_uiConfirmationTimeout = 500;
-    const static uint8_t m_uiTransmitDelayTimeout = 5;
+    const static uint16_t m_uiConfirmationTimeout = 20;
+    const static uint16_t m_uiTransmitDelayTimeout = 5;
 };
 
 //-----------------------------------------------------------------------------------------------------

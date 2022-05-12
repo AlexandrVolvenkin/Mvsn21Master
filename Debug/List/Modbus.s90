@@ -1,21 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          08/May/2022  08:00:28
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          12/May/2022  12:49:03
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\Modbus.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW2688.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW71C9.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\Modbus.cpp --cpu=m48
 //        -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
-//        --initializers_in_flash --root_variables --no_inline --no_cross_call
-//        --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I
+//        --initializers_in_flash --root_variables --debug
+//        -DENABLE_BIT_DEFINITIONS -e -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Om --eec++)
+//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\Modbus.s90
@@ -33,44 +33,41 @@
 //      not produce an equivalent object file to the one produced
 //      by the C++ compiler.
 
+        EXTERN ?EPILOGUE_B10_L09
         EXTERN ?EPILOGUE_B2_L09
         EXTERN ?EPILOGUE_B4_L09
         EXTERN ?EPILOGUE_B5_L09
-        EXTERN ?EPILOGUE_B8_L09
+        EXTERN ?PROLOGUE10_L09
         EXTERN ?PROLOGUE2_L09
         EXTERN ?PROLOGUE4_L09
         EXTERN ?PROLOGUE5_L09
-        EXTERN ?PROLOGUE8_L09
         EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
         EXTERN ?Register_R6_is_cg_reg
-        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
         EXTERN ?S_SHL_L02
-        EXTERN ?US_SHR_L02
         EXTERN ?need_segment_init
 
         PUBWEAK `?<Segment init: NEAR_Z>`
         PUBLIC ??ByteToBitPack
-        PUBLIC ??ReadDiscreteInputs
-        PUBLIC ??Reply
-        PUBLIC ??ResponseException
-        PUBLIC ??ResponseIsReceived
+        PUBLIC ??MessengerIsReady
+        PUBLIC ??ReadDiscreteInputsReceive
+        PUBLIC ??ReadDiscreteInputsRequest
+        PUBLIC ??ReceiveMessage
         PUBLIC ??SendMessage
         PUBLIC ??SlaveSet
-        PUBLIC ??m_pui16HoldingRegisters
-        PUBLIC ??m_pui16InputRegisters
-        PUBLIC ??m_puiCoils
         PUBLIC ??m_puiDiscreteInputs
         PUBLIC ??m_puiRxBuffer
         PUBLIC ??m_puiTxBuffer
-        PUBLIC ??m_uiCoilsNumber
         PUBLIC ??m_uiDiscreteInputsNumber
         PUBLIC ??m_uiFlowControl
         PUBLIC ??m_uiFunctionCode
-        PUBLIC ??m_uiHoldingRegistersNumber
-        PUBLIC ??m_uiInputRegistersNumber
         PUBLIC ??m_uiLastSystemTime
         PUBLIC ??m_uiMessageLength
-        PUBLIC ??m_uiSlave
+        PUBLIC ??m_uiOwnAddress
+        PUBLIC ??m_uiQuantity
+        PUBLIC ??m_uiSlaveAddress
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
         PUBWEAK _A_ADCSRA
@@ -155,25 +152,24 @@
         PUBWEAK __?EEDR
 
 `?<Name CModbus 1>` SYMBOL "CModbus"
-??m_pui16HoldingRegisters SYMBOL "m_pui16HoldingRegisters", `?<Name CModbus 1>`
-??m_pui16InputRegisters SYMBOL "m_pui16InputRegisters", `?<Name CModbus 1>`
-??m_puiCoils        SYMBOL "m_puiCoils", `?<Name CModbus 1>`
+`?<Name CMvsn21 12>` SYMBOL "CMvsn21"
+??axChipsChannelsData SYMBOL "axChipsChannelsData", `?<Name CMvsn21 12>`
 ??m_puiDiscreteInputs SYMBOL "m_puiDiscreteInputs", `?<Name CModbus 1>`
 ??m_puiRxBuffer     SYMBOL "m_puiRxBuffer", `?<Name CModbus 1>`
 ??m_puiTxBuffer     SYMBOL "m_puiTxBuffer", `?<Name CModbus 1>`
-??m_uiCoilsNumber   SYMBOL "m_uiCoilsNumber", `?<Name CModbus 1>`
 ??m_uiDiscreteInputsNumber SYMBOL "m_uiDiscreteInputsNumber", `?<Name CModbus 1>`
 ??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CModbus 1>`
 ??m_uiFunctionCode  SYMBOL "m_uiFunctionCode", `?<Name CModbus 1>`
-??m_uiHoldingRegistersNumber SYMBOL "m_uiHoldingRegistersNumber", `?<Name CModbus 1>`
-??m_uiInputRegistersNumber SYMBOL "m_uiInputRegistersNumber", `?<Name CModbus 1>`
 ??m_uiLastSystemTime SYMBOL "m_uiLastSystemTime", `?<Name CModbus 1>`
 ??m_uiMessageLength SYMBOL "m_uiMessageLength", `?<Name CModbus 1>`
-??m_uiSlave         SYMBOL "m_uiSlave", `?<Name CModbus 1>`
+??m_uiOwnAddress    SYMBOL "m_uiOwnAddress", `?<Name CModbus 1>`
+??m_uiQuantity      SYMBOL "m_uiQuantity", `?<Name CModbus 1>`
+??m_uiSlaveAddress  SYMBOL "m_uiSlaveAddress", `?<Name CModbus 1>`
 
-        EXTERN ??ResponseBasis
+        EXTERN ??RequestBasis
         EXTERN ??Send
         EXTERN ??Tail
+        EXTERN ??axChipsChannelsData
 
 // D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\Modbus.cpp
 //    1 //-----------------------------------------------------------------------------------------------------
@@ -582,29 +578,37 @@ _A_PINB:
         DS8 1
 //   10 #include "ModbusRTU.h"
 //   11 #include "Platform.h"
-//   12 
+//   12 #include "Mvsn21.h"
 //   13 
+//   14 
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   14 uint8_t CModbus::m_uiSlave;
-//   15 uint8_t CModbus::m_uiFunctionCode;
-//   16 uint8_t CModbus::m_uiFlowControl;
-//   17 //    CSocket* pxSocket;
-//   18 uint16_t CModbus::m_uiLastSystemTime;
-//   19 uint16_t CModbus::m_uiMessageLength;
+//   15 uint8_t CModbus::m_uiOwnAddress;
+??m_uiOwnAddress:
+        DS8 1
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   16 uint8_t CModbus::m_uiSlaveAddress;
+//   17 uint8_t CModbus::m_uiFunctionCode;
+//   18 uint16_t CModbus::m_uiQuantity;
+??m_uiQuantity:
+        DS8 2
+//   19 uint8_t CModbus::m_uiFlowControl;
+//   20 //    CSocket* pxSocket;
+//   21 uint16_t CModbus::m_uiLastSystemTime;
+//   22 uint16_t CModbus::m_uiMessageLength;
 ??m_uiMessageLength:
         DS8 2
-??m_uiSlave:
+//   23 uint8_t *CModbus::m_puiRxBuffer;
+//   24 uint8_t *CModbus::m_puiTxBuffer;
+??m_puiTxBuffer:
+        DS8 2
+??m_uiSlaveAddress:
         DS8 1
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
 ??m_uiFunctionCode:
         DS8 1
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
 ??m_uiFlowControl:
         DS8 1
 
@@ -615,997 +619,1250 @@ _A_PINB:
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   20 uint8_t *CModbus::m_puiRxBuffer;
 ??m_puiRxBuffer:
         DS8 2
+//   25 //uint8_t *CModbus::m_puiCoils;
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   21 uint8_t *CModbus::m_puiTxBuffer;
-??m_puiTxBuffer:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//   22 uint8_t *CModbus::m_puiCoils;
-??m_puiCoils:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//   23 uint8_t *CModbus::m_puiDiscreteInputs;
+//   26 uint8_t *CModbus::m_puiDiscreteInputs;
 ??m_puiDiscreteInputs:
         DS8 2
-//   24 uint16_t *CModbus::m_pui16HoldingRegisters;
-//   25 uint16_t *CModbus::m_pui16InputRegisters;
-//   26 uint16_t CModbus::m_uiCoilsNumber;
-//   27 uint16_t CModbus::m_uiDiscreteInputsNumber;
+//   27 //uint16_t *CModbus::m_pui16HoldingRegisters;
+//   28 //uint16_t *CModbus::m_pui16InputRegisters;
+//   29 //uint16_t CModbus::m_uiCoilsNumber;
+
+        RSEG NEAR_Z:DATA:ROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   30 uint16_t CModbus::m_uiDiscreteInputsNumber;
 ??m_uiDiscreteInputsNumber:
         DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-??m_pui16HoldingRegisters:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-??m_pui16InputRegisters:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-??m_uiCoilsNumber:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//   28 uint16_t CModbus::m_uiHoldingRegistersNumber;
-??m_uiHoldingRegistersNumber:
-        DS8 2
-
-        RSEG NEAR_Z:DATA:ROOT(0)
-        REQUIRE `?<Segment init: NEAR_Z>`
-//   29 uint16_t CModbus::m_uiInputRegistersNumber;
-??m_uiInputRegistersNumber:
-        DS8 2
-//   30 
-//   31 ////-----------------------------------------------------------------------------------------------------
-//   32 //CModbus::CModbus()
-//   33 //{
-//   34 //    //ctor
-//   35 //}
-//   36 //
-//   37 //////-----------------------------------------------------------------------------------------------------
-//   38 ////CModbus::CModbus(CUart* pxDevice,
-//   39 ////                 uint32_t uiBaudRate,
-//   40 ////                 char cParity,
-//   41 ////                 uint8_t uiDataBit,
-//   42 ////                 uint8_t uiStopBit,
-//   43 ////                 uint8_t *puiRxBuffer,
-//   44 ////                 uint8_t *puiTxBuffer) :
-//   45 ////    pxDevice(pxDevice),
-//   46 ////    uiBaudRate(uiBaudRate),
-//   47 ////    cParity(cParity),
-//   48 ////    uiDataBit(uiDataBit),
-//   49 ////    uiStopBit(uiStopBit),
-//   50 ////    m_puiRxBuffer(puiRxBuffer),
-//   51 ////    m_puiTxBuffer(puiTxBuffer)
-//   52 ////{
-//   53 ////    m_uiFlowControl = MODBUS_IDDLE;
-//   54 ////}
-//   55 //
-//   56 ////-----------------------------------------------------------------------------------------------------
-//   57 //CModbus::~CModbus()
-//   58 //{
-//   59 //
-//   60 //}
-//   61 
-//   62 //-----------------------------------------------------------------------------------------------------
+//   31 //uint16_t CModbus::m_uiHoldingRegistersNumber;
+//   32 //uint16_t CModbus::m_uiInputRegistersNumber;
+//   33 
+//   34 ////-----------------------------------------------------------------------------------------------------
+//   35 //CModbus::CModbus()
+//   36 //{
+//   37 //    //ctor
+//   38 //}
+//   39 //
+//   40 //////-----------------------------------------------------------------------------------------------------
+//   41 ////CModbus::CModbus(CUart* pxDevice,
+//   42 ////                 uint32_t uiBaudRate,
+//   43 ////                 char cParity,
+//   44 ////                 uint8_t uiDataBit,
+//   45 ////                 uint8_t uiStopBit,
+//   46 ////                 uint8_t *puiRxBuffer,
+//   47 ////                 uint8_t *puiTxBuffer) :
+//   48 ////    pxDevice(pxDevice),
+//   49 ////    uiBaudRate(uiBaudRate),
+//   50 ////    cParity(cParity),
+//   51 ////    uiDataBit(uiDataBit),
+//   52 ////    uiStopBit(uiStopBit),
+//   53 ////    m_puiRxBuffer(puiRxBuffer),
+//   54 ////    m_puiTxBuffer(puiTxBuffer)
+//   55 ////{
+//   56 ////    m_uiFlowControl = MODBUS_IDDLE;
+//   57 ////}
+//   58 //
+//   59 ////-----------------------------------------------------------------------------------------------------
+//   60 //CModbus::~CModbus()
+//   61 //{
+//   62 //
+//   63 //}
+//   64 
+//   65 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//   63 void CModbus::SlaveSet(uint8_t uiSlave)
+//   66 void CModbus::SlaveSet(uint8_t uiSlave)
 ??SlaveSet:
-//   64 {
-//   65     m_uiSlave = uiSlave;
-        STS     (??m_uiMessageLength + 2), R16
-//   66 }
+//   67 {
+//   68     m_uiOwnAddress = uiSlave;
+        STS     ??m_uiOwnAddress, R16
+//   69 }
         RET
-//   67 
-//   68 ////-----------------------------------------------------------------------------------------------------
-//   69 //int8_t CModbus::MessengerIsReady(void)
-//   70 //{
-//   71 //    if (m_uiFlowControl == IDDLE)
-//   72 //    {
-//   73 //        return 1;
-//   74 //    }
-//   75 //    else
-//   76 //    {
-//   77 //        return 0;
-//   78 //    }
-//   79 //}
-//   80 
-//   81 //-----------------------------------------------------------------------------------------------------
+//   70 
+//   71 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//   82 int16_t CModbus::SendMessage(uint8_t *puiMessage, uint16_t uiLength)
+//   72 int8_t CModbus::MessengerIsReady(void)
+??MessengerIsReady:
+//   73 {
+//   74     uint8_t uiData;
+//   75     if (m_uiFlowControl == IDDLE)
+        LDS     R16, (??m_uiQuantity + 8)
+        TST     R16
+        BRNE    ??MessengerIsReady_1
+//   76     {
+//   77         return 1;
+        LDI     R16, 1
+        RET
+//   78     }
+//   79     else
+//   80     {
+//   81         return 0;
+??MessengerIsReady_1:
+        LDI     R16, 0
+        RET
+//   82     }
+//   83 }
+//   84 
+//   85 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//   86 int16_t CModbus::SendMessage(uint8_t *puiMessage, uint16_t uiLength)
 ??SendMessage:
-//   83 {
+//   87 {
         RCALL   ?PROLOGUE2_L09
         MOVW    R25:R24, R17:R16
-//   84     uiLength = CModbusRTU::Tail(puiMessage, uiLength);
+//   88     uiLength = CModbusRTU::Tail(puiMessage, uiLength);
         RCALL   ??Tail
+//   89     return CModbusRTU::Send(puiMessage, uiLength);
         MOVW    R19:R18, R17:R16
-//   85     return CModbusRTU::Send(puiMessage, uiLength);
         MOVW    R17:R16, R25:R24
         RCALL   ??Send
         LDI     R30, 2
         RJMP    ?EPILOGUE_B2_L09
-//   86 }
-//   87 
-//   88 //-----------------------------------------------------------------------------------------------------
-//   89 /* Build the exception response */
+//   90 }
+//   91 
+//   92 ////-----------------------------------------------------------------------------------------------------
+//   93 ///* Build the exception response */
+//   94 //int16_t CModbus::ResponseException(uint8_t uiSlave, uint8_t uiFunctionCode, uint8_t uiExceptionCode, uint8_t *puiResponse)
+//   95 //{
+//   96 //    int16_t uiLength;
+//   97 //
+//   98 //    uiLength = CModbusRTU::ResponseBasis(uiSlave, (uiFunctionCode | 0x80), puiResponse);
+//   99 //    /* Positive exception code */
+//  100 //    puiResponse[uiLength++] = uiExceptionCode;
+//  101 //
+//  102 //    return uiLength;
+//  103 //}
+//  104 
+//  105 ////-----------------------------------------------------------------------------------------------------
+//  106 //uint8_t CModbus::ResponseIsReceived(void)
+//  107 //{
+//  108 //    if (m_uiFlowControl == IDDLE)
+//  109 //    {
+//  110 //        return 1;
+//  111 //    }
+//  112 //    else
+//  113 //    {
+//  114 //        return 0;
+//  115 //    }
+//  116 //};
+//  117 
+//  118 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//   90 int16_t CModbus::ResponseException(uint8_t uiSlave, uint8_t uiFunctionCode, uint8_t uiExceptionCode, uint8_t *puiResponse)
-??ResponseException:
-//   91 {
-        RCALL   ?PROLOGUE4_L09
-        MOV     R24, R18
-        MOVW    R27:R26, R21:R20
-//   92     int16_t uiLength;
-//   93 
-//   94     uiLength = CModbusRTU::ResponseBasis(uiSlave, (uiFunctionCode | 0x80), puiResponse);
-        MOVW    R19:R18, R27:R26
-        ORI     R17, 0x80
-        RCALL   ??ResponseBasis
-//   95     /* Positive exception code */
-//   96     puiResponse[uiLength++] = uiExceptionCode;
-        ADD     R26, R16
-        ADC     R27, R17
-        ST      X, R24
-//   97 
-//   98     return uiLength;
-        SUBI    R16, 255
-        SBCI    R17, 255
-        LDI     R30, 4
-        RJMP    ?EPILOGUE_B4_L09
-//   99 }
-//  100 
-//  101 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  102 uint8_t CModbus::ResponseIsReceived(void)
-??ResponseIsReceived:
-//  103 {
-//  104     if (m_uiFlowControl  == IDDLE)
-        LDS     R16, ??m_uiFlowControl
-        TST     R16
-        BRNE    ??ResponseIsReceived_1
-//  105     {
-//  106         return 1;
-        LDI     R16, 1
-        RET
-//  107     }
-//  108     else
-//  109     {
-//  110         return 0;
-??ResponseIsReceived_1:
-        LDI     R16, 0
-        RET
-//  111     }
-//  112 };
-//  113 
-//  114 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  115 int16_t CModbus::ByteToBitPack(uint16_t uiAddress,
+//  119 int16_t CModbus::ByteToBitPack(uint16_t uiAddress,
 ??ByteToBitPack:
-//  116                                uint16_t uiNumberB,
-//  117                                uint8_t *m_puiCoils,
-//  118                                uint8_t *puiResponse,
-//  119                                uint16_t uiLength)
-//  120 {
-        RCALL   ?PROLOGUE5_L09
+//  120                                uint16_t uiNumberB,
+//  121                                uint8_t *m_puiCoils,
+//  122                                uint8_t *puiResponse,
+//  123                                uint16_t uiLength)
+//  124 {
+        RCALL   ?PROLOGUE10_L09
         REQUIRE ?Register_R4_is_cg_reg
-        MOVW    R1:R0, R17:R16
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        MOVW    R5:R4, R17:R16
+        MOVW    R1:R0, R19:R18
         MOVW    R3:R2, R21:R20
-//  121     uint8_t uiData = 0;
+//  125     uint8_t uiData = 0;
         LDI     R21, 0
-//  122     uint8_t uiShift = 0;
-        CLR     R4
-//  123     for (uint16_t i = 0; i < uiNumberB; i++)
-        LDI     R26, 0
-        LDI     R27, 0
-        LDD     R24, Y+5
-        LDD     R25, Y+6
+//  126     uint8_t uiShift = 0;
+        CLR     R6
+//  127     for (uint16_t i = 0; i < uiNumberB; i++)
+        LDI     R18, 0
+        LDI     R19, 0
+        LDD     R24, Y+10
+        LDD     R25, Y+11
         RJMP    ??ByteToBitPack_1
-//  124     {
-//  125         if (m_puiCoils[uiAddress++])
-//  126         {
-//  127             uiData |= (1 << uiShift);
-//  128         }
-//  129         // Byte is full?
-//  130         if (uiShift == 7)
-//  131         {
-//  132             puiResponse[uiLength++] = uiData;
-//  133             uiData = 0;
-//  134             uiShift = 0;
-//  135         }
-//  136         else
-//  137         {
-//  138             uiShift++;
-??ByteToBitPack_2:
-        INC     R4
+//  128     {
+//  129         if (m_puiCoils[uiAddress++])
+//  130         {
+//  131             uiData |= (1 << uiShift);
+//  132         }
+//  133         // Byte is full?
+//  134         if (uiShift == 7)
+//  135         {
+//  136             puiResponse[uiLength++] = uiData;
+//  137             uiData = 0;
+//  138             uiShift = 0;
 //  139         }
+//  140         else
+//  141         {
+//  142             uiShift++;
+??ByteToBitPack_2:
+        INC     R6
+//  143         }
 ??ByteToBitPack_3:
-        ADIW    R27:R26, 1
+        SUBI    R18, 255
+        SBCI    R19, 255
 ??ByteToBitPack_1:
-        CP      R26, R18
-        CPC     R27, R19
+        MOVW    R31:R30, R23:R22
+        ADD     R30, R24
+        ADC     R31, R25
+        CP      R18, R0
+        CPC     R19, R1
         BRCC    ??ByteToBitPack_4
-        MOVW    R17:R16, R1:R0
-        MOVW    R31:R30, R17:R16
-        ADIW    R31:R30, 1
-        MOVW    R1:R0, R31:R30
-        MOVW    R31:R30, R3:R2
-        ADD     R30, R16
-        ADC     R31, R17
-        LD      R16, Z
+        MOVW    R9:R8, R5:R4
+        LDI     R16, 1
+        ADD     R4, R16
+        LDI     R16, 0
+        ADC     R5, R16
+        MOVW    R27:R26, R3:R2
+        ADD     R26, R8
+        ADC     R27, R9
+        LD      R16, X
         TST     R16
         BREQ    ??ByteToBitPack_5
-        LDI     R16, 1
-        LDI     R17, 0
-        MOV     R20, R4
+        RCALL   ?Subroutine1
+??CrossCallReturnLabel_3:
+        MOV     R20, R6
         RCALL   ?S_SHL_L02
         OR      R21, R16
 ??ByteToBitPack_5:
         LDI     R16, 7
-        CP      R4, R16
+        CP      R6, R16
         BRNE    ??ByteToBitPack_2
-        MOVW    R31:R30, R23:R22
-        ADD     R30, R24
-        ADC     R31, R25
         ST      Z, R21
         ADIW    R25:R24, 1
         LDI     R21, 0
-        CLR     R4
+        CLR     R6
         RJMP    ??ByteToBitPack_3
-//  140     }
-//  141 
-//  142     if (uiShift != 0)
+//  144     }
+//  145 
+//  146     if (uiShift != 0)
 ??ByteToBitPack_4:
-        TST     R4
+        TST     R6
         BREQ    ??ByteToBitPack_6
-//  143     {
-//  144         puiResponse[uiLength++] = uiData;
-        ADD     R22, R24
-        ADC     R23, R25
-        MOVW    R31:R30, R23:R22
+//  147     {
+//  148         puiResponse[uiLength++] = uiData;
         ST      Z, R21
         ADIW    R25:R24, 1
-//  145     }
-//  146 
-//  147     return uiLength;
+//  149     }
+//  150 
+//  151     return uiLength;
 ??ByteToBitPack_6:
         MOVW    R17:R16, R25:R24
-        LDI     R30, 7
-        RJMP    ?EPILOGUE_B5_L09
-//  148 }
-//  149 
-//  150 ////-----------------------------------------------------------------------------------------------------
-//  151 //int16_t CModbus::ReadCoils(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  152 //{
-//  153 //    uint16_t uiOffset = HEADER_LENGTH;
-//  154 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  155 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  156 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  157 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  158 //
-//  159 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  160 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  161 //
-//  162 //    if (uiNumberB < 1 || MODBUS_MAX_READ_BITS < uiNumberB)
-//  163 //    {
-//  164 //        uiLength = ResponseException(uiSlave,
-//  165 //                                     uiFunctionCode,
-//  166 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  167 //                                     puiResponse);
-//  168 //    }
-//  169 //    else if ((uiAddress + uiNumberB) > m_uiCoilsNumber)
-//  170 //    {
-//  171 //        uiLength = ResponseException(uiSlave,
-//  172 //                                     uiFunctionCode,
-//  173 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  174 //                                     puiResponse);
-//  175 //    }
-//  176 //    else
-//  177 //    {
-//  178 //        uiLength = CModbusRTU::ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  179 //
-//  180 //        if (uiNumberB % 8)
-//  181 //        {
-//  182 //            puiResponse[uiLength++] = ((uiNumberB / 8) + 1);
-//  183 //        }
-//  184 //        else
+        LDI     R30, 12
+        RJMP    ?EPILOGUE_B10_L09
+//  152 }
+//  153 
+//  154 ////-----------------------------------------------------------------------------------------------------
+//  155 //int16_t CModbus::ReadCoils(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  156 //{
+//  157 //    uint16_t uiOffset = HEADER_LENGTH;
+//  158 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  159 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  160 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  161 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  162 //
+//  163 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  164 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  165 //
+//  166 //    if (uiNumberB < 1 || MODBUS_MAX_READ_BITS < uiNumberB)
+//  167 //    {
+//  168 //        uiLength = ResponseException(uiSlave,
+//  169 //                                     uiFunctionCode,
+//  170 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  171 //                                     puiResponse);
+//  172 //    }
+//  173 //    else if ((uiAddress + uiNumberB) > m_uiCoilsNumber)
+//  174 //    {
+//  175 //        uiLength = ResponseException(uiSlave,
+//  176 //                                     uiFunctionCode,
+//  177 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  178 //                                     puiResponse);
+//  179 //    }
+//  180 //    else
+//  181 //    {
+//  182 //        uiLength = CModbusRTU::ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  183 //
+//  184 //        if (uiNumberB % 8)
 //  185 //        {
-//  186 //            puiResponse[uiLength++] = (uiNumberB / 8);
+//  186 //            puiResponse[uiLength++] = ((uiNumberB / 8) + 1);
 //  187 //        }
-//  188 //        uiLength = ByteToBitPack(uiAddress,
-//  189 //                                 uiNumberB,
-//  190 //                                 m_puiCoils,
-//  191 //                                 puiResponse,
-//  192 //                                 uiLength);
-//  193 //    }
-//  194 //    return uiLength;
-//  195 //}
-//  196 
-//  197 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//  198 int16_t CModbus::ReadDiscreteInputs(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-??ReadDiscreteInputs:
-//  199 {
-        RCALL   ?PROLOGUE8_L09
-        REQUIRE ?Register_R6_is_cg_reg
-        REQUIRE ?Register_R7_is_cg_reg
-        MOVW    R31:R30, R17:R16
-        MOVW    R25:R24, R19:R18
-//  200     uint16_t uiOffset = HEADER_LENGTH;
-//  201     int8_t uiSlave = puiRequest[uiOffset - 1];
-        LD      R16, Z
-//  202     int8_t uiFunctionCode = puiRequest[uiOffset];
-        LDD     R17, Z+1
-//  203     uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  204                           (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-        LDD     R7, Z+2
-        CLR     R6
-        LDD     R18, Z+3
-        OR      R6, R18
-//  205 
-//  206     uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  207                           (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-        LDD     R27, Z+4
-        LDI     R26, 0
-        LDD     R18, Z+5
-        OR      R26, R18
-//  208 
-//  209     if (uiNumberB < 1 || MODBUS_MAX_READ_BITS < uiNumberB)
-        OR      R18, R27
-        BREQ    ??ReadDiscreteInputs_1
-        CPI     R26, 209
-        LDI     R18, 7
-        CPC     R27, R18
-        BRCS    ??ReadDiscreteInputs_2
-//  210     {
-//  211         uiLength = ResponseException(uiSlave,
-//  212                                      uiFunctionCode,
-//  213                                      MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  214                                      puiResponse);
-??ReadDiscreteInputs_1:
-        MOVW    R21:R20, R25:R24
-        LDI     R18, 3
-        RJMP    ??ReadDiscreteInputs_3
-//  215     }
-//  216     else if ((uiAddress + uiNumberB) > m_uiDiscreteInputsNumber)
-??ReadDiscreteInputs_2:
-        LDI     R30, LOW(??m_puiDiscreteInputs)
-        LDI     R31, (??m_puiDiscreteInputs) >> 8
-        LDD     R18, Z+2
-        LDD     R19, Z+3
-        MOVW    R21:R20, R7:R6
-        ADD     R20, R26
-        ADC     R21, R27
-        CP      R18, R20
-        CPC     R19, R21
-        BRCC    ??ReadDiscreteInputs_4
-//  217     {
-//  218         uiLength = ResponseException(uiSlave,
-//  219                                      uiFunctionCode,
-//  220                                      MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  221                                      puiResponse);
-        MOVW    R21:R20, R25:R24
-        LDI     R18, 2
-??ReadDiscreteInputs_3:
-        RCALL   ??ResponseException
-        RJMP    ??ReadDiscreteInputs_5
-//  222     }
-//  223     else
-//  224     {
-//  225         uiLength = CModbusRTU::ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-??ReadDiscreteInputs_4:
-        MOVW    R19:R18, R25:R24
-        RCALL   ??ResponseBasis
-        MOVW    R19:R18, R17:R16
-//  226 
-//  227         if (uiNumberB % 8)
-        MOVW    R31:R30, R25:R24
-        ADD     R30, R16
-        ADC     R31, R17
-        LDI     R20, 3
-        MOVW    R17:R16, R27:R26
-        RCALL   ?US_SHR_L02
-        MOVW    R21:R20, R17:R16
-        MOV     R16, R26
-        ANDI    R16, 0x07
-        BREQ    ??ReadDiscreteInputs_6
-//  228         {
-//  229             puiResponse[uiLength++] = ((uiNumberB / 8) + 1);
-        INC     R20
-//  230         }
-//  231         else
-//  232         {
-//  233             puiResponse[uiLength++] = (uiNumberB / 8);
-??ReadDiscreteInputs_6:
-        ST      Z, R20
-        SUBI    R18, 255
-        SBCI    R19, 255
-//  234         }
-//  235         uiLength = ByteToBitPack(uiAddress,
-//  236                                  uiNumberB,
-//  237                                  m_puiDiscreteInputs,
-//  238                                  puiResponse,
-//  239                                  uiLength);
-        ST      -Y, R19
-        ST      -Y, R18
-        MOVW    R23:R22, R25:R24
-        LDI     R30, LOW(??m_puiDiscreteInputs)
-        LDI     R31, (??m_puiDiscreteInputs) >> 8
-        LD      R20, Z
-        LDD     R21, Z+1
-        MOVW    R19:R18, R27:R26
-        MOVW    R17:R16, R7:R6
-        RCALL   ??ByteToBitPack
-??ReadDiscreteInputs_5:
-        MOVW    R19:R18, R17:R16
-//  240     }
-//  241     return uiLength;
-        MOVW    R17:R16, R19:R18
-        LDI     R30, 8
-        RJMP    ?EPILOGUE_B8_L09
-//  242 }
-//  243 
-//  244 ////-----------------------------------------------------------------------------------------------------
-//  245 //int16_t CModbus::ReadHoldingRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  246 //{
-//  247 //    uint16_t uiOffset = HEADER_LENGTH;
-//  248 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  249 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  250 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  251 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  252 //
-//  253 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  254 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  255 //
-//  256 //    if (uiNumberB < 1 || MODBUS_MAX_READ_REGISTERS < uiNumberB)
-//  257 //    {
-//  258 //        uiLength = ResponseException(uiSlave,
-//  259 //                                     uiFunctionCode,
-//  260 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  261 //                                     puiResponse);
-//  262 //    }
-//  263 //    else if ((uiAddress + uiNumberB) > m_uiHoldingRegistersNumber)
-//  264 //    {
-//  265 //        uiLength = ResponseException(uiSlave,
-//  266 //                                     uiFunctionCode,
-//  267 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  268 //                                     puiResponse);
-//  269 //    }
-//  270 //    else
-//  271 //    {
-//  272 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  273 //        puiResponse[uiLength++] = (uiNumberB << 1);
-//  274 //        for (uint16_t i = 0; i < uiNumberB; i++)
-//  275 //        {
-//  276 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16HoldingRegisters[uiAddress]) >> 8);
-//  277 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16HoldingRegisters[uiAddress++]) & 0x00FF);
-//  278 //        }
-//  279 //    }
-//  280 //    return uiLength;
-//  281 //}
-//  282 //
-//  283 ////-----------------------------------------------------------------------------------------------------
-//  284 //int16_t CModbus::ReadInputRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  285 //{
-//  286 //    uint16_t uiOffset = HEADER_LENGTH;
-//  287 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  288 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  289 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  290 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  291 //
-//  292 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  293 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  294 //
-//  295 //    if (uiNumberB < 1 || MODBUS_MAX_READ_REGISTERS < uiNumberB)
-//  296 //    {
-//  297 //        uiLength = ResponseException(uiSlave,
-//  298 //                                     uiFunctionCode,
-//  299 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  300 //                                     puiResponse);
-//  301 //    }
-//  302 //    else if ((uiAddress + uiNumberB) > m_uiInputRegistersNumber)
-//  303 //    {
-//  304 //        uiLength = ResponseException(uiSlave,
-//  305 //                                     uiFunctionCode,
-//  306 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  307 //                                     puiResponse);
-//  308 //    }
-//  309 //    else
-//  310 //    {
-//  311 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  312 //        puiResponse[uiLength++] = (uiNumberB << 1);
-//  313 //        for (uint16_t i = 0; i < uiNumberB; i++)
-//  314 //        {
-//  315 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16InputRegisters[uiAddress]) >> 8);
-//  316 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16InputRegisters[uiAddress++]) & 0x00FF);
-//  317 //        }
-//  318 //    }
-//  319 //    return uiLength;
-//  320 //}
-//  321 
-//  322 ////-----------------------------------------------------------------------------------------------------
-//  323 //int16_t CModbus::WriteSingleCoil(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  324 //{
-//  325 //    uint16_t uiOffset = HEADER_LENGTH;
-//  326 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  327 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  328 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  329 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  330 //
-//  331 //    if (uiAddress >= m_uiCoilsNumber)
-//  332 //    {
-//  333 //        uiLength = ResponseException(uiSlave,
-//  334 //                                     uiFunctionCode,
-//  335 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  336 //                                     puiResponse);
-//  337 //    }
-//  338 //    else
-//  339 //    {
-//  340 //        uint16_t uiData = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  341 //                           (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  342 //
-//  343 //        if (uiData == 0xFF00 || uiData == 0x0)
-//  344 //        {
-//  345 //            if (uiData)
-//  346 //            {
-//  347 //                m_puiCoils[uiAddress] = ON;
-//  348 //            }
-//  349 //            else
+//  188 //        else
+//  189 //        {
+//  190 //            puiResponse[uiLength++] = (uiNumberB / 8);
+//  191 //        }
+//  192 //        uiLength = ByteToBitPack(uiAddress,
+//  193 //                                 uiNumberB,
+//  194 //                                 m_puiCoils,
+//  195 //                                 puiResponse,
+//  196 //                                 uiLength);
+//  197 //    }
+//  198 //    return uiLength;
+//  199 //}
+//  200 
+//  201 ////-----------------------------------------------------------------------------------------------------
+//  202 //int16_t CModbus::ReadDiscreteInputs(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  203 //{
+//  204 //    uint16_t uiOffset = HEADER_LENGTH;
+//  205 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  206 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  207 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  208 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  209 //
+//  210 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  211 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  212 //
+//  213 //    if (uiNumberB < 1 || MODBUS_MAX_READ_BITS < uiNumberB)
+//  214 //    {
+//  215 //        uiLength = ResponseException(uiSlave,
+//  216 //                                     uiFunctionCode,
+//  217 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  218 //                                     puiResponse);
+//  219 //    }
+//  220 //    else if ((uiAddress + uiNumberB) > m_uiDiscreteInputsNumber)
+//  221 //    {
+//  222 //        uiLength = ResponseException(uiSlave,
+//  223 //                                     uiFunctionCode,
+//  224 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  225 //                                     puiResponse);
+//  226 //    }
+//  227 //    else
+//  228 //    {
+//  229 //        uiLength = CModbusRTU::ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  230 //
+//  231 //        if (uiNumberB % 8)
+//  232 //        {
+//  233 //            puiResponse[uiLength++] = ((uiNumberB / 8) + 1);
+//  234 //        }
+//  235 //        else
+//  236 //        {
+//  237 //            puiResponse[uiLength++] = (uiNumberB / 8);
+//  238 //        }
+//  239 //        uiLength = ByteToBitPack(uiAddress,
+//  240 //                                 uiNumberB,
+//  241 //                                 m_puiDiscreteInputs,
+//  242 //                                 puiResponse,
+//  243 //                                 uiLength);
+//  244 //    }
+//  245 //    return uiLength;
+//  246 //}
+//  247 
+//  248 ////-----------------------------------------------------------------------------------------------------
+//  249 //int16_t CModbus::ReadHoldingRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  250 //{
+//  251 //    uint16_t uiOffset = HEADER_LENGTH;
+//  252 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  253 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  254 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  255 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  256 //
+//  257 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  258 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  259 //
+//  260 //    if (uiNumberB < 1 || MODBUS_MAX_READ_REGISTERS < uiNumberB)
+//  261 //    {
+//  262 //        uiLength = ResponseException(uiSlave,
+//  263 //                                     uiFunctionCode,
+//  264 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  265 //                                     puiResponse);
+//  266 //    }
+//  267 //    else if ((uiAddress + uiNumberB) > m_uiHoldingRegistersNumber)
+//  268 //    {
+//  269 //        uiLength = ResponseException(uiSlave,
+//  270 //                                     uiFunctionCode,
+//  271 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  272 //                                     puiResponse);
+//  273 //    }
+//  274 //    else
+//  275 //    {
+//  276 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  277 //        puiResponse[uiLength++] = (uiNumberB << 1);
+//  278 //        for (uint16_t i = 0; i < uiNumberB; i++)
+//  279 //        {
+//  280 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16HoldingRegisters[uiAddress]) >> 8);
+//  281 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16HoldingRegisters[uiAddress++]) & 0x00FF);
+//  282 //        }
+//  283 //    }
+//  284 //    return uiLength;
+//  285 //}
+//  286 //
+//  287 ////-----------------------------------------------------------------------------------------------------
+//  288 //int16_t CModbus::ReadInputRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  289 //{
+//  290 //    uint16_t uiOffset = HEADER_LENGTH;
+//  291 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  292 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  293 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  294 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  295 //
+//  296 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  297 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  298 //
+//  299 //    if (uiNumberB < 1 || MODBUS_MAX_READ_REGISTERS < uiNumberB)
+//  300 //    {
+//  301 //        uiLength = ResponseException(uiSlave,
+//  302 //                                     uiFunctionCode,
+//  303 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  304 //                                     puiResponse);
+//  305 //    }
+//  306 //    else if ((uiAddress + uiNumberB) > m_uiInputRegistersNumber)
+//  307 //    {
+//  308 //        uiLength = ResponseException(uiSlave,
+//  309 //                                     uiFunctionCode,
+//  310 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  311 //                                     puiResponse);
+//  312 //    }
+//  313 //    else
+//  314 //    {
+//  315 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  316 //        puiResponse[uiLength++] = (uiNumberB << 1);
+//  317 //        for (uint16_t i = 0; i < uiNumberB; i++)
+//  318 //        {
+//  319 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16InputRegisters[uiAddress]) >> 8);
+//  320 //            puiResponse[uiLength++] = (static_cast<uint16_t>(m_pui16InputRegisters[uiAddress++]) & 0x00FF);
+//  321 //        }
+//  322 //    }
+//  323 //    return uiLength;
+//  324 //}
+//  325 
+//  326 ////-----------------------------------------------------------------------------------------------------
+//  327 //int16_t CModbus::WriteSingleCoil(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  328 //{
+//  329 //    uint16_t uiOffset = HEADER_LENGTH;
+//  330 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  331 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  332 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  333 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  334 //
+//  335 //    if (uiAddress >= m_uiCoilsNumber)
+//  336 //    {
+//  337 //        uiLength = ResponseException(uiSlave,
+//  338 //                                     uiFunctionCode,
+//  339 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  340 //                                     puiResponse);
+//  341 //    }
+//  342 //    else
+//  343 //    {
+//  344 //        uint16_t uiData = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  345 //                           (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  346 //
+//  347 //        if (uiData == 0xFF00 || uiData == 0x0)
+//  348 //        {
+//  349 //            if (uiData)
 //  350 //            {
-//  351 //                m_puiCoils[uiAddress] = OFF;
+//  351 //                m_puiCoils[uiAddress] = ON;
 //  352 //            }
-//  353 //            memcpy(puiResponse, puiRequest, uiLength);
-//  354 //        }
-//  355 //        else
-//  356 //        {
-//  357 //            uiLength = ResponseException(uiSlave,
-//  358 //                                         uiFunctionCode,
-//  359 //                                         MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  360 //                                         puiResponse);
-//  361 //        }
-//  362 //    }
-//  363 //    return uiLength;
-//  364 //}
-//  365 //
-//  366 ////-----------------------------------------------------------------------------------------------------
-//  367 //int16_t CModbus::WriteSingleRegister(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  368 //{
-//  369 //    uint16_t uiOffset = HEADER_LENGTH;
-//  370 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  371 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  372 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  373 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  374 //
-//  375 //    if (uiAddress >= m_uiHoldingRegistersNumber)
-//  376 //    {
-//  377 //        uiLength = ResponseException(uiSlave,
-//  378 //                                     uiFunctionCode,
-//  379 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  380 //                                     puiResponse);
-//  381 //    }
-//  382 //    else
-//  383 //    {
-//  384 //        m_pui16HoldingRegisters[uiAddress] =
-//  385 //            ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  386 //             (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  387 //        memcpy(puiResponse, puiRequest, uiLength);
-//  388 //    }
-//  389 //    return uiLength;
-//  390 //}
-//  391 //
-//  392 ////-----------------------------------------------------------------------------------------------------
-//  393 //int16_t CModbus::WriteMultipleCoils(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  394 //{
-//  395 //    uint16_t uiOffset = HEADER_LENGTH;
-//  396 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  397 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  398 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  399 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  400 //
-//  401 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  402 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  403 //
-//  404 //    if (uiNumberB < 1 || MODBUS_MAX_WRITE_BITS < uiNumberB)
-//  405 //    {
-//  406 //        uiLength = ResponseException(uiSlave,
-//  407 //                                     uiFunctionCode,
-//  408 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  409 //                                     puiResponse);
-//  410 //    }
-//  411 //    else if ((uiAddress + uiNumberB) > m_uiCoilsNumber)
-//  412 //    {
-//  413 //        uiLength = ResponseException(uiSlave,
-//  414 //                                     uiFunctionCode,
-//  415 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  416 //                                     puiResponse);
-//  417 //    }
-//  418 //    else
-//  419 //    {
-//  420 //
-//  421 //        SetBytesFromBits(m_puiCoils, uiAddress, uiNumberB, &puiRequest[uiOffset + 6]);
-//  422 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  423 //        /* 4 to copy the bit address (2) and the quantity of bits */
-//  424 //        memcpy(puiResponse + uiLength, puiRequest + uiLength, 4);
-//  425 //        uiLength += 4;
-//  426 //    }
-//  427 //    return uiLength;
-//  428 //}
-//  429 //
-//  430 ////-----------------------------------------------------------------------------------------------------
-//  431 //int16_t CModbus::WriteMultipleRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  432 //{
-//  433 //    uint16_t uiOffset = HEADER_LENGTH;
-//  434 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  435 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  436 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
-//  437 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
-//  438 //
-//  439 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
-//  440 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
-//  441 //
-//  442 //    if (uiNumberB < 1 || MODBUS_MAX_WRITE_REGISTERS < uiNumberB)
-//  443 //    {
-//  444 //        uiLength = ResponseException(uiSlave,
-//  445 //                                     uiFunctionCode,
-//  446 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  447 //                                     puiResponse);
-//  448 //    }
-//  449 //    else if ((uiAddress + uiNumberB) > m_uiHoldingRegistersNumber)
-//  450 //    {
-//  451 //        uiLength = ResponseException(uiSlave,
-//  452 //                                     uiFunctionCode,
-//  453 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  454 //                                     puiResponse);
-//  455 //    }
-//  456 //    else
-//  457 //    {
-//  458 //        for (uint16_t i = 0; i < uiNumberB; i++)
-//  459 //        {
-//  460 //            m_pui16HoldingRegisters[uiAddress++] = ((static_cast<uint16_t>(puiRequest[uiOffset + 6]) << 8) |
-//  461 //                                                    (static_cast<uint16_t>(puiRequest[uiOffset + 6 + 1])));
-//  462 //            uiOffset += 2;
-//  463 //        }
-//  464 //
-//  465 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  466 //        /* 4 to copy the bit address (2) and the quantity of bits */
-//  467 //        memcpy(puiResponse + uiLength, puiRequest + uiLength, 4);
-//  468 //        uiLength += 4;
-//  469 //
-//  470 //    }
-//  471 //    return uiLength;
-//  472 //}
-//  473 
-//  474 ////-----------------------------------------------------------------------------------------------------
-//  475 //int16_t CModbus::ReadExceptionStatus(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  476 //{
-//  477 ////    errno = ENOPROTOOPT;
-//  478 //    return -1;
-//  479 //}
-//  480 //
-//  481 ////-----------------------------------------------------------------------------------------------------
-//  482 //int16_t CModbus::WriteAndReadRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  483 //{
-//  484 //}
-//  485 //
-//  486 ////-----------------------------------------------------------------------------------------------------
-//  487 //int16_t CModbus::ReportSlaveID(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  488 //{
-//  489 //    uint16_t uiOffset = HEADER_LENGTH;
-//  490 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  491 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  492 //
-//  493 //    uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  494 //    puiResponse[uiLength++] = 3;			// Число байт данных
-//  495 //    puiResponse[uiLength++] = 32;			// Количество окон сигнализации
-//  496 //    puiResponse[uiLength++] = 7;			// Код модификации
-//  497 //    puiResponse[uiLength++] = 50;			// Код устройства
-//  498 //
-//  499 //    return uiLength;
-//  500 //}
-//  501 
-//  502 ////-----------------------------------------------------------------------------------------------------
-//  503 //int16_t CModbus::Programming(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  504 //{
-//  505 //// Функция 0x46 "программирование". Описание протокола обмена:
-//  506 //// Buff[0] - адрес Slave.
-//  507 //// Buff[1] - код функции.
-//  508 //// Buff[2] - количество байт в запросе команды старший байт.
-//  509 //// Buff[3] - количество байт в запросе команды младший байт.
-//  510 //// Buff[4] - код операции(0 - запрос версии ПО, 1 - чтение блокаБД, 2 - запись блокаБД).
-//  511 //// Buff[5] - номер блока БД.
-//  512 //
-//  513 //    // Смещения в принятом буфере.
-//  514 //    enum
-//  515 //    {
-//  516 //        REQUEST_LENGTH = 2,
-//  517 //        REQUEST_COMMAND = 3,
-//  518 //        BLOCK_NUMBER = 4,
-//  519 //        DATA_BEGIN = 5,
-//  520 //    };
-//  521 //
-//  522 //    uint16_t uiOffset = HEADER_LENGTH;
-//  523 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  524 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  353 //            else
+//  354 //            {
+//  355 //                m_puiCoils[uiAddress] = OFF;
+//  356 //            }
+//  357 //            memcpy(puiResponse, puiRequest, uiLength);
+//  358 //        }
+//  359 //        else
+//  360 //        {
+//  361 //            uiLength = ResponseException(uiSlave,
+//  362 //                                         uiFunctionCode,
+//  363 //                                         MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  364 //                                         puiResponse);
+//  365 //        }
+//  366 //    }
+//  367 //    return uiLength;
+//  368 //}
+//  369 //
+//  370 ////-----------------------------------------------------------------------------------------------------
+//  371 //int16_t CModbus::WriteSingleRegister(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  372 //{
+//  373 //    uint16_t uiOffset = HEADER_LENGTH;
+//  374 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  375 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  376 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  377 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  378 //
+//  379 //    if (uiAddress >= m_uiHoldingRegistersNumber)
+//  380 //    {
+//  381 //        uiLength = ResponseException(uiSlave,
+//  382 //                                     uiFunctionCode,
+//  383 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  384 //                                     puiResponse);
+//  385 //    }
+//  386 //    else
+//  387 //    {
+//  388 //        m_pui16HoldingRegisters[uiAddress] =
+//  389 //            ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  390 //             (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  391 //        memcpy(puiResponse, puiRequest, uiLength);
+//  392 //    }
+//  393 //    return uiLength;
+//  394 //}
+//  395 //
+//  396 ////-----------------------------------------------------------------------------------------------------
+//  397 //int16_t CModbus::WriteMultipleCoils(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  398 //{
+//  399 //    uint16_t uiOffset = HEADER_LENGTH;
+//  400 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  401 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  402 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  403 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  404 //
+//  405 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  406 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  407 //
+//  408 //    if (uiNumberB < 1 || MODBUS_MAX_WRITE_BITS < uiNumberB)
+//  409 //    {
+//  410 //        uiLength = ResponseException(uiSlave,
+//  411 //                                     uiFunctionCode,
+//  412 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  413 //                                     puiResponse);
+//  414 //    }
+//  415 //    else if ((uiAddress + uiNumberB) > m_uiCoilsNumber)
+//  416 //    {
+//  417 //        uiLength = ResponseException(uiSlave,
+//  418 //                                     uiFunctionCode,
+//  419 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  420 //                                     puiResponse);
+//  421 //    }
+//  422 //    else
+//  423 //    {
+//  424 //
+//  425 //        SetBytesFromBits(m_puiCoils, uiAddress, uiNumberB, &puiRequest[uiOffset + 6]);
+//  426 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  427 //        /* 4 to copy the bit address (2) and the quantity of bits */
+//  428 //        memcpy(puiResponse + uiLength, puiRequest + uiLength, 4);
+//  429 //        uiLength += 4;
+//  430 //    }
+//  431 //    return uiLength;
+//  432 //}
+//  433 //
+//  434 ////-----------------------------------------------------------------------------------------------------
+//  435 //int16_t CModbus::WriteMultipleRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  436 //{
+//  437 //    uint16_t uiOffset = HEADER_LENGTH;
+//  438 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  439 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  440 //    uint16_t uiAddress = ((static_cast<uint16_t>(puiRequest[uiOffset + 1]) << 8) |
+//  441 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 2])));
+//  442 //
+//  443 //    uint16_t uiNumberB = ((static_cast<uint16_t>(puiRequest[uiOffset + 3]) << 8) |
+//  444 //                          (static_cast<uint16_t>(puiRequest[uiOffset + 4])));
+//  445 //
+//  446 //    if (uiNumberB < 1 || MODBUS_MAX_WRITE_REGISTERS < uiNumberB)
+//  447 //    {
+//  448 //        uiLength = ResponseException(uiSlave,
+//  449 //                                     uiFunctionCode,
+//  450 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  451 //                                     puiResponse);
+//  452 //    }
+//  453 //    else if ((uiAddress + uiNumberB) > m_uiHoldingRegistersNumber)
+//  454 //    {
+//  455 //        uiLength = ResponseException(uiSlave,
+//  456 //                                     uiFunctionCode,
+//  457 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  458 //                                     puiResponse);
+//  459 //    }
+//  460 //    else
+//  461 //    {
+//  462 //        for (uint16_t i = 0; i < uiNumberB; i++)
+//  463 //        {
+//  464 //            m_pui16HoldingRegisters[uiAddress++] = ((static_cast<uint16_t>(puiRequest[uiOffset + 6]) << 8) |
+//  465 //                                                    (static_cast<uint16_t>(puiRequest[uiOffset + 6 + 1])));
+//  466 //            uiOffset += 2;
+//  467 //        }
+//  468 //
+//  469 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  470 //        /* 4 to copy the bit address (2) and the quantity of bits */
+//  471 //        memcpy(puiResponse + uiLength, puiRequest + uiLength, 4);
+//  472 //        uiLength += 4;
+//  473 //
+//  474 //    }
+//  475 //    return uiLength;
+//  476 //}
+//  477 
+//  478 ////-----------------------------------------------------------------------------------------------------
+//  479 //int16_t CModbus::ReadExceptionStatus(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  480 //{
+//  481 ////    errno = ENOPROTOOPT;
+//  482 //    return -1;
+//  483 //}
+//  484 //
+//  485 ////-----------------------------------------------------------------------------------------------------
+//  486 //int16_t CModbus::WriteAndReadRegisters(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  487 //{
+//  488 //}
+//  489 //
+//  490 ////-----------------------------------------------------------------------------------------------------
+//  491 //int16_t CModbus::ReportSlaveID(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  492 //{
+//  493 //    uint16_t uiOffset = HEADER_LENGTH;
+//  494 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  495 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  496 //
+//  497 //    uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  498 //    puiResponse[uiLength++] = 3;			// Число байт данных
+//  499 //    puiResponse[uiLength++] = 32;			// Количество окон сигнализации
+//  500 //    puiResponse[uiLength++] = 7;			// Код модификации
+//  501 //    puiResponse[uiLength++] = 50;			// Код устройства
+//  502 //
+//  503 //    return uiLength;
+//  504 //}
+//  505 
+//  506 ////-----------------------------------------------------------------------------------------------------
+//  507 //int16_t CModbus::Programming(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  508 //{
+//  509 //// Функция 0x46 "программирование". Описание протокола обмена:
+//  510 //// Buff[0] - адрес Slave.
+//  511 //// Buff[1] - код функции.
+//  512 //// Buff[2] - количество байт в запросе команды старший байт.
+//  513 //// Buff[3] - количество байт в запросе команды младший байт.
+//  514 //// Buff[4] - код операции(0 - запрос версии ПО, 1 - чтение блокаБД, 2 - запись блокаБД).
+//  515 //// Buff[5] - номер блока БД.
+//  516 //
+//  517 //    // Смещения в принятом буфере.
+//  518 //    enum
+//  519 //    {
+//  520 //        REQUEST_LENGTH = 2,
+//  521 //        REQUEST_COMMAND = 3,
+//  522 //        BLOCK_NUMBER = 4,
+//  523 //        DATA_BEGIN = 5,
+//  524 //    };
 //  525 //
-//  526 //    uint16_t uiNumberB = (static_cast<uint16_t>(puiRequest[uiOffset + REQUEST_LENGTH]));
-//  527 //
-//  528 //    if (uiNumberB != (uiLength - 6))
-//  529 //    {
-//  530 //        uiLength = ResponseException(uiSlave,
-//  531 //                                     uiFunctionCode,
-//  532 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  533 //                                     puiResponse);
-//  534 //    }
-//  535 //    else
-//  536 //    {
-//  537 //        uint8_t uiBlockNumber;
-//  538 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
-//  539 //        // Какой код операции?
-//  540 //        switch(puiRequest[uiOffset + REQUEST_COMMAND])
-//  541 //        {
-//  542 //        case 0x00:
-//  543 //            // Получение версии ПО.
-//  544 //            puiResponse[uiLength++] = 0;
-//  545 //            puiResponse[uiLength++] = 4;
-//  546 //            puiResponse[uiLength++] = puiRequest[uiOffset + REQUEST_COMMAND];
-//  547 //            puiResponse[uiLength++] = 1; // 1.7.01
-//  548 //            puiResponse[uiLength++] = 7;
-//  549 //            puiResponse[uiLength++] = 0x01;
-//  550 //            break;
-//  551 //
-//  552 //        case 0x01:
-//  553 //            // Чтение блока БД.
-//  554 //            uiBlockNumber = puiRequest[uiOffset + BLOCK_NUMBER];
-//  555 //            // Блок не существует?
-//  556 //            if (uiBlockNumber > CDataBase::BLOCKS_QUANTITY)
-//  557 //            {
-//  558 //                uiLength = ResponseException(uiSlave,
-//  559 //                                             uiFunctionCode,
-//  560 //                                             MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  561 //                                             puiResponse);
-//  562 //            }
-//  563 //            else
-//  564 //            {
-//  565 //                // Прочитаем блок БД.
-//  566 //                uint16_t uiLengthLocal = CDataBase::Read(&puiResponse[uiOffset + DATA_BEGIN], uiBlockNumber);
-//  567 //                puiResponse[uiLength++] = 0;
-//  568 //                puiResponse[uiLength++] = uiLengthLocal;
-//  569 //                puiResponse[uiLength++] = puiRequest[uiOffset + REQUEST_COMMAND];
-//  570 //                puiResponse[uiLength++] = uiBlockNumber;
-//  571 //                uiLength += uiLengthLocal;
-//  572 //            }
-//  573 //            break;
-//  574 //
-//  575 //
-//  576 //        case 0x02:
-//  577 //            // Запись блока БД.
-//  578 //            uiBlockNumber = puiRequest[uiOffset + BLOCK_NUMBER];
-//  579 //            // Блок не существует?
-//  580 //            if (uiBlockNumber > CDataBase::BLOCKS_QUANTITY)
-//  581 //            {
-//  582 //                uiLength = ResponseException(uiSlave,
-//  583 //                                             uiFunctionCode,
-//  584 //                                             MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
-//  585 //                                             puiResponse);
-//  586 //            }
-//  587 //            // Размер блока не соответствует?
-//  588 //            else if (puiRequest[uiOffset + REQUEST_LENGTH] != CDataBase::m_DStruct[uiBlockNumber].Size)
-//  589 //            {
-//  590 //                uiLength = ResponseException(uiSlave,
-//  591 //                                             uiFunctionCode,
-//  592 //                                             MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
-//  593 //                                             puiResponse);
-//  594 //            }
-//  595 //            else
-//  596 //            {
-//  597 //                // Сохраним блок БД.
-//  598 //                // Успешно?
-//  599 //                if (CDataBase::Write(&puiRequest[uiOffset + DATA_BEGIN], uiBlockNumber))
-//  600 //                {
-//  601 //                    CDataBase::SetStatus(1);
-//  602 //                }
-//  603 //                else
+//  526 //    uint16_t uiOffset = HEADER_LENGTH;
+//  527 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  528 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  529 //
+//  530 //    uint16_t uiNumberB = (static_cast<uint16_t>(puiRequest[uiOffset + REQUEST_LENGTH]));
+//  531 //
+//  532 //    if (uiNumberB != (uiLength - 6))
+//  533 //    {
+//  534 //        uiLength = ResponseException(uiSlave,
+//  535 //                                     uiFunctionCode,
+//  536 //                                     MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  537 //                                     puiResponse);
+//  538 //    }
+//  539 //    else
+//  540 //    {
+//  541 //        uint8_t uiBlockNumber;
+//  542 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  543 //        // Какой код операции?
+//  544 //        switch(puiRequest[uiOffset + REQUEST_COMMAND])
+//  545 //        {
+//  546 //        case 0x00:
+//  547 //            // Получение версии ПО.
+//  548 //            puiResponse[uiLength++] = 0;
+//  549 //            puiResponse[uiLength++] = 4;
+//  550 //            puiResponse[uiLength++] = puiRequest[uiOffset + REQUEST_COMMAND];
+//  551 //            puiResponse[uiLength++] = 1; // 1.7.01
+//  552 //            puiResponse[uiLength++] = 7;
+//  553 //            puiResponse[uiLength++] = 0x01;
+//  554 //            break;
+//  555 //
+//  556 //        case 0x01:
+//  557 //            // Чтение блока БД.
+//  558 //            uiBlockNumber = puiRequest[uiOffset + BLOCK_NUMBER];
+//  559 //            // Блок не существует?
+//  560 //            if (uiBlockNumber > CDataBase::BLOCKS_QUANTITY)
+//  561 //            {
+//  562 //                uiLength = ResponseException(uiSlave,
+//  563 //                                             uiFunctionCode,
+//  564 //                                             MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  565 //                                             puiResponse);
+//  566 //            }
+//  567 //            else
+//  568 //            {
+//  569 //                // Прочитаем блок БД.
+//  570 //                uint16_t uiLengthLocal = CDataBase::Read(&puiResponse[uiOffset + DATA_BEGIN], uiBlockNumber);
+//  571 //                puiResponse[uiLength++] = 0;
+//  572 //                puiResponse[uiLength++] = uiLengthLocal;
+//  573 //                puiResponse[uiLength++] = puiRequest[uiOffset + REQUEST_COMMAND];
+//  574 //                puiResponse[uiLength++] = uiBlockNumber;
+//  575 //                uiLength += uiLengthLocal;
+//  576 //            }
+//  577 //            break;
+//  578 //
+//  579 //
+//  580 //        case 0x02:
+//  581 //            // Запись блока БД.
+//  582 //            uiBlockNumber = puiRequest[uiOffset + BLOCK_NUMBER];
+//  583 //            // Блок не существует?
+//  584 //            if (uiBlockNumber > CDataBase::BLOCKS_QUANTITY)
+//  585 //            {
+//  586 //                uiLength = ResponseException(uiSlave,
+//  587 //                                             uiFunctionCode,
+//  588 //                                             MODBUS_EXCEPTION_ILLEGAL_DATA_ADDRESS,
+//  589 //                                             puiResponse);
+//  590 //            }
+//  591 //            // Размер блока не соответствует?
+//  592 //            else if (puiRequest[uiOffset + REQUEST_LENGTH] != CDataBase::m_DStruct[uiBlockNumber].Size)
+//  593 //            {
+//  594 //                uiLength = ResponseException(uiSlave,
+//  595 //                                             uiFunctionCode,
+//  596 //                                             MODBUS_EXCEPTION_ILLEGAL_DATA_VALUE,
+//  597 //                                             puiResponse);
+//  598 //            }
+//  599 //            else
+//  600 //            {
+//  601 //                // Сохраним блок БД.
+//  602 //                // Успешно?
+//  603 //                if (CDataBase::Write(&puiRequest[uiOffset + DATA_BEGIN], uiBlockNumber))
 //  604 //                {
-//  605 //                    CDataBase::SetStatus(0);
+//  605 //                    CDataBase::SetStatus(1);
 //  606 //                }
-//  607 //            }
-//  608 //            break;
-//  609 //
-//  610 //
-//  611 //        case 0x03:
-//  612 //            if(!(CDataBase::GetStatus()))
-//  613 //            {
-//  614 //                uiLength = ResponseException(uiSlave,
-//  615 //                                             uiFunctionCode,
-//  616 //                                             MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
-//  617 //                                             puiResponse);
-//  618 //            }
-//  619 //            break;
-//  620 //
-//  621 //        default:
-//  622 //            uiLength = ResponseException(uiSlave,
-//  623 //                                         uiFunctionCode,
-//  624 //                                         MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
-//  625 //                                         puiResponse);
-//  626 //            break;
-//  627 //        };
-//  628 //    }
-//  629 //
-//  630 //    return uiLength;
-//  631 //}
-//  632 //
-//  633 ////-----------------------------------------------------------------------------------------------------
-//  634 //int16_t CModbus::PollProgramming(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
-//  635 //
-//  636 //{
-//  637 //    uint16_t uiOffset = HEADER_LENGTH;
-//  638 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  639 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  640 //
-//  641 //    if(!(CDataBase::GetStatus()))
-//  642 //    {
-//  643 //        uiLength = ResponseException(uiSlave,
-//  644 //                                     uiFunctionCode,
-//  645 //                                     MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
-//  646 //                                     puiResponse);
-//  647 //    }
-//  648 //    else
-//  649 //    {
-//  650 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  607 //                else
+//  608 //                {
+//  609 //                    CDataBase::SetStatus(0);
+//  610 //                }
+//  611 //            }
+//  612 //            break;
+//  613 //
+//  614 //
+//  615 //        case 0x03:
+//  616 //            if(!(CDataBase::GetStatus()))
+//  617 //            {
+//  618 //                uiLength = ResponseException(uiSlave,
+//  619 //                                             uiFunctionCode,
+//  620 //                                             MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
+//  621 //                                             puiResponse);
+//  622 //            }
+//  623 //            break;
+//  624 //
+//  625 //        default:
+//  626 //            uiLength = ResponseException(uiSlave,
+//  627 //                                         uiFunctionCode,
+//  628 //                                         MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
+//  629 //                                         puiResponse);
+//  630 //            break;
+//  631 //        };
+//  632 //    }
+//  633 //
+//  634 //    return uiLength;
+//  635 //}
+//  636 //
+//  637 ////-----------------------------------------------------------------------------------------------------
+//  638 //int16_t CModbus::PollProgramming(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  639 //
+//  640 //{
+//  641 //    uint16_t uiOffset = HEADER_LENGTH;
+//  642 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  643 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  644 //
+//  645 //    if(!(CDataBase::GetStatus()))
+//  646 //    {
+//  647 //        uiLength = ResponseException(uiSlave,
+//  648 //                                     uiFunctionCode,
+//  649 //                                     MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
+//  650 //                                     puiResponse);
 //  651 //    }
-//  652 //
-//  653 ////    if(Storage::GetStatus() != Storage::IDLE)
-//  654 ////    {
-//  655 ////        return ModBus::SLAVE_DEVICE_BUSY;
-//  656 ////    }
-//  657 //
-//  658 //    return uiLength;
-//  659 //}
-//  660 
-//  661 //-----------------------------------------------------------------------------------------------------
+//  652 //    else
+//  653 //    {
+//  654 //        uiLength = ResponseBasis(uiSlave, uiFunctionCode, puiResponse);
+//  655 //    }
+//  656 //
+//  657 ////    if(Storage::GetStatus() != Storage::IDLE)
+//  658 ////    {
+//  659 ////        return ModBus::SLAVE_DEVICE_BUSY;
+//  660 ////    }
+//  661 //
+//  662 //    return uiLength;
+//  663 //}
+//  664 
+//  665 ////-----------------------------------------------------------------------------------------------------
+//  666 //int16_t CModbus::Reply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
+//  667 //{
+//  668 //    uint16_t uiOffset = HEADER_LENGTH;
+//  669 //    int8_t uiSlave = puiRequest[uiOffset - 1];
+//  670 //    int8_t uiFunctionCode = puiRequest[uiOffset];
+//  671 //    uint16_t uiLength = uiFrameLength;
+//  672 //
+//  673 //    /* Filter on the Modbus unit identifier (slave) in RTU mode */
+//  674 //    if (uiSlave != m_uiOwnAddress && uiSlave != MODBUS_BROADCAST_ADDRESS)
+//  675 //    {
+//  676 //        return 0;
+//  677 //    }
+//  678 //
+//  679 //    switch (uiFunctionCode)
+//  680 //    {
+//  681 ////    case _FC_READ_COILS:
+//  682 ////        uiLength = ReadCoils(puiRequest, puiResponse, uiLength);
+//  683 ////        break;
+//  684 ////
+//  685 //    case _FC_READ_DISCRETE_INPUTS:
+//  686 //        uiLength = ReadDiscreteInputs(puiRequest, puiResponse, uiLength);
+//  687 //        break;
+//  688 //
+//  689 ////    case _FC_READ_HOLDING_REGISTERS:
+//  690 ////        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
+//  691 ////        break;
+//  692 ////
+//  693 ////    case _FC_READ_INPUT_REGISTERS:
+//  694 ////        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
+//  695 ////        break;
+//  696 ////
+//  697 ////    case _FC_WRITE_SINGLE_COIL:
+//  698 ////        uiLength = WriteSingleCoil(puiRequest, puiResponse, uiLength);
+//  699 ////        break;
+//  700 ////
+//  701 ////    case _FC_WRITE_SINGLE_REGISTER:
+//  702 ////        uiLength = WriteSingleRegister(puiRequest, puiResponse, uiLength);
+//  703 ////        break;
+//  704 ////
+//  705 ////    case _FC_READ_EXCEPTION_STATUS:
+//  706 ////        uiLength = ReadExceptionStatus(puiRequest, puiResponse, uiLength);
+//  707 ////        break;
+//  708 ////
+//  709 ////    case _FC_WRITE_MULTIPLE_COILS:
+//  710 ////        uiLength = WriteMultipleCoils(puiRequest, puiResponse, uiLength);
+//  711 ////        break;
+//  712 ////
+//  713 ////    case _FC_PROGRAMMING_COMPLETION_REQUEST:
+//  714 ////        break;
+//  715 ////
+//  716 ////    case _FC_WRITE_MULTIPLE_REGISTERS:
+//  717 ////        uiLength = WriteMultipleRegisters(puiRequest, puiResponse, uiLength);
+//  718 ////        break;
+//  719 ////
+//  720 ////    case _FC_REPORT_SLAVE_ID:
+//  721 ////        uiLength = ReportSlaveID(puiRequest, puiResponse, uiLength);
+//  722 ////        break;
+//  723 ////
+//  724 ////    case _FC_WRITE_AND_READ_REGISTERS:
+//  725 ////        uiLength = WriteAndReadRegisters(puiRequest, puiResponse, uiLength);
+//  726 ////        break;
+//  727 ////
+//  728 ////    case _FC_DATA_EXCHANGE:
+//  729 ////        break;
+//  730 ////
+//  731 ////    case _FC_DATA_BASE_READ:
+//  732 ////        break;
+//  733 ////
+//  734 ////    case _FC_DATA_BASE_WRITE:
+//  735 ////        break;
+//  736 ////
+//  737 ////    case _FC_PROGRAMMING:
+//  738 ////        uiLength = Programming(puiRequest, puiResponse, uiLength);
+//  739 ////        break;
+//  740 //
+//  741 //    default:
+//  742 //        uiLength = ResponseException(uiSlave,
+//  743 //                                     uiFunctionCode,
+//  744 //                                     MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
+//  745 //                                     puiResponse);
+//  746 //        break;
+//  747 //    }
+//  748 //
+//  749 //    m_uiMessageLength = uiLength;
+//  750 //    return uiLength;
+//  751 ////    return SendMessage(puiResponse, uiLength);
+//  752 //}
+//  753 
+//  754 ////-----------------------------------------------------------------------------------------------------
+//  755 //void CModbus::SetByteFromBits(uint8_t *dest, int16_t index, const uint8_t value)
+//  756 //{
+//  757 //    int16_t i;
+//  758 //
+//  759 //    for (i=0; i<8; i++)
+//  760 //    {
+//  761 //        dest[index+i] = (value & (1 << i)) ? 1 : 0;
+//  762 //    }
+//  763 //}
+//  764 //
+//  765 ////-----------------------------------------------------------------------------------------------------
+//  766 //void CModbus::SetBytesFromBits(uint8_t *dest, int16_t index, uint16_t nb_bits,
+//  767 //                               const uint8_t *tab_byte)
+//  768 //{
+//  769 //    int16_t i;
+//  770 //    int16_t shift = 0;
+//  771 //
+//  772 //    for (i = index; i < index + nb_bits; i++)
+//  773 //    {
+//  774 //        dest[i] = tab_byte[(i - index) / 8] & (1 << shift) ? 1 : 0;
+//  775 //        /* gcc doesn't like: shift = (++shift) % 8; */
+//  776 //        shift++;
+//  777 //        shift %= 8;
+//  778 //    }
+//  779 //}
+//  780 //
+//  781 ////-----------------------------------------------------------------------------------------------------
+//  782 //uint8_t CModbus::GetByteFromBits(const uint8_t *src, int16_t index,
+//  783 //                                 uint16_t nb_bits)
+//  784 //{
+//  785 //    int16_t i;
+//  786 //    uint8_t value = 0;
+//  787 //
+//  788 //    if (nb_bits > 8)
+//  789 //    {
+//  790 //        /* Assert is ignored if NDEBUG is set */
+//  791 ////        assert(nb_bits < 8); //?
+//  792 //        nb_bits = 8;
+//  793 //    }
+//  794 //
+//  795 //    for (i=0; i < nb_bits; i++)
+//  796 //    {
+//  797 //        value |= (src[index+i] << i);
+//  798 //    }
+//  799 //
+//  800 //    return value;
+//  801 //}
+//  802 //
+//  803 ////-----------------------------------------------------------------------------------------------------
+//  804 //float CModbus::GetFloat(const uint16_t *src)
+//  805 //{
+//  806 //    float f = 0.0f;
+//  807 //    uint32_t i;
+//  808 //
+//  809 //    i = (((uint32_t)src[1]) << 16) + src[0];
+//  810 //    memcpy(&f, &i, sizeof(float));
+//  811 //
+//  812 //    return f;
+//  813 //}
+//  814 //
+//  815 ////-----------------------------------------------------------------------------------------------------
+//  816 //void CModbus::SetFloat(float f, uint16_t *dest)
+//  817 //{
+//  818 //    uint32_t i = 0;
+//  819 //
+//  820 //    memcpy(&i, &f, sizeof(uint32_t));
+//  821 //    dest[0] = (uint16_t)i;
+//  822 //    dest[1] = (uint16_t)(i >> 16);
+//  823 //}
+//  824 
+//  825 //-----------------------------------------------------------------------------------------------------
+//  826 
+//  827 
+//  828 
+//  829 
+//  830 
+//  831 
+//  832 ////-----------------------------------------------------------------------------------------------------
+//  833 //uint8_t CModbus::CheckConfirmation(uint8_t *puiResponse, uint16_t uiLength)
+//  834 //{
+//  835 //    uint16_t uiOffset = HEADER_LENGTH;
+//  836 //    int8_t uiSlave = puiResponse[uiOffset - 1];
+//  837 //    int8_t uiFunctionCode = puiResponse[uiOffset];
+//  838 //
+//  839 //    if ((m_uiOwnAddress == uiSlave) &&
+//  840 //            (m_uiFunctionCode == uiFunctionCode))
+//  841 //    {
+//  842 //        return 1;
+//  843 //    }
+//  844 //    else if (uiLength == (uiOffset + 2 + CRC_LENGTH) &&
+//  845 //             (uiFunctionCode & 0x80))
+//  846 //    {
+//  847 //        /* EXCEPTION CODE RECEIVED */
+//  848 //        int8_t uiExceptionCode =
+//  849 //            puiResponse[uiOffset + MODBUS_EXCEPTION_CODE_OFFSET];
+//  850 //        if (uiExceptionCode < MODBUS_EXCEPTION_MAX)
+//  851 //        {
+//  852 //            return MODBUS_ENOBASE + uiExceptionCode;
+//  853 //        }
+//  854 //        else
+//  855 //        {
+//  856 //            return EMBBADEXC;
+//  857 //        }
+//  858 //    }
+//  859 //}
+//  860 
+//  861 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  662 int16_t CModbus::Reply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
-??Reply:
-//  663 {
-        MOVW    R31:R30, R17:R16
-//  664     uint16_t uiOffset = HEADER_LENGTH;
-//  665     int8_t uiSlave = puiRequest[uiOffset - 1];
-        LD      R16, Z
-//  666     int8_t uiFunctionCode = puiRequest[uiOffset];
-        LDD     R17, Z+1
-        MOV     R22, R16
+//  862 int8_t CModbus::ReadDiscreteInputsRequest(uint8_t uiSlaveAddress,
+??ReadDiscreteInputsRequest:
+//  863         uint16_t uiAddress,
+//  864         uint16_t uiBitNumber)
+//  865 {
+        RCALL   ?PROLOGUE4_L09
+//  866     if (uiBitNumber > MODBUS_MAX_READ_BITS)
+        CPI     R20, 209
+        LDI     R17, 7
+        CPC     R21, R17
+        BRCS    ??ReadDiscreteInputsRequest_1
+//  867     {
+//  868         return EMBMDATA;
+        LDI     R16, 16
+        RJMP    ??ReadDiscreteInputsRequest_2
+//  869     }
+//  870 
+//  871     if (MessengerIsReady() == 1)
+??ReadDiscreteInputsRequest_1:
+        LDI     R26, LOW(??m_uiQuantity)
+        LDI     R27, (??m_uiQuantity) >> 8
+        LDS     R17, (??m_uiQuantity + 8)
+        TST     R17
+        BREQ    ??ReadDiscreteInputsRequest_3
+//  872     {
+//  873         m_uiFunctionCode = _FC_READ_DISCRETE_INPUTS;
+//  874         m_uiQuantity = uiBitNumber;
+//  875         m_uiMessageLength = CModbusRTU::RequestBasis(uiSlaveAddress,
+//  876                             m_uiFunctionCode,
+//  877                             uiAddress,
+//  878                             uiBitNumber,
+//  879                             m_puiTxBuffer);
+//  880         FlowControlSet(FRAME_TRANSMIT_REQUEST);
+//  881         return 1;
+//  882     }
+//  883     else
+//  884     {
+//  885         return 0;
+        LDI     R16, 0
+        RJMP    ??ReadDiscreteInputsRequest_2
+//  886     }
+??ReadDiscreteInputsRequest_3:
+        LDI     R17, 2
+        STS     (??m_uiQuantity + 7), R17
+        ST      X+, R20
+        ST      X, R21
+        SBIW    R27:R26, 1
+        MOVW    R31:R30, R27:R26
+        LDD     R22, Z+4
+        LDD     R23, Z+5
+        RCALL   ??RequestBasis
+        MOVW    R31:R30, R27:R26
+        STD     Z+2, R16
+        STD     Z+3, R17
+        LDI     R16, 14
+        STD     Z+8, R16
+        LDI     R16, 1
+??ReadDiscreteInputsRequest_2:
+        LDI     R30, 4
+        RJMP    ?EPILOGUE_B4_L09
+//  887 }
+//  888 
+//  889 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  890 int16_t CModbus::ReadDiscreteInputsReceive(uint8_t *puiMessage, uint16_t uiLength)
+??ReadDiscreteInputsReceive:
+//  891 {
+        RCALL   ?PROLOGUE5_L09
+        REQUIRE ?Register_R4_is_cg_reg
+        MOVW    R3:R2, R17:R16
+//  892     uint8_t uiByteCounter = 0;
+        LDI     R26, 0
+//  893     for (int8_t i = 0; i < (m_uiQuantity / 2); )
+        LDI     R22, 0
+        LDI     R30, LOW(??m_uiQuantity)
+        LDI     R31, (??m_uiQuantity) >> 8
+        LD      R24, Z
+        LDD     R25, Z+1
+        RJMP    ??ReadDiscreteInputsReceive_1
+//  894     {
+//  895         uint8_t uiData = puiMessage[uiByteCounter];
+//  896         for (uint8_t j = 0; j < CHANNELS_IN_BYTE; j++)
+??ReadDiscreteInputsReceive_2:
+        DEC     R21
+        BRNE    ??ReadDiscreteInputsReceive_3
+//  897         {
+//  898             uint8_t uiState = 0;
+//  899             for (uint8_t k = 0; k < MEASURE_CHANNEL_STATE_BIT_NUMBER; k++)
+//  900             {
+//  901                 if (uiData & 0x01)
+//  902                 {
+//  903                     uiState |= (0x01 << k);
+//  904                 }
+//  905                 uiData >>= 1;
+//  906             }
+//  907 
+//  908             CMvsn21::axChipsChannelsData[m_uiSlaveAddress - 1].axMeasurementChannels[i].uiState = uiState;
+//  909             // Следующий дискретный вход.
+//  910             i++;
+//  911             // Распаковали все данные состояния дискретных входов?
+//  912             if (i >= m_uiQuantity)
+//  913             {
+//  914                 // Распаковали все данные состояния дискретных входов.
+//  915                 return 1;
+//  916             }
+//  917         }
+//  918         uiByteCounter += 1;
+        INC     R26
+??ReadDiscreteInputsReceive_1:
+        RCALL   ?Subroutine0
+??CrossCallReturnLabel_0:
+        MOVW    R17:R16, R25:R24
+        LSR     R17
+        ROR     R16
+        CP      R22, R16
+        CPC     R23, R17
+        BRCC    ??ReadDiscreteInputsReceive_4
+        LDI     R27, 0
+        MOVW    R31:R30, R3:R2
+        ADD     R30, R26
+        ADC     R31, R27
+        LD      R27, Z
+        LDI     R21, 4
+??ReadDiscreteInputsReceive_3:
+        CLR     R4
+        LDI     R19, 0
+        LDI     R18, 2
+??ReadDiscreteInputsReceive_5:
+        BST     R27, 0
+        BRTC    ??ReadDiscreteInputsReceive_6
+        RCALL   ?Subroutine1
+??CrossCallReturnLabel_4:
+        MOV     R20, R19
+        RCALL   ?S_SHL_L02
+        OR      R4, R16
+??ReadDiscreteInputsReceive_6:
+        LSR     R27
+        INC     R19
+        DEC     R18
+        BRNE    ??ReadDiscreteInputsReceive_5
+        LDI     R30, LOW((??axChipsChannelsData - 8))
+        LDI     R31, HIGH((??axChipsChannelsData - 8))
+        RCALL   ?Subroutine0
+??CrossCallReturnLabel_1:
+        ADD     R30, R22
+        ADC     R31, R23
+        LDS     R16, (??m_uiQuantity + 6)
+        LDI     R17, 8
+        MUL     R16, R17
+        ADD     R30, R0
+        ADC     R31, R1
+        ST      Z, R4
+        INC     R22
+        RCALL   ?Subroutine0
+//  919     }
+??CrossCallReturnLabel_2:
+        CP      R22, R24
+        CPC     R23, R25
+        BRCS    ??ReadDiscreteInputsReceive_2
+//  920     return 1;
+??ReadDiscreteInputsReceive_4:
+        RCALL   ?Subroutine1
+??CrossCallReturnLabel_5:
+        LDI     R30, 5
+        RJMP    ?EPILOGUE_B5_L09
+//  921 }
+
+        RSEG CODE:CODE:NOROOT(1)
+?Subroutine1:
+        LDI     R16, 1
+        LDI     R17, 0
+        RET
+
+        RSEG CODE:CODE:NOROOT(1)
+?Subroutine0:
         MOV     R23, R22
         LSL     R23
         SBC     R23, R23
-        LDS     R0, (??m_uiMessageLength + 2)
-        CLR     R1
-        CP      R22, R0
-        CPC     R23, R1
-        BREQ    ??Reply_1
-        TST     R16
-        BREQ    ??Reply_1
-//  667     uint16_t uiLength = uiFrameLength;
-//  668 
-//  669     /* Filter on the Modbus unit identifier (slave) in RTU mode */
-//  670     if (uiSlave != m_uiSlave && uiSlave != MODBUS_BROADCAST_ADDRESS)
-//  671     {
-//  672         return 0;
-        LDI     R16, 0
+        RET
+//  922 
+//  923 //-----------------------------------------------------------------------------------------------------
+
+        RSEG CODE:CODE:NOROOT(1)
+//  924 int16_t CModbus::ReceiveMessage(uint8_t *puiResponse, uint16_t uiFrameLength)
+??ReceiveMessage:
+//  925 {
+//  926     uint16_t uiOffset = HEADER_LENGTH;
+//  927     uint8_t uiSlave = puiResponse[uiOffset - 1];
+//  928     uint8_t uiFunctionCode = puiResponse[uiOffset];
+        MOVW    R31:R30, R17:R16
+        LDD     R20, Z+1
+//  929     uint16_t uiLength = uiFrameLength;
+//  930 
+//  931     if ((m_uiSlaveAddress == uiSlave) &&
+//  932             (m_uiFunctionCode == uiFunctionCode))
+        LDS     R21, (??m_uiQuantity + 6)
+        LD      R22, Z
+        CP      R21, R22
+        BRNE    ??ReceiveMessage_1
+        LDS     R21, (??m_uiQuantity + 7)
+        CP      R21, R20
+        BRNE    ??ReceiveMessage_1
+//  933     {
+//  934         switch (uiFunctionCode)
+        CPI     R20, 2
+        BRNE    ??ReceiveMessage_2
+//  935         {
+//  936 //    case _FC_READ_COILS:
+//  937 //        break;
+//  938 //
+//  939         case _FC_READ_DISCRETE_INPUTS:
+//  940             ReadDiscreteInputsReceive(&puiResponse[uiOffset + 2], uiLength);
+        SUBI    R16, 253
+        SBCI    R17, 255
+        RCALL   ??ReadDiscreteInputsReceive
+//  941             break;
+//  942 
+//  943 //    case _FC_READ_HOLDING_REGISTERS:
+//  944 //        break;
+//  945 //
+//  946 //    case _FC_READ_INPUT_REGISTERS:
+//  947 //        break;
+//  948 //
+//  949 //    case _FC_WRITE_SINGLE_COIL:
+//  950 //        break;
+//  951 //
+//  952 //    case _FC_WRITE_SINGLE_REGISTER:
+//  953 //        break;
+//  954 //
+//  955 //    case _FC_READ_EXCEPTION_STATUS:
+//  956 //        break;
+//  957 //
+//  958 //    case _FC_WRITE_MULTIPLE_COILS:
+//  959 //        break;
+//  960 //
+//  961 //    case _FC_PROGRAMMING_COMPLETION_REQUEST:
+//  962 //        break;
+//  963 //
+//  964 //    case _FC_WRITE_MULTIPLE_REGISTERS:
+//  965 //        break;
+//  966 //
+//  967 //    case _FC_REPORT_SLAVE_ID:
+//  968 //        break;
+//  969 //
+//  970 //    case _FC_WRITE_AND_READ_REGISTERS:
+//  971 //        break;
+//  972 //
+//  973 //    case _FC_DATA_EXCHANGE:
+//  974 //        break;
+//  975 //
+//  976 //    case _FC_DATA_BASE_READ:
+//  977 //        break;
+//  978 //
+//  979 //    case _FC_DATA_BASE_WRITE:
+//  980 //        break;
+//  981 //
+//  982 //    case _FC_PROGRAMMING:
+//  983 //        break;
+//  984 
+//  985         default:
+//  986             break;
+//  987         }
+//  988         return 1;
+??ReceiveMessage_2:
+        RJMP    ?Subroutine1
+//  989     }
+//  990     else if (uiLength == (uiOffset + 2 + CRC_LENGTH) &&
+//  991              (uiFunctionCode & 0x80))
+??ReceiveMessage_1:
+        CPI     R18, 5
+        SBCI    R19, 0
+        BRNE    ??ReceiveMessage_3
+        BST     R20, 7
+        BRTC    ??ReceiveMessage_3
+//  992     {
+//  993         /* EXCEPTION CODE RECEIVED */
+//  994         int8_t uiExceptionCode =
+//  995             puiResponse[uiOffset + MODBUS_EXCEPTION_CODE_OFFSET];
+        LDD     R16, Z+2
+//  996         if (uiExceptionCode < MODBUS_EXCEPTION_MAX)
+        CPI     R16, 12
+        BRGE    ??ReceiveMessage_4
+//  997         {
+//  998             return MODBUS_ENOBASE + uiExceptionCode;
+        MOV     R17, R16
+        LSL     R17
+        SBC     R17, R17
+        RET
+//  999         }
+// 1000         else
+// 1001         {
+// 1002             return EMBBADEXC;
+??ReceiveMessage_4:
+        LDI     R16, 14
         LDI     R17, 0
+// 1003         }
+// 1004     }
+// 1005 }
+??ReceiveMessage_3:
         RET
-//  673     }
-//  674 
-//  675     switch (uiFunctionCode)
-??Reply_1:
-        CPI     R17, 2
-        BRNE    ??Reply_2
-//  676     {
-//  677 //    case _FC_READ_COILS:
-//  678 //        uiLength = ReadCoils(puiRequest, puiResponse, uiLength);
-//  679 //        break;
-//  680 //
-//  681     case _FC_READ_DISCRETE_INPUTS:
-//  682         uiLength = ReadDiscreteInputs(puiRequest, puiResponse, uiLength);
-        MOVW    R17:R16, R31:R30
-        RCALL   ??ReadDiscreteInputs
-//  683         break;
-        RJMP    ??Reply_3
-//  684 
-//  685 //    case _FC_READ_HOLDING_REGISTERS:
-//  686 //        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
-//  687 //        break;
-//  688 //
-//  689 //    case _FC_READ_INPUT_REGISTERS:
-//  690 //        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
-//  691 //        break;
-//  692 //
-//  693 //    case _FC_WRITE_SINGLE_COIL:
-//  694 //        uiLength = WriteSingleCoil(puiRequest, puiResponse, uiLength);
-//  695 //        break;
-//  696 //
-//  697 //    case _FC_WRITE_SINGLE_REGISTER:
-//  698 //        uiLength = WriteSingleRegister(puiRequest, puiResponse, uiLength);
-//  699 //        break;
-//  700 //
-//  701 //    case _FC_READ_EXCEPTION_STATUS:
-//  702 //        uiLength = ReadExceptionStatus(puiRequest, puiResponse, uiLength);
-//  703 //        break;
-//  704 //
-//  705 //    case _FC_WRITE_MULTIPLE_COILS:
-//  706 //        uiLength = WriteMultipleCoils(puiRequest, puiResponse, uiLength);
-//  707 //        break;
-//  708 //
-//  709 //    case _FC_PROGRAMMING_COMPLETION_REQUEST:
-//  710 //        break;
-//  711 //
-//  712 //    case _FC_WRITE_MULTIPLE_REGISTERS:
-//  713 //        uiLength = WriteMultipleRegisters(puiRequest, puiResponse, uiLength);
-//  714 //        break;
-//  715 //
-//  716 //    case _FC_REPORT_SLAVE_ID:
-//  717 //        uiLength = ReportSlaveID(puiRequest, puiResponse, uiLength);
-//  718 //        break;
-//  719 //
-//  720 //    case _FC_WRITE_AND_READ_REGISTERS:
-//  721 //        uiLength = WriteAndReadRegisters(puiRequest, puiResponse, uiLength);
-//  722 //        break;
-//  723 //
-//  724 //    case _FC_DATA_EXCHANGE:
-//  725 //        break;
-//  726 //
-//  727 //    case _FC_DATA_BASE_READ:
-//  728 //        break;
-//  729 //
-//  730 //    case _FC_DATA_BASE_WRITE:
-//  731 //        break;
-//  732 //
-//  733 //    case _FC_PROGRAMMING:
-//  734 //        uiLength = Programming(puiRequest, puiResponse, uiLength);
-//  735 //        break;
-//  736 
-//  737     default:
-//  738         uiLength = ResponseException(uiSlave,
-//  739                                      uiFunctionCode,
-//  740                                      MODBUS_EXCEPTION_ILLEGAL_FUNCTION,
-//  741                                      puiResponse);
-??Reply_2:
-        MOVW    R21:R20, R19:R18
-        LDI     R18, 1
-        RCALL   ??ResponseException
-//  742         break;
-//  743     }
-//  744 
-//  745     m_uiMessageLength = uiLength;
-??Reply_3:
-        LDI     R30, LOW(??m_uiMessageLength)
-        LDI     R31, (??m_uiMessageLength) >> 8
-        ST      Z, R16
-        STD     Z+1, R17
-//  746     return uiLength;
-        RET
-//  747 //    return SendMessage(puiResponse, uiLength);
-//  748 }
 
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
 __?EECR:
@@ -1627,230 +1884,15 @@ __?EEARL:
         DC8 0, 0
 
         END
-//  749 
-//  750 ////-----------------------------------------------------------------------------------------------------
-//  751 //void CModbus::SetByteFromBits(uint8_t *dest, int16_t index, const uint8_t value)
-//  752 //{
-//  753 //    int16_t i;
-//  754 //
-//  755 //    for (i=0; i<8; i++)
-//  756 //    {
-//  757 //        dest[index+i] = (value & (1 << i)) ? 1 : 0;
-//  758 //    }
-//  759 //}
-//  760 //
-//  761 ////-----------------------------------------------------------------------------------------------------
-//  762 //void CModbus::SetBytesFromBits(uint8_t *dest, int16_t index, uint16_t nb_bits,
-//  763 //                               const uint8_t *tab_byte)
-//  764 //{
-//  765 //    int16_t i;
-//  766 //    int16_t shift = 0;
-//  767 //
-//  768 //    for (i = index; i < index + nb_bits; i++)
-//  769 //    {
-//  770 //        dest[i] = tab_byte[(i - index) / 8] & (1 << shift) ? 1 : 0;
-//  771 //        /* gcc doesn't like: shift = (++shift) % 8; */
-//  772 //        shift++;
-//  773 //        shift %= 8;
-//  774 //    }
-//  775 //}
-//  776 //
-//  777 ////-----------------------------------------------------------------------------------------------------
-//  778 //uint8_t CModbus::GetByteFromBits(const uint8_t *src, int16_t index,
-//  779 //                                 uint16_t nb_bits)
-//  780 //{
-//  781 //    int16_t i;
-//  782 //    uint8_t value = 0;
-//  783 //
-//  784 //    if (nb_bits > 8)
-//  785 //    {
-//  786 //        /* Assert is ignored if NDEBUG is set */
-//  787 ////        assert(nb_bits < 8); //?
-//  788 //        nb_bits = 8;
-//  789 //    }
-//  790 //
-//  791 //    for (i=0; i < nb_bits; i++)
-//  792 //    {
-//  793 //        value |= (src[index+i] << i);
-//  794 //    }
-//  795 //
-//  796 //    return value;
-//  797 //}
-//  798 //
-//  799 ////-----------------------------------------------------------------------------------------------------
-//  800 //float CModbus::GetFloat(const uint16_t *src)
-//  801 //{
-//  802 //    float f = 0.0f;
-//  803 //    uint32_t i;
-//  804 //
-//  805 //    i = (((uint32_t)src[1]) << 16) + src[0];
-//  806 //    memcpy(&f, &i, sizeof(float));
-//  807 //
-//  808 //    return f;
-//  809 //}
-//  810 //
-//  811 ////-----------------------------------------------------------------------------------------------------
-//  812 //void CModbus::SetFloat(float f, uint16_t *dest)
-//  813 //{
-//  814 //    uint32_t i = 0;
-//  815 //
-//  816 //    memcpy(&i, &f, sizeof(uint32_t));
-//  817 //    dest[0] = (uint16_t)i;
-//  818 //    dest[1] = (uint16_t)(i >> 16);
-//  819 //}
-//  820 
-//  821 //-----------------------------------------------------------------------------------------------------
-//  822 
-//  823 
-//  824 
-//  825 
-//  826 
-//  827 
-//  828 ////-----------------------------------------------------------------------------------------------------
-//  829 //uint8_t CModbus::CheckConfirmation(uint8_t *puiRequest, uint16_t uiLength)
-//  830 //{
-//  831 //    uint16_t uiOffset = HEADER_LENGTH;
-//  832 //    int8_t uiSlave = puiRequest[uiOffset - 1];
-//  833 //    int8_t uiFunctionCode = puiRequest[uiOffset];
-//  834 //
-//  835 //    if ((m_uiSlave == uiSlave) &&
-//  836 //            (m_uiFunctionCode == uiFunctionCode))
-//  837 //    {
-//  838 //
-//  839 //        return 1;
-//  840 //    }
-//  841 //    else if (uiLength == (uiOffset + 2 + CRC_LENGTH) &&
-//  842 //             (uiFunctionCode & 0x80))
-//  843 //    {
-//  844 //        /* EXCEPTION CODE RECEIVED */
-//  845 //        int8_t uiExceptionCode =
-//  846 //            puiRequest[uiOffset + MODBUS_EXCEPTION_CODE_OFFSET];
-//  847 //        if (uiExceptionCode < MODBUS_EXCEPTION_MAX)
-//  848 //        {
-//  849 //            return MODBUS_ENOBASE + uiExceptionCode;
-//  850 //        }
-//  851 //        else
-//  852 //        {
-//  853 //            return EMBBADEXC;
-//  854 //        }
-//  855 //    }
-//  856 //}
-//  857 //
-//  858 ////-----------------------------------------------------------------------------------------------------
-//  859 /////* Reads IO status */
-//  860 ////static int read_io_status(uint8_t uiSlave,
-//  861 ////                          uint8_t uiFunctionCode,
-//  862 ////                          uint16_t uiAddress,
-//  863 ////                          uint16_t uiBitNumber,
-//  864 ////                          uint8_t *puiRequest)
-//  865 //////                                    (modbus_t *ctx, int function,
-//  866 //////                          int addr, int nb, unsigned char *dest)
-//  867 ////{
-//  868 ////    uint16_t uiLength;
-//  869 ////
-//  870 ////    int rc;
-//  871 ////    int req_length;
-//  872 ////
-//  873 ////    unsigned char req[_MIN_REQ_LENGTH];
-//  874 ////    unsigned char rsp[MAX_MESSAGE_LENGTH];
-//  875 ////
-//  876 //////    req_length = ctx->backend->build_request_basis(ctx, function, addr, nb, req);
-//  877 ////
-//  878 ////    uiLength = RequestBasis(uiSlave,
-//  879 ////                            uiFunctionCode,
-//  880 ////                            uiAddress,
-//  881 ////                            uiBitNumber,
-//  882 ////                            puiRequest);
-//  883 ////
-//  884 //////    rc = send_msg(ctx, req, req_length);
-//  885 ////
-//  886 ////
-//  887 ////    if (SendMessage(puiRequest, uiLength))
-//  888 ////    {
-//  889 ////        int i, temp, bit;
-//  890 ////        int pos = 0;
-//  891 ////        int offset;
-//  892 ////        int offset_end;
-//  893 ////
-//  894 ////        rc = receive_msg(ctx, rsp, MSG_CONFIRMATION);
-//  895 ////        if (rc == -1)
-//  896 ////            return -1;
-//  897 ////
-//  898 ////        rc = check_confirmation(ctx, req, rsp, rc);
-//  899 ////        if (rc == -1)
-//  900 ////            return -1;
-//  901 ////
-//  902 ////        offset = ctx->backend->header_length + 2;
-//  903 ////        offset_end = offset + rc;
-//  904 ////        for (i = offset; i < offset_end; i++)
-//  905 ////        {
-//  906 ////            /* Shift reg hi_byte to temp */
-//  907 ////            temp = rsp[i];
-//  908 ////
-//  909 ////            for (bit = 0x01; (bit & 0xff) && (pos < nb);)
-//  910 ////            {
-//  911 ////                dest[pos++] = (temp & bit) ? TRUE : FALSE;
-//  912 ////                bit = bit << 1;
-//  913 ////            }
-//  914 ////
-//  915 ////        }
-//  916 ////    }
-//  917 ////
-//  918 ////    return rc;
-//  919 ////}
-//  920 //
-//  921 ////-----------------------------------------------------------------------------------------------------
-//  922 ///* Reads the boolean status of bits and sets the array elements
-//  923 //   in the destination to TRUE or FALSE (single bits). */
-//  924 //int8_t CModbus::ReadCoilsRequest(uint16_t uiAddress,
-//  925 //                                  uint16_t uiBitNumber)
-//  926 //{
-//  927 //    if (uiBitNumber > MODBUS_MAX_READ_BITS)
-//  928 //    {
-//  929 //        return EMBMDATA;
-//  930 //    }
-//  931 //
-//  932 //    if (MessengerIsReady())
-//  933 //    {
-//  934 //        m_uiFunctionCode = _FC_READ_COILS;
-//  935 //        m_uiMessageLength = RequestBasis(m_uiSlave,
-//  936 //                                         m_uiFunctionCode,
-//  937 //                                         uiAddress,
-//  938 //                                         uiBitNumber,
-//  939 //                                         m_puiTxBuffer);
-//  940 //        FlowControlSet(FRAME_TRANSMIT_REQUEST);
-//  941 //        return 1;
-//  942 //    }
-//  943 //    else
-//  944 //    {
-//  945 //        return 0;
-//  946 //    }
-//  947 //}
-//  948 //
-//  949 ////-----------------------------------------------------------------------------------------------------
-//  950 //int16_t CModbus::ReadCoilsReply(uint8_t *puiDestination)
-//  951 //{
-//  952 //
-//  953 //    if (MessengerIsReady())
-//  954 //    {
-//  955 //
-//  956 //        FlowControlSet(FRAME_TRANSMIT_REQUEST);
-//  957 //        return 1;
-//  958 //    }
-//  959 //    else
-//  960 //    {
-//  961 //        return 0;
-//  962 //    }
-//  963 //}
 // 
 //  87 bytes in segment ABSOLUTE
-// 362 bytes in segment CODE
+// 398 bytes in segment CODE
 //   6 bytes in segment INITTAB
 //   2 bytes in segment NEAR_F
-//  27 bytes in segment NEAR_Z
+//  18 bytes in segment NEAR_Z
 // 
-// 364 bytes of CODE memory (+  6 bytes shared)
-//  27 bytes of DATA memory (+ 87 bytes shared)
+// 400 bytes of CODE memory (+  6 bytes shared)
+//  18 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
 //Warnings: 6

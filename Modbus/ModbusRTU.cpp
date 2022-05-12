@@ -68,21 +68,22 @@ void CModbusRTU::Init(CUart* pxDevice,
                       uint16_t uiInputRegistersNumber,
                       uint16_t uiHoldingRegistersNumber)
 {
-    m_pxDevice = pxDevice;
+//    m_pxDevice = pxDevice;
     m_uiBaudRate = uiBaudRate;
     m_cParity = cParity;
     m_uiDataBit = uiDataBit;
     m_uiStopBit = uiStopBit;
     m_puiRxBuffer = puiRxBuffer;
     m_puiTxBuffer = puiTxBuffer;
-    m_puiCoils = puiCoils;
+//    m_puiCoils = puiCoils;
     m_puiDiscreteInputs = puiDiscreteInputs;
-    m_pui16HoldingRegisters = pui16HoldingRegisters;
-    m_pui16InputRegisters = pui16InputRegisters;
-    m_uiCoilsNumber = uiCoilsNumber;
+//    m_pui16HoldingRegisters = pui16HoldingRegisters;
+//    m_pui16InputRegisters = pui16InputRegisters;
+//    m_uiCoilsNumber = uiCoilsNumber;
     m_uiDiscreteInputsNumber = uiDiscreteInputsNumber;
-    m_uiInputRegistersNumber = uiInputRegistersNumber;
-    m_uiHoldingRegistersNumber = uiHoldingRegistersNumber;
+//    m_uiInputRegistersNumber = uiInputRegistersNumber;
+//    m_uiHoldingRegistersNumber = uiHoldingRegistersNumber;
+    m_uiSlaveAddress = 2;
 
     CUart::Init(m_uiBaudRate,
                 m_cParity,
@@ -99,15 +100,27 @@ void CModbusRTU::Reset(void)
 }
 
 //-----------------------------------------------------------------------------------------------------
-int8_t CModbusRTU::ReceiveEnable(void)
+void CModbusRTU::ReceiveEnable(void)
 {
-    CUart::Enable();
+    CUart::ReceiveEnable();
 }
 
 //-----------------------------------------------------------------------------------------------------
-int8_t CModbusRTU::ReceiveDisable(void)
+void CModbusRTU::ReceiveDisable(void)
 {
-    CUart::Disable();
+    CUart::ReceiveDisable();
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CModbusRTU::TransmitEnable(void)
+{
+    CUart::TransmitEnable();
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CModbusRTU::TransmitDisable(void)
+{
+    CUart::TransmitDisable();
 }
 
 //-----------------------------------------------------------------------------------------------------
@@ -120,33 +133,33 @@ int16_t CModbusRTU::Tail(uint8_t *puiMessage, uint16_t uiLength)
     return uiLength;
 }
 
-///* Builds a RTU request header */
-//int16_t CModbusRTU::RequestBasis(uint8_t uiSlave,
-//                                 uint8_t uiFunctionCode,
-//                                 uint16_t uiAddress,
-//                                 uint16_t uiBitNumber,
-//                                 uint8_t *puiRequest)
-//{
-//    puiRequest[0] = uiSlave;
-//    puiRequest[1] = uiFunctionCode;
-//    puiRequest[2] = (static_cast<uint8_t>(uiAddress >> 8));
-//    puiRequest[3] = (static_cast<uint8_t>(uiAddress & 0x00ff));
-//    puiRequest[4] = (static_cast<uint8_t>(uiBitNumber >> 8));
-//    puiRequest[5] = (static_cast<uint8_t>(uiBitNumber & 0x00ff));
-//
-//    return _MODBUS_RTU_PRESET_REQ_LENGTH;
-//}
-
-/* Builds a RTU response header */
-int16_t CModbusRTU::ResponseBasis(uint8_t uiSlave, uint8_t uiFunctionCode, uint8_t *puiResponse)
+/* Builds a RTU request header */
+int16_t CModbusRTU::RequestBasis(uint8_t uiSlave,
+                                 uint8_t uiFunctionCode,
+                                 uint16_t uiAddress,
+                                 uint16_t uiBitNumber,
+                                 uint8_t *puiRequest)
 {
-    /* In this case, the slave is certainly valid because a check is already
-     * done in _modbus_rtu_listen */
-    puiResponse[0] = uiSlave;
-    puiResponse[1] = uiFunctionCode;
+    puiRequest[0] = uiSlave;
+    puiRequest[1] = uiFunctionCode;
+    puiRequest[2] = (static_cast<uint8_t>(uiAddress >> 8));
+    puiRequest[3] = (static_cast<uint8_t>(uiAddress & 0x00ff));
+    puiRequest[4] = (static_cast<uint8_t>(uiBitNumber >> 8));
+    puiRequest[5] = (static_cast<uint8_t>(uiBitNumber & 0x00ff));
 
-    return _MODBUS_RTU_PRESET_RSP_LENGTH;
+    return _MODBUS_RTU_PRESET_REQ_LENGTH;
 }
+
+///* Builds a RTU response header */
+//int16_t CModbusRTU::ResponseBasis(uint8_t uiSlave, uint8_t uiFunctionCode, uint8_t *puiResponse)
+//{
+//    /* In this case, the slave is certainly valid because a check is already
+//     * done in _modbus_rtu_listen */
+//    puiResponse[0] = uiSlave;
+//    puiResponse[1] = uiFunctionCode;
+//
+//    return _MODBUS_RTU_PRESET_RSP_LENGTH;
+//}
 
 //-----------------------------------------------------------------------------------------------------
 int16_t CModbusRTU::Send(uint8_t *puiMessage, uint16_t uiLength)
@@ -172,58 +185,67 @@ int16_t CModbusRTU::Receive(uint8_t *puiDestination, uint16_t uiLength)
     return CUart::Read(puiDestination, uiLength);
 }
 
-//-----------------------------------------------------------------------------------------------------
-uint8_t CModbusRTU::FrameIsReceived(void)
-{
-    int16_t uiData;
-    uiData = CPlatform::GetSystemTick();
-    uiData = m_uiLastSystemTime;
-    uiData = m_uiGuardTimeout;
+////-----------------------------------------------------------------------------------------------------
+//uint8_t CModbusRTU::FrameIsReceived(void)
+//{
+//    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
+//            m_uiGuardTimeout)
+//    {
+//        return 1;
+//    }
+//    else
+//    {
+//        return 0;
+//    }
+//};
+//
+////-----------------------------------------------------------------------------------------------------
+//uint8_t CModbusRTU::ReceiveTimeIsOver(void)
+//{
+//    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
+//            m_uiReceiveTimeout)
+//    {
+//        return 1;
+//    }
+//    else
+//    {
+//        return 0;
+//    }
+//};
+//
+////-----------------------------------------------------------------------------------------------------
+//uint8_t CModbusRTU::ConfirmationReceiveTimeIsOver(void)
+//{
+//    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
+//            m_uiConfirmationTimeout)
+//    {
+//        return 1;
+//    }
+//    else
+//    {
+//        return 0;
+//    }
+//};
+//
+////-----------------------------------------------------------------------------------------------------
+//uint8_t CModbusRTU::TransmitDelayTimeIsOver(void)
+//{
+//    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
+//            m_uiTransmitDelayTimeout)
+//    {
+//        return 1;
+//    }
+//    else
+//    {
+//        return 0;
+//    }
+//};
 
-    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
-            m_uiGuardTimeout)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-};
-
 //-----------------------------------------------------------------------------------------------------
-uint8_t CModbusRTU::ReceiveTimeIsOver(void)
+int8_t CModbusRTU::TimeIsOver(uint16_t uiTimeout)
 {
     if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
-            m_uiReceiveTimeout)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-};
-
-//-----------------------------------------------------------------------------------------------------
-uint8_t CModbusRTU::ConfirmationReceiveTimeIsOver(void)
-{
-    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
-            m_uiConfirmationTimeout)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-};
-
-//-----------------------------------------------------------------------------------------------------
-uint8_t CModbusRTU::TransmitDelayTimeIsOver(void)
-{
-    if ((CPlatform::GetSystemTick() - m_uiLastSystemTime)  >=
-            m_uiTransmitDelayTimeout)
+            uiTimeout)
     {
         return 1;
     }
@@ -276,113 +298,15 @@ void CModbusRTU::Execution(void)
     case IDDLE:
         break;
 
-    case START_REQUEST:
-        GetSystemTime();
-        Reset();
-        m_uiMessageLength = 0;
-        m_uiFlowControl = WAITING_MESSAGE_REQUEST;
-        break;
-
-    case WAITING_MESSAGE_REQUEST:
-        if (Select())
-        {
-            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
-
-            if (iReceivedCounter > 0)
-            {
-                m_uiMessageLength += iReceivedCounter;
-                GetSystemTime();
-                m_uiFlowControl = RECEIVE_MESSAGE_REQUEST;
-            }
-            else if (iReceivedCounter == -1)
-            {
-                m_uiFlowControl = START_REQUEST;
-            }
-        }
-
-        if (ReceiveTimeIsOver())
-        {
-            m_uiFlowControl = START_REQUEST;
-        }
-
-        break;
-
-    case RECEIVE_MESSAGE_REQUEST:
-        if (Select())
-        {
-            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
-
-            if (iReceivedCounter > 0)
-            {
-                m_uiMessageLength += iReceivedCounter;
-                GetSystemTime();
-            }
-            else if (iReceivedCounter == -1)
-            {
-                m_uiFlowControl = START_REQUEST;
-            }
-        }
-
-        if (FrameIsReceived())
-        {
-            if (FrameCheck(m_puiRxBuffer, m_uiMessageLength))
-            {
-                m_uiFlowControl = REPLY_REQUEST;
-            }
-            else
-            {
-                m_uiFlowControl = START_REQUEST;
-            }
-        }
-
-        break;
-
-    case REPLY_REQUEST:
-        if (Reply(m_puiRxBuffer, m_puiTxBuffer, m_uiMessageLength))
-        {
-//            CPlatform::TxLedOn();
-            m_uiFlowControl = FRAME_TRANSMIT_CONFIRMATION;
-        }
-        else
-        {
-//            CPlatform::TxLedOff();
-            m_uiFlowControl = START_REQUEST;
-        }
-        break;
-
-    case FRAME_TRANSMIT_CONFIRMATION:
-        Reset();
-        GetSystemTime();
-        m_uiFlowControl = WAITING_FRAME_TRANSMIT_CONFIRMATION;
-        break;
-
-    case WAITING_FRAME_TRANSMIT_CONFIRMATION:
-        if (TransmitDelayTimeIsOver())
-        {
-            SendMessage(m_puiTxBuffer, m_uiMessageLength);
-            m_uiFlowControl = END_WAITING_FRAME_TRANSMIT_CONFIRMATION;
-        }
-        break;
-
-    case END_WAITING_FRAME_TRANSMIT_CONFIRMATION:
-        if (MessageIsSended())
-        {
-//            CPlatform::TxLedOff();
-            m_uiFlowControl = START_REQUEST;
-        }
-
-        break;
-
-////-----------------------------------------------------------------------------------------------------
-//// ModbusMaster
-//    case START_CONFIRMATION:
+//    case START_REQUEST:
 //        GetSystemTime();
 //        Reset();
 //        m_uiMessageLength = 0;
-//        m_uiFlowControl = WAITING_MESSAGE_CONFIRMATION;
+//        ReceiveEnable();
+//        m_uiFlowControl = WAITING_MESSAGE_REQUEST;
 //        break;
 //
-//    case WAITING_MESSAGE_CONFIRMATION:
+//    case WAITING_MESSAGE_REQUEST:
 //        if (Select())
 //        {
 //            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
@@ -391,22 +315,22 @@ void CModbusRTU::Execution(void)
 //            {
 //                m_uiMessageLength += iReceivedCounter;
 //                GetSystemTime();
-//                m_uiFlowControl = RECEIVE_MESSAGE_CONFIRMATION;
+//                m_uiFlowControl = RECEIVE_MESSAGE_REQUEST;
 //            }
 //            else if (iReceivedCounter == -1)
 //            {
-//                m_uiFlowControl = START_CONFIRMATION;
+//                m_uiFlowControl = START_REQUEST;
 //            }
 //        }
 //
-//        if (ConfirmationReceiveTimeIsOver())
+//        if (TimeIsOver(m_uiReceiveTimeout))
 //        {
-//            m_uiFlowControl = START_CONFIRMATION;
+//            m_uiFlowControl = START_REQUEST;
 //        }
 //
 //        break;
 //
-//    case RECEIVE_MESSAGE_CONFIRMATION:
+//    case RECEIVE_MESSAGE_REQUEST:
 //        if (Select())
 //        {
 //            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
@@ -418,59 +342,173 @@ void CModbusRTU::Execution(void)
 //            }
 //            else if (iReceivedCounter == -1)
 //            {
-//                m_uiFlowControl = START_CONFIRMATION;
+//                m_uiFlowControl = START_REQUEST;
 //            }
 //        }
 //
-//        if (FrameIsReceived())
+//        if (TimeIsOver(m_uiGuardTimeout))
 //        {
 //            if (FrameCheck(m_puiRxBuffer, m_uiMessageLength))
 //            {
-//                m_uiFlowControl = REPLY_CONFIRMATION;
+//                m_uiFlowControl = REPLY_REQUEST;
 //            }
 //            else
 //            {
-//                m_uiFlowControl = START_CONFIRMATION;
+//                m_uiFlowControl = START_REQUEST;
 //            }
 //        }
 //
 //        break;
 //
-//    case REPLY_CONFIRMATION:
+//    case REPLY_REQUEST:
 //        if (Reply(m_puiRxBuffer, m_puiTxBuffer, m_uiMessageLength))
 //        {
 //            CPlatform::TxLedOn();
-//            m_uiFlowControl = FRAME_TRANSMIT_REQUEST;
+//            m_uiFlowControl = FRAME_TRANSMIT_CONFIRMATION;
 //        }
 //        else
 //        {
 //            CPlatform::TxLedOff();
-//            m_uiFlowControl = START_CONFIRMATION;
+//            m_uiFlowControl = START_REQUEST;
 //        }
 //        break;
 //
-//    case FRAME_TRANSMIT_REQUEST:
-//        Reset();
+//    case FRAME_TRANSMIT_CONFIRMATION:
 //        GetSystemTime();
-//        m_uiFlowControl = WAITING_FRAME_TRANSMIT_REQUEST;
+//        Reset();
+//        ReceiveDisable();
+//        m_uiFlowControl = WAITING_FRAME_TRANSMIT_CONFIRMATION;
 //        break;
 //
-//    case WAITING_FRAME_TRANSMIT_REQUEST:
-//        if (TransmitDelayTimeIsOver())
+//    case WAITING_FRAME_TRANSMIT_CONFIRMATION:
+//        if (TimeIsOver(m_uiTransmitDelayTimeout))
 //        {
 //            SendMessage(m_puiTxBuffer, m_uiMessageLength);
-//            m_uiFlowControl = END_WAITING_FRAME_TRANSMIT_REQUEST;
+//            TransmitEnable();
+//            m_uiFlowControl = END_WAITING_FRAME_TRANSMIT_CONFIRMATION;
 //        }
 //        break;
 //
-//    case END_WAITING_FRAME_TRANSMIT_REQUEST:
+//    case END_WAITING_FRAME_TRANSMIT_CONFIRMATION:
 //        if (MessageIsSended())
 //        {
+//            TransmitDisable();
 //            CPlatform::TxLedOff();
-//            m_uiFlowControl = START_CONFIRMATION;
+//            m_uiFlowControl = START_REQUEST;
 //        }
 //
 //        break;
+//
+//    case STOP_REQUEST:
+//        CModbusRTU::ReceiveDisable();
+//        m_uiFlowControl = IDDLE;
+//        break;
+
+//-----------------------------------------------------------------------------------------------------
+// ModbusMaster
+    case START_CONFIRMATION:
+        GetSystemTime();
+        Reset();
+        m_uiMessageLength = 0;
+        ReceiveEnable();
+        m_uiFlowControl = WAITING_MESSAGE_CONFIRMATION;
+        break;
+
+    case WAITING_MESSAGE_CONFIRMATION:
+        if (Select())
+        {
+            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
+
+            if (iReceivedCounter > 0)
+            {
+                GetSystemTime();
+                m_uiMessageLength += iReceivedCounter;
+                m_uiFlowControl = RECEIVE_MESSAGE_CONFIRMATION;
+            }
+            else if (iReceivedCounter == -1)
+            {
+                m_uiFlowControl = STOP_CONFIRMATION;
+            }
+        }
+
+        if (TimeIsOver(m_uiConfirmationTimeout))
+        {
+            m_uiFlowControl = STOP_CONFIRMATION;
+        }
+
+        break;
+
+    case RECEIVE_MESSAGE_CONFIRMATION:
+        if (Select())
+        {
+            iReceivedCounter = Receive(m_puiRxBuffer + m_uiMessageLength, MODBUS_RTU_MAX_ADU_LENGTH - m_uiMessageLength);
+
+            if (iReceivedCounter > 0)
+            {
+                GetSystemTime();
+                m_uiMessageLength += iReceivedCounter;
+            }
+            else if (iReceivedCounter == -1)
+            {
+                m_uiFlowControl = STOP_CONFIRMATION;
+            }
+        }
+
+        if (TimeIsOver(m_uiGuardTimeout))
+        {
+            if (FrameCheck(m_puiRxBuffer, m_uiMessageLength))
+            {
+                m_uiFlowControl = REPLY_CONFIRMATION;
+            }
+            else
+            {
+                m_uiFlowControl = STOP_CONFIRMATION;
+            }
+        }
+
+        break;
+
+    case REPLY_CONFIRMATION:
+        if (ReceiveMessage(m_puiRxBuffer, m_uiMessageLength))
+        {
+            m_uiFlowControl = STOP_CONFIRMATION;
+        }
+        else
+        {
+            m_uiFlowControl = STOP_CONFIRMATION;
+        }
+        break;
+
+    case FRAME_TRANSMIT_REQUEST:
+        GetSystemTime();
+        Reset();
+        CPlatform::TxLedOn();
+        m_uiFlowControl = WAITING_FRAME_TRANSMIT_REQUEST;
+        break;
+
+    case WAITING_FRAME_TRANSMIT_REQUEST:
+        if (TimeIsOver(m_uiTransmitDelayTimeout))
+        {
+            SendMessage(m_puiTxBuffer, m_uiMessageLength);
+            TransmitEnable();
+            m_uiFlowControl = END_WAITING_FRAME_TRANSMIT_REQUEST;
+        }
+        break;
+
+    case END_WAITING_FRAME_TRANSMIT_REQUEST:
+        if (MessageIsSended())
+        {
+            TransmitDisable();
+            CPlatform::TxLedOff();
+            m_uiFlowControl = START_CONFIRMATION;
+        }
+
+        break;
+
+    case STOP_CONFIRMATION:
+        ReceiveDisable();
+        m_uiFlowControl = IDDLE;
+        break;
 
     default:
         break;

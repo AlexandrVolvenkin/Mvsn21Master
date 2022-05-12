@@ -9,9 +9,10 @@
 #include "Mvsn21.h"
 #include "Platform.h"
 #include "Crc.h"
+#include "Modbus.h"
 
 uint8_t CMvsn21::m_uiType;
-CDriver* CMvsn21::m_pxDriver;
+//CDriver* CMvsn21::m_pxDriver;
 uint8_t CMvsn21::m_uiFlowControl;
 uint16_t CMvsn21::m_uiMessageLength;
 uint8_t CMvsn21::m_uiChannel;
@@ -21,98 +22,114 @@ TChipChannelData CMvsn21::axChipsChannelsData[CHIP_NUMBER];
 //CMeasurementChannel CMvsn21::axSlave1MeasurementChannels[];
 //CMeasurementChannel CMvsn21::axSlave2MeasurementChannels[];
 // Сопоставление входа каналу.
-//__flash TChannelRemap CMvsn21::axMeasurementChannelRemap[] =
-//{
-//    // Нумерация входов сверху вниз.
-//    // разъём X1.
-//    {0, 6},
-//    {0, 7},
-//    {0, 0},
-//    {0, 1},
-//    {0, 2},
-//    {0, 3},
-//    // разъём X2.
-//    {0, 4},
-//    {0, 5},
-//    {1, 6},
-//    {1, 7},
-//    {1, 0},
-//    {1, 1},
-//    // разъём X3.
-//    {1, 2},
-//    {1, 3},
-//    {1, 4},
-//    {1, 5},
-//    {2, 6},
-//    {2, 7},
-//    // разъём X4.
-//    {2, 0},
-//    {2, 1},
-//    {2, 2},
-//    {2, 3},
-//    {2, 4},
-//    {2, 5},
-//};
+__flash TChannelRemap CMvsn21::axMeasurementChannelRemap[] =
+{
+    // Нумерация входов сверху вниз.
+    // разъём X1.
+    {0, 6},
+    {0, 7},
+    {0, 0},
+    {0, 1},
+    {0, 2},
+    {0, 3},
+    // разъём X2.
+    {0, 4},
+    {0, 5},
+    {1, 6},
+    {1, 7},
+    {1, 0},
+    {1, 1},
+    // разъём X3.
+    {1, 2},
+    {1, 3},
+    {1, 4},
+    {1, 5},
+    {2, 6},
+    {2, 7},
+    // разъём X4.
+    {2, 0},
+    {2, 1},
+    {2, 2},
+    {2, 3},
+    {2, 4},
+    {2, 5},
+};
 uint8_t CMvsn21::auiDiscreteInputBitData[];
 
-//-----------------------------------------------------------------------------------------------------
-CMvsn21::CMvsn21(uint8_t uiType, CDriver* pxDriver)// :
-//    m_uiType(uiType),
-//    m_pxDriver(pxDriver)
-{
+//uint8_t CMvsn21::m_aucRtuCoilsArray[];
+uint8_t CMvsn21::m_aucRtuDiscreteInputsArray[];
+//uint16_t CMvsn21::m_aucRtuHoldingRegistersArray[];
+//uint16_t CMvsn21::m_aucRtuInputRegistersArray[];
+uint8_t CMvsn21::m_aui8ReceiveMessageBuff[];
+uint8_t CMvsn21::m_aui8TransmitMessageBuff[];
+//uint8_t CMvsn21::m_auiSpiRxBuffer[];
+//uint8_t CMvsn21::m_auiSpiTxBuffer[];
 
+////-----------------------------------------------------------------------------------------------------
+//CMvsn21::CMvsn21(uint8_t uiType, CDriver* pxDriver)// :
+////    m_uiType(uiType),
+////    m_pxDriver(pxDriver)
+//{
+//
+//}
+
+////-----------------------------------------------------------------------------------------------------
+//CMvsn21::CMvsn21(uint8_t uiType)// :
+////    m_uiType(uiType),
+////    m_pxDriver(pxDriver)
+//{
+//
+//}
+//
+////-----------------------------------------------------------------------------------------------------
+//CMvsn21::~CMvsn21()
+//{
+//    //dtor
+//}
+
+//////-----------------------------------------------------------------------------------------------------
+////void CMvsn21::SlaveSelectInterruptEnable(void)
+////{
+////
+////}
+////
+//////-----------------------------------------------------------------------------------------------------
+////void CMvsn21::SlaveSelectInterruptDisable(void)
+////{
+////
+////}
+//
+//-----------------------------------------------------------------------------------------------------
+void CMvsn21::SpiBusExchangeEnable(void)
+{
+    CPlatform::Int0InterruptEnable();
+    m_uiFlowControl = FSM_START;
 }
 
-//-----------------------------------------------------------------------------------------------------
-CMvsn21::~CMvsn21()
-{
-    //dtor
-}
-
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::SlaveSelectInterruptEnable(void)
-//{
-//
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::SlaveSelectInterruptDisable(void)
-//{
-//
-//}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CMvsn21::SpiBusExchangeEnable(void)
-//{
-//    CPlatform::Int0InterruptEnable();
-//    m_uiFlowControl = FSM_START;
-//}
-//
 ////-----------------------------------------------------------------------------------------------------
 //void CMvsn21::SpiBusExchangeDisable(void)
 //{
 //    CPlatform::Int0InterruptDisable();
 //}
-//
+
 ////-----------------------------------------------------------------------------------------------------
 //void CMvsn21::Reset(void)
 //{
-//    m_uiMessageLength = 0;
 //    CSpi::Reset();
 //}
-//
+
 ////-----------------------------------------------------------------------------------------------------
 //uint8_t CMvsn21::Select(void)
 //{
 //    return CSpi::ByteIsReceived();
 //}
-//
+
 ////-----------------------------------------------------------------------------------------------------
 //int16_t CMvsn21::Exchange(void)
 //{
 //    return CSpi::Exchange();
 //}
-//
+
 ////-----------------------------------------------------------------------------------------------------------------
 //uint8_t CMvsn21::FrameIsReceived(void)
 //{
@@ -124,20 +141,20 @@ CMvsn21::~CMvsn21()
 //{
 //    return CSpi::GetFrameLength();
 //}
-//
+
 ////-----------------------------------------------------------------------------------------------------------------
 //int8_t CMvsn21::FrameCheck(void)
 //{
-////    if (m_pxDevice -> m_nuiRxBuffByteCounter < _MIN_MESSAGE_LENGTH)
+////    if (CUart::m_nuiRxBuffByteCounter < _MIN_MESSAGE_LENGTH)
 ////    {
 ////        return 0;
 ////    }
 ////
-////    uint16_t uiCrc = ((static_cast<uint16_t>(m_puiRxBuffer[m_pxDevice -> m_nuiRxBuffByteCounter - 2]) << 8) |
-////                      (static_cast<uint16_t>(m_puiRxBuffer[m_pxDevice -> m_nuiRxBuffByteCounter - 1])));
+////    uint16_t uiCrc = ((static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 2]) << 8) |
+////                      (static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 1])));
 ////
 ////    if (usCrc16(m_puiRxBuffer,
-////                (m_pxDevice -> m_nuiRxBuffByteCounter - _MVSN21_RTU_CHECKSUM_LENGTH)) == uiCrc)
+////                (CUart::m_nuiRxBuffByteCounter - _MVSN21_RTU_CHECKSUM_LENGTH)) == uiCrc)
 ////    {
 ////        return 1;
 ////    }
@@ -209,7 +226,7 @@ void CMvsn21::ChannelsToDiscreteInput(void)
                       // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
                       axMeasurementChannels[axMeasurementChannelRemap[i].uiChannel].
                       // Состояние измерительного канала занимает два младших бита.
-                      m_uiState & 0x03) << j);
+                      uiState & 0x03) << j);
                 // Следующий дискретный вход.
                 i++;
             }
@@ -271,21 +288,21 @@ int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t ui
     return uiLength;
 }
 
-////-----------------------------------------------------------------------------------------------------------------
-//int16_t CMvsn21::SpiReply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
-//{
-//    uint16_t uiLength = uiFrameLength;
-//    // Какой поступил запрос?
-//    switch (puiRequest[0])
-//    {
-//    case COMMAND_REPORT_TYPE:
-//        uiLength = ReportType(puiRequest, puiResponse, uiLength);
-//        break;
-//
-//    case COMMAND_READ_DATA:
-//        uiLength = ReadData(puiRequest, puiResponse, uiLength);
-//        break;
-//
+//-----------------------------------------------------------------------------------------------------------------
+int16_t CMvsn21::SpiReply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
+{
+    uint16_t uiLength = uiFrameLength;
+    // Какой поступил запрос?
+    switch (puiRequest[0])
+    {
+    case COMMAND_REPORT_TYPE:
+        uiLength = ReportType(puiRequest, puiResponse, uiLength);
+        break;
+
+    case COMMAND_READ_DATA:
+        uiLength = ReadData(puiRequest, puiResponse, uiLength);
+        break;
+
 //    case COMMAND_READ_DATA_BASE:
 ////        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
 //        break;
@@ -293,78 +310,73 @@ int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t ui
 //    case COMMAND_WRITE_DATA_BASE:
 ////        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
 //        break;
-//
-//    default:
-//        break;
-//    }
-//    return uiLength;
-//}
 
-////-----------------------------------------------------------------------------------------------------------------
-//void CMvsn21::SpiFsm(void)
-//{
-//    int16_t iReceivedCounter;
-//
-//    switch (m_uiFlowControl)
-//    {
-//    case FSM_IDDLE:
-//        break;
-//
-//    case FSM_START:
+    default:
+        break;
+    }
+    return uiLength;
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+void CMvsn21::SpiFsm(void)
+{
+    int16_t iReceivedCounter;
+
+    switch (m_uiFlowControl)
+    {
+    case FSM_IDDLE:
+        break;
+
+    case FSM_START:
 //        Reset();
-//        m_uiFlowControl = FSM_WAITING_MESSAGE;
-//        break;
-//
-//    case FSM_WAITING_MESSAGE:
-//        if (Select())
-//        {
-//            iReceivedCounter = Exchange();
-//
-//            if (iReceivedCounter > 0)
-//            {
-//                m_uiMessageLength += iReceivedCounter;
-//
-//                if (SpiReply(CSpi::m_puiRxBuffer, CSpi::m_puiTxBuffer, m_uiMessageLength))
-//                {
-//                    m_uiFlowControl = FSM_DATA_EXCHANGE_END_WAITING;
-//                }
-//                else
-//                {
-//                    m_uiFlowControl = FSM_IDDLE;
-//                }
-//            }
-//            else if (iReceivedCounter == -1)
-//            {
-//                m_uiFlowControl = FSM_IDDLE;
-//            }
-//        }
-//
-//        break;
-//
-//    case FSM_DATA_EXCHANGE_END_WAITING:
-//
-//        break;
-//
-//    default:
-//        break;
-//    }
-//
-//}
+        CSpi::Reset();
+        m_uiMessageLength = 0;
+        m_uiFlowControl = FSM_WAITING_MESSAGE;
+        break;
 
-////-----------------------------------------------------------------------------------------------------
-//uint8_t CMvsn21::ContinuousMeasure(void)
-//{
-//    if (m_uiChannel < MEASURE_CHANNEL_NUMBER)
-//    {
-//        CAdc::ChannelSelect(m_uiChannel++);
-//        CAdc::Start();
-//        return 0;
-//    }
-//    else
-//    {
-//        return 1;
-//    }
-//}
+    case FSM_WAITING_MESSAGE:
+        if (CSpi::ByteIsReceived())
+//        if (Select())
+        {
+//            iReceivedCounter = Exchange();
+            iReceivedCounter = CSpi::Exchange();
+
+            if (iReceivedCounter > 0)
+            {
+                m_uiMessageLength += iReceivedCounter;
+
+                if (SpiReply(CSpi::m_puiRxBuffer, CSpi::m_puiTxBuffer, m_uiMessageLength))
+                {
+                    m_uiFlowControl = FSM_DATA_EXCHANGE_END_WAITING;
+                }
+                else
+                {
+                    m_uiFlowControl = FSM_IDDLE;
+                }
+            }
+            else if (iReceivedCounter == -1)
+            {
+                m_uiFlowControl = FSM_IDDLE;
+            }
+        }
+
+        break;
+
+    case FSM_DATA_EXCHANGE_END_WAITING:
+        break;
+
+    case FSM_DATA_EXCHANGE_END:
+        CModbus::ReadDiscreteInputsRequest(CModbus::m_uiSlaveAddress + 1,
+                                           0,
+                                           (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
+        m_uiFlowControl = FSM_IDDLE;
+        break;
+
+    default:
+        break;
+    }
+
+}
 
 //-----------------------------------------------------------------------------------------------------
 void CMvsn21::MeasureFsm(void)
@@ -386,8 +398,9 @@ void CMvsn21::MeasureFsm(void)
         if (CAdc::MeasureIsComlete())
         {
             uint16_t uiData = CAdc::GetMeasureValue();
-            axChipsChannelsData[MASTER_CHIP_ADDRESS].axMeasurementChannels[m_uiChannel].m_uiState =
+            axChipsChannelsData[MASTER_CHIP_ADDRESS].axMeasurementChannels[m_uiChannel].uiState =
                 CMeasurementChannel::StatusCheck(CAdc::GetMeasureValue());
+
             m_uiChannel++;
             if (m_uiChannel < MEASURE_CHANNEL_NUMBER)
             {

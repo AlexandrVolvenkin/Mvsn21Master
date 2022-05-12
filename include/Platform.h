@@ -264,9 +264,9 @@ public:
                          volatile uint8_t *rs485ddr, volatile uint8_t rs485ddpin,
                          volatile uint8_t *rs485port, volatile uint8_t rs485pin);
 //-----------------------------------------------------------------------------------------------------
-    static void UdreInterruptHandler(void);
-    static void TxcInterruptHandler(void);
-    static void RecvInterruptHandler(void);
+//    static void UdreInterruptHandler(void);
+//    static void TxcInterruptHandler(void);
+//    static void RecvInterruptHandler(void);
     static void Init(uint32_t ,
                      uint8_t ,
                      uint8_t ,
@@ -274,8 +274,10 @@ public:
                      uint8_t *,
                      uint8_t *);
     static void Reset(void);
-    static void Enable(void);
-    static void Disable(void);
+    static void ReceiveEnable(void);
+    static void ReceiveDisable(void);
+    static void TransmitEnable(void);
+    static void TransmitDisable(void);
 //    static void Rs485RtsOn(void);
 //    static void Rs485RtsOff(void);
     static int16_t Write(uint8_t * , uint16_t );
@@ -294,6 +296,14 @@ public:
         return m_nuiRxBuffByteCounter;
     };
 
+// #pragma vector = USART_RX_vect		// ѕрерывание по завершению приема UART
+// static __interrupt void __URXComplete(void);
+//
+// #pragma vector = USART_UDRE_vect	// ѕрерывание по пустому регистру данных UDR
+// static __interrupt void __UDREmpty(void);
+//
+// #pragma vector = USART_TX_vect		// ѕрерывание по завершению передачи UART
+// static __interrupt void __UTXComplete(void);
 //-----------------------------------------------------------------------------------------------------
 //private:
     static volatile uint8_t* m_UBRRH;
@@ -368,10 +378,10 @@ public:
     static void Init(uint8_t * , uint8_t * );
     static void Enable(void);
     static void Disable(void);
-    static void RecvInterruptHandler(void);
+//    static void RecvInterruptHandler(void);
     static int16_t Exchange(void);
-    static uint8_t Read(uint8_t * , uint16_t , uint16_t );
-    static uint8_t Write(uint16_t , uint8_t * , uint16_t );
+//    static uint8_t Read(uint8_t * , uint16_t , uint16_t );
+//    static uint8_t Write(uint16_t , uint8_t * , uint16_t );
     static void Reset(void);
 //-----------------------------------------------------------------------------------------------------
     static uint8_t DataExchangeInProgress(void)
@@ -542,8 +552,8 @@ public:
     static void Int0InterruptEnable(void);
     static void Int0InterruptDisable(void);
 
-    static CUart* m_pxUart0;
-    static CUart* m_pxUart1;
+//    static CUart* m_pxUart0;
+//    static CUart* m_pxUart1;
 //    static CSpi* m_pxSpi;
     static uint8_t uiSlaveSelectIsHigh;
 

@@ -51,27 +51,24 @@
 			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x01 0x02 -offset -0x01 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hfs -Intel " />
 			<Add after="srec_cat $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse -Intel -crop 0x02 0x03 -offset -0x02 -O $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).efs -Intel " />
 		</ExtraCommands>
-		<Unit filename="include/Config.h" />
+		<Unit filename="Modbus/Modbus.cpp" />
+		<Unit filename="Modbus/Modbus.h" />
+		<Unit filename="Modbus/ModbusRTU.cpp" />
+		<Unit filename="Modbus/ModbusRTU.h" />
+		<Unit filename="Modbus/errno-base.h" />
 		<Unit filename="include/Configuration.h" />
 		<Unit filename="include/Crc.h" />
-		<Unit filename="include/DataBase.h" />
 		<Unit filename="include/DataTypes.h" />
-		<Unit filename="include/Device.h" />
-		<Unit filename="include/Driver.h" />
-		<Unit filename="include/InputDevice.h" />
 		<Unit filename="include/MeasurementChannel.h" />
 		<Unit filename="include/Mvsn21.h" />
 		<Unit filename="include/Platform.h" />
 		<Unit filename="include/Timer.h" />
 		<Unit filename="src/Crc.cpp" />
-		<Unit filename="src/DataBase.cpp" />
-		<Unit filename="src/Device.cpp" />
-		<Unit filename="src/Driver.cpp" />
-		<Unit filename="src/InputDevice.cpp" />
 		<Unit filename="src/MeasurementChannel.cpp" />
 		<Unit filename="src/Mvsn21.cpp" />
 		<Unit filename="src/Platform.cpp" />
 		<Unit filename="src/SpiInt.asm" />
+		<Unit filename="src/SpiInt.cpp" />
 		<Unit filename="src/Timer.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>

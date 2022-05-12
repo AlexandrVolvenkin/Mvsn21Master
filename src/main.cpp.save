@@ -53,31 +53,34 @@ int main()
 //    CTimer xStatusLedTimer(500);
 //    CTimer xLedTimer(500);
 //    CTimer xPeripheryTimer(10);
+    CTimer xMainCycleTimer(100);
     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
 //    CPlatform::m_pxUart0 = &xUart0;
 
-//    CModbusRTU xModbusRtuOne;
-    CModbusRTU::Init(CPlatform::m_pxUart0,
-                       MODBUS_RTU_BAUD_RATE,
-                       'N',
-                       8,
-                       1,
-                       CMvsn21::m_aui8ReceiveMessageBuff,
-                       CMvsn21::m_aui8TransmitMessageBuff,
-                       CMvsn21::m_aucRtuCoilsArray,
-                       CMvsn21::m_aucRtuDiscreteInputsArray,
-                       CMvsn21::m_aucRtuHoldingRegistersArray,
-                       CMvsn21::m_aucRtuInputRegistersArray,
-                       COILS_WORK_ARRAY_LENGTH,
-                       DISCRETE_INPUTS_ARRAY_LENGTH,
-                       HOLDING_REGISTERS_ARRAY_LENGTH,
-                       INPUT_REGISTERS_ARRAY_LENGTH);
+////    CModbusRTU xModbusRtuOne;
+    CModbusRTU::Init(0,//CPlatform::m_pxUart0,
+                     MODBUS_RTU_BAUD_RATE,
+                     'N',
+                     8,
+                     1,
+                     CMvsn21::m_aui8ReceiveMessageBuff,
+                     CMvsn21::m_aui8TransmitMessageBuff,
+                     0,//CMvsn21::m_aucRtuCoilsArray,
+                     CMvsn21::m_aucRtuDiscreteInputsArray,
+                     0,//CMvsn21::m_aucRtuHoldingRegistersArray,
+                     0,//CMvsn21::m_aucRtuInputRegistersArray,
+                     COILS_WORK_ARRAY_LENGTH,
+                     DISCRETE_INPUTS_ARRAY_LENGTH,
+                     HOLDING_REGISTERS_ARRAY_LENGTH,
+                     INPUT_REGISTERS_ARRAY_LENGTH);
     CModbusRTU::SlaveSet(1);
-    CModbusRTU::ReceiveEnable();
-    CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
+//    CModbusRTU::ReceiveEnable();
+//    CUart::ReceiveEnable();
+//    CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
+    CModbusRTU::FlowControlSet(CModbus::IDDLE);
 
-//    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
-//    CMvsn21::SpiBusExchangeEnable();
+    CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+    CMvsn21::SpiBusExchangeEnable();
 
     CAdc::Init();
     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
@@ -91,12 +94,28 @@ int main()
     {
 //        CMvsn21::SpiFsm();
         CModbusRTU::Execution();
-        CMvsn21::MeasureFsm();
+//        CMvsn21::MeasureFsm();
 //
 //        if (xPeripheryTimer.IsOverflow())
 //        {
 //            xPeripheryTimer.Reset();
 //        }
+
+        if (xMainCycleTimer.IsOverflow())
+        {
+            xMainCycleTimer.Reset();
+            if (CModbus::m_uiSlaveAddress >= 2)
+            {
+                CModbus::m_uiSlaveAddress = 1;
+            }
+            else
+            {
+                CModbus::m_uiSlaveAddress += 1;
+            }
+            CModbus::ReadDiscreteInputsRequest((CModbus::m_uiSlaveAddress),
+                                               0,
+                                               (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
+        }
 
 //        if (CSpi::DataExchangeIsOccur())
 //        {

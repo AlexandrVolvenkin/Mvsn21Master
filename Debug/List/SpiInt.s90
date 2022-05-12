@@ -1,28 +1,28 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          12/May/2022  12:49:05
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          11/May/2022  01:49:16
 // Copyright 1996-2018 IAR Systems AB.
 //
-//    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Timer.cpp
+//    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\SpiInt.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW795D.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW533.tmp
 //        (--string_literals_in_flash
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Timer.cpp --cpu=m48 -ms
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\SpiInt.cpp --cpu=m48 -ms
 //        -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
-//        --initializers_in_flash --root_variables --debug
-//        -DENABLE_BIT_DEFINITIONS -e -I
+//        --initializers_in_flash --root_variables --no_inline --no_cross_call
+//        --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
 //        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz --eec++)
+//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Om --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\Timer.s90
+//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\SpiInt.s90
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-        NAME Timer
+        NAME SpiInt
 
         RSEG CSTACK:DATA:NOROOT(0)
         RSEG RSTACK:DATA:NOROOT(0)
@@ -33,15 +33,8 @@
 //      not produce an equivalent object file to the one produced
 //      by the C++ compiler.
 
-        EXTERN ?EPILOGUE_B2_L09
-        EXTERN ?PROLOGUE2_L09
-
-        PUBLIC ??CTimer
-        PUBLIC ??IsOverflow
-        PUBLIC ??Reset
-        PUBWEAK ??__vtbl
-        PUBLIC `??new CTimer`
-        PUBLIC `?~CTimer`
+        PUBLIC ??SIG_SPI_STC
+        PUBWEAK `??SIG_SPI_STC::??INTVEC 34`
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
         PUBWEAK _A_ADCSRA
@@ -125,25 +118,26 @@
         PUBWEAK __?EECR
         PUBWEAK __?EEDR
 
-`?<Name CPlatform 0>` SYMBOL "CPlatform"
-??m_uiSystemTick    SYMBOL "m_uiSystemTick", `?<Name CPlatform 0>`
-`?<Name CTimer 6>`  SYMBOL "CTimer"
-??__vtbl            SYMBOL "__vtbl", `?<Name CTimer 6>`
+`?<Name CSpi 0>`    SYMBOL "CSpi"
+??m_bfByteIsReceived SYMBOL "m_bfByteIsReceived", `?<Name CSpi 0>`
+??m_bfRxBuffOverflow SYMBOL "m_bfRxBuffOverflow", `?<Name CSpi 0>`
+??m_nuiBuffByteCounter SYMBOL "m_nuiBuffByteCounter", `?<Name CSpi 0>`
+??m_puiRxBuffer     SYMBOL "m_puiRxBuffer", `?<Name CSpi 0>`
+??m_puiTxBuffer     SYMBOL "m_puiTxBuffer", `?<Name CSpi 0>`
+??m_uiExchangeByte  SYMBOL "m_uiExchangeByte", `?<Name CSpi 0>`
 
-        EXTERN ??m_uiSystemTick
-        EXTERN `??operator delete`
-        EXTERN `??operator new`
+`??SIG_SPI_STC::??INTVEC 34` SYMBOL "??INTVEC 34", ??SIG_SPI_STC
 
-// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Timer.cpp
-//    1 //-----------------------------------------------------------------------------------------------------
-//    2 //  Source      : FileName.cpp
-//    3 //  Created     : 01.06.2022
-//    4 //  Author      : Alexandr Volvenkin
-//    5 //  email       : aav-36@mail.ru
-//    6 //  GitHub      : https://github.com/AlexandrVolvenkin
-//    7 //-----------------------------------------------------------------------------------------------------
-//    8 
-//    9 #include "Platform.h"
+        EXTERN ??m_bfByteIsReceived
+        EXTERN ??m_bfRxBuffOverflow
+        EXTERN ??m_nuiBuffByteCounter
+        EXTERN ??m_puiRxBuffer
+        EXTERN ??m_puiTxBuffer
+        EXTERN ??m_uiExchangeByte
+
+// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\SpiInt.cpp
+//    1 
+//    2 #include "Platform.h"
 
         ASEGN ABSOLUTE:DATA:ROOT,0c6H
 // union <unnamed> volatile __io _A_UDR0
@@ -539,139 +533,89 @@ _A_DDRB:
 // union <unnamed> volatile __io _A_PINB
 _A_PINB:
         DS8 1
-//   10 #include "Timer.h"
+//    3 
+//    4 //-----------------------------------------------------------------------------------------------------
+//    5 #pragma vector = SPI_STC_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+        CALL_GRAPH_ROOT ??SIG_SPI_STC, "interrupt"
+//    6 __interrupt void SIG_SPI_STC(void)
+??SIG_SPI_STC:
+//    7 {
+        ST      -Y, R31
+        ST      -Y, R30
+        ST      -Y, R20
+        ST      -Y, R19
+        ST      -Y, R18
+        ST      -Y, R17
+        ST      -Y, R16
+        IN      R20, 0x3F
+//    8     SPDR = CSpi::m_uiExchangeByte;
+        LDS     R16, ??m_uiExchangeByte
+        OUT     0x2E, R16
+//    9     CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+        IN      R16, 0x2E
+        LDS     R18, ??m_nuiBuffByteCounter
+        LDS     R19, (??m_nuiBuffByteCounter + 1)
+        LDS     R30, ??m_puiRxBuffer
+        LDS     R31, (??m_puiRxBuffer + 1)
+        ADD     R30, R18
+        ADC     R31, R19
+        ST      Z, R16
+//   10     CSpi::m_uiExchangeByte = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter + 1];
+        LDS     R16, ??m_nuiBuffByteCounter
+        LDS     R17, (??m_nuiBuffByteCounter + 1)
+        LDS     R30, ??m_puiTxBuffer
+        LDS     R31, (??m_puiTxBuffer + 1)
+        ADD     R30, R16
+        ADC     R31, R17
+        LDD     R16, Z+1
+        STS     ??m_uiExchangeByte, R16
 //   11 
-//   12 ////-----------------------------------------------------------------------------------------------------
-//   13 //CTimer::CTimer()
-//   14 //{
-//   15 //
-//   16 //}
-//   17 
-//   18 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   19 CTimer::CTimer(uint16_t uiTime)
-??CTimer:
-//   20 {
-        LDI     R20, LOW(??__vtbl)
-        LDI     R21, (??__vtbl) >> 8
-        MOVW    R31:R30, R17:R16
-        STD     Z+4, R20
-        STD     Z+5, R21
-//   21     m_uiLastSystemTick = CPlatform::GetSystemTick();
-        LDI     R30, LOW(??m_uiSystemTick)
-        LDI     R31, (??m_uiSystemTick) >> 8
-        LD      R20, Z
-        LDD     R21, Z+1
-        MOVW    R31:R30, R17:R16
-        STD     Z+2, R20
-        STD     Z+3, R21
-//   22     m_uiTime = uiTime;
-        ST      Z, R18
-        STD     Z+1, R19
-//   23 }
-        RET
-
-        RSEG CODE:CODE:NOROOT(1)
-// __version_3 CTimer &CTimer::new CTimer(uint16_t)
-`??new CTimer`:
-        RCALL   ?PROLOGUE2_L09
-        MOVW    R25:R24, R17:R16
-        LDI     R16, 6
-        LDI     R17, 0
-        RCALL   `??operator new`
-        MOV     R18, R16
-        OR      R18, R17
-        BREQ    `??new CTimer_1`
-        MOVW    R19:R18, R25:R24
-        RCALL   ??CTimer
-        RJMP    `??new CTimer_2`
-`??new CTimer_1`:
-        LDI     R16, 0
-        LDI     R17, 0
-`??new CTimer_2`:
-        LDI     R30, 2
-        RJMP    ?EPILOGUE_B2_L09
-//   24 
-//   25 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   26 CTimer::~CTimer()
-`?~CTimer`:
-//   27 {
-        MOV     R20, R16
-        OR      R20, R17
-        BREQ    `?~CTimer_1`
-        BST     R18, 0
-        BRTC    `?~CTimer_1`
-//   28 
-//   29 }
-        RCALL   `??operator delete`
-`?~CTimer_1`:
-        RET
-//   30 
-//   31 ////-----------------------------------------------------------------------------------------------------
-//   32 //void CTimer::Set(uint16_t uiTime)
-//   33 //{
-//   34 //    m_uiLastSystemTick = CPlatform::GetSystemTick();
-//   35 //    m_uiTime = uiTime;
-//   36 //}
-//   37 
-//   38 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   39 void CTimer::Reset(void)
-??Reset:
-//   40 {
-//   41     m_uiLastSystemTick = CPlatform::GetSystemTick();
-        RCALL   ?Subroutine0
-??CrossCallReturnLabel_0:
-        STD     Z+2, R18
-        STD     Z+3, R19
-//   42 }
-        RET
-//   43 
-//   44 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   45 int8_t CTimer::IsOverflow(void)
-??IsOverflow:
-//   46 {
-//   47     if ((CPlatform::GetSystemTick() - m_uiLastSystemTick)  >=
-//   48             m_uiTime)
-        RCALL   ?Subroutine0
-??CrossCallReturnLabel_1:
-        LDD     R20, Z+2
-        LDD     R21, Z+3
-        SUB     R18, R20
-        SBC     R19, R21
+//   12     // буфер приёма не переполнен?
+//   13     if (CSpi::m_nuiBuffByteCounter <
+//   14             CSpi::BUFFER_LENGTH)
+        LDS     R30, ??m_nuiBuffByteCounter
+        LDS     R31, (??m_nuiBuffByteCounter + 1)
+        SBIW    R31:R30, 16
+        BRCC    ??SIG_SPI_STC_1
+//   15     {
+//   16         CSpi::m_nuiBuffByteCounter++;
+        LDI     R30, LOW(??m_nuiBuffByteCounter)
+        LDI     R31, (??m_nuiBuffByteCounter) >> 8
         LD      R16, Z
         LDD     R17, Z+1
-        CP      R18, R16
-        CPC     R19, R17
-        BRCS    ??IsOverflow_1
-//   49     {
-//   50         return true;
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   17         CSpi::m_bfByteIsReceived = 1;
         LDI     R16, 1
-        RET
-//   51     }
-//   52     else
-//   53     {
-//   54         return false;
-??IsOverflow_1:
-        LDI     R16, 0
-        RET
-//   55     }
-//   56 }
-
-        RSEG CODE:CODE:NOROOT(1)
-?Subroutine0:
-        LDI     R30, LOW(??m_uiSystemTick)
-        LDI     R31, (??m_uiSystemTick) >> 8
-        LD      R18, Z
-        LDD     R19, Z+1
-        MOVW    R31:R30, R17:R16
-        RET
+        RJMP    ??SIG_SPI_STC_2
+//   18     }
+//   19     else
+//   20     {
+//   21         // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+//   22         // установим флаг - произошел обмен данными по SPI.
+//   23         CSpi::m_bfRxBuffOverflow = 1;
+??SIG_SPI_STC_1:
+        LDI     R16, 1
+        STS     ??m_bfRxBuffOverflow, R16
+//   24         CSpi::m_bfByteIsReceived = 1;
+??SIG_SPI_STC_2:
+        STS     ??m_bfByteIsReceived, R16
+//   25     }
+//   26 }
+        OUT     0x3F, R20
+        LD      R16, Y+
+        LD      R17, Y+
+        LD      R18, Y+
+        LD      R19, Y+
+        LD      R20, Y+
+        LD      R30, Y+
+        LD      R31, Y+
+        RETI
+        REQUIRE _A_SPDR
 
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
 __?EECR:
@@ -682,21 +626,18 @@ __?EEDR:
         ASEGN ABSOLUTE:DATA:NOROOT,021H
 __?EEARL:
 
-        RSEG NEAR_F:CODE:ROOT(0)
-// __vtbl_entry const __flash CTimer::__vtbl[1]
-??__vtbl:
-        DC16 `?~CTimer`/2
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 34
+`??SIG_SPI_STC::??INTVEC 34`:
+        RJMP    ??SIG_SPI_STC
 
         END
-//   57 
-//   58 //-----------------------------------------------------------------------------------------------------
-//   59 
 // 
 //  87 bytes in segment ABSOLUTE
-// 122 bytes in segment CODE
-//   2 bytes in segment NEAR_F
+// 132 bytes in segment CODE
+//   2 bytes in segment INTVEC
 // 
-// 122 bytes of CODE memory (+  2 bytes shared)
+// 132 bytes of CODE memory (+  2 bytes shared)
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

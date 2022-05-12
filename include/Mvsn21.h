@@ -62,6 +62,7 @@ public:
         FSM_FRAME_TRANSMIT_END_WAITING,
         FSM_RESTART,
         FSM_DATA_EXCHANGE_END_WAITING,
+        FSM_DATA_EXCHANGE_END,
         FSM_CONTINUOUS_MEASURE,
     };
 
@@ -81,10 +82,10 @@ public:
 //    static void SlaveSelectInterruptEnable(void);
 //    static void SlaveSelectInterruptDisable(void);
     static void SpiBusExchangeEnable(void);
-    static void SpiBusExchangeDisable(void);
-    static void Reset(void);
-    static uint8_t Select(void);
-    static int16_t Exchange(void);
+//    static void SpiBusExchangeDisable(void);
+//    static void Reset(void);
+//    static uint8_t Select(void);
+//    static int16_t Exchange(void);
 //    static uint8_t FrameIsReceived(void);
 //    static uint16_t GetFrameLength(void);
 ////    static int8_t FrameCheck(void);
@@ -93,7 +94,7 @@ public:
     static int16_t ReadData(uint8_t * , uint8_t * , uint16_t );
     static int16_t SpiReply(uint8_t * , uint8_t * , uint16_t );
     static void SpiFsm(void);
-//    static void ChannelsToDiscreteInput(void);
+    static void ChannelsToDiscreteInput(void);
     static void MeasureFsm(void);
     static uint8_t FlowControlGet(void)
     {
@@ -132,15 +133,16 @@ private:
     static uint8_t auiDiscreteInputBitData[12];
 
 public:
-    static uint8_t m_aucRtuCoilsArray[COILS_WORK_ARRAY_LENGTH];
+//    static uint8_t m_aucRtuCoilsArray[COILS_WORK_ARRAY_LENGTH];
     static uint8_t m_aucRtuDiscreteInputsArray[DISCRETE_INPUTS_ARRAY_LENGTH];
-    static uint16_t m_aucRtuHoldingRegistersArray[HOLDING_REGISTERS_ARRAY_LENGTH];
-    static uint16_t m_aucRtuInputRegistersArray[INPUT_REGISTERS_ARRAY_LENGTH];
+//    static uint16_t m_aucRtuHoldingRegistersArray[HOLDING_REGISTERS_ARRAY_LENGTH];
+//    static uint16_t m_aucRtuInputRegistersArray[INPUT_REGISTERS_ARRAY_LENGTH];
     static uint8_t m_aui8ReceiveMessageBuff[MODBUS_RTU_MAX_ADU_LENGTH];
     static uint8_t m_aui8TransmitMessageBuff[MODBUS_RTU_MAX_ADU_LENGTH];
 //    static uint8_t m_auiSpiRxBuffer[SPI_BUFFER_LENGTH];
 //    static uint8_t m_auiSpiTxBuffer[SPI_BUFFER_LENGTH];
 
+    friend class CModbus;
 };
 
 ////-----------------------------------------------------------------------------------------------------

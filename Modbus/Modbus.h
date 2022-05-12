@@ -22,25 +22,6 @@
 
 typedef int16_t ssize_t;
 
-//#ifdef __cplusplus
-//extern "C" {
-//#endif
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef TRUE
-#define TRUE 1
-#endif
-
-#ifndef OFF
-#define OFF 0
-#endif
-
-#ifndef ON
-#define ON 1
-#endif
 
 #define HAVE_DECL_TIOCSRS485 1
 
@@ -238,6 +219,7 @@ public:
         FRAME_TRANSMIT_CONFIRMATION,
         WAITING_FRAME_TRANSMIT_CONFIRMATION,
         END_WAITING_FRAME_TRANSMIT_CONFIRMATION,
+        STOP_REQUEST,
 
 //-----------------------------------------------------------------------------------------------------
 // ModbusMaster
@@ -248,6 +230,7 @@ public:
         FRAME_TRANSMIT_REQUEST,
         WAITING_FRAME_TRANSMIT_REQUEST,
         END_WAITING_FRAME_TRANSMIT_REQUEST,
+        STOP_CONFIRMATION,
 
         RESTART,
     } FsmState;
@@ -271,16 +254,16 @@ public:
                                           uint8_t *,
                                           uint8_t *,
                                           uint16_t );
-//    virtual int8_t MessengerIsReady(void);
+    static int8_t MessengerIsReady(void);
     static int16_t Tail(uint8_t * , uint16_t );
 //    virtual int16_t RequestBasis(uint8_t uiSlave,
 //                                 uint8_t uiFunctionCode,
 //                                 uint16_t uiAddress,
 //                                 uint16_t uiBitNumber,
-//                                 uint8_t *puiRequest) = 0;
-    static int16_t ResponseBasis(uint8_t , uint8_t , uint8_t * );
-    static uint8_t ResponseIsReceived(void);
-    static int16_t ResponseException(uint8_t , uint8_t , uint8_t , uint8_t * );
+//                                 uint8_t *puiRequest);
+//    static int16_t ResponseBasis(uint8_t , uint8_t , uint8_t * );
+//    static uint8_t ResponseIsReceived(void);
+//    static int16_t ResponseException(uint8_t , uint8_t , uint8_t , uint8_t * );
     static int16_t SendMessage(uint8_t * , uint16_t );
     static int16_t Send(uint8_t * , uint16_t );
     static void SlaveSet(uint8_t );
@@ -288,7 +271,7 @@ public:
 //    virtual void FsmMaster(void) = 0;
 //    static int16_t Receive(void);
 //    static int16_t ReadCoils(uint8_t * , uint8_t * , uint16_t );
-    static int16_t ReadDiscreteInputs(uint8_t * , uint8_t * , uint16_t );
+//    static int16_t ReadDiscreteInputs(uint8_t * , uint8_t * , uint16_t );
 //    static int16_t ReadHoldingRegisters(uint8_t * , uint8_t * , uint16_t );
 //    static int16_t ReadInputRegisters(uint8_t * , uint8_t * , uint16_t );
 //    static int16_t WriteSingleCoil(uint8_t * , uint8_t * , uint16_t );
@@ -301,7 +284,7 @@ public:
 //    static int16_t Programming(uint8_t * , uint8_t * , uint16_t );
 //    static int16_t PollProgramming(uint8_t * , uint8_t * , uint16_t );
 
-    static int16_t Reply(uint8_t * , uint8_t * , uint16_t );
+//    static int16_t Reply(uint8_t * , uint8_t * , uint16_t );
 //    static void SetByteFromBits(uint8_t * , int16_t , const uint8_t );
 //    static void SetBytesFromBits(uint8_t * , int16_t , uint16_t ,
 //                          const uint8_t * );
@@ -315,7 +298,12 @@ public:
 //    static int8_t ReadCoilsRequest(uint16_t uiAddress,
 //                            uint16_t uiBitNumber);
 //    static int16_t ReadCoilsReply(uint8_t *puiDestination);
-//    static uint8_t CheckConfirmation(uint8_t *puiDestination, uint16_t uiLength);
+    static int8_t ReadDiscreteInputsRequest(uint8_t uiSlaveAddress,
+                                            uint16_t uiAddress,
+                                            uint16_t uiBitNumber);
+    static int16_t ReadDiscreteInputsReceive(uint8_t *puiMessage, uint16_t uiLength);
+//    static uint8_t CheckConfirmation(uint8_t *puiResponse, uint16_t uiLength);
+    static int16_t ReceiveMessage(uint8_t *puiResponse, uint16_t uiFrameLength);
 
     static uint8_t FlowControlGet(void)
     {
@@ -329,27 +317,29 @@ public:
     static const uint8_t HEADER_LENGTH = 1;
     static const uint8_t CRC_LENGTH = 2;
 
-protected:
-private:
-    static uint8_t m_uiSlave;
+//protected:
+//private:
+    static uint8_t m_uiOwnAddress;
+    static uint8_t m_uiSlaveAddress;
     static uint8_t m_uiFunctionCode;
+    static uint16_t m_uiQuantity;
     static uint8_t m_uiFlowControl;
 //    CSocket* pxSocket;
     static uint16_t m_uiLastSystemTime;
     static uint16_t m_uiMessageLength;
     static uint8_t *m_puiRxBuffer;
     static uint8_t *m_puiTxBuffer;
-    static uint8_t *m_puiCoils;
+//    static uint8_t *m_puiCoils;
     static uint8_t *m_puiDiscreteInputs;
-    static uint16_t *m_pui16HoldingRegisters;
-    static uint16_t *m_pui16InputRegisters;
-    static uint16_t m_uiCoilsNumber;
+//    static uint16_t *m_pui16HoldingRegisters;
+//    static uint16_t *m_pui16InputRegisters;
+//    static uint16_t m_uiCoilsNumber;
     static uint16_t m_uiDiscreteInputsNumber;
-    static uint16_t m_uiHoldingRegistersNumber;
-    static uint16_t m_uiInputRegistersNumber;
+//    static uint16_t m_uiHoldingRegistersNumber;
+//    static uint16_t m_uiInputRegistersNumber;
 
     friend class CModbusRTU;
-//    friend class CModbusMasterRTU;
+    friend class CMvsn21;
 };
 
 ////-----------------------------------------------------------------------------------------------------
