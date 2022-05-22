@@ -56,9 +56,7 @@ void CAdc::ChannelSelect(uint8_t uiChannel)
 void CAdc::Start(void)
 {
     // Включаем АЦП.
-////    ADCSRA |= (BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
     ADCSRA |= (BIT(ADEN) | BIT(ADSC));
-//    ADCSRA |= (BIT(ADSC));
 }
 
 //-----------------------------------------------------------------------------------------------------
@@ -66,14 +64,12 @@ void CAdc::Stop(void)
 {
     // Выключаем АЦП.
     ADCSRA &= ~(BIT(ADEN) | BIT(ADSC));
-//    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
 }
 
 //-----------------------------------------------------------------------------------------------------
 void CAdc::Disable(void)
 {
     // Выключаем АЦП.
-//    ADCSRA &= ~(BIT(ADEN) | BIT(ADIE) | BIT(ADSC));
     ADCSRA &= ~(BIT(ADEN) | BIT(ADSC));
     // Включаем режим пониженного энергопотребления.
     PRR |= BIT(PRADC);
@@ -85,7 +81,6 @@ void CAdc::Enable(void)
     // Отключаем режим пониженного энергопотребления.
     PRR &= ~BIT(PRADC);
     // Включаем АЦП.
-//    ADCSRA |= (BIT(ADEN) | BIT(ADIE));
     ADCSRA |= BIT(ADEN);
 }
 
@@ -560,7 +555,7 @@ void CSpi::Init(uint8_t *puiRxBuffer, uint8_t *puiTxBuffer)
 //-----------------------------------------------------------------------------------------------------
 void CSpi::Enable(void)
 {
-//    // Slave mode.
+    // Slave mode.
     // разрешим SS.
     PORTB &= ~Bit(PB1);
     // разрешим SPI.
@@ -767,25 +762,24 @@ __interrupt void SIG_INT0(void)
         CSpi::DataExchangeInProgressClear();
         // запретим SPI.
         CSpi::Disable();
-        // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
+        // установим прерывание INT0 по переднему фронту(ожидание начала обмена данными по SPI).
         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
         EICRA |= (Bit(ISC01) | Bit(ISC00));
         // установим флаг - произошел обмен данными по SPI.
         CSpi::DataExchangeIsOccurSet();
         CMvsn21::FlowControlSet(CMvsn21::FSM_DATA_EXCHANGE_END);
-//        CModbus::ReadDiscreteInputsRequest(0, 16);
-//        CPlatform::TxLedOff();
+        CPlatform::TxLedOff();
     }
     else
     {
         CSpi::DataExchangeInProgressSet();
         CSpi::Enable();
-        // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
+        // установим прерывание INT0 по заднему фронту(ожидание конца обмена данными по SPI).
         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
         EICRA |= (Bit(ISC01));
         CMvsn21::FlowControlSet(CMvsn21::FSM_START);
         CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
-//        CPlatform::TxLedOn();
+        CPlatform::TxLedOn();
     }
 }
 
@@ -884,6 +878,5 @@ __interrupt void SystemTickInterrupt(void)
 void CPlatform::Init(void)
 {
     SystemTickInit();
-//    StatusLedSetPinOutput();
-//    TxLedSetPinOutput();
+    TxLedSetPinOutput();
 }

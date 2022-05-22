@@ -83,7 +83,7 @@ void CModbusRTU::Init(CUart* pxDevice,
     m_uiDiscreteInputsNumber = uiDiscreteInputsNumber;
 //    m_uiInputRegistersNumber = uiInputRegistersNumber;
 //    m_uiHoldingRegistersNumber = uiHoldingRegistersNumber;
-    m_uiSlaveAddress = 0;
+    m_uiSlaveAddress = 2;
 
     CUart::Init(m_uiBaudRate,
                 m_cParity,
@@ -469,8 +469,6 @@ void CModbusRTU::Execution(void)
         break;
 
     case REPLY_CONFIRMATION:
-//        m_uiFlowControl = STOP_CONFIRMATION;
-//        if (CheckConfirmation(m_puiRxBuffer, m_uiMessageLength))
         if (ReceiveMessage(m_puiRxBuffer, m_uiMessageLength))
         {
             m_uiFlowControl = STOP_CONFIRMATION;

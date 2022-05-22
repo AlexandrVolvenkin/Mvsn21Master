@@ -286,8 +286,8 @@ public:
 
 //    static int16_t Reply(uint8_t * , uint8_t * , uint16_t );
 //    static void SetByteFromBits(uint8_t * , int16_t , const uint8_t );
-//    static void SetBytesFromBits(uint8_t * , int16_t , uint16_t ,
-//                          const uint8_t * );
+    static void SetBytesFromBits(uint8_t * , int16_t , uint16_t ,
+                          const uint8_t * );
 //    static uint8_t GetByteFromBits(const uint8_t * , int16_t ,
 //                            uint16_t );
 //    static float GetFloat(const uint16_t * );

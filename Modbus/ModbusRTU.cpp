@@ -482,7 +482,7 @@ void CModbusRTU::Execution(void)
     case FRAME_TRANSMIT_REQUEST:
         GetSystemTime();
         Reset();
-        CPlatform::TxLedOn();
+//        CPlatform::TxLedOn();
         m_uiFlowControl = WAITING_FRAME_TRANSMIT_REQUEST;
         break;
 
@@ -499,7 +499,7 @@ void CModbusRTU::Execution(void)
         if (MessageIsSended())
         {
             TransmitDisable();
-            CPlatform::TxLedOff();
+//            CPlatform::TxLedOff();
             m_uiFlowControl = START_CONFIRMATION;
         }
 

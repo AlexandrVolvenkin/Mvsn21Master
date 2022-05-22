@@ -94,7 +94,7 @@ public:
     static int16_t ReadData(uint8_t * , uint8_t * , uint16_t );
     static int16_t SpiReply(uint8_t * , uint8_t * , uint16_t );
     static void SpiFsm(void);
-    static void ChannelsToDiscreteInput(void);
+//    static void ChannelsToDiscreteInput(void);
     static void MeasureFsm(void);
     static uint8_t FlowControlGet(void)
     {
@@ -125,12 +125,7 @@ private:
 //-----------------------------------------------------------------------------------------------------
     static uint16_t m_uiMessageLength;
     static uint8_t m_uiChannel;
-    static TChipChannelData axChipsChannelsData[CHIP_NUMBER];
-//    static CMeasurementChannel axMasterMeasurementChannels[MEASURE_CHANNEL_NUMBER];
-//    static CMeasurementChannel axSlave1MeasurementChannels[MEASURE_CHANNEL_NUMBER];
-//    static CMeasurementChannel axSlave2MeasurementChannels[MEASURE_CHANNEL_NUMBER];
-    static TChannelRemap axMeasurementChannelRemap[DISCRETE_INPUT_NUMBER];
-    static uint8_t auiDiscreteInputBitData[12];
+    static TChannelRemap m_axMeasurementChannelRemap[DISCRETE_INPUT_NUMBER];
 
 public:
 //    static uint8_t m_aucRtuCoilsArray[COILS_WORK_ARRAY_LENGTH];

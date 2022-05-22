@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          12/May/2022  12:49:02
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          22/May/2022  18:40:50
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW6FC5.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW39B1.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -653,7 +653,7 @@ main:
 ??CrossCallReturnLabel_2:
         RCALL   ?Subroutine0
 ??CrossCallReturnLabel_3:
-        LDI     R16, 16
+        LDI     R16, 48
         RCALL   ?Subroutine0
 ??CrossCallReturnLabel_4:
         LDI     R16, 8

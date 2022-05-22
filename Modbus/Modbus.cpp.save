@@ -761,23 +761,23 @@ int16_t CModbus::ByteToBitPack(uint16_t uiAddress,
 //        dest[index+i] = (value & (1 << i)) ? 1 : 0;
 //    }
 //}
-//
-////-----------------------------------------------------------------------------------------------------
-//void CModbus::SetBytesFromBits(uint8_t *dest, int16_t index, uint16_t nb_bits,
-//                               const uint8_t *tab_byte)
-//{
-//    int16_t i;
-//    int16_t shift = 0;
-//
-//    for (i = index; i < index + nb_bits; i++)
-//    {
-//        dest[i] = tab_byte[(i - index) / 8] & (1 << shift) ? 1 : 0;
-//        /* gcc doesn't like: shift = (++shift) % 8; */
-//        shift++;
-//        shift %= 8;
-//    }
-//}
-//
+
+//-----------------------------------------------------------------------------------------------------
+void CModbus::SetBytesFromBits(uint8_t *dest, int16_t index, uint16_t nb_bits,
+                               const uint8_t *tab_byte)
+{
+    int16_t i;
+    int16_t shift = 0;
+
+    for (i = index; i < index + nb_bits; i++)
+    {
+        dest[i] = tab_byte[(i - index) / 8] & (1 << shift) ? 1 : 0;
+        /* gcc doesn't like: shift = (++shift) % 8; */
+        shift++;
+        shift %= 8;
+    }
+}
+
 ////-----------------------------------------------------------------------------------------------------
 //uint8_t CModbus::GetByteFromBits(const uint8_t *src, int16_t index,
 //                                 uint16_t nb_bits)
@@ -889,35 +889,50 @@ int8_t CModbus::ReadDiscreteInputsRequest(uint8_t uiSlaveAddress,
 //-----------------------------------------------------------------------------------------------------
 int16_t CModbus::ReadDiscreteInputsReceive(uint8_t *puiMessage, uint16_t uiLength)
 {
-    uint8_t uiByteCounter = 0;
-    for (int8_t i = 0; i < (m_uiQuantity / 2); )
-    {
-        uint8_t uiData = puiMessage[uiByteCounter];
-        for (uint8_t j = 0; j < CHANNELS_IN_BYTE; j++)
-        {
-            uint8_t uiState = 0;
-            for (uint8_t k = 0; k < MEASURE_CHANNEL_STATE_BIT_NUMBER; k++)
-            {
-                if (uiData & 0x01)
-                {
-                    uiState |= (0x01 << k);
-                }
-                uiData >>= 1;
-            }
-
-            CMvsn21::axChipsChannelsData[m_uiSlaveAddress - 1].axMeasurementChannels[i].uiState = uiState;
-            // Следующий дискретный вход.
-            i++;
-            // Распаковали все данные состояния дискретных входов?
-            if (i >= m_uiQuantity)
-            {
-                // Распаковали все данные состояния дискретных входов.
-                return 1;
-            }
-        }
-        uiByteCounter += 1;
-    }
+    SetBytesFromBits(m_puiDiscreteInputs,
+                     ((m_uiSlaveAddress - 1) * (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER)),
+                     m_uiQuantity,
+                     puiMessage);
     return 1;
+
+
+//    uint8_t uiByteCounter = 0;
+//    for (int8_t i = 0; i < (m_uiQuantity / 2); )
+//    {
+//        uint8_t uiData = puiMessage[uiByteCounter];
+//        for (uint8_t j = 0; j < CHANNELS_IN_BYTE; j++)
+//        {
+//            m_puiDiscreteInputs[i * 2] = (uiData & 0x01);//(uiState & 0x01);
+//            uiData >>= 1;
+//            m_puiDiscreteInputs[(i * 2) + 1] = ((m_uiChannel >> 1) & 0x01);//((uiState >> 1) & 0x01);
+//            uiData >>= 1;
+//            // Следующий дискретный вход.
+//            i++;
+//
+//            //            uint8_t uiState = 0;
+////            for (uint8_t k = 0; k < MEASURE_CHANNEL_STATE_BIT_NUMBER; k++)
+////            {
+////                if (uiData & 0x01)
+////                {
+////
+//////                    uiState |= (0x01 << k);
+////                }
+//////                uiData >>= 1;
+////            }
+////
+////            CMvsn21::axChipsChannelsData[m_uiSlaveAddress - 1].axMeasurementChannels[i].uiState = uiState;
+//            // Следующий дискретный вход.
+//            i++;
+//            // Распаковали все данные состояния дискретных входов?
+//            if (i >= m_uiQuantity)
+//            {
+//                // Распаковали все данные состояния дискретных входов.
+//                return 1;
+//            }
+//        }
+//        uiByteCounter += 1;
+//    }
+//    return 1;
 }
 
 //-----------------------------------------------------------------------------------------------------

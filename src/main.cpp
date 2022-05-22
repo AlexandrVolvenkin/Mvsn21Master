@@ -5,32 +5,12 @@
 //  email       : aav-36@mail.ru
 //  GitHub      : https://github.com/AlexandrVolvenkin
 //-----------------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------
+
 #include "Platform.h"
-//#include "Config.h"
 #include "Timer.h"
 #include "Mvsn21.h"
 #include "Modbus.h"
 #include "ModbusRTU.h"
-//#include "InputDevice.h"
-
-
-
-
-////-----------------------------------------------------------------------------------------------------
-//void MainCycle(void)
-//{
-//    if (xLedTimer.IsOverflow())
-//    {
-//        xLedTimer.Reset();
-//    }
-//}
-
-//-----------------------------------------------------------------------------------------------------
-void MainReboot()
-{
-
-}
 
 //-----------------------------------------------------------------------------------------------------
 int main()
@@ -50,14 +30,7 @@ int main()
 //    CPlatform::WatchdogEnable();
     CPlatform::Init();
     CPlatform::InterruptEnable();
-//    CTimer xStatusLedTimer(500);
-//    CTimer xLedTimer(500);
-//    CTimer xPeripheryTimer(10);
-//    CTimer xMainCycleTimer(100);
     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
-//    CPlatform::m_pxUart0 = &xUart0;
-
-////    CModbusRTU xModbusRtuOne;
     CModbusRTU::Init(0,//CPlatform::m_pxUart0,
                      MODBUS_RTU_BAUD_RATE,
                      'N',
@@ -74,9 +47,6 @@ int main()
                      HOLDING_REGISTERS_ARRAY_LENGTH,
                      INPUT_REGISTERS_ARRAY_LENGTH);
     CModbusRTU::SlaveSet(1);
-//    CModbusRTU::ReceiveEnable();
-//    CUart::ReceiveEnable();
-//    CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
     CModbusRTU::FlowControlSet(CModbus::IDDLE);
 
     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
@@ -95,87 +65,6 @@ int main()
         CMvsn21::SpiFsm();
         CModbusRTU::Execution();
         CMvsn21::MeasureFsm();
-//
-//        if (xPeripheryTimer.IsOverflow())
-//        {
-//            xPeripheryTimer.Reset();
-//        }
-
-//        if (xMainCycleTimer.IsOverflow())
-//        {
-//            xMainCycleTimer.Reset();
-//            if (CModbus::m_uiSlaveAddress >= 2)
-//            {
-//                CModbus::m_uiSlaveAddress = 1;
-//            }
-//            else
-//            {
-//                CModbus::m_uiSlaveAddress += 1;
-//            }
-//            CModbus::ReadDiscreteInputsRequest((CModbus::m_uiSlaveAddress),
-//                                               0,
-//                                               (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
-//        }
-
-//        if (CSpi::DataExchangeIsOccur())
-//        {
-//            CSpi::DataExchangeIsOccurClear();
-//        }
-
-//        switch (uiMainFsmState)
-//        {
-//        case MAIN_START:
-//            uiMainFsmState = MAIN_FIRST_STEP;
-//            break;
-//
-//        case MAIN_FIRST_STEP:
-//////            MainCycle();
-////            if (xStatusLedTimer.IsOverflow())
-////            {
-////                xStatusLedTimer.Reset();
-////                if (uiStatusLedState)
-////                {
-////        CPlatform::TxLedOff();
-//////                    CPlatform::StatusLedOff();
-////                    uiStatusLedState = 0;
-////                }
-////                else
-////                {
-////        CPlatform::TxLedOn();
-//////                    CPlatform::StatusLedOn();
-////                    uiStatusLedState = 1;
-////                }
-////                uiWatchDogStepID |= 0x03;
-////            }
-//
-////            if (xLedTimer.IsOverflow())
-////            {
-////                xLedTimer.Reset();
-////                if (uiLedState)
-////                {
-////                    CPlatform::TxLedOff();
-////                    uiLedState = 0;
-////                }
-////                else
-////                {
-////                    CPlatform::TxLedOn();
-////                    uiLedState = 1;
-////                }
-////            }
-//
-//        case MAIN_SECOND_STEP:
-//            break;
-//
-//        case MAIN_THIRD_REBOOT:
-//            MainReboot();
-//            break;
-//
-//        case MAIN_STOP:
-//            break;
-//
-//        default:
-//            break;
-//        }
 
 //        // все задачи программы ответили?
 //        if (uiWatchDogStepID == 0x03)
@@ -183,8 +72,6 @@ int main()
 //            uiWatchDogStepID = 0;
         CPlatform::WatchdogReset();
 //        }
-
-
     }
 
     return 0;

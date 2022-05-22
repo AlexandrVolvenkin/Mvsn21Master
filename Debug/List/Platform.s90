@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          12/May/2022  12:49:04
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          22/May/2022  18:40:52
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Platform.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW764F.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW3E07.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Platform.cpp --cpu=m48
 //        -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -1090,8 +1090,8 @@ _A_PINB:
         MOVW    R21:R20, R17:R16
         MOVW    R23:R22, R19:R18
         LDI     R16, 0
-        LDI     R17, 128
-        LDI     R18, 112
+        LDI     R17, 0
+        LDI     R18, 225
         LDI     R19, 0
         RCALL   ?UL_DIVMOD_L03
         MOVW    R19:R18, R17:R16
@@ -2305,7 +2305,7 @@ _A_PINB:
 //  768         // запретим SPI.
 //  769         CSpi::Disable();
         RCALL   ??Disable_1
-//  770         // установим прерывание INT0 по переднему фронту(ожидание конца обмена данными по SPI).
+//  770         // установим прерывание INT0 по переднему фронту(ожидание начала обмена данными по SPI).
 //  771         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
         RCALL   ?Subroutine12
 //  772         EICRA |= (Bit(ISC01) | Bit(ISC00));
@@ -2316,40 +2316,42 @@ _A_PINB:
         STS     (??m_nuiBuffByteCounter + 8), R16
 //  775         CMvsn21::FlowControlSet(CMvsn21::FSM_DATA_EXCHANGE_END);
         LDI     R16, 10
-//  776 //        CModbus::ReadDiscreteInputsRequest(0, 16);
-//  777 //        CPlatform::TxLedOff();
-//  778     }
+//  776         CPlatform::TxLedOff();
+        CBI     0x0B, 0x03
+//  777     }
         RJMP    ??SIG_INT0_2
-//  779     else
-//  780     {
-//  781         CSpi::DataExchangeInProgressSet();
+//  778     else
+//  779     {
+//  780         CSpi::DataExchangeInProgressSet();
 ??SIG_INT0_1:
         STS     (??m_nuiBuffByteCounter + 7), R16
-//  782         CSpi::Enable();
+//  781         CSpi::Enable();
         RCALL   ??Enable_1
-//  783         // установим прерывание INT0 по заднему фронту(ожидание начала обмена данными по SPI).
-//  784         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
+//  782         // установим прерывание INT0 по заднему фронту(ожидание конца обмена данными по SPI).
+//  783         EICRA &= ~(Bit(ISC01) | Bit(ISC00));
         RCALL   ?Subroutine13
-//  785         EICRA |= (Bit(ISC01));
+//  784         EICRA |= (Bit(ISC01));
 ??CrossCallReturnLabel_16:
         LDS     R16, 105
         ORI     R16, 0x02
         STS     105, R16
-//  786         CMvsn21::FlowControlSet(CMvsn21::FSM_START);
+//  785         CMvsn21::FlowControlSet(CMvsn21::FSM_START);
         LDI     R16, 1
-//  787         CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
+//  786         CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
         STS     ??m_uiMeasureFlowControl, R16
-//  788 //        CPlatform::TxLedOn();
-//  789     }
+//  787         CPlatform::TxLedOn();
+        SBI     0x0B, 0x03
+//  788     }
 ??SIG_INT0_2:
         STS     ??m_uiFlowControl, R16
-//  790 }
+//  789 }
         OUT     0x3F, R17
         LD      R16, Y+
         LD      R17, Y+
         RETI
         REQUIRE _A_PIND
         REQUIRE _A_EICRA
+        REQUIRE _A_PORTD
 
         RSEG CODE:CODE:NOROOT(1)
 ?Subroutine12:
@@ -2370,116 +2372,116 @@ _A_PINB:
         LDS     R16, _A_EICRA
         ANDI    R16, 0xFC
         RJMP    ?Subroutine15
-//  791 
-//  792 //-----------------------------------------------------------------------------------------------------
+//  790 
+//  791 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  793 void SystemTickInit(void)
+//  792 void SystemTickInit(void)
 ??SystemTickInit:
-//  794 {
-//  795 #define MAIN_TIMER_TICK_RATE_HZ 1000
-//  796 
-//  797 //#define TIMER1_INTERRUPT
-//  798 #define TIMER2_INTERRUPT
+//  793 {
+//  794 #define MAIN_TIMER_TICK_RATE_HZ 1000
+//  795 
+//  796 //#define TIMER1_INTERRUPT
+//  797 #define TIMER2_INTERRUPT
+//  798 
 //  799 
-//  800 
-//  801 #ifdef TIMER2_INTERRUPT
-//  802     /* Hardware constants for timer 2. */
-//  803 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM21) )
-//  804 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS21) | _BV(CS20)) )
-//  805 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
-//  806 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE2A) )
-//  807 #endif //TIMER2_INTERRUPT
-//  808 
-//  809 #ifdef TIMER1_INTERRUPT
-//  810     /* Hardware constants for timer 1. */
-//  811 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM12) )
-//  812 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS11) | _BV(CS10)) )
-//  813 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
-//  814 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE1A) )
-//  815 #endif //TIMER1_INTERRUPT
-//  816 
-//  817 #ifdef TIMER2_INTERRUPT
-//  818 
-//  819     OCR2A = (((F_CPU / MAIN_TIMER_TICK_RATE_HZ) / 128) - 1);
-        LDI     R16, 56
+//  800 #ifdef TIMER2_INTERRUPT
+//  801     /* Hardware constants for timer 2. */
+//  802 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM21) )
+//  803 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS21) | _BV(CS20)) )
+//  804 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
+//  805 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE2A) )
+//  806 #endif //TIMER2_INTERRUPT
+//  807 
+//  808 #ifdef TIMER1_INTERRUPT
+//  809     /* Hardware constants for timer 1. */
+//  810 #define portCLEAR_COUNTER_ON_MATCH              ( ( unsigned char ) _BV(WGM12) )
+//  811 #define portPRESCALE_64                         ( ( unsigned char ) (_BV(CS11) | _BV(CS10)) )
+//  812 #define portCLOCK_PRESCALER                     ( ( unsigned long ) 64 )
+//  813 #define portCOMPARE_MATCH_A_INTERRUPT_ENABLE    ( ( unsigned char ) _BV(OCIE1A) )
+//  814 #endif //TIMER1_INTERRUPT
+//  815 
+//  816 #ifdef TIMER2_INTERRUPT
+//  817 
+//  818     OCR2A = (((F_CPU / MAIN_TIMER_TICK_RATE_HZ) / 128) - 1);
+        LDI     R16, 114
         STS     _A_OCR2A, R16
-//  820     TCCR2A |= (Bit(WGM21));
+//  819     TCCR2A |= (Bit(WGM21));
         LDS     R16, 176
         ORI     R16, 0x02
         STS     176, R16
-//  821     TCCR2B |= (Bit(CS22) | Bit(CS20));
+//  820     TCCR2B |= (Bit(CS22) | Bit(CS20));
         LDS     R16, _A_TCCR2B
         ORI     R16, 0x05
         STS     _A_TCCR2B, R16
-//  822 
-//  823     TIMSK2 |= Bit(OCIE2A);
+//  821 
+//  822     TIMSK2 |= Bit(OCIE2A);
         LDS     R16, 112
         ORI     R16, 0x02
         STS     112, R16
-//  824 
-//  825 #endif //TIMER2_INTERRUPT
-//  826 
-//  827 #ifdef TIMER1_INTERRUPT
-//  828 //
-//  829 //    unsigned long ulCompareMatch;
-//  830 //    unsigned char ucLowByte;
-//  831 //
-//  832 //    /* Using 16bit timer 1 to generate the tick.  Correct fuses must be
-//  833 //    selected for the configCPU_CLOCK_HZ clock. */
-//  834 //
-//  835 //    ulCompareMatch = CPlatform::F_CPU / MAIN_TIMER_TICK_RATE_HZ;
-//  836 //
-//  837 //    /* We only have 16 bits so have to scale to get our required tick rate. */
-//  838 //    ulCompareMatch /= portCLOCK_PRESCALER;
-//  839 //
-//  840 //    /* Adjust for correct value. */
-//  841 //    ulCompareMatch -= ( unsigned long ) 1;
-//  842 //
-//  843 //    /* Setup compare match value for compare match A.  Interrupts are disabled
-//  844 //    before this is called so we need not worry here. */
-//  845 //    OCR1A = ulCompareMatch;
-//  846 //
-//  847 //    /* Setup clock source and compare match behaviour. */
-//  848 //    TCCR1A &= ~(_BV(WGM11) | _BV(WGM10));
-//  849 //    ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
-//  850 //    TCCR1B = ucLowByte;
-//  851 //
-//  852 //    /* Enable the interrupt - this is okay as interrupt are currently globally
-//  853 //    disabled. */
-//  854 //    ucLowByte = TIMSK;
-//  855 //    ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
-//  856 //    TIMSK = ucLowByte;
-//  857 
-//  858 #endif //TIMER1_INTERRUPT
-//  859 
-//  860 }
+//  823 
+//  824 #endif //TIMER2_INTERRUPT
+//  825 
+//  826 #ifdef TIMER1_INTERRUPT
+//  827 //
+//  828 //    unsigned long ulCompareMatch;
+//  829 //    unsigned char ucLowByte;
+//  830 //
+//  831 //    /* Using 16bit timer 1 to generate the tick.  Correct fuses must be
+//  832 //    selected for the configCPU_CLOCK_HZ clock. */
+//  833 //
+//  834 //    ulCompareMatch = CPlatform::F_CPU / MAIN_TIMER_TICK_RATE_HZ;
+//  835 //
+//  836 //    /* We only have 16 bits so have to scale to get our required tick rate. */
+//  837 //    ulCompareMatch /= portCLOCK_PRESCALER;
+//  838 //
+//  839 //    /* Adjust for correct value. */
+//  840 //    ulCompareMatch -= ( unsigned long ) 1;
+//  841 //
+//  842 //    /* Setup compare match value for compare match A.  Interrupts are disabled
+//  843 //    before this is called so we need not worry here. */
+//  844 //    OCR1A = ulCompareMatch;
+//  845 //
+//  846 //    /* Setup clock source and compare match behaviour. */
+//  847 //    TCCR1A &= ~(_BV(WGM11) | _BV(WGM10));
+//  848 //    ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
+//  849 //    TCCR1B = ucLowByte;
+//  850 //
+//  851 //    /* Enable the interrupt - this is okay as interrupt are currently globally
+//  852 //    disabled. */
+//  853 //    ucLowByte = TIMSK;
+//  854 //    ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
+//  855 //    TIMSK = ucLowByte;
+//  856 
+//  857 #endif //TIMER1_INTERRUPT
+//  858 
+//  859 }
         RET
         REQUIRE _A_OCR2A
         REQUIRE _A_TCCR2A
         REQUIRE _A_TCCR2B
         REQUIRE _A_TIMSK2
-//  861 
-//  862 ////-----------------------------------------------------------------------------------------------------
-//  863 //#ifdef TIMER1_INTERRUPT
-//  864 //// Прерывание TIMER1_COMPA_vect
-//  865 //__interrupt void SystemTickInterrupt(void)
-//  866 //{
-//  867 //    CPlatform::IncrementSystemTick();
-//  868 //}
-//  869 //#endif //TIMER1_INTERRUPT
-//  870 //-----------------------------------------------------------------------------------------------------
-//  871 #ifdef TIMER2_INTERRUPT
-//  872 // Прерывание TIMER2_COMP_vect
-//  873 #pragma vector = TIMER2_COMPA_vect	// Прерывание по совпадению TMR2 с OCR2
+//  860 
+//  861 ////-----------------------------------------------------------------------------------------------------
+//  862 //#ifdef TIMER1_INTERRUPT
+//  863 //// Прерывание TIMER1_COMPA_vect
+//  864 //__interrupt void SystemTickInterrupt(void)
+//  865 //{
+//  866 //    CPlatform::IncrementSystemTick();
+//  867 //}
+//  868 //#endif //TIMER1_INTERRUPT
+//  869 //-----------------------------------------------------------------------------------------------------
+//  870 #ifdef TIMER2_INTERRUPT
+//  871 // Прерывание TIMER2_COMP_vect
+//  872 #pragma vector = TIMER2_COMPA_vect	// Прерывание по совпадению TMR2 с OCR2
 
         RSEG CODE:CODE:NOROOT(1)
         CALL_GRAPH_ROOT ??SystemTickInterrupt, "interrupt"
-//  874 __interrupt void SystemTickInterrupt(void)
+//  873 __interrupt void SystemTickInterrupt(void)
 ??SystemTickInterrupt:
-//  875 {
+//  874 {
         RCALL   ?Subroutine10
-//  876     CPlatform::IncrementSystemTick();
+//  875     CPlatform::IncrementSystemTick();
 ??CrossCallReturnLabel_10:
         LDI     R30, LOW(??m_uiSystemTick)
         LDI     R31, (??m_uiSystemTick) >> 8
@@ -2489,7 +2491,7 @@ _A_PINB:
         SBCI    R17, 255
         ST      Z, R16
         STD     Z+1, R17
-//  877 }
+//  876 }
         RCALL   ?Subroutine11
 ??CrossCallReturnLabel_12:
         RETI
@@ -2513,22 +2515,25 @@ _A_PINB:
         ST      -Y, R16
         IN      R18, 0x3F
         RET
-//  878 #endif //TIMER2_INTERRUPT
+//  877 #endif //TIMER2_INTERRUPT
+//  878 
 //  879 
 //  880 
 //  881 
-//  882 
-//  883 //-----------------------------------------------------------------------------------------------------
+//  882 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  884 void CPlatform::Init(void)
+//  883 void CPlatform::Init(void)
 ??Init_3:
-//  885 {
-//  886     SystemTickInit();
-        RJMP    ??SystemTickInit
-//  887 //    StatusLedSetPinOutput();
-//  888 //    TxLedSetPinOutput();
-//  889 }
+//  884 {
+//  885     SystemTickInit();
+        RCALL   ??SystemTickInit
+//  886 //    StatusLedSetPinOutput();
+//  887     TxLedSetPinOutput();
+        SBI     0x0A, 0x03
+//  888 }
+        RET
+        REQUIRE _A_DDRD
 
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
 __?EECR:
@@ -2582,13 +2587,13 @@ __?EEARL:
         END
 // 
 //    87 bytes in segment ABSOLUTE
-// 1 208 bytes in segment CODE
+// 1 216 bytes in segment CODE
 //     6 bytes in segment INITTAB
 //    10 bytes in segment INTVEC
 //     4 bytes in segment NEAR_F
 //    95 bytes in segment NEAR_Z
 // 
-// 1 210 bytes of CODE memory (+ 18 bytes shared)
+// 1 218 bytes of CODE memory (+ 18 bytes shared)
 //    95 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
