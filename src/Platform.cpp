@@ -230,7 +230,7 @@ void CUart::Init(uint32_t ulBaudRate,
     /* Stop bit (1 or 2) */
     if (ucStopBit == 1)
     {
-
+        *m_UCSRC &= ~(1 << USBS0);
     }
     else if (ucStopBit == 2) /* 2 */
     {
@@ -317,7 +317,7 @@ int16_t CUart::Read(uint8_t *puiDestination, uint16_t uiLength)
     else if (m_nuiRxBuffByteCounter)
     {
         CPlatform::InterruptDisable();
-//
+
         for (int16_t i = 0; i < m_nuiRxBuffByteCounter; i++)
         {
             puiDestination[i] = m_auiIntermediateBuff[i];
@@ -585,6 +585,12 @@ void CSpi::Reset(void)
     m_bfDataExchangeIsOccur = 0;
     m_bfRxBuffOverflow = 0;
     m_uiExchangeByte = 0;
+}
+
+//-----------------------------------------------------------------------------------------------------
+void CSpi::SendByte(uint8_t uiData)
+{
+    SPDR = uiData;
 }
 
 //-----------------------------------------------------------------------------------------------------

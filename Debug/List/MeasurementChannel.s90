@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          21/May/2022  23:17:09
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          06/Jul/2022  10:17:27
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\MeasurementChannel.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWD5A0.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW9A3.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\MeasurementChannel.cpp
 //        --cpu=m48 -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj
@@ -34,7 +34,7 @@
 //      not produce an equivalent object file to the one produced
 //      by the C++ compiler.
 
-        PUBLIC ??StatusCheck
+        PUBLIC ??StateCheck
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
         PUBWEAK _A_ADCSRA
@@ -537,11 +537,11 @@ _A_PINB:
 //   21 //}
 //   22 
 //   23 //-----------------------------------------------------------------------------------------------------
-//   24 // –û–±—Ä–∞–±–æ—Ç–∫–∞ –±–ª–æ–∫–∞ –¥–∞–Ω–Ω—ã—Ö –æ—Ç –ê–¶–ü.
+//   24 // Œ·‡·ÓÚÍ‡ ·ÎÓÍ‡ ‰‡ÌÌ˚ı ÓÚ ¿÷œ.
 
         RSEG CODE:CODE:NOROOT(1)
-//   25 uint8_t CMeasurementChannel::StatusCheck(uint16_t uiValue)
-??StatusCheck:
+//   25 uint8_t CMeasurementChannel::StateCheck(uint16_t uiValue)
+??StateCheck:
 //   26 {
 //   27     uint8_t uiState = CMeasurementChannel::SHORT_CIRCUIT;
         LDI     R18, 3
@@ -550,66 +550,45 @@ _A_PINB:
         CPI     R16, 23
         LDI     R19, 0
         CPC     R17, R19
-        BRCC    ??StatusCheck_1
+        BRCC    ??StateCheck_1
 //   30     {
-//   31         uiState = CMeasurementChannel::WIRE_BREAK;	// –û–ø—Ä–µ–¥–µ–ª–µ–Ω–∏–µ –∫–æ–¥–∞ —Å–æ—Å—Ç–æ—è–Ω–∏—è –≤—Ö–æ–¥–∞
+//   31         uiState = CMeasurementChannel::WIRE_BREAK;
         LDI     R18, 2
-        RJMP    ??StatusCheck_2
+        RJMP    ??StateCheck_2
 //   32     }
 //   33     else if(uiValue < CMeasurementChannel::ON_LEVEL)
-??StatusCheck_1:
+??StateCheck_1:
         CPI     R16, 143
         CPC     R17, R19
-        BRCC    ??StatusCheck_3
+        BRCC    ??StateCheck_3
 //   34     {
 //   35         uiState = CMeasurementChannel::ON;
         LDI     R18, 1
-        RJMP    ??StatusCheck_2
+        RJMP    ??StateCheck_2
 //   36     }
 //   37     else if(uiValue < CMeasurementChannel::OFF_LEVEL)
-??StatusCheck_3:
+??StateCheck_3:
         CPI     R16, 161
         CPC     R17, R19
-        BRCS    ??StatusCheck_4
+        BRCS    ??StateCheck_4
 //   38     {
-//   39         return;		// –ü–æ–ø–∞–¥–∞–Ω–∏–µ –≤ –º–µ—Ä—Ç–≤—É—é –∑–æ–Ω—É
+//   39         return;		// œÓÔ‡‰‡ÌËÂ ‚ ÏÂÚ‚Û˛ ÁÓÌÛ
 //   40     }
 //   41     else if(uiValue < CMeasurementChannel::SC_LEVEL)
         CPI     R16, 42
         SBCI    R17, 2
-        BRCC    ??StatusCheck_2
+        BRCC    ??StateCheck_2
 //   42     {
 //   43         uiState = CMeasurementChannel::OFF;
         LDI     R18, 0
 //   44     }
 //   45 
-//   46 //    m_uiState = uiState;
-//   47 
-//   48 //    TDChannel *DCPtr = &CMeasurementChannel::DChannel[Index];
-//   49 //
-//   50 //    if(DCPtr->Current == uiState)
-//   51 //    {
-//   52 //        if(DCPtr->Counter != CMeasurementChannel::STOP_COUNT)
-//   53 //        {
-//   54 //            if((++DCPtr->Counter) >= CMeasurementChannel::DEBOUNCE_LEVELS)
-//   55 //            {
-//   56 //                DCPtr->uiState   = uiState;
-//   57 //                DCPtr->Counter = CMeasurementChannel::STOP_COUNT;
-//   58 //            }
-//   59 //        }
-//   60 //    }
-//   61 //    else
-//   62 //    {
-//   63 //        DCPtr->Current = uiState;
-//   64 //        DCPtr->Counter = 0;
-//   65 //    }
-//   66 //
-//   67     return uiState;
-??StatusCheck_2:
+//   46     return uiState;
+??StateCheck_2:
         MOV     R16, R18
-??StatusCheck_4:
+??StateCheck_4:
         RET
-//   68 };
+//   47 };
 
         ASEGN ABSOLUTE:DATA:NOROOT,01fH
 __?EECR:

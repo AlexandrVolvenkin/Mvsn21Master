@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          22/May/2022  18:54:29
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          06/Jul/2022  10:17:28
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\Modbus.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWB532.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EWA8E.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\Modbus.cpp --cpu=m48
 //        -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -1684,33 +1684,10 @@ _A_PINB:
 //  890 int16_t CModbus::ReadDiscreteInputsReceive(uint8_t *puiMessage, uint16_t uiLength)
 ??ReadDiscreteInputsReceive:
 //  891 {
-//  892 //    uint8_t uiByteCounter = 0;
-//  893 //    for (int8_t i = 0; i < m_uiQuantity; )
-//  894 //    {
-//  895 //        uint8_t uiData = puiMessage[uiByteCounter];
-//  896 //        for (uint8_t j = 0; j < CHANNELS_IN_BYTE; j++)
-//  897 //        {
-//  898 //            m_puiDiscreteInputs[i * 2] = (uiData & 0x01);//(uiState & 0x01);
-//  899 //            uiData >>= 1;
-//  900 //            m_puiDiscreteInputs[(i * 2) + 1] = (uiData & 0x01);//((uiState >> 1) & 0x01);
-//  901 //            uiData >>= 1;
-//  902 //            // Следующий дискретный вход.
-//  903 //            i++;
-//  904 //            // Распаковали все данные состояния дискретных входов?
-//  905 //            if (i >= m_uiQuantity)
-//  906 //            {
-//  907 //                // Распаковали все данные состояния дискретных входов.
-//  908 //                return 1;
-//  909 //            }
-//  910 //        }
-//  911 //        uiByteCounter += 1;
-//  912 //    }
-//  913 //    return 1;
-//  914 
-//  915     SetBytesFromBits(m_puiDiscreteInputs,
-//  916                      ((m_uiSlaveAddress - 1) * (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER)),
-//  917                      m_uiQuantity,
-//  918                      puiMessage);
+//  892     SetBytesFromBits(m_puiDiscreteInputs,
+//  893                      ((m_uiSlaveAddress - 1) * (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER)),
+//  894                      m_uiQuantity,
+//  895                      puiMessage);
         LDI     R30, LOW(??m_uiQuantity)
         LDI     R31, (??m_uiQuantity) >> 8
         MOVW    R23:R22, R17:R16
@@ -1727,71 +1704,32 @@ _A_PINB:
         LDD     R16, Z+6
         LDD     R17, Z+7
         RCALL   ??SetBytesFromBits
-//  919     return 1;
+//  896     return 1;
         REQUIRE ?Subroutine0
         ;               // Fall through to label ?Subroutine0
-//  920 
-//  921 
-//  922 //    uint8_t uiByteCounter = 0;
-//  923 //    for (int8_t i = 0; i < (m_uiQuantity / 2); )
-//  924 //    {
-//  925 //        uint8_t uiData = puiMessage[uiByteCounter];
-//  926 //        for (uint8_t j = 0; j < CHANNELS_IN_BYTE; j++)
-//  927 //        {
-//  928 //            m_puiDiscreteInputs[i * 2] = (uiData & 0x01);//(uiState & 0x01);
-//  929 //            uiData >>= 1;
-//  930 //            m_puiDiscreteInputs[(i * 2) + 1] = ((m_uiChannel >> 1) & 0x01);//((uiState >> 1) & 0x01);
-//  931 //            uiData >>= 1;
-//  932 //            // Следующий дискретный вход.
-//  933 //            i++;
-//  934 //
-//  935 //            //            uint8_t uiState = 0;
-//  936 ////            for (uint8_t k = 0; k < MEASURE_CHANNEL_STATE_BIT_NUMBER; k++)
-//  937 ////            {
-//  938 ////                if (uiData & 0x01)
-//  939 ////                {
-//  940 ////
-//  941 //////                    uiState |= (0x01 << k);
-//  942 ////                }
-//  943 //////                uiData >>= 1;
-//  944 ////            }
-//  945 ////
-//  946 ////            CMvsn21::axChipsChannelsData[m_uiSlaveAddress - 1].axMeasurementChannels[i].uiState = uiState;
-//  947 //            // Следующий дискретный вход.
-//  948 //            i++;
-//  949 //            // Распаковали все данные состояния дискретных входов?
-//  950 //            if (i >= m_uiQuantity)
-//  951 //            {
-//  952 //                // Распаковали все данные состояния дискретных входов.
-//  953 //                return 1;
-//  954 //            }
-//  955 //        }
-//  956 //        uiByteCounter += 1;
-//  957 //    }
-//  958 //    return 1;
-//  959 }
+//  897 }
 
         RSEG CODE:CODE:NOROOT(1)
 ?Subroutine0:
         LDI     R16, 1
         LDI     R17, 0
         RET
-//  960 
-//  961 //-----------------------------------------------------------------------------------------------------
+//  898 
+//  899 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  962 int16_t CModbus::ReceiveMessage(uint8_t *puiResponse, uint16_t uiFrameLength)
+//  900 int16_t CModbus::ReceiveMessage(uint8_t *puiResponse, uint16_t uiFrameLength)
 ??ReceiveMessage:
-//  963 {
-//  964     uint16_t uiOffset = HEADER_LENGTH;
-//  965     uint8_t uiSlave = puiResponse[uiOffset - 1];
-//  966     uint8_t uiFunctionCode = puiResponse[uiOffset];
+//  901 {
+//  902     uint16_t uiOffset = HEADER_LENGTH;
+//  903     uint8_t uiSlave = puiResponse[uiOffset - 1];
+//  904     uint8_t uiFunctionCode = puiResponse[uiOffset];
         MOVW    R31:R30, R17:R16
         LDD     R20, Z+1
-//  967     uint16_t uiLength = uiFrameLength;
-//  968 
-//  969     if ((m_uiSlaveAddress == uiSlave) &&
-//  970             (m_uiFunctionCode == uiFunctionCode))
+//  905     uint16_t uiLength = uiFrameLength;
+//  906 
+//  907     if ((m_uiSlaveAddress == uiSlave) &&
+//  908             (m_uiFunctionCode == uiFunctionCode))
         LDS     R21, (??m_uiQuantity + 8)
         LD      R22, Z
         CP      R21, R22
@@ -1799,102 +1737,102 @@ _A_PINB:
         LDS     R21, (??m_uiQuantity + 9)
         CP      R21, R20
         BRNE    ??ReceiveMessage_1
-//  971     {
-//  972         switch (uiFunctionCode)
+//  909     {
+//  910         switch (uiFunctionCode)
         CPI     R20, 2
         BRNE    ??ReceiveMessage_2
-//  973         {
-//  974 //    case _FC_READ_COILS:
-//  975 //        break;
-//  976 //
-//  977         case _FC_READ_DISCRETE_INPUTS:
-//  978             ReadDiscreteInputsReceive(&puiResponse[uiOffset + 2], uiLength);
+//  911         {
+//  912 //    case _FC_READ_COILS:
+//  913 //        break;
+//  914 //
+//  915         case _FC_READ_DISCRETE_INPUTS:
+//  916             ReadDiscreteInputsReceive(&puiResponse[uiOffset + 2], uiLength);
         SUBI    R16, 253
         SBCI    R17, 255
         RCALL   ??ReadDiscreteInputsReceive
-//  979             break;
-//  980 
-//  981 //    case _FC_READ_HOLDING_REGISTERS:
-//  982 //        break;
-//  983 //
-//  984 //    case _FC_READ_INPUT_REGISTERS:
-//  985 //        break;
-//  986 //
-//  987 //    case _FC_WRITE_SINGLE_COIL:
-//  988 //        break;
-//  989 //
-//  990 //    case _FC_WRITE_SINGLE_REGISTER:
-//  991 //        break;
-//  992 //
-//  993 //    case _FC_READ_EXCEPTION_STATUS:
-//  994 //        break;
-//  995 //
-//  996 //    case _FC_WRITE_MULTIPLE_COILS:
-//  997 //        break;
-//  998 //
-//  999 //    case _FC_PROGRAMMING_COMPLETION_REQUEST:
-// 1000 //        break;
-// 1001 //
-// 1002 //    case _FC_WRITE_MULTIPLE_REGISTERS:
-// 1003 //        break;
-// 1004 //
-// 1005 //    case _FC_REPORT_SLAVE_ID:
-// 1006 //        break;
-// 1007 //
-// 1008 //    case _FC_WRITE_AND_READ_REGISTERS:
-// 1009 //        break;
-// 1010 //
-// 1011 //    case _FC_DATA_EXCHANGE:
-// 1012 //        break;
-// 1013 //
-// 1014 //    case _FC_DATA_BASE_READ:
-// 1015 //        break;
-// 1016 //
-// 1017 //    case _FC_DATA_BASE_WRITE:
-// 1018 //        break;
-// 1019 //
-// 1020 //    case _FC_PROGRAMMING:
-// 1021 //        break;
-// 1022 
-// 1023         default:
-// 1024             break;
-// 1025         }
-// 1026         return 1;
+//  917             break;
+//  918 
+//  919 //    case _FC_READ_HOLDING_REGISTERS:
+//  920 //        break;
+//  921 //
+//  922 //    case _FC_READ_INPUT_REGISTERS:
+//  923 //        break;
+//  924 //
+//  925 //    case _FC_WRITE_SINGLE_COIL:
+//  926 //        break;
+//  927 //
+//  928 //    case _FC_WRITE_SINGLE_REGISTER:
+//  929 //        break;
+//  930 //
+//  931 //    case _FC_READ_EXCEPTION_STATUS:
+//  932 //        break;
+//  933 //
+//  934 //    case _FC_WRITE_MULTIPLE_COILS:
+//  935 //        break;
+//  936 //
+//  937 //    case _FC_PROGRAMMING_COMPLETION_REQUEST:
+//  938 //        break;
+//  939 //
+//  940 //    case _FC_WRITE_MULTIPLE_REGISTERS:
+//  941 //        break;
+//  942 //
+//  943 //    case _FC_REPORT_SLAVE_ID:
+//  944 //        break;
+//  945 //
+//  946 //    case _FC_WRITE_AND_READ_REGISTERS:
+//  947 //        break;
+//  948 //
+//  949 //    case _FC_DATA_EXCHANGE:
+//  950 //        break;
+//  951 //
+//  952 //    case _FC_DATA_BASE_READ:
+//  953 //        break;
+//  954 //
+//  955 //    case _FC_DATA_BASE_WRITE:
+//  956 //        break;
+//  957 //
+//  958 //    case _FC_PROGRAMMING:
+//  959 //        break;
+//  960 
+//  961         default:
+//  962             break;
+//  963         }
+//  964         return 1;
 ??ReceiveMessage_2:
         RJMP    ?Subroutine0
-// 1027     }
-// 1028     else if (uiLength == (uiOffset + 2 + CRC_LENGTH) &&
-// 1029              (uiFunctionCode & 0x80))
+//  965     }
+//  966     else if (uiLength == (uiOffset + 2 + CRC_LENGTH) &&
+//  967              (uiFunctionCode & 0x80))
 ??ReceiveMessage_1:
         CPI     R18, 5
         SBCI    R19, 0
         BRNE    ??ReceiveMessage_3
         BST     R20, 7
         BRTC    ??ReceiveMessage_3
-// 1030     {
-// 1031         /* EXCEPTION CODE RECEIVED */
-// 1032         int8_t uiExceptionCode =
-// 1033             puiResponse[uiOffset + MODBUS_EXCEPTION_CODE_OFFSET];
+//  968     {
+//  969         /* EXCEPTION CODE RECEIVED */
+//  970         int8_t uiExceptionCode =
+//  971             puiResponse[uiOffset + MODBUS_EXCEPTION_CODE_OFFSET];
         LDD     R16, Z+2
-// 1034         if (uiExceptionCode < MODBUS_EXCEPTION_MAX)
+//  972         if (uiExceptionCode < MODBUS_EXCEPTION_MAX)
         CPI     R16, 12
         BRGE    ??ReceiveMessage_4
-// 1035         {
-// 1036             return MODBUS_ENOBASE + uiExceptionCode;
+//  973         {
+//  974             return MODBUS_ENOBASE + uiExceptionCode;
         MOV     R17, R16
         LSL     R17
         SBC     R17, R17
         RET
-// 1037         }
-// 1038         else
-// 1039         {
-// 1040             return EMBBADEXC;
+//  975         }
+//  976         else
+//  977         {
+//  978             return EMBBADEXC;
 ??ReceiveMessage_4:
         LDI     R16, 14
         LDI     R17, 0
-// 1041         }
-// 1042     }
-// 1043 }
+//  979         }
+//  980     }
+//  981 }
 ??ReceiveMessage_3:
         RET
 

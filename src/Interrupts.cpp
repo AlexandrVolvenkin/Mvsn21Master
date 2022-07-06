@@ -9,18 +9,18 @@
 
 
 //-----------------------------------------------------------------------------------------------------
-// РџСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РІРµСЂС€РµРЅРёСЋ РїСЂРёРµРјР° UART
+// Прерывание по завершению приема UART
 //#pragma vector = USART_RX_vect
 __interrupt void CUart::__URXComplete(void)
 //__interrupt void SIG_UART0_RECV(void)
 {
 //    CUart::RecvInterruptHandler();
-    // РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ Р±СѓС„РµСЂ РїСЂРёС‘РјР° РїРµСЂРµРїРѕР»РЅРµРЅ?
+    // промежуточный буфер приёма переполнен?
     if (CUart::m_nuiRxBuffByteCounter >=
             CUart::UART_MAX_BUFF_LENGTH)
     {
         CUart::m_bfRxBuffOverflow = 1;
-        // РЅРµ РёРЅРєСЂРµРјРµРЅС‚РёСЂСѓРµРј pucUsartRxBuff, С‡С‚РѕР±С‹ РЅРµ РІС‹Р№С‚Рё Р·Р° РіСЂР°РЅРёС†С‹ Р±СѓС„РµСЂР°.
+        // не инкрементируем pucUsartRxBuff, чтобы не выйти за границы буфера.
         CUart::m_bfByteIsReceived = 1;
     }
     else
@@ -31,7 +31,7 @@ __interrupt void CUart::__URXComplete(void)
 }
 
 //-----------------------------------------------------------------------------------------------------
-// РџСЂРµСЂС‹РІР°РЅРёРµ РїРѕ РїСѓСЃС‚РѕРјСѓ СЂРµРіРёСЃС‚СЂСѓ РґР°РЅРЅС‹С… UDR
+// Прерывание по пустому регистру данных UDR
 //#pragma vector = USART_UDRE_vect
 __interrupt void CUart::__UDREmpty(void)
 //__interrupt void SIG_UART0_DATA(void)
@@ -50,7 +50,7 @@ __interrupt void CUart::__UDREmpty(void)
 }
 
 //-----------------------------------------------------------------------------------------------------
-// РџСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РІРµСЂС€РµРЅРёСЋ РїРµСЂРµРґР°С‡Рё UART
+// Прерывание по завершению передачи UART
 //#pragma vector = USART_TX_vect
 //__interrupt void SIG_UART0_TXC(void)
 __interrupt void CUart::__UTXComplete(void)

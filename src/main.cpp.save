@@ -5,32 +5,12 @@
 //  email       : aav-36@mail.ru
 //  GitHub      : https://github.com/AlexandrVolvenkin
 //-----------------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------
+
 #include "Platform.h"
-//#include "Config.h"
 #include "Timer.h"
 #include "Mvsn21.h"
 #include "Modbus.h"
 #include "ModbusRTU.h"
-//#include "InputDevice.h"
-
-
-
-
-////-----------------------------------------------------------------------------------------------------
-//void MainCycle(void)
-//{
-//    if (xLedTimer.IsOverflow())
-//    {
-//        xLedTimer.Reset();
-//    }
-//}
-
-//-----------------------------------------------------------------------------------------------------
-void MainReboot()
-{
-
-}
 
 //-----------------------------------------------------------------------------------------------------
 int main()
@@ -73,6 +53,8 @@ int main()
     CMvsn21::SpiBusExchangeEnable();
 
     CAdc::Init();
+    memset((reinterpret_cast<uint8_t*>(CMvsn21::m_aucRtuDiscreteInputsArray)), 0, sizeof(CMvsn21::m_aucRtuDiscreteInputsArray));
+    memset((reinterpret_cast<uint8_t*>(CMvsn21::m_axSameStateCheck)), 0, sizeof(CMvsn21::m_axSameStateCheck));
     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
 
     uint8_t uiMainFsmState = MAIN_START;
@@ -85,87 +67,6 @@ int main()
         CMvsn21::SpiFsm();
         CModbusRTU::Execution();
         CMvsn21::MeasureFsm();
-//
-//        if (xPeripheryTimer.IsOverflow())
-//        {
-//            xPeripheryTimer.Reset();
-//        }
-
-//        if (xMainCycleTimer.IsOverflow())
-//        {
-//            xMainCycleTimer.Reset();
-//            if (CModbus::m_uiSlaveAddress >= 2)
-//            {
-//                CModbus::m_uiSlaveAddress = 1;
-//            }
-//            else
-//            {
-//                CModbus::m_uiSlaveAddress += 1;
-//            }
-//            CModbus::ReadDiscreteInputsRequest((CModbus::m_uiSlaveAddress),
-//                                               0,
-//                                               (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
-//        }
-
-//        if (CSpi::DataExchangeIsOccur())
-//        {
-//            CSpi::DataExchangeIsOccurClear();
-//        }
-
-//        switch (uiMainFsmState)
-//        {
-//        case MAIN_START:
-//            uiMainFsmState = MAIN_FIRST_STEP;
-//            break;
-//
-//        case MAIN_FIRST_STEP:
-//////            MainCycle();
-////            if (xStatusLedTimer.IsOverflow())
-////            {
-////                xStatusLedTimer.Reset();
-////                if (uiStatusLedState)
-////                {
-////        CPlatform::TxLedOff();
-//////                    CPlatform::StatusLedOff();
-////                    uiStatusLedState = 0;
-////                }
-////                else
-////                {
-////        CPlatform::TxLedOn();
-//////                    CPlatform::StatusLedOn();
-////                    uiStatusLedState = 1;
-////                }
-////                uiWatchDogStepID |= 0x03;
-////            }
-//
-////            if (xLedTimer.IsOverflow())
-////            {
-////                xLedTimer.Reset();
-////                if (uiLedState)
-////                {
-////                    CPlatform::TxLedOff();
-////                    uiLedState = 0;
-////                }
-////                else
-////                {
-////                    CPlatform::TxLedOn();
-////                    uiLedState = 1;
-////                }
-////            }
-//
-//        case MAIN_SECOND_STEP:
-//            break;
-//
-//        case MAIN_THIRD_REBOOT:
-//            MainReboot();
-//            break;
-//
-//        case MAIN_STOP:
-//            break;
-//
-//        default:
-//            break;
-//        }
 
 //        // все задачи программы ответили?
 //        if (uiWatchDogStepID == 0x03)
@@ -173,8 +74,6 @@ int main()
 //            uiWatchDogStepID = 0;
         CPlatform::WatchdogReset();
 //        }
-
-
     }
 
     return 0;

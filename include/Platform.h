@@ -191,54 +191,6 @@ private:
 
 
 
-//---------------------------------------- UART -------------------------------------------------------------------------------
-////#define ttyO0 USART0
-////#define ttyO1 USART1
-////#define MODBUS_RTU_BAUD_RATE          9600
-////#define DEBUG_PORT_BAUD_RATE          9600
-//#define UART_BAUD_CALC(MODBUS_RTU_BAUD_RATE,F_CPU) \
-//    ( ( F_CPU ) / ( ( MODBUS_RTU_BAUD_RATE ) * 16UL ) - 1 )
-//#define UART_BUFFER_LENGTH 260
-//#define UART_INTERMEDIATE_BUFFER_LENGTH 16
-//#define RTS_ENABLE
-
-////extern uint8_t *pucUsartTxBuff;
-////extern uint16_t nuiUsartTxBuffByteCounter;
-////extern uint8_t *pucUsartRxBuff;
-////extern uint16_t nuiUsartRxBuffByteCounter;
-////extern uint8_t aucUsartIntermediateBufff[];
-////extern bool bfModbusUartByteIsReceived;
-////extern bool bfTaskIsAwakened;
-////extern bool bfModbusUsartRxOverflow;
-////
-////int16_t iModbusUartInit(char *pucPORT,
-////                        uint32_t ulBaudRate,
-////                        uint8_t ucDataBits,
-////                        uint8_t ucParity,
-////                        uint8_t ucStopBit );
-////void vModbusUartEnable(void);
-////void vModbusUartDisable(void);
-////
-//////ssize_t write (int16_t fd, const void * buffer, size_t count);
-//////#define write(Socket, Source, Length) iModbusUsartSend(Socket, Source, Length)
-//////#define write CUart::Send
-//////#define write Send
-////
-////int16_t iModbusUsartSend(int16_t iSocket, const uint8_t *puiSource, int16_t uiLength);
-//////ssize_t read (int16_t fd, void * buffer, size_t count);
-//////#define read(Socket, Destination, Length) iModbusUsartReceive(Socket, Destination, Length)
-//////#define read CUart::Receive
-//////#define read Receive
-////int16_t iModbusUsartReceive(int8_t iSocket, uint8_t *pucDestination, int16_t uiLength);
-//void vDebugUARTInit(void);
-////int16_t MyLowLevelPutchar(int16_t sendchar);
-//int16_t MyLowLevelPutchar(char sendchar);
-//char MyLowLevelGetchar(void);
-////int16_t PutString(char *pcSource);
-////int16_t PutString(const char __farflash *pcSource);
-////int16_t R_printf_P(const char __farflash* ccSource, int iData);
-////const char* ccFlashToRamStringRead(const char __farflash* pccfSource);
-
 
 //-----------------------------------------------------------------------------------------------------
 class CUart
@@ -378,6 +330,7 @@ public:
     static void Init(uint8_t * , uint8_t * );
     static void Enable(void);
     static void Disable(void);
+    static void SendByte(uint8_t uiData);
 //    static void RecvInterruptHandler(void);
     static int16_t Exchange(void);
 //    static uint8_t Read(uint8_t * , uint16_t , uint16_t );

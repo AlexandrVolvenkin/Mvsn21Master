@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          22/May/2022  18:40:50
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          06/Jul/2022  10:17:27
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EW39B1.tmp
+//        -f C:\Users\ghost\AppData\Local\Temp\EW889.tmp
 //        (--string_literals_in_flash
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
 //        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
@@ -33,7 +33,6 @@
 //      not produce an equivalent object file to the one produced
 //      by the C++ compiler.
 
-        PUBLIC ??MainReboot
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
         PUBWEAK _A_ADCSRA
@@ -126,6 +125,7 @@
 ??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 23>`
 ??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 14>`
 ??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 14>`
+??m_axSameStateCheck SYMBOL "m_axSameStateCheck", `?<Name CMvsn21 23>`
 ??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CModbus 1>`
 ??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 23>`
 
@@ -144,8 +144,10 @@
         EXTERN ??m_aui8TransmitMessageBuff
         EXTERN ??m_auiSpiRxBuffer
         EXTERN ??m_auiSpiTxBuffer
+        EXTERN ??m_axSameStateCheck
         EXTERN ??m_uiFlowControl
         EXTERN ??m_uiMeasureFlowControl
+        EXTERN memset
 
 // D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    1 //-----------------------------------------------------------------------------------------------------
@@ -155,7 +157,7 @@
 //    5 //  email       : aav-36@mail.ru
 //    6 //  GitHub      : https://github.com/AlexandrVolvenkin
 //    7 //-----------------------------------------------------------------------------------------------------
-//    8 //-----------------------------------------------------------------------------------------------------
+//    8 
 //    9 #include "Platform.h"
 
         ASEGN ABSOLUTE:DATA:ROOT,0c6H
@@ -552,63 +554,42 @@ _A_DDRB:
 // union <unnamed> volatile __io _A_PINB
 _A_PINB:
         DS8 1
-//   10 //#include "Config.h"
-//   11 #include "Timer.h"
-//   12 #include "Mvsn21.h"
-//   13 #include "Modbus.h"
-//   14 #include "ModbusRTU.h"
-//   15 //#include "InputDevice.h"
-//   16 
-//   17 
-//   18 
-//   19 
-//   20 ////-----------------------------------------------------------------------------------------------------
-//   21 //void MainCycle(void)
-//   22 //{
-//   23 //    if (xLedTimer.IsOverflow())
-//   24 //    {
-//   25 //        xLedTimer.Reset();
-//   26 //    }
-//   27 //}
-//   28 
-//   29 //-----------------------------------------------------------------------------------------------------
+//   10 #include "Timer.h"
+//   11 #include "Mvsn21.h"
+//   12 #include "Modbus.h"
+//   13 #include "ModbusRTU.h"
+//   14 
+//   15 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//   30 void MainReboot()
-??MainReboot:
-//   31 {
-//   32 
-//   33 }
-        RET
-//   34 
-//   35 //-----------------------------------------------------------------------------------------------------
-
-        RSEG CODE:CODE:NOROOT(1)
-//   36 int main()
+//   16 int main()
 main:
-//   37 {
-//   38 
-//   39     enum
-//   40     {
-//   41         MAIN_START,
-//   42         MAIN_FIRST_STEP,
-//   43         MAIN_SECOND_STEP,
-//   44         MAIN_THIRD_STEP,
-//   45         MAIN_FORTH_STEP,
-//   46         MAIN_THIRD_REBOOT,
-//   47         MAIN_STOP
-//   48     };
-//   49 
-//   50 //    CPlatform::WatchdogEnable();
-//   51     CPlatform::Init();
+//   17 {
+//   18 
+//   19     enum
+//   20     {
+//   21         MAIN_START,
+//   22         MAIN_FIRST_STEP,
+//   23         MAIN_SECOND_STEP,
+//   24         MAIN_THIRD_STEP,
+//   25         MAIN_FORTH_STEP,
+//   26         MAIN_THIRD_REBOOT,
+//   27         MAIN_STOP
+//   28     };
+//   29 
+//   30     CPlatform::WatchdogEnable();
+        WDR
+        LDS     R16, _A_WDTCSR
+        ORI     R16, 0x18
+        STS     _A_WDTCSR, R16
+        LDS     R16, _A_WDTCSR
+        ORI     R16, 0x07
+        STS     _A_WDTCSR, R16
+//   31     CPlatform::Init();
         RCALL   ??Init
-//   52     CPlatform::InterruptEnable();
+//   32     CPlatform::InterruptEnable();
         SEI
-//   53 //    CTimer xStatusLedTimer(500);
-//   54 //    CTimer xLedTimer(500);
-//   55 //    CTimer xPeripheryTimer(10);
-//   56 //    CTimer xMainCycleTimer(100);
-//   57     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
+//   33     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
         LDI     R16, 0
         ST      -Y, R16
         LDI     R17, 0
@@ -629,24 +610,21 @@ main:
         LDI     R19, 0
         LDI     R16, LOW(197)
         RCALL   ??UartBind
-//   58 //    CPlatform::m_pxUart0 = &xUart0;
-//   59 
-//   60 ////    CModbusRTU xModbusRtuOne;
-//   61     CModbusRTU::Init(0,//CPlatform::m_pxUart0,
-//   62                      MODBUS_RTU_BAUD_RATE,
-//   63                      'N',
-//   64                      8,
-//   65                      1,
-//   66                      CMvsn21::m_aui8ReceiveMessageBuff,
-//   67                      CMvsn21::m_aui8TransmitMessageBuff,
-//   68                      0,//CMvsn21::m_aucRtuCoilsArray,
-//   69                      CMvsn21::m_aucRtuDiscreteInputsArray,
-//   70                      0,//CMvsn21::m_aucRtuHoldingRegistersArray,
-//   71                      0,//CMvsn21::m_aucRtuInputRegistersArray,
-//   72                      COILS_WORK_ARRAY_LENGTH,
-//   73                      DISCRETE_INPUTS_ARRAY_LENGTH,
-//   74                      HOLDING_REGISTERS_ARRAY_LENGTH,
-//   75                      INPUT_REGISTERS_ARRAY_LENGTH);
+//   34     CModbusRTU::Init(0,//CPlatform::m_pxUart0,
+//   35                      MODBUS_RTU_BAUD_RATE,
+//   36                      'N',
+//   37                      8,
+//   38                      1,
+//   39                      CMvsn21::m_aui8ReceiveMessageBuff,
+//   40                      CMvsn21::m_aui8TransmitMessageBuff,
+//   41                      0,//CMvsn21::m_aucRtuCoilsArray,
+//   42                      CMvsn21::m_aucRtuDiscreteInputsArray,
+//   43                      0,//CMvsn21::m_aucRtuHoldingRegistersArray,
+//   44                      0,//CMvsn21::m_aucRtuInputRegistersArray,
+//   45                      COILS_WORK_ARRAY_LENGTH,
+//   46                      DISCRETE_INPUTS_ARRAY_LENGTH,
+//   47                      HOLDING_REGISTERS_ARRAY_LENGTH,
+//   48                      INPUT_REGISTERS_ARRAY_LENGTH);
         LDI     R16, 8
         LDI     R17, 0
         RCALL   ?Subroutine0
@@ -687,146 +665,69 @@ main:
         LDI     R16, 0
         LDI     R17, 0
         RCALL   ??Init_1
-//   76     CModbusRTU::SlaveSet(1);
+//   49     CModbusRTU::SlaveSet(1);
         LDI     R16, 1
         RCALL   ??SlaveSet
-//   77 //    CModbusRTU::ReceiveEnable();
-//   78 //    CUart::ReceiveEnable();
-//   79 //    CModbusRTU::FlowControlSet(CModbus::START_REQUEST);
-//   80     CModbusRTU::FlowControlSet(CModbus::IDDLE);
+//   50     CModbusRTU::FlowControlSet(CModbus::IDDLE);
         LDI     R16, 0
         STS     ??m_uiFlowControl, R16
-//   81 
-//   82     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
+//   51 
+//   52     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
         LDI     R18, LOW(??m_auiSpiTxBuffer)
         LDI     R19, (??m_auiSpiTxBuffer) >> 8
         LDI     R16, LOW(??m_auiSpiRxBuffer)
         LDI     R17, (??m_auiSpiRxBuffer) >> 8
         RCALL   ??Init_2
-//   83     CMvsn21::SpiBusExchangeEnable();
+//   53     CMvsn21::SpiBusExchangeEnable();
         RCALL   ??SpiBusExchangeEnable
-//   84 
-//   85     CAdc::Init();
+//   54 
+//   55     CAdc::Init();
         RCALL   ??Init_3
-//   86     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
+//   56     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_aucRtuDiscreteInputsArray)), 0, sizeof(CMvsn21::m_aucRtuDiscreteInputsArray));
+        LDI     R20, 48
+        LDI     R21, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R16, LOW(??m_aucRtuDiscreteInputsArray)
+        LDI     R17, (??m_aucRtuDiscreteInputsArray) >> 8
+        RCALL   memset
+//   57     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_axSameStateCheck)), 0, sizeof(CMvsn21::m_axSameStateCheck));
+        LDI     R20, 16
+        LDI     R21, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R16, LOW(??m_axSameStateCheck)
+        LDI     R17, (??m_axSameStateCheck) >> 8
+        RCALL   memset
+//   58     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
         LDI     R16, 0
         STS     ??m_uiMeasureFlowControl, R16
-//   87 
-//   88     uint8_t uiMainFsmState = MAIN_START;
-//   89     uint8_t uiStatusLedState = 0;;
-//   90     uint8_t uiLedState = 0;
-//   91     uint8_t uiWatchDogStepID = 0;
-//   92 
-//   93     while(1)
-//   94     {
-//   95         CMvsn21::SpiFsm();
+//   59 
+//   60     uint8_t uiMainFsmState = MAIN_START;
+//   61     uint8_t uiStatusLedState = 0;;
+//   62     uint8_t uiLedState = 0;
+//   63     uint8_t uiWatchDogStepID = 0;
+//   64 
+//   65     while(1)
+//   66     {
+//   67         CMvsn21::SpiFsm();
 ??main_0:
         RCALL   ??SpiFsm
-//   96         CModbusRTU::Execution();
+//   68         CModbusRTU::Execution();
         RCALL   ??Execution
-//   97         CMvsn21::MeasureFsm();
+//   69         CMvsn21::MeasureFsm();
         RCALL   ??MeasureFsm
-//   98 //
-//   99 //        if (xPeripheryTimer.IsOverflow())
-//  100 //        {
-//  101 //            xPeripheryTimer.Reset();
-//  102 //        }
-//  103 
-//  104 //        if (xMainCycleTimer.IsOverflow())
-//  105 //        {
-//  106 //            xMainCycleTimer.Reset();
-//  107 //            if (CModbus::m_uiSlaveAddress >= 2)
-//  108 //            {
-//  109 //                CModbus::m_uiSlaveAddress = 1;
-//  110 //            }
-//  111 //            else
-//  112 //            {
-//  113 //                CModbus::m_uiSlaveAddress += 1;
-//  114 //            }
-//  115 //            CModbus::ReadDiscreteInputsRequest((CModbus::m_uiSlaveAddress),
-//  116 //                                               0,
-//  117 //                                               (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
-//  118 //        }
-//  119 
-//  120 //        if (CSpi::DataExchangeIsOccur())
-//  121 //        {
-//  122 //            CSpi::DataExchangeIsOccurClear();
-//  123 //        }
-//  124 
-//  125 //        switch (uiMainFsmState)
-//  126 //        {
-//  127 //        case MAIN_START:
-//  128 //            uiMainFsmState = MAIN_FIRST_STEP;
-//  129 //            break;
-//  130 //
-//  131 //        case MAIN_FIRST_STEP:
-//  132 //////            MainCycle();
-//  133 ////            if (xStatusLedTimer.IsOverflow())
-//  134 ////            {
-//  135 ////                xStatusLedTimer.Reset();
-//  136 ////                if (uiStatusLedState)
-//  137 ////                {
-//  138 ////        CPlatform::TxLedOff();
-//  139 //////                    CPlatform::StatusLedOff();
-//  140 ////                    uiStatusLedState = 0;
-//  141 ////                }
-//  142 ////                else
-//  143 ////                {
-//  144 ////        CPlatform::TxLedOn();
-//  145 //////                    CPlatform::StatusLedOn();
-//  146 ////                    uiStatusLedState = 1;
-//  147 ////                }
-//  148 ////                uiWatchDogStepID |= 0x03;
-//  149 ////            }
-//  150 //
-//  151 ////            if (xLedTimer.IsOverflow())
-//  152 ////            {
-//  153 ////                xLedTimer.Reset();
-//  154 ////                if (uiLedState)
-//  155 ////                {
-//  156 ////                    CPlatform::TxLedOff();
-//  157 ////                    uiLedState = 0;
-//  158 ////                }
-//  159 ////                else
-//  160 ////                {
-//  161 ////                    CPlatform::TxLedOn();
-//  162 ////                    uiLedState = 1;
-//  163 ////                }
-//  164 ////            }
-//  165 //
-//  166 //        case MAIN_SECOND_STEP:
-//  167 //            break;
-//  168 //
-//  169 //        case MAIN_THIRD_REBOOT:
-//  170 //            MainReboot();
-//  171 //            break;
-//  172 //
-//  173 //        case MAIN_STOP:
-//  174 //            break;
-//  175 //
-//  176 //        default:
-//  177 //            break;
-//  178 //        }
-//  179 
-//  180 //        // все задачи программы ответили?
-//  181 //        if (uiWatchDogStepID == 0x03)
-//  182 //        {
-//  183 //            uiWatchDogStepID = 0;
-//  184         CPlatform::WatchdogReset();
-        WDR
-//  185 //        }
-//  186 
-//  187 
-//  188     }
         RJMP    ??main_0
         REQUIRE _A_UBRR0
         REQUIRE _A_UCSR0A
         REQUIRE _A_UCSR0B
         REQUIRE _A_UCSR0C
         REQUIRE _A_UDR0
-//  189 
-//  190     return 0;
-//  191 }
+        REQUIRE _A_WDTCSR
+//   70     }
+//   71 
+//   72     return 0;
+//   73 }
 
         RSEG CODE:CODE:NOROOT(1)
 ?Subroutine1:
@@ -857,10 +758,10 @@ __?EEARL:
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 160 bytes in segment CODE
+// 206 bytes in segment CODE
 //   2 bytes in segment NEAR_F
 // 
-// 162 bytes of CODE memory
+// 208 bytes of CODE memory
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

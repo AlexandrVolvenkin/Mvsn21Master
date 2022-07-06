@@ -7,9 +7,10 @@ __interrupt void SIG_SPI_STC(void)
 {
     SPDR = CSpi::m_uiExchangeByte;
     CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
-    CSpi::m_uiExchangeByte = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter + 1];
+    CSpi::m_uiExchangeByte = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter];
+//    CSpi::m_uiExchangeByte = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter + 1];
 
-    // Р±СѓС„РµСЂ РїСЂРёС‘РјР° РЅРµ РїРµСЂРµРїРѕР»РЅРµРЅ?
+    // буфер приёма не переполнен?
     if (CSpi::m_nuiBuffByteCounter <
             CSpi::BUFFER_LENGTH)
     {
@@ -18,8 +19,8 @@ __interrupt void SIG_SPI_STC(void)
     }
     else
     {
-        // РЅРµ РёРЅРєСЂРµРјРµРЅС‚РёСЂСѓРµРј m_nuiBuffByteCounter, С‡С‚РѕР±С‹ РЅРµ РІС‹Р№С‚Рё Р·Р° РіСЂР°РЅРёС†С‹ Р±СѓС„РµСЂР°.
-        // СѓСЃС‚Р°РЅРѕРІРёРј С„Р»Р°Рі - РїСЂРѕРёР·РѕС€РµР» РѕР±РјРµРЅ РґР°РЅРЅС‹РјРё РїРѕ SPI.
+        // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+        // установим флаг - произошел обмен данными по SPI.
         CSpi::m_bfRxBuffOverflow = 1;
         CSpi::m_bfByteIsReceived = 1;
     }

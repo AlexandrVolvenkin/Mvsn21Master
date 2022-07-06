@@ -63,7 +63,7 @@ SIG_SPI_STC         SYMBOL "SIG_SPI_STC"
         LDD     R16, Z+1
         STS     ??m_uiExchangeByte, R16
 //   11
-//   12     // Р±СѓС„РµСЂ РїСЂРёС‘РјР° РЅРµ РїРµСЂРµРїРѕР»РЅРµРЅ?
+//   12     // буфер приёма не переполнен?
 //   13     if (CSpi::m_nuiBuffByteCounter <
 //   14             CSpi::BUFFER_LENGTH)
         LDS     R30, ??m_nuiBuffByteCounter
@@ -84,8 +84,8 @@ SIG_SPI_STC         SYMBOL "SIG_SPI_STC"
 //   18     }
 //   19     else
 //   20     {
-//   21         // РЅРµ РёРЅРєСЂРµРјРµРЅС‚РёСЂСѓРµРј m_nuiBuffByteCounter, С‡С‚РѕР±С‹ РЅРµ РІС‹Р№С‚Рё Р·Р° РіСЂР°РЅРёС†С‹ Р±СѓС„РµСЂР°.
-//   22         // СѓСЃС‚Р°РЅРѕРІРёРј С„Р»Р°Рі - РїСЂРѕРёР·РѕС€РµР» РѕР±РјРµРЅ РґР°РЅРЅС‹РјРё РїРѕ SPI.
+//   21         // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+//   22         // установим флаг - произошел обмен данными по SPI.
 //   23         CSpi::m_bfRxBuffOverflow = 1;
 ??SIG_SPI_STC_1:
         LDI     R16, 1

@@ -65,8 +65,8 @@ void CModbusRTU::Init(CUart* pxDevice,
                       uint16_t *pui16InputRegisters,
                       uint16_t uiCoilsNumber,
                       uint16_t uiDiscreteInputsNumber,
-                      uint16_t uiInputRegistersNumber,
-                      uint16_t uiHoldingRegistersNumber)
+                      uint16_t uiHoldingRegistersNumber,
+                      uint16_t uiInputRegistersNumber)
 {
 //    m_pxDevice = pxDevice;
     m_uiBaudRate = uiBaudRate;
@@ -482,7 +482,7 @@ void CModbusRTU::Execution(void)
     case FRAME_TRANSMIT_REQUEST:
         GetSystemTime();
         Reset();
-        CPlatform::TxLedOn();
+//        CPlatform::TxLedOn();
         m_uiFlowControl = WAITING_FRAME_TRANSMIT_REQUEST;
         break;
 
@@ -499,7 +499,7 @@ void CModbusRTU::Execution(void)
         if (MessageIsSended())
         {
             TransmitDisable();
-            CPlatform::TxLedOff();
+//            CPlatform::TxLedOff();
             m_uiFlowControl = START_CONFIRMATION;
         }
 

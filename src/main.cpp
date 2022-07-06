@@ -27,7 +27,7 @@ int main()
         MAIN_STOP
     };
 
-//    CPlatform::WatchdogEnable();
+    CPlatform::WatchdogEnable();
     CPlatform::Init();
     CPlatform::InterruptEnable();
     CUart::UartBind(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0, 0, 0, 0, 0);
@@ -53,6 +53,8 @@ int main()
     CMvsn21::SpiBusExchangeEnable();
 
     CAdc::Init();
+    memset((reinterpret_cast<uint8_t*>(CMvsn21::m_aucRtuDiscreteInputsArray)), 0, sizeof(CMvsn21::m_aucRtuDiscreteInputsArray));
+    memset((reinterpret_cast<uint8_t*>(CMvsn21::m_axSameStateCheck)), 0, sizeof(CMvsn21::m_axSameStateCheck));
     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
 
     uint8_t uiMainFsmState = MAIN_START;
@@ -65,13 +67,6 @@ int main()
         CMvsn21::SpiFsm();
         CModbusRTU::Execution();
         CMvsn21::MeasureFsm();
-
-//        // все задачи программы ответили?
-//        if (uiWatchDogStepID == 0x03)
-//        {
-//            uiWatchDogStepID = 0;
-        CPlatform::WatchdogReset();
-//        }
     }
 
     return 0;
