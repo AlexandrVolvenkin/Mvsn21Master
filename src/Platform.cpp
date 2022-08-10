@@ -590,6 +590,20 @@ void CSpi::Reset(void)
 //-----------------------------------------------------------------------------------------------------
 void CSpi::SendByte(uint8_t uiData)
 {
+    uint8_t uiGuardCounter = 0;
+
+    while(!(SPSR & BIT(SPIF)))
+    {
+        if (uiGuardCounter < 100)
+        {
+            uiGuardCounter++;
+        }
+        else
+        {
+            return;
+        }
+    };
+
     SPDR = uiData;
 }
 

@@ -5,15 +5,19 @@
 #pragma vector = SPI_STC_vect
 __interrupt void SIG_SPI_STC(void)
 {
+//    uint8_t uiSpdr = SPDR;
+
     if (CSpi::m_nuiBuffByteCounter)
     {
+        uiSpdr = SPDR;
         SPDR = CSpi::m_puiTxBuffer[CSpi::m_nuiBuffByteCounter];
-        CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+        CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = uiSpdr;
     }
     else
     {
-        SPDR = SPDR;
-        CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+        uiSpdr = SPDR;
+        SPDR = uiSpdr;
+        CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = uiSpdr;
     }
 
     // буфер приёма не переполнен?

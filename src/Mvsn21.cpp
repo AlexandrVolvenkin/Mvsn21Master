@@ -185,13 +185,10 @@ void CMvsn21::SpiBusExchangeEnable(void)
 //-----------------------------------------------------------------------------------------------------------------
 int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
 {
-    CSpi::SendByte(COMMAND_REPORT_TYPE);
     uiLength = 0;
-    uint8_t uiCrc = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
-////    puiResponse[uiLength++] = 0;
-//    puiResponse[uiLength++] = COMMAND_REPORT_TYPE;
+    puiResponse[uiLength++] = 0;
     puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
-    puiResponse[uiLength++] = uiCrc;
+    puiResponse[uiLength++] = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
 
     return uiLength;
 }
@@ -199,16 +196,10 @@ int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t 
 //-----------------------------------------------------------------------------------------------------------------
 int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
 {
-    CSpi::SendByte(COMMAND_READ_DATA);
-
     uiLength = 0;
-//    // Протокол обмена данными по шине Spi.
-//    // Первый байт - пустой.
-//    puiResponse[uiLength++] = 0;
-////    // Второй байт - "эхо".
-////    puiResponse[uiLength++] = COMMAND_READ_DATA;
-//    // Третий байт - команда обмен данными.
-//    puiResponse[uiLength++] = COMMAND_READ_DATA;
+    // Протокол обмена данными по шине Spi.
+    // Первый байт - пустой.
+    puiResponse[uiLength++] = 0;
 
     // Следующие шесть байт - данные состояния дискретных входов.
     // Упакуем двухбитовые данные состояния измерительных каналов всех чипов в дискретные входы.
@@ -260,10 +251,10 @@ int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t ui
 EndStateDataPack:
 
     // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
-//    puiResponse[uiLength] =
-//        usCrcSummOneByteCalculation(&puiResponse[2], (uiLength - 2));
     puiResponse[uiLength] =
-        usCrcSummOneByteCalculation(&puiResponse[0], (uiLength));
+        (usCrcSummOneByteCalculation(&puiResponse[0], (uiLength)) +
+         // Код запроса.
+         puiRequest[0]);
 
     return uiLength;
 }

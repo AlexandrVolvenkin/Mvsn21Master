@@ -588,19 +588,24 @@ void CSpi::Reset(void)
 }
 
 //-----------------------------------------------------------------------------------------------------
-void CSpi::SendByte(void)
+void CSpi::SendByte(uint8_t uiData)
 {
-    m_nuiBuffByteCounter = 0;
-    m_uiReceivedByteCounter = 0;
-    m_bfByteIsReceived = 0;
-    m_bfByteIsTransmited = 0;
-    m_bfDataExchangeInProgress = 0;
-    m_bfDataExchangeIsOccur = 0;
-    m_bfRxBuffOverflow = 0;
-    m_uiExchangeByte = 0;
+    
+    while(!(SPSR & BIT(SPIF)))
+    {
+        if (uiGuardCounter < 100)
+        {
+            uiGuardCounter++;
+        }
+        else
+        {
+            return  SPDR;
+        }
+    };
+    
+    SPDR = uiData;
 }
 
-    SPDR = CSpi::m_uiExchangeByte;
 //-----------------------------------------------------------------------------------------------------
 int16_t CSpi::Exchange(void)
 {
