@@ -1,25 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          02/Dec/2022  16:58:08
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          29/Jun/2023  11:23:04
 // Copyright 1996-2018 IAR Systems AB.
 //
 //    Source file  =  
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\SpiInterrupt.cpp
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\SpiInterrupt.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWFEFC.tmp
+//        -f C:\Users\Admin\AppData\Local\Temp\EW15.tmp
 //        (--string_literals_in_flash
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\SpiInterrupt.cpp
-//        --cpu=m48 -ms -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj
-//        -lB D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\SpiInterrupt.cpp
+//        --cpu=m48 -ms -o
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\List
 //        --initializers_in_flash --root_variables --debug
 //        -DENABLE_BIT_DEFINITIONS -e -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
-//        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz --eec++)
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\include\ -I
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Modbus\
+//        --eeprom_size 256 --dlib --dlib_config "C:\Program Files (x86)\IAR
+//        Systems\Embedded Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz
+//        --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\SpiInterrupt.s90
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\List\SpiInterrupt.s90
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -125,6 +127,7 @@
 ??m_nuiBuffByteCounter SYMBOL "m_nuiBuffByteCounter", `?<Name CSpi 0>`
 ??m_puiRxBuffer     SYMBOL "m_puiRxBuffer", `?<Name CSpi 0>`
 ??m_puiTxBuffer     SYMBOL "m_puiTxBuffer", `?<Name CSpi 0>`
+??m_uiErrorCode     SYMBOL "m_uiErrorCode", `?<Name CSpi 0>`
 
 `??SIG_SPI_STC::??INTVEC 34` SYMBOL "??INTVEC 34", ??SIG_SPI_STC
 
@@ -133,10 +136,10 @@
         EXTERN ??m_nuiBuffByteCounter
         EXTERN ??m_puiRxBuffer
         EXTERN ??m_puiTxBuffer
+        EXTERN ??m_uiErrorCode
 
-// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\SpiInterrupt.cpp
-//    1 
-//    2 #include "Platform.h"
+// D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\SpiInterrupt.cpp
+//    1 #include "Platform.h"
 
         ASEGN ABSOLUTE:DATA:ROOT,0c6H
 // union <unnamed> volatile __io _A_UDR0
@@ -532,6 +535,7 @@ _A_DDRB:
 // union <unnamed> volatile __io _A_PINB
 _A_PINB:
         DS8 1
+//    2 #include "Mvsn21.h"
 //    3 
 //    4 //-----------------------------------------------------------------------------------------------------
 //    5 #pragma vector = SPI_STC_vect
@@ -575,26 +579,50 @@ _A_PINB:
         RJMP    ??CrossCallReturnLabel_1
 //   13     else
 //   14     {
-//   15         SPDR = SPDR;
+//   15         if (SPDR == CMvsn21::COMMAND_REPORT_TYPE)
 ??SIG_SPI_STC_1:
         IN      R16, 0x2E
+        CPI     R16, 145
+        BREQ    ??SIG_SPI_STC_2
+//   16         {
+//   17             SPDR = SPDR;
+//   18             CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+//   19         }
+//   20         else
+//   21         {
+//   22             if (CSpi::m_uiErrorCode)
+        LDS     R16, ??m_uiErrorCode
+        TST     R16
+        BRNE    ??SIG_SPI_STC_3
+//   23             {
+//   24                 SPDR = CSpi::m_uiErrorCode;
+//   25                 CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+//   26             }
+//   27             else
+//   28             {
+//   29                 SPDR = SPDR;
+??SIG_SPI_STC_2:
+        IN      R16, 0x2E
+??SIG_SPI_STC_3:
         OUT     0x2E, R16
-//   16         CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+//   30                 CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
         IN      R16, 0x2E
         RCALL   ?Subroutine0
-//   17     }
+//   31             }
+//   32         }
+//   33     }
 ??CrossCallReturnLabel_1:
         ST      Z, R16
-//   18 
-//   19     // буфер приёма не переполнен?
-//   20     if (CSpi::m_nuiBuffByteCounter <
-//   21             CSpi::BUFFER_LENGTH)
+//   34 
+//   35     // буфер приёма не переполнен?
+//   36     if (CSpi::m_nuiBuffByteCounter <
+//   37             CSpi::BUFFER_LENGTH)
         LDS     R30, ??m_nuiBuffByteCounter
         LDS     R31, (??m_nuiBuffByteCounter + 1)
         SBIW    R31:R30, 16
-        BRCC    ??SIG_SPI_STC_2
-//   22     {
-//   23         CSpi::m_nuiBuffByteCounter++;
+        BRCC    ??SIG_SPI_STC_4
+//   38     {
+//   39         CSpi::m_nuiBuffByteCounter++;
         LDI     R30, LOW(??m_nuiBuffByteCounter)
         LDI     R31, (??m_nuiBuffByteCounter) >> 8
         LD      R16, Z
@@ -603,23 +631,23 @@ _A_PINB:
         SBCI    R17, 255
         ST      Z, R16
         STD     Z+1, R17
-//   24         CSpi::m_bfByteIsReceived = 1;
-        RJMP    ??SIG_SPI_STC_3
-//   25     }
-//   26     else
-//   27     {
-//   28         // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
-//   29         // установим флаг - произошел обмен данными по SPI.
-//   30         CSpi::m_bfRxBuffOverflow = 1;
-??SIG_SPI_STC_2:
+//   40         CSpi::m_bfByteIsReceived = 1;
+        RJMP    ??SIG_SPI_STC_5
+//   41     }
+//   42     else
+//   43     {
+//   44         // не инкрементируем m_nuiBuffByteCounter, чтобы не выйти за границы буфера.
+//   45         // установим флаг - произошел обмен данными по SPI.
+//   46         CSpi::m_bfRxBuffOverflow = 1;
+??SIG_SPI_STC_4:
         LDI     R16, 1
         STS     ??m_bfRxBuffOverflow, R16
-//   31         CSpi::m_bfByteIsReceived = 1;
-??SIG_SPI_STC_3:
+//   47         CSpi::m_bfByteIsReceived = 1;
+??SIG_SPI_STC_5:
         LDI     R16, 1
         STS     ??m_bfByteIsReceived, R16
-//   32     }
-//   33 }
+//   48     }
+//   49 }
         OUT     0x3F, R20
         LD      R16, Y+
         LD      R17, Y+
@@ -654,11 +682,11 @@ __?EEARL:
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 146 bytes in segment CODE
+// 160 bytes in segment CODE
 //   2 bytes in segment INTVEC
 // 
-// 146 bytes of CODE memory (+  2 bytes shared)
+// 160 bytes of CODE memory (+  2 bytes shared)
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

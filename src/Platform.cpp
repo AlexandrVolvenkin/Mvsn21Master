@@ -30,7 +30,7 @@ void CAdc::Init(void)
     // Отключаем цифровые входные буферы на линиях АЦП.
     DIDR0  = 0x3F;
     // SCK/128
-    ADCSRA = CAdc::DIV128;
+    ADCSRA = CAdc::DIV64;
     ADCSRB = 0x00;
     // Внутренний источник опорного напряжения Vref = 1.1V
     ADMUX = (BIT(REFS1) | BIT(REFS0));
@@ -518,6 +518,7 @@ uint8_t CEeprom::Write(uint16_t uiEepromDestination, uint8_t *pucRamSourse, uint
 
 //----------------------------------------- CSpi ----------------------------------------------------------------
 uint8_t CSpi::m_uiExchangeByte;
+uint8_t CSpi::m_uiErrorCode;
 uint8_t* CSpi::m_puiRxBuffer;
 uint8_t* CSpi::m_puiTxBuffer;
 uint16_t CSpi::m_nuiBuffByteCounter;

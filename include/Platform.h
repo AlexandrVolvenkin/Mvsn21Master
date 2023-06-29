@@ -386,6 +386,7 @@ public:
 //-----------------------------------------------------------------------------------------------------
 //private:
     static uint8_t m_uiExchangeByte;
+    static uint8_t m_uiErrorCode;
     static uint8_t* m_puiRxBuffer;
     static uint8_t* m_puiTxBuffer;
     static uint16_t m_nuiBuffByteCounter;

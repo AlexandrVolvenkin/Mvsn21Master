@@ -1,5 +1,5 @@
-
 #include "Platform.h"
+#include "Mvsn21.h"
 
 //-----------------------------------------------------------------------------------------------------
 #pragma vector = SPI_STC_vect
@@ -12,8 +12,24 @@ __interrupt void SIG_SPI_STC(void)
     }
     else
     {
-        SPDR = SPDR;
-        CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+        if (SPDR == CMvsn21::COMMAND_REPORT_TYPE)
+        {
+            SPDR = SPDR;
+            CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+        }
+        else
+        {
+            if (CSpi::m_uiErrorCode)
+            {
+                SPDR = CSpi::m_uiErrorCode;
+                CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+            }
+            else
+            {
+                SPDR = SPDR;
+                CSpi::m_puiRxBuffer[CSpi::m_nuiBuffByteCounter] = SPDR;
+            }
+        }
     }
 
     // буфер приёма не переполнен?

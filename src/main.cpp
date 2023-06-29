@@ -51,16 +51,24 @@ int main()
 
     CSpi::Init(CSpi::m_auiSpiRxBuffer, CSpi::m_auiSpiTxBuffer);
     CMvsn21::SpiBusExchangeEnable();
+    // для того,чтобы определить текущее состояние входов нужно произвести
+    // измерения. это занимает некоторое время на старте модуля.
+    // чтобы не передавать в прибор недостоверную информацию подождём несколько
+    // циклов и вместо непроверенных данных будем сообщать о том, что они не готовы.
+    CSpi::m_uiErrorCode = CMvsn21::COMMAND_DATA_NOT_READY;
 
     CAdc::Init();
     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_aucRtuDiscreteInputsArray)), 0, sizeof(CMvsn21::m_aucRtuDiscreteInputsArray));
     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_axSameStateCheck)), 0, sizeof(CMvsn21::m_axSameStateCheck));
-    CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
+    CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
 
     uint8_t uiMainFsmState = MAIN_START;
     uint8_t uiStatusLedState = 0;;
     uint8_t uiLedState = 0;
     uint8_t uiWatchDogStepID = 0;
+
+
+    CMvsn21::m_uiStartSkippedCyclesNumber = 0;
 
     while(1)
     {

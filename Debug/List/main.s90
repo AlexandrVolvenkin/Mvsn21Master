@@ -1,24 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          02/Dec/2022  16:58:06
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          29/Jun/2023  11:21:55
 // Copyright 1996-2018 IAR Systems AB.
 //
-//    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+//    Source file  =  
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWF66E.tmp
+//        -f C:\Users\Admin\AppData\Local\Temp\EWF323.tmp
 //        (--string_literals_in_flash
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp --cpu=m48 -ms -o
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+//        --cpu=m48 -ms -o
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\List
 //        --initializers_in_flash --root_variables --debug
 //        -DENABLE_BIT_DEFINITIONS -e -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
-//        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz --eec++)
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\include\ -I
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Modbus\
+//        --eeprom_size 256 --dlib --dlib_config "C:\Program Files (x86)\IAR
+//        Systems\Embedded Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz
+//        --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\main.s90
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\List\main.s90
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -126,8 +129,10 @@
 ??m_auiSpiRxBuffer  SYMBOL "m_auiSpiRxBuffer", `?<Name CSpi 14>`
 ??m_auiSpiTxBuffer  SYMBOL "m_auiSpiTxBuffer", `?<Name CSpi 14>`
 ??m_axSameStateCheck SYMBOL "m_axSameStateCheck", `?<Name CMvsn21 23>`
+??m_uiErrorCode     SYMBOL "m_uiErrorCode", `?<Name CSpi 14>`
 ??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CModbus 1>`
 ??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 23>`
+??m_uiStartSkippedCyclesNumber SYMBOL "m_uiStartSkippedCyclesNumber", `?<Name CMvsn21 23>`
 
         EXTERN ??Execution
         EXTERN ??Init
@@ -145,11 +150,13 @@
         EXTERN ??m_auiSpiRxBuffer
         EXTERN ??m_auiSpiTxBuffer
         EXTERN ??m_axSameStateCheck
+        EXTERN ??m_uiErrorCode
         EXTERN ??m_uiFlowControl
         EXTERN ??m_uiMeasureFlowControl
+        EXTERN ??m_uiStartSkippedCyclesNumber
         EXTERN memset
 
-// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
+// D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\main.cpp
 //    1 //-----------------------------------------------------------------------------------------------------
 //    2 //  Source      : FileName.cpp
 //    3 //  Created     : 01.06.2022
@@ -680,10 +687,17 @@ main:
         RCALL   ??Init_2
 //   53     CMvsn21::SpiBusExchangeEnable();
         RCALL   ??SpiBusExchangeEnable
-//   54 
-//   55     CAdc::Init();
+//   54     // для того,чтобы определить текущее состояние входов нужно произвести
+//   55     // измерения. это занимает некоторое время на старте модуля.
+//   56     // чтобы не передавать в прибор недостоверную информацию подождём несколько
+//   57     // циклов и вместо непроверенных данных будем сообщать о том, что они не готовы.
+//   58     CSpi::m_uiErrorCode = CMvsn21::COMMAND_DATA_NOT_READY;
+        LDI     R16, 36
+        STS     ??m_uiErrorCode, R16
+//   59 
+//   60     CAdc::Init();
         RCALL   ??Init_3
-//   56     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_aucRtuDiscreteInputsArray)), 0, sizeof(CMvsn21::m_aucRtuDiscreteInputsArray));
+//   61     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_aucRtuDiscreteInputsArray)), 0, sizeof(CMvsn21::m_aucRtuDiscreteInputsArray));
         LDI     R20, 48
         LDI     R21, 0
         LDI     R18, 0
@@ -691,7 +705,7 @@ main:
         LDI     R16, LOW(??m_aucRtuDiscreteInputsArray)
         LDI     R17, (??m_aucRtuDiscreteInputsArray) >> 8
         RCALL   memset
-//   57     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_axSameStateCheck)), 0, sizeof(CMvsn21::m_axSameStateCheck));
+//   62     memset((reinterpret_cast<uint8_t*>(CMvsn21::m_axSameStateCheck)), 0, sizeof(CMvsn21::m_axSameStateCheck));
         LDI     R20, 16
         LDI     R21, 0
         LDI     R18, 0
@@ -699,23 +713,28 @@ main:
         LDI     R16, LOW(??m_axSameStateCheck)
         LDI     R17, (??m_axSameStateCheck) >> 8
         RCALL   memset
-//   58     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_IDDLE);
-        LDI     R16, 0
+//   63     CMvsn21::MeasureFlowControlSet(CMvsn21::FSM_START);
+        LDI     R16, 1
         STS     ??m_uiMeasureFlowControl, R16
-//   59 
-//   60     uint8_t uiMainFsmState = MAIN_START;
-//   61     uint8_t uiStatusLedState = 0;;
-//   62     uint8_t uiLedState = 0;
-//   63     uint8_t uiWatchDogStepID = 0;
 //   64 
-//   65     while(1)
-//   66     {
-//   67         CMvsn21::SpiFsm();
+//   65     uint8_t uiMainFsmState = MAIN_START;
+//   66     uint8_t uiStatusLedState = 0;;
+//   67     uint8_t uiLedState = 0;
+//   68     uint8_t uiWatchDogStepID = 0;
+//   69 
+//   70 
+//   71     CMvsn21::m_uiStartSkippedCyclesNumber = 0;
+        LDI     R16, 0
+        STS     ??m_uiStartSkippedCyclesNumber, R16
+//   72 
+//   73     while(1)
+//   74     {
+//   75         CMvsn21::SpiFsm();
 ??main_0:
         RCALL   ??SpiFsm
-//   68         CModbusRTU::Execution();
+//   76         CModbusRTU::Execution();
         RCALL   ??Execution
-//   69         CMvsn21::MeasureFsm();
+//   77         CMvsn21::MeasureFsm();
         RCALL   ??MeasureFsm
         RJMP    ??main_0
         REQUIRE _A_UBRR0
@@ -724,10 +743,10 @@ main:
         REQUIRE _A_UCSR0C
         REQUIRE _A_UDR0
         REQUIRE _A_WDTCSR
-//   70     }
-//   71 
-//   72     return 0;
-//   73 }
+//   78     }
+//   79 
+//   80     return 0;
+//   81 }
 
         RSEG CODE:CODE:NOROOT(1)
 ?Subroutine1:
@@ -758,10 +777,10 @@ __?EEARL:
         END
 // 
 //  87 bytes in segment ABSOLUTE
-// 206 bytes in segment CODE
+// 218 bytes in segment CODE
 //   2 bytes in segment NEAR_F
 // 
-// 208 bytes of CODE memory
+// 220 bytes of CODE memory
 //   0 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none

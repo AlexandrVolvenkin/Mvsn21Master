@@ -1,24 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          02/Dec/2022  16:58:07
+// IAR C/C++ Compiler V7.10.6.1378 for Atmel AVR          29/Jun/2023  11:21:55
 // Copyright 1996-2018 IAR Systems AB.
 //
-//    Source file  =  D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Mvsn21.cpp
+//    Source file  =  
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\Mvsn21.cpp
 //    Command line =  
-//        -f C:\Users\ghost\AppData\Local\Temp\EWFB42.tmp
+//        -f C:\Users\Admin\AppData\Local\Temp\EWF324.tmp
 //        (--string_literals_in_flash
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Mvsn21.cpp --cpu=m48 -ms
-//        -o D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\Mvsn21.cpp
+//        --cpu=m48 -ms -o
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\Obj -lB
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\List
 //        --initializers_in_flash --root_variables --debug
 //        -DENABLE_BIT_DEFINITIONS -e -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\include\ -I
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Modbus\ --eeprom_size 256
-//        --dlib --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
-//        Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz --eec++)
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\include\ -I
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Modbus\
+//        --eeprom_size 256 --dlib --dlib_config "C:\Program Files (x86)\IAR
+//        Systems\Embedded Workbench 8.0\avr\LIB\DLIB\dlAVR-1s-ec_mul-n.h" -Ohz
+//        --eec++)
 //    Locale       =  Russian_RUS.1251
 //    List file    =  
-//        D:\Projects\CautoProjects\Mvsn21\Mvsn21\Debug\List\Mvsn21.s90
+//        D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\Debug\List\Mvsn21.s90
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -58,6 +61,7 @@
         PUBLIC ??m_uiFlowControl
         PUBLIC ??m_uiMeasureFlowControl
         PUBLIC ??m_uiMessageLength
+        PUBLIC ??m_uiStartSkippedCyclesNumber
         PUBLIC ??m_uiType
         PUBWEAK _A_ACSR
         PUBWEAK _A_ADC
@@ -147,18 +151,20 @@
 ??m_bfByteIsReceived SYMBOL "m_bfByteIsReceived", `?<Name CSpi 8>`
 ??m_puiRxBuffer     SYMBOL "m_puiRxBuffer", `?<Name CSpi 8>`
 ??m_puiTxBuffer     SYMBOL "m_puiTxBuffer", `?<Name CSpi 8>`
+??m_uiErrorCode     SYMBOL "m_uiErrorCode", `?<Name CSpi 8>`
 ??m_uiSlaveAddress  SYMBOL "m_uiSlaveAddress", `?<Name CModbus 21>`
-`?<Name CMvsn21 41>` SYMBOL "CMvsn21"
-??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 41>`
-??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 41>`
-??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 41>`
-??m_axMeasurementChannelRemap SYMBOL "m_axMeasurementChannelRemap", `?<Name CMvsn21 41>`
-??m_axSameStateCheck SYMBOL "m_axSameStateCheck", `?<Name CMvsn21 41>`
-??m_uiChannel       SYMBOL "m_uiChannel", `?<Name CMvsn21 41>`
-??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CMvsn21 41>`
-??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 41>`
-??m_uiMessageLength SYMBOL "m_uiMessageLength", `?<Name CMvsn21 41>`
-??m_uiType          SYMBOL "m_uiType", `?<Name CMvsn21 41>`
+`?<Name CMvsn21 42>` SYMBOL "CMvsn21"
+??m_aucRtuDiscreteInputsArray SYMBOL "m_aucRtuDiscreteInputsArray", `?<Name CMvsn21 42>`
+??m_aui8ReceiveMessageBuff SYMBOL "m_aui8ReceiveMessageBuff", `?<Name CMvsn21 42>`
+??m_aui8TransmitMessageBuff SYMBOL "m_aui8TransmitMessageBuff", `?<Name CMvsn21 42>`
+??m_axMeasurementChannelRemap SYMBOL "m_axMeasurementChannelRemap", `?<Name CMvsn21 42>`
+??m_axSameStateCheck SYMBOL "m_axSameStateCheck", `?<Name CMvsn21 42>`
+??m_uiChannel       SYMBOL "m_uiChannel", `?<Name CMvsn21 42>`
+??m_uiFlowControl   SYMBOL "m_uiFlowControl", `?<Name CMvsn21 42>`
+??m_uiMeasureFlowControl SYMBOL "m_uiMeasureFlowControl", `?<Name CMvsn21 42>`
+??m_uiMessageLength SYMBOL "m_uiMessageLength", `?<Name CMvsn21 42>`
+??m_uiStartSkippedCyclesNumber SYMBOL "m_uiStartSkippedCyclesNumber", `?<Name CMvsn21 42>`
+??m_uiType          SYMBOL "m_uiType", `?<Name CMvsn21 42>`
 
         EXTERN ??ChannelSelect
         EXTERN ??Disable
@@ -174,10 +180,11 @@
         EXTERN ??m_bfByteIsReceived
         EXTERN ??m_puiRxBuffer
         EXTERN ??m_puiTxBuffer
+        EXTERN ??m_uiErrorCode
         EXTERN ??m_uiSlaveAddress
         EXTERN ??usCrcSummOneByteCalculation
 
-// D:\Projects\CautoProjects\Mvsn21\Mvsn21\src\Mvsn21.cpp
+// D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\src\Mvsn21.cpp
 //    1 //-----------------------------------------------------------------------------------------------------
 //    2 //  Source      : FileName.cpp
 //    3 //  Created     : 01.06.2022
@@ -603,277 +610,330 @@ _A_PINB:
 ??m_uiFlowControl:
         DS8 1
 //   18 uint8_t CMvsn21::m_uiChannel;
-//   19 uint8_t CMvsn21::m_uiMeasureFlowControl;
-//   20 // Сопоставление входа каналу.
 
         RSEG NEAR_I:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_I>`
-//   21 __flash TChannelRemap CMvsn21::m_axMeasurementChannelRemap[] =
+//   19 uint8_t CMvsn21::m_uiStartSkippedCyclesNumber;
+//   20 uint8_t CMvsn21::m_uiMeasureFlowControl;
+//   21 // Сопоставление входа каналу.
+//   22 __flash TChannelRemap CMvsn21::m_axMeasurementChannelRemap[] =
 ??m_axMeasurementChannelRemap:
         DS8 48
         REQUIRE `?<Initializer for m_axMeasurementChannelRemap>`
+??m_uiStartSkippedCyclesNumber:
+        DS8 1
+        REQUIRE `?<Initializer for m_uiStartSkippedCyclesNumber`
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   22 {
-//   23     // Нумерация входов сверху вниз.
-//   24     // разъём X1.
-//   25     {0, 6},
-//   26     {0, 7},
-//   27     {0, 0},
-//   28     {0, 1},
-//   29     {0, 2},
-//   30     {0, 3},
-//   31     // разъём X2.
-//   32     {0, 4},
-//   33     {0, 5},
-//   34     {1, 6},
-//   35     {1, 7},
-//   36     {1, 0},
-//   37     {1, 1},
-//   38     // разъём X3.
-//   39     {1, 2},
-//   40     {1, 3},
-//   41     {1, 4},
-//   42     {1, 5},
-//   43     {2, 6},
-//   44     {2, 7},
-//   45     // разъём X4.
-//   46     {2, 0},
-//   47     {2, 1},
-//   48     {2, 2},
-//   49     {2, 3},
-//   50     {2, 4},
-//   51     {2, 5},
-//   52 };
-//   53 
-//   54 TSameStateCheck CMvsn21::m_axSameStateCheck[];
+//   23 {
+//   24     // Нумерация входов сверху вниз.
+//   25     // разъём X1.
+//   26     {0, 6},
+//   27     {0, 7},
+//   28     {0, 0},
+//   29     {0, 1},
+//   30     {0, 2},
+//   31     {0, 3},
+//   32     // разъём X2.
+//   33     {0, 4},
+//   34     {0, 5},
+//   35     {1, 6},
+//   36     {1, 7},
+//   37     {1, 0},
+//   38     {1, 1},
+//   39     // разъём X3.
+//   40     {1, 2},
+//   41     {1, 3},
+//   42     {1, 4},
+//   43     {1, 5},
+//   44     {2, 6},
+//   45     {2, 7},
+//   46     // разъём X4.
+//   47     {2, 0},
+//   48     {2, 1},
+//   49     {2, 2},
+//   50     {2, 3},
+//   51     {2, 4},
+//   52     {2, 5},
+//   53 };
+//   54 
+//   55 TSameStateCheck CMvsn21::m_axSameStateCheck[];
 ??m_axSameStateCheck:
         DS8 16
 ??m_uiChannel:
         DS8 1
 ??m_uiMeasureFlowControl:
         DS8 1
-//   55 //uint8_t CMvsn21::m_aucRtuCoilsArray[];
+//   56 //uint8_t CMvsn21::m_aucRtuCoilsArray[];
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   56 uint8_t CMvsn21::m_aucRtuDiscreteInputsArray[];
+//   57 uint8_t CMvsn21::m_aucRtuDiscreteInputsArray[];
 ??m_aucRtuDiscreteInputsArray:
         DS8 48
-//   57 //uint16_t CMvsn21::m_aucRtuHoldingRegistersArray[];
-//   58 //uint16_t CMvsn21::m_aucRtuInputRegistersArray[];
+//   58 //uint16_t CMvsn21::m_aucRtuHoldingRegistersArray[];
+//   59 //uint16_t CMvsn21::m_aucRtuInputRegistersArray[];
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   59 uint8_t CMvsn21::m_aui8ReceiveMessageBuff[];
+//   60 uint8_t CMvsn21::m_aui8ReceiveMessageBuff[];
 ??m_aui8ReceiveMessageBuff:
         DS8 32
 
         RSEG NEAR_Z:DATA:ROOT(0)
         REQUIRE `?<Segment init: NEAR_Z>`
-//   60 uint8_t CMvsn21::m_aui8TransmitMessageBuff[];
+//   61 uint8_t CMvsn21::m_aui8TransmitMessageBuff[];
 ??m_aui8TransmitMessageBuff:
         DS8 32
-//   61 //uint8_t CMvsn21::m_auiSpiRxBuffer[];
-//   62 //uint8_t CMvsn21::m_auiSpiTxBuffer[];
-//   63 
-//   64 ////-----------------------------------------------------------------------------------------------------
-//   65 //CMvsn21::CMvsn21(uint8_t uiType, CDriver* pxDriver)// :
-//   66 ////    m_uiType(uiType),
-//   67 ////    m_pxDriver(pxDriver)
-//   68 //{
-//   69 //
-//   70 //}
-//   71 
-//   72 ////-----------------------------------------------------------------------------------------------------
-//   73 //CMvsn21::CMvsn21(uint8_t uiType)// :
-//   74 ////    m_uiType(uiType),
-//   75 ////    m_pxDriver(pxDriver)
-//   76 //{
-//   77 //
-//   78 //}
-//   79 //
-//   80 ////-----------------------------------------------------------------------------------------------------
-//   81 //CMvsn21::~CMvsn21()
-//   82 //{
-//   83 //    //dtor
-//   84 //}
-//   85 
-//   86 //////-----------------------------------------------------------------------------------------------------
-//   87 ////void CMvsn21::SlaveSelectInterruptEnable(void)
-//   88 ////{
-//   89 ////
-//   90 ////}
-//   91 ////
-//   92 //////-----------------------------------------------------------------------------------------------------
-//   93 ////void CMvsn21::SlaveSelectInterruptDisable(void)
-//   94 ////{
-//   95 ////
-//   96 ////}
-//   97 //
-//   98 //-----------------------------------------------------------------------------------------------------
+//   62 //uint8_t CMvsn21::m_auiSpiRxBuffer[];
+//   63 //uint8_t CMvsn21::m_auiSpiTxBuffer[];
+//   64 
+//   65 ////-----------------------------------------------------------------------------------------------------
+//   66 //CMvsn21::CMvsn21(uint8_t uiType, CDriver* pxDriver)// :
+//   67 ////    m_uiType(uiType),
+//   68 ////    m_pxDriver(pxDriver)
+//   69 //{
+//   70 //
+//   71 //}
+//   72 
+//   73 ////-----------------------------------------------------------------------------------------------------
+//   74 //CMvsn21::CMvsn21(uint8_t uiType)// :
+//   75 ////    m_uiType(uiType),
+//   76 ////    m_pxDriver(pxDriver)
+//   77 //{
+//   78 //
+//   79 //}
+//   80 //
+//   81 ////-----------------------------------------------------------------------------------------------------
+//   82 //CMvsn21::~CMvsn21()
+//   83 //{
+//   84 //    //dtor
+//   85 //}
+//   86 
+//   87 //////-----------------------------------------------------------------------------------------------------
+//   88 ////void CMvsn21::SlaveSelectInterruptEnable(void)
+//   89 ////{
+//   90 ////
+//   91 ////}
+//   92 ////
+//   93 //////-----------------------------------------------------------------------------------------------------
+//   94 ////void CMvsn21::SlaveSelectInterruptDisable(void)
+//   95 ////{
+//   96 ////
+//   97 ////}
+//   98 //
+//   99 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//   99 void CMvsn21::SpiBusExchangeEnable(void)
+//  100 void CMvsn21::SpiBusExchangeEnable(void)
 ??SpiBusExchangeEnable:
-//  100 {
-//  101     CPlatform::Int0InterruptEnable();
+//  101 {
+//  102     CPlatform::Int0InterruptEnable();
         RCALL   ??Int0InterruptEnable
-//  102     m_uiFlowControl = FSM_START;
+//  103     m_uiFlowControl = FSM_START;
         LDI     R16, 1
         STS     (??m_uiMessageLength + 2), R16
-//  103 }
+//  104 }
         RET
-//  104 
-//  105 ////-----------------------------------------------------------------------------------------------------
-//  106 //void CMvsn21::SpiBusExchangeDisable(void)
-//  107 //{
-//  108 //    CPlatform::Int0InterruptDisable();
-//  109 //}
-//  110 
-//  111 ////-----------------------------------------------------------------------------------------------------
-//  112 //void CMvsn21::Reset(void)
-//  113 //{
-//  114 //    CSpi::Reset();
-//  115 //}
-//  116 
-//  117 ////-----------------------------------------------------------------------------------------------------
-//  118 //uint8_t CMvsn21::Select(void)
-//  119 //{
-//  120 //    return CSpi::ByteIsReceived();
-//  121 //}
-//  122 
-//  123 ////-----------------------------------------------------------------------------------------------------
-//  124 //int16_t CMvsn21::Exchange(void)
-//  125 //{
-//  126 //    return CSpi::Exchange();
-//  127 //}
-//  128 
-//  129 ////-----------------------------------------------------------------------------------------------------------------
-//  130 //uint8_t CMvsn21::FrameIsReceived(void)
-//  131 //{
-//  132 //    return CSpi::m_bfDataExchangeIsOccur;
-//  133 //};
-//  134 //
-//  135 ////-----------------------------------------------------------------------------------------------------------------
-//  136 //uint16_t CMvsn21::GetFrameLength(void)
-//  137 //{
-//  138 //    return CSpi::GetFrameLength();
-//  139 //}
-//  140 
-//  141 ////-----------------------------------------------------------------------------------------------------------------
-//  142 //int8_t CMvsn21::FrameCheck(void)
-//  143 //{
-//  144 ////    if (CUart::m_nuiRxBuffByteCounter < _MIN_MESSAGE_LENGTH)
-//  145 ////    {
-//  146 ////        return 0;
-//  147 ////    }
-//  148 ////
-//  149 ////    uint16_t uiCrc = ((static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 2]) << 8) |
-//  150 ////                      (static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 1])));
-//  151 ////
-//  152 ////    if (usCrc16(m_puiRxBuffer,
-//  153 ////                (CUart::m_nuiRxBuffByteCounter - _MVSN21_RTU_CHECKSUM_LENGTH)) == uiCrc)
-//  154 ////    {
-//  155 ////        return 1;
-//  156 ////    }
-//  157 ////    else
-//  158 ////    {
-//  159 ////        return 0;
-//  160 ////    }
-//  161 //}
-//  162 //
-//  163 ////-----------------------------------------------------------------------------------------------------------------
-//  164 //int8_t CMvsn21::FrameCheck(uint8_t *puiSource, uint16_t uiLength)
-//  165 //{
-//  166 ////    if (uiLength < _MIN_MESSAGE_LENGTH)
-//  167 ////    {
-//  168 ////        return 0;
-//  169 ////    }
-//  170 ////
-//  171 ////    uint16_t uiCrc = ((static_cast<uint16_t>(puiSource[uiLength - 2]) << 8) |
-//  172 ////                      (static_cast<uint16_t>(puiSource[uiLength - 1])));
-//  173 ////
-//  174 ////    if (usCrc16(puiSource,
-//  175 ////                (uiLength - _MVSN21_RTU_CHECKSUM_LENGTH)) == uiCrc)
-//  176 ////    {
-//  177 ////        return 1;
-//  178 ////    }
-//  179 ////    else
-//  180 ////    {
-//  181 ////        return 0;
-//  182 ////    }
-//  183 //}
-//  184 
-//  185 //-----------------------------------------------------------------------------------------------------------------
+//  105 
+//  106 ////-----------------------------------------------------------------------------------------------------
+//  107 //void CMvsn21::SpiBusExchangeDisable(void)
+//  108 //{
+//  109 //    CPlatform::Int0InterruptDisable();
+//  110 //}
+//  111 
+//  112 ////-----------------------------------------------------------------------------------------------------
+//  113 //void CMvsn21::Reset(void)
+//  114 //{
+//  115 //    CSpi::Reset();
+//  116 //}
+//  117 
+//  118 ////-----------------------------------------------------------------------------------------------------
+//  119 //uint8_t CMvsn21::Select(void)
+//  120 //{
+//  121 //    return CSpi::ByteIsReceived();
+//  122 //}
+//  123 
+//  124 ////-----------------------------------------------------------------------------------------------------
+//  125 //int16_t CMvsn21::Exchange(void)
+//  126 //{
+//  127 //    return CSpi::Exchange();
+//  128 //}
+//  129 
+//  130 ////-----------------------------------------------------------------------------------------------------------------
+//  131 //uint8_t CMvsn21::FrameIsReceived(void)
+//  132 //{
+//  133 //    return CSpi::m_bfDataExchangeIsOccur;
+//  134 //};
+//  135 //
+//  136 ////-----------------------------------------------------------------------------------------------------------------
+//  137 //uint16_t CMvsn21::GetFrameLength(void)
+//  138 //{
+//  139 //    return CSpi::GetFrameLength();
+//  140 //}
+//  141 
+//  142 ////-----------------------------------------------------------------------------------------------------------------
+//  143 //int8_t CMvsn21::FrameCheck(void)
+//  144 //{
+//  145 ////    if (CUart::m_nuiRxBuffByteCounter < _MIN_MESSAGE_LENGTH)
+//  146 ////    {
+//  147 ////        return 0;
+//  148 ////    }
+//  149 ////
+//  150 ////    uint16_t uiCrc = ((static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 2]) << 8) |
+//  151 ////                      (static_cast<uint16_t>(m_puiRxBuffer[CUart::m_nuiRxBuffByteCounter - 1])));
+//  152 ////
+//  153 ////    if (usCrc16(m_puiRxBuffer,
+//  154 ////                (CUart::m_nuiRxBuffByteCounter - _MVSN21_RTU_CHECKSUM_LENGTH)) == uiCrc)
+//  155 ////    {
+//  156 ////        return 1;
+//  157 ////    }
+//  158 ////    else
+//  159 ////    {
+//  160 ////        return 0;
+//  161 ////    }
+//  162 //}
+//  163 //
+//  164 ////-----------------------------------------------------------------------------------------------------------------
+//  165 //int8_t CMvsn21::FrameCheck(uint8_t *puiSource, uint16_t uiLength)
+//  166 //{
+//  167 ////    if (uiLength < _MIN_MESSAGE_LENGTH)
+//  168 ////    {
+//  169 ////        return 0;
+//  170 ////    }
+//  171 ////
+//  172 ////    uint16_t uiCrc = ((static_cast<uint16_t>(puiSource[uiLength - 2]) << 8) |
+//  173 ////                      (static_cast<uint16_t>(puiSource[uiLength - 1])));
+//  174 ////
+//  175 ////    if (usCrc16(puiSource,
+//  176 ////                (uiLength - _MVSN21_RTU_CHECKSUM_LENGTH)) == uiCrc)
+//  177 ////    {
+//  178 ////        return 1;
+//  179 ////    }
+//  180 ////    else
+//  181 ////    {
+//  182 ////        return 0;
+//  183 ////    }
+//  184 //}
+//  185 
+//  186 //-----------------------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  186 int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  187 int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
 ??ReportType:
-//  187 {
-//  188     uiLength = 0;
-//  189     puiResponse[uiLength++] = 0;
+//  188 {
+//  189     uiLength = 0;
+//  190     // Первый байт - пустой(эхо - заполняется в прерывании, SPDR = SPDR).
+//  191     puiResponse[uiLength++] = 0;
         MOVW    R31:R30, R19:R18
         LDI     R16, 0
         ST      Z, R16
-//  190     puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
+//  192     puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
         LDI     R16, 1
         STD     Z+1, R16
-//  191     puiResponse[uiLength++] = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
+//  193     puiResponse[uiLength++] = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
         LDI     R16, 146
         STD     Z+2, R16
-//  192 
-//  193     return uiLength;
+//  194 
+//  195     return uiLength;
         LDI     R16, 3
         LDI     R17, 0
         RET
-//  194 }
-//  195 
-//  196 //-----------------------------------------------------------------------------------------------------------------
+//  196 }
+//  197 
+//  198 //-----------------------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  197 int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
+//  199 int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
 ??ReadData:
-//  198 {
+//  200 {
         RCALL   ?PROLOGUE6_L09
         REQUIRE ?Register_R4_is_cg_reg
         REQUIRE ?Register_R5_is_cg_reg
         MOVW    R5:R4, R17:R16
         MOVW    R27:R26, R19:R18
-//  199     uiLength = 0;
-//  200     // Протокол обмена данными по шине Spi.
-//  201     // Первый байт - пустой.
-//  202     puiResponse[uiLength++] = 0;
+//  201     uiLength = 0;
+//  202 
+//  203     // для того,чтобы определить текущее состояние входов нужно произвести
+//  204     // измерения. это занимает некоторое время на старте модуля.
+//  205     // чтобы не передавать в прибор недостоверную информацию подождём несколько
+//  206     // циклов и вместо непроверенных данных будем сообщать о том, что они не готовы.
+//  207     // мы считаем, что данные не достоверны?
+//  208     if (CMvsn21::m_uiStartSkippedCyclesNumber < 13)
+        LDS     R16, (??m_axMeasurementChannelRemap + 48)
+        CPI     R16, 13
         LDI     R16, 0
         ST      X, R16
+        BRCC    ??ReadData_1
+//  209     {
+//  210         // данные ещё не достоверны.
+//  211         // Первый байт - пустой(эхо - заполняется в прерывании, SPDR = SPDR).
+//  212         puiResponse[uiLength++] = 0;
+//  213 //        // сообщим об этом кодом - COMMAND_DATA_NOT_READY
+//  214 //        puiResponse[uiLength++] = COMMAND_DATA_NOT_READY;
+//  215         // как контрольная сумма(хотя, протоколом не предусмотрено)
+//  216         puiResponse[uiLength++] = (COMMAND_DATA_NOT_READY);
+        MOVW    R31:R30, R19:R18
+        LDI     R16, 36
+        STD     Z+1, R16
+//  217 
+//  218         CMvsn21::m_uiStartSkippedCyclesNumber++;
+//  219 
+//  220         if (CMvsn21::m_uiStartSkippedCyclesNumber >= 13)
+        LDI     R30, LOW(??m_axMeasurementChannelRemap)
+        LDI     R31, (??m_axMeasurementChannelRemap) >> 8
+        LDD     R16, Z+48
+        INC     R16
+        STD     Z+48, R16
+        CPI     R16, 13
+        BRCS    ??ReadData_2
+//  221         {
+//  222             CSpi::m_uiErrorCode = 0;
+        LDI     R16, 0
+        STS     ??m_uiErrorCode, R16
+//  223         }
+//  224 
+//  225         return uiLength;
+??ReadData_2:
+        LDI     R16, 2
+        LDI     R17, 0
+        RJMP    ??ReadData_3
+//  226     }
+//  227     else
+//  228     {
+//  229         // Протокол обмена данными по шине Spi.
+//  230         // Первый байт - пустой(эхо - заполняется в прерывании, SPDR = SPDR).
+//  231         puiResponse[uiLength++] = 0;
+??ReadData_1:
         LDI     R24, 1
         LDI     R25, 0
-//  203 
-//  204     // Следующие шесть байт - данные состояния дискретных входов.
-//  205     // Упакуем двухбитовые данные состояния измерительных каналов всех чипов в дискретные входы.
-//  206     // i - индекс дискретных входов.
-//  207     for (int8_t i = 0; i < DISCRETE_INPUT_NUMBER; )
-//  208     {
-//  209         uint8_t uiState = 0;
-??ReadData_1:
+//  232     }
+//  233 
+//  234     // Следующие шесть байт - данные состояния дискретных входов.
+//  235     // Упакуем двухбитовые данные состояния измерительных каналов всех чипов в дискретные входы.
+//  236     // i - индекс дискретных входов.
+//  237     for (int8_t i = 0; i < DISCRETE_INPUT_NUMBER; )
+//  238     {
+//  239         uint8_t uiState = 0;
+??ReadData_4:
         LDI     R22, 0
-//  210         // Упакуем двухбитовые данные состояния четырёх измерительных каналов в байт по четыре дискретных входа.
-//  211         for (int8_t j= 0;
+//  240         // Упакуем двухбитовые данные состояния четырёх измерительных каналов в байт по четыре дискретных входа.
+//  241         for (int8_t j= 0;
         LDI     R23, 4
-//  212                 j < CHANNELS_IN_BYTE;
-//  213                 j += 1)
-//  214         {
-//  215             // Следующие два бита в байте.
-//  216             // Упаковали все данные состояния измерительных каналов?
-//  217             if (i < DISCRETE_INPUT_NUMBER)
-//  218             {
-//  219                 // Выберем канал по индексу чипа, карты сопоставления измерительных каналов со входами модуля.
-//  220                 uint8_t uiInputIndex = ((m_axMeasurementChannelRemap[i].uiChip *
-//  221                                          (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER)) +
-//  222                                         // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
-//  223                                         (m_axMeasurementChannelRemap[i].uiChannel * MEASURE_CHANNEL_STATE_BIT_NUMBER));
-??ReadData_2:
+//  242                 j < CHANNELS_IN_BYTE;
+//  243                 j += 1)
+//  244         {
+//  245             // Следующие два бита в байте.
+//  246             // Упаковали все данные состояния измерительных каналов?
+//  247             if (i < DISCRETE_INPUT_NUMBER)
+//  248             {
+//  249                 // Выберем канал по индексу чипа, карты сопоставления измерительных каналов со входами модуля.
+//  250                 uint8_t uiInputIndex = ((m_axMeasurementChannelRemap[i].uiChip *
+//  251                                          (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER)) +
+//  252                                         // Выберем канал по индексу входа модуля, карты сопоставления измерительных каналов со входами модуля.
+//  253                                         (m_axMeasurementChannelRemap[i].uiChannel * MEASURE_CHANNEL_STATE_BIT_NUMBER));
+??ReadData_5:
         MOV     R18, R16
         MOV     R19, R16
         LSL     R19
@@ -890,19 +950,19 @@ _A_PINB:
         LDD     R17, Z+1
         LSL     R17
         ADD     R19, R17
-//  224 
-//  225                 for (int8_t k = 0;
+//  254 
+//  255                 for (int8_t k = 0;
         LDI     R18, 0
         LDI     R17, 2
-//  226                         k < MEASURE_CHANNEL_STATE_BIT_NUMBER;
-//  227                         k++)
-//  228                 {
-//  229                     uiState >>= 1;
-??ReadData_3:
+//  256                         k < MEASURE_CHANNEL_STATE_BIT_NUMBER;
+//  257                         k++)
+//  258                 {
+//  259                     uiState >>= 1;
+??ReadData_6:
         LSR     R22
-//  230                     // Массив с состояниями измерительных каналов чипов.
-//  231                     // Состояние измерительного канала занимает два бита.
-//  232                     if (m_aucRtuDiscreteInputsArray[uiInputIndex + k])
+//  260                     // Массив с состояниями измерительных каналов чипов.
+//  261                     // Состояние измерительного канала занимает два бита.
+//  262                     if (m_aucRtuDiscreteInputsArray[uiInputIndex + k])
         MOV     R0, R19
         CLR     R1
         MOV     R21, R18
@@ -915,52 +975,52 @@ _A_PINB:
         SBCI    R31, (-(??m_aucRtuDiscreteInputsArray) & 0xFFFF) >> 8
         LD      R20, Z
         TST     R20
-        BREQ    ??ReadData_4
-//  233                     {
-//  234                         uiState |= 0x80;
+        BREQ    ??ReadData_7
+//  263                     {
+//  264                         uiState |= 0x80;
         ORI     R22, 0x80
-//  235                     }
-//  236                 }
-??ReadData_4:
+//  265                     }
+//  266                 }
+??ReadData_7:
         INC     R18
         DEC     R17
-        BRNE    ??ReadData_3
-//  237                 // Следующий дискретный вход.
-//  238                 i++;
+        BRNE    ??ReadData_6
+//  267                 // Следующий дискретный вход.
+//  268                 i++;
         INC     R16
-//  239             }
+//  269             }
         DEC     R23
-        BREQ    ??ReadData_5
+        BREQ    ??ReadData_8
         CPI     R16, 24
-        BRGE    ??ReadData_6
-        RJMP    ??ReadData_2
-//  240             else
-//  241             {
-//  242                 // Упаковали все данные состояния измерительных каналов.
-//  243                 goto EndStateDataPack;
-//  244             }
-//  245         }
-//  246         puiResponse[uiLength] = uiState;
-??ReadData_5:
+        BRGE    ??ReadData_9
+        RJMP    ??ReadData_5
+//  270             else
+//  271             {
+//  272                 // Упаковали все данные состояния измерительных каналов.
+//  273                 goto EndStateDataPack;
+//  274             }
+//  275         }
+//  276         puiResponse[uiLength] = uiState;
+??ReadData_8:
         MOVW    R31:R30, R27:R26
         ADD     R30, R24
         ADC     R31, R25
         ST      Z, R22
-//  247         // Следующий байт.
-//  248         uiLength++;
+//  277         // Следующий байт.
+//  278         uiLength++;
         ADIW    R25:R24, 1
-//  249     }
+//  279     }
         CPI     R16, 24
-        BRLT    ??ReadData_1
-//  250 
-//  251 EndStateDataPack:
-//  252 
-//  253     // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
-//  254     puiResponse[uiLength] =
-//  255         (usCrcSummOneByteCalculation(&puiResponse[0], (uiLength)) +
-//  256          // Код запроса.
-//  257          puiRequest[0]);
-??ReadData_6:
+        BRLT    ??ReadData_4
+//  280 
+//  281 EndStateDataPack:
+//  282 
+//  283     // Последний байт - сумма всех байт начиная с третьего(пустой байт и "эхо" не учитываются).
+//  284     puiResponse[uiLength] =
+//  285         (usCrcSummOneByteCalculation(&puiResponse[0], (uiLength)) +
+//  286          // Код запроса.
+//  287          puiRequest[0]);
+??ReadData_9:
         MOVW    R19:R18, R25:R24
         MOVW    R17:R16, R27:R26
         RCALL   ??usCrcSummOneByteCalculation
@@ -970,22 +1030,23 @@ _A_PINB:
         ADD     R26, R24
         ADC     R27, R25
         ST      X, R16
-//  258 
-//  259     return uiLength;
+//  288 
+//  289     return uiLength;
         MOVW    R17:R16, R25:R24
+??ReadData_3:
         LDI     R30, 6
         RJMP    ?EPILOGUE_B6_L09
-//  260 }
-//  261 
-//  262 //-----------------------------------------------------------------------------------------------------------------
+//  290 }
+//  291 
+//  292 //-----------------------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  263 int16_t CMvsn21::SpiReply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
+//  293 int16_t CMvsn21::SpiReply(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiFrameLength)
 ??SpiReply:
-//  264 {
-//  265     uint16_t uiLength = uiFrameLength;
-//  266     // Какой поступил запрос?
-//  267     switch (puiRequest[0])
+//  294 {
+//  295     uint16_t uiLength = uiFrameLength;
+//  296     // Какой поступил запрос?
+//  297     switch (puiRequest[0])
         MOVW    R31:R30, R17:R16
         LD      R22, Z
         SUBI    R22, 145
@@ -993,49 +1054,49 @@ _A_PINB:
         SUBI    R22, 177
         BREQ    ??SpiReply_2
         RJMP    ??SpiReply_3
-//  268     {
-//  269     case COMMAND_REPORT_TYPE:
-//  270         uiLength = ReportType(puiRequest, puiResponse, uiLength);
+//  298     {
+//  299     case COMMAND_REPORT_TYPE:
+//  300         uiLength = ReportType(puiRequest, puiResponse, uiLength);
 ??SpiReply_1:
         RCALL   ??ReportType
         RJMP    ??SpiReply_4
-//  271         break;
-//  272 
-//  273     case COMMAND_READ_DATA:
-//  274         uiLength = ReadData(puiRequest, puiResponse, uiLength);
+//  301         break;
+//  302 
+//  303     case COMMAND_READ_DATA:
+//  304         uiLength = ReadData(puiRequest, puiResponse, uiLength);
 ??SpiReply_2:
         RCALL   ??ReadData
 ??SpiReply_4:
         MOVW    R21:R20, R17:R16
-//  275         break;
-//  276 
-//  277 //    case COMMAND_READ_DATA_BASE:
-//  278 ////        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
-//  279 //        break;
-//  280 //
-//  281 //    case COMMAND_WRITE_DATA_BASE:
-//  282 ////        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
-//  283 //        break;
-//  284 
-//  285     default:
-//  286         break;
-//  287     }
-//  288     return uiLength;
+//  305         break;
+//  306 
+//  307 //    case COMMAND_READ_DATA_BASE:
+//  308 ////        uiLength = ReadHoldingRegisters(puiRequest, puiResponse, uiLength);
+//  309 //        break;
+//  310 //
+//  311 //    case COMMAND_WRITE_DATA_BASE:
+//  312 ////        uiLength = ReadInputRegisters(puiRequest, puiResponse, uiLength);
+//  313 //        break;
+//  314 
+//  315     default:
+//  316         break;
+//  317     }
+//  318     return uiLength;
 ??SpiReply_3:
         MOVW    R17:R16, R21:R20
         RET
-//  289 }
-//  290 
-//  291 //-----------------------------------------------------------------------------------------------------------------
+//  319 }
+//  320 
+//  321 //-----------------------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  292 void CMvsn21::SpiFsm(void)
+//  322 void CMvsn21::SpiFsm(void)
 ??SpiFsm:
-//  293 {
+//  323 {
         RCALL   ?PROLOGUE4_L09
-//  294     int16_t iReceivedCounter;
-//  295 
-//  296     switch (m_uiFlowControl)
+//  324     int16_t iReceivedCounter;
+//  325 
+//  326     switch (m_uiFlowControl)
         LDI     R26, LOW(??m_uiMessageLength)
         LDI     R27, (??m_uiMessageLength) >> 8
         LDS     R16, (??m_uiMessageLength + 2)
@@ -1046,76 +1107,76 @@ _A_PINB:
         SUBI    R16, 8
         BREQ    ??SpiFsm_3
         RJMP    ??SpiFsm_4
-//  297     {
-//  298     case FSM_IDDLE:
-//  299         break;
-//  300 
-//  301     case FSM_START:
-//  302 //        Reset();
-//  303         CSpi::Reset();
+//  327     {
+//  328     case FSM_IDDLE:
+//  329         break;
+//  330 
+//  331     case FSM_START:
+//  332 //        Reset();
+//  333         CSpi::Reset();
 ??SpiFsm_1:
         RCALL   ??Reset
-//  304         m_uiMessageLength = 0;
+//  334         m_uiMessageLength = 0;
         LDI     R16, 0
         ST      X+, R16
         ST      X, R16
-//  305         m_uiFlowControl = FSM_WAITING_MESSAGE;
+//  335         m_uiFlowControl = FSM_WAITING_MESSAGE;
         LDI     R16, 2
 ??SpiFsm_5:
         STS     (??m_uiMessageLength + 2), R16
-//  306         break;
-//  307 
-//  308     case FSM_WAITING_MESSAGE:
-//  309         if (CSpi::ByteIsReceived())
-//  310 //        if (Select())
-//  311         {
-//  312 //            iReceivedCounter = Exchange();
-//  313             iReceivedCounter = CSpi::Exchange();
-//  314 
-//  315             if (iReceivedCounter > 0)
-//  316             {
-//  317                 m_uiMessageLength += iReceivedCounter;
-//  318 
-//  319                 if (SpiReply(CSpi::m_puiRxBuffer, CSpi::m_puiTxBuffer, m_uiMessageLength))
-//  320                 {
-//  321                     m_uiFlowControl = FSM_DATA_EXCHANGE_END_WAITING;
-//  322                 }
-//  323                 else
-//  324                 {
-//  325                     m_uiFlowControl = FSM_IDDLE;
-//  326                 }
-//  327             }
-//  328             else if (iReceivedCounter == -1)
-//  329             {
-//  330                 m_uiFlowControl = FSM_IDDLE;
-//  331             }
-//  332         }
-//  333 
-//  334         break;
-//  335 
-//  336     case FSM_DATA_EXCHANGE_END_WAITING:
-//  337         break;
-//  338 
-//  339     case FSM_DATA_EXCHANGE_END:
-//  340         if (CModbus::m_uiSlaveAddress >= 2)
+//  336         break;
+//  337 
+//  338     case FSM_WAITING_MESSAGE:
+//  339         if (CSpi::ByteIsReceived())
+//  340 //        if (Select())
 //  341         {
-//  342             CModbus::m_uiSlaveAddress = 1;
-//  343         }
-//  344         else
-//  345         {
-//  346             CModbus::m_uiSlaveAddress += 1;
-//  347         }
-//  348         CModbus::ReadDiscreteInputsRequest((CModbus::m_uiSlaveAddress),
-//  349                                            0,
-//  350                                            (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
-//  351         m_uiFlowControl = FSM_IDDLE;
-//  352         break;
-//  353 
-//  354     default:
-//  355         break;
-//  356     }
-//  357 
-//  358 }
+//  342 //            iReceivedCounter = Exchange();
+//  343             iReceivedCounter = CSpi::Exchange();
+//  344 
+//  345             if (iReceivedCounter > 0)
+//  346             {
+//  347                 m_uiMessageLength += iReceivedCounter;
+//  348 
+//  349                 if (SpiReply(CSpi::m_puiRxBuffer, CSpi::m_puiTxBuffer, m_uiMessageLength))
+//  350                 {
+//  351                     m_uiFlowControl = FSM_DATA_EXCHANGE_END_WAITING;
+//  352                 }
+//  353                 else
+//  354                 {
+//  355                     m_uiFlowControl = FSM_IDDLE;
+//  356                 }
+//  357             }
+//  358             else if (iReceivedCounter == -1)
+//  359             {
+//  360                 m_uiFlowControl = FSM_IDDLE;
+//  361             }
+//  362         }
+//  363 
+//  364         break;
+//  365 
+//  366     case FSM_DATA_EXCHANGE_END_WAITING:
+//  367         break;
+//  368 
+//  369     case FSM_DATA_EXCHANGE_END:
+//  370         if (CModbus::m_uiSlaveAddress >= 2)
+//  371         {
+//  372             CModbus::m_uiSlaveAddress = 1;
+//  373         }
+//  374         else
+//  375         {
+//  376             CModbus::m_uiSlaveAddress += 1;
+//  377         }
+//  378         CModbus::ReadDiscreteInputsRequest((CModbus::m_uiSlaveAddress),
+//  379                                            0,
+//  380                                            (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER));
+//  381         m_uiFlowControl = FSM_IDDLE;
+//  382         break;
+//  383 
+//  384     default:
+//  385         break;
+//  386     }
+//  387 
+//  388 }
 ??SpiFsm_4:
         RJMP    ?Subroutine1
 ??SpiFsm_2:
@@ -1170,13 +1231,13 @@ _A_PINB:
         LDI     R19, 0
         RCALL   ??ReadDiscreteInputsRequest
         RJMP    ??SpiFsm_7
-//  359 
-//  360 //-----------------------------------------------------------------------------------------------------
+//  389 
+//  390 //-----------------------------------------------------------------------------------------------------
 
         RSEG CODE:CODE:NOROOT(1)
-//  361 void CMvsn21::MeasureFsm(void)
+//  391 void CMvsn21::MeasureFsm(void)
 ??MeasureFsm:
-//  362 {
+//  392 {
         RCALL   ?PROLOGUE4_L09
         LDS     R16, (??m_axSameStateCheck + 17)
         TST     R16
@@ -1186,33 +1247,33 @@ _A_PINB:
         SUBI    R16, 10
         BREQ    ??MeasureFsm_3
         RJMP    ??MeasureFsm_4
-//  363     switch (m_uiMeasureFlowControl)
-//  364     {
-//  365     case FSM_IDDLE:
-//  366         CPlatform::WatchdogReset();
+//  393     switch (m_uiMeasureFlowControl)
+//  394     {
+//  395     case FSM_IDDLE:
+//  396         CPlatform::WatchdogReset();
 ??MeasureFsm_1:
         WDR
-//  367         break;
+//  397         break;
         RJMP    ??MeasureFsm_4
-//  368 
-//  369     case FSM_START:
-//  370         m_uiChannel = 0;
+//  398 
+//  399     case FSM_START:
+//  400         m_uiChannel = 0;
 ??MeasureFsm_2:
         LDI     R16, 0
         STS     (??m_axSameStateCheck + 16), R16
-//  371         CAdc::Enable();
+//  401         CAdc::Enable();
         RCALL   ??Enable
-//  372         CAdc::ChannelSelect(m_uiChannel);
+//  402         CAdc::ChannelSelect(m_uiChannel);
         RCALL   ?Subroutine0
-//  373         CAdc::Start();
-//  374         m_uiMeasureFlowControl = FSM_CONTINUOUS_MEASURE;
+//  403         CAdc::Start();
+//  404         m_uiMeasureFlowControl = FSM_CONTINUOUS_MEASURE;
 ??CrossCallReturnLabel_1:
         LDI     R16, 11
         RJMP    ??MeasureFsm_5
-//  375         break;
-//  376 
-//  377     case FSM_CONTINUOUS_MEASURE:
-//  378         if (CAdc::MeasureIsComlete())
+//  405         break;
+//  406 
+//  407     case FSM_CONTINUOUS_MEASURE:
+//  408         if (CAdc::MeasureIsComlete())
 ??MeasureFsm_3:
         LDS     R16, _A_ADCSRA
         SBRS    R16, 4
@@ -1220,14 +1281,14 @@ _A_PINB:
         LDS     R16, 122
         ORI     R16, 0x10
         STS     122, R16
-//  379         {
-//  380             uint8_t uiState =
-//  381                 CMeasurementChannel::StateCheck(CAdc::GetMeasureValue());
+//  409         {
+//  410             uint8_t uiState =
+//  411                 CMeasurementChannel::StateCheck(CAdc::GetMeasureValue());
         RCALL   ??GetMeasureValue
         RCALL   ??StateCheck
-//  382 
-//  383             // Предыдущее состояние дискретного входа совпадает с текущим?
-//  384             if (m_axSameStateCheck[m_uiChannel].uiState == uiState)
+//  412 
+//  413             // Предыдущее состояние дискретного входа совпадает с текущим?
+//  414             if (m_axSameStateCheck[m_uiChannel].uiState == uiState)
         LDS     R17, (??m_axSameStateCheck + 16)
         LDI     R18, 2
         MUL     R17, R18
@@ -1238,14 +1299,14 @@ _A_PINB:
         LD      R17, Z
         CP      R17, R16
         BRNE    ??MeasureFsm_6
-//  385             {
-//  386                 // Cостояние дискретного входа изменилось не в результате помехи?
-//  387                 if (m_axSameStateCheck[m_uiChannel].uiSameStateCounter >= SAME_STATE_CHECK_NUMBER)
+//  415             {
+//  416                 // Cостояние дискретного входа изменилось не в результате помехи?
+//  417                 if (m_axSameStateCheck[m_uiChannel].uiSameStateCounter >= SAME_STATE_CHECK_NUMBER)
         LDD     R16, Z+1
         CPI     R16, 3
         BRCS    ??MeasureFsm_7
-//  388                 {
-//  389                     m_aucRtuDiscreteInputsArray[(m_uiChannel * 2) + (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER * 2)] = (m_axSameStateCheck[m_uiChannel].uiState & 0x01);
+//  418                 {
+//  419                     m_aucRtuDiscreteInputsArray[(m_uiChannel * 2) + (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER * 2)] = (m_axSameStateCheck[m_uiChannel].uiState & 0x01);
         LDI     R26, LOW(??m_aucRtuDiscreteInputsArray)
         LDI     R27, (??m_aucRtuDiscreteInputsArray) >> 8
         ADD     R26, R0
@@ -1254,71 +1315,71 @@ _A_PINB:
         ADIW    R27:R26, 32
         ST      X, R17
         ADIW    R27:R26, 1
-//  390                     m_aucRtuDiscreteInputsArray[(m_uiChannel * 2) + (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER * 2) + 1] = ((m_axSameStateCheck[m_uiChannel].uiState >> 1) & 0x01);
+//  420                     m_aucRtuDiscreteInputsArray[(m_uiChannel * 2) + (MEASURE_CHANNEL_NUMBER * MEASURE_CHANNEL_STATE_BIT_NUMBER * 2) + 1] = ((m_axSameStateCheck[m_uiChannel].uiState >> 1) & 0x01);
         LD      R16, Z
         BST     R16, 1
         LDI     R16, 0
         BLD     R16, 0
         ST      X, R16
         RJMP    ??MeasureFsm_8
-//  391                 }
-//  392                 else
-//  393                 {
-//  394                     m_axSameStateCheck[m_uiChannel].uiSameStateCounter += 1;
+//  421                 }
+//  422                 else
+//  423                 {
+//  424                     m_axSameStateCheck[m_uiChannel].uiSameStateCounter += 1;
 ??MeasureFsm_7:
         INC     R16
         RJMP    ??MeasureFsm_9
-//  395                 }
-//  396             }
-//  397             else
-//  398             {
-//  399                 // Предыдущее состояние дискретного входа не совпадает с текущим.
-//  400                 // Сохраним новое состояние.
-//  401                 m_axSameStateCheck[m_uiChannel].uiState = uiState;
+//  425                 }
+//  426             }
+//  427             else
+//  428             {
+//  429                 // Предыдущее состояние дискретного входа не совпадает с текущим.
+//  430                 // Сохраним новое состояние.
+//  431                 m_axSameStateCheck[m_uiChannel].uiState = uiState;
 ??MeasureFsm_6:
         ST      Z, R16
-//  402                 m_axSameStateCheck[m_uiChannel].uiSameStateCounter = 0;
+//  432                 m_axSameStateCheck[m_uiChannel].uiSameStateCounter = 0;
         LDI     R16, 0
 ??MeasureFsm_9:
         STD     Z+1, R16
-//  403             }
-//  404 
-//  405             m_uiChannel++;
+//  433             }
+//  434 
+//  435             m_uiChannel++;
 ??MeasureFsm_8:
         LDI     R30, LOW(??m_axSameStateCheck)
         LDI     R31, (??m_axSameStateCheck) >> 8
         LDD     R16, Z+16
         INC     R16
         STD     Z+16, R16
-//  406             if (m_uiChannel < MEASURE_CHANNEL_NUMBER)
+//  436             if (m_uiChannel < MEASURE_CHANNEL_NUMBER)
         CPI     R16, 8
         BRCC    ??MeasureFsm_10
-//  407             {
-//  408                 CAdc::Stop();
+//  437             {
+//  438                 CAdc::Stop();
         RCALL   ??Stop
-//  409                 CAdc::ChannelSelect(m_uiChannel);
+//  439                 CAdc::ChannelSelect(m_uiChannel);
         RCALL   ?Subroutine0
-//  410                 CAdc::Start();
-//  411             }
+//  440                 CAdc::Start();
+//  441             }
 ??CrossCallReturnLabel_0:
         RJMP    ??MeasureFsm_4
-//  412             else
-//  413             {
-//  414                 CAdc::Disable();
+//  442             else
+//  443             {
+//  444                 CAdc::Disable();
 ??MeasureFsm_10:
         RCALL   ??Disable
-//  415                 m_uiMeasureFlowControl = FSM_IDDLE;
+//  445                 m_uiMeasureFlowControl = FSM_IDDLE;
         LDI     R16, 0
 ??MeasureFsm_5:
         STS     (??m_axSameStateCheck + 17), R16
-//  416             }
-//  417         }
-//  418         break;
-//  419 
-//  420     default:
-//  421         break;
-//  422     }
-//  423 }
+//  446             }
+//  447         }
+//  448         break;
+//  449 
+//  450     default:
+//  451         break;
+//  452     }
+//  453 }
 ??MeasureFsm_4:
         REQUIRE ?Subroutine1
         REQUIRE _A_ADCSRA
@@ -1356,6 +1417,8 @@ __?EEARL:
         DC8 0, 6, 0, 7, 0, 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 1, 6, 1, 7, 1, 0, 1
         DC8 1, 1, 2, 1, 3, 1, 4, 1, 5, 2, 6, 2, 7, 2, 0, 2, 1, 2, 2, 2, 3, 2, 4
         DC8 2, 5
+`?<Initializer for m_uiStartSkippedCyclesNumber`:
+        DC8 0
 
         RSEG INITTAB:CODE:NOROOT(0)
 `?<Segment init: NEAR_I>`:
@@ -1368,43 +1431,43 @@ __?EEARL:
         DC8 0, 0
 
         END
-//  424 
-//  425 
-//  426 
-//  427 
-//  428 
-//  429 
-//  430 
-//  431 ////-----------------------------------------------------------------------------------------------------
-//  432 //CMvsn21Driver::CMvsn21Driver(uint8_t uiType) :
-//  433 //
-//  434 //    m_uiType(uiType),
-//  435 //{
-//  436 //
-//  437 //}
-//  438 //
-//  439 ////-----------------------------------------------------------------------------------------------------
-//  440 //CMvsn21Driver::~CMvsn21Driver()
-//  441 //{
-//  442 //
-//  443 //}
-//  444 //
-//  445 ////-----------------------------------------------------------------------------------------------------
-//  446 //uint16_t CMvsn21Driver::TypeReport(uint8_t *puiDestination, uint16_t uiLength)
-//  447 //{
-//  448 //
-//  449 //}
+//  454 
+//  455 
+//  456 
+//  457 
+//  458 
+//  459 
+//  460 
+//  461 ////-----------------------------------------------------------------------------------------------------
+//  462 //CMvsn21Driver::CMvsn21Driver(uint8_t uiType) :
+//  463 //
+//  464 //    m_uiType(uiType),
+//  465 //{
+//  466 //
+//  467 //}
+//  468 //
+//  469 ////-----------------------------------------------------------------------------------------------------
+//  470 //CMvsn21Driver::~CMvsn21Driver()
+//  471 //{
+//  472 //
+//  473 //}
+//  474 //
+//  475 ////-----------------------------------------------------------------------------------------------------
+//  476 //uint16_t CMvsn21Driver::TypeReport(uint8_t *puiDestination, uint16_t uiLength)
+//  477 //{
+//  478 //
+//  479 //}
 // 
 //  87 bytes in segment ABSOLUTE
-// 500 bytes in segment CODE
+// 540 bytes in segment CODE
 //  12 bytes in segment INITTAB
 //   2 bytes in segment NEAR_F
-//  48 bytes in segment NEAR_I
-//  48 bytes in segment NEAR_ID
+//  49 bytes in segment NEAR_I
+//  49 bytes in segment NEAR_ID
 // 134 bytes in segment NEAR_Z
 // 
-// 550 bytes of CODE memory (+ 12 bytes shared)
-// 182 bytes of DATA memory (+ 87 bytes shared)
+// 591 bytes of CODE memory (+ 12 bytes shared)
+// 183 bytes of DATA memory (+ 87 bytes shared)
 //
 //Errors: none
 //Warnings: 5

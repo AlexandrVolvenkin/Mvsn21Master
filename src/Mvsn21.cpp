@@ -16,6 +16,7 @@ uint8_t CMvsn21::m_uiType;
 uint8_t CMvsn21::m_uiFlowControl;
 uint16_t CMvsn21::m_uiMessageLength;
 uint8_t CMvsn21::m_uiChannel;
+uint8_t CMvsn21::m_uiStartSkippedCyclesNumber;
 uint8_t CMvsn21::m_uiMeasureFlowControl;
 // Сопоставление входа каналу.
 __flash TChannelRemap CMvsn21::m_axMeasurementChannelRemap[] =
@@ -186,6 +187,7 @@ void CMvsn21::SpiBusExchangeEnable(void)
 int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
 {
     uiLength = 0;
+    // Первый байт - пустой(эхо - заполняется в прерывании, SPDR = SPDR).
     puiResponse[uiLength++] = 0;
     puiResponse[uiLength++] = MODULE_TYPE_MVSN21;
     puiResponse[uiLength++] = (COMMAND_REPORT_TYPE + MODULE_TYPE_MVSN21);
@@ -197,9 +199,37 @@ int16_t CMvsn21::ReportType(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t 
 int16_t CMvsn21::ReadData(uint8_t *puiRequest, uint8_t *puiResponse, uint16_t uiLength)
 {
     uiLength = 0;
-    // Протокол обмена данными по шине Spi.
-    // Первый байт - пустой.
-    puiResponse[uiLength++] = 0;
+
+    // для того,чтобы определить текущее состояние входов нужно произвести
+    // измерения. это занимает некоторое время на старте модуля.
+    // чтобы не передавать в прибор недостоверную информацию подождём несколько
+    // циклов и вместо непроверенных данных будем сообщать о том, что они не готовы.
+    // мы считаем, что данные не достоверны?
+    if (CMvsn21::m_uiStartSkippedCyclesNumber < 13)
+    {
+        // данные ещё не достоверны.
+        // Первый байт - пустой(эхо - заполняется в прерывании, SPDR = SPDR).
+        puiResponse[uiLength++] = 0;
+//        // сообщим об этом кодом - COMMAND_DATA_NOT_READY
+//        puiResponse[uiLength++] = COMMAND_DATA_NOT_READY;
+        // как контрольная сумма(хотя, протоколом не предусмотрено)
+        puiResponse[uiLength++] = (COMMAND_DATA_NOT_READY);
+
+        CMvsn21::m_uiStartSkippedCyclesNumber++;
+
+        if (CMvsn21::m_uiStartSkippedCyclesNumber >= 13)
+        {
+            CSpi::m_uiErrorCode = 0;
+        }
+
+        return uiLength;
+    }
+    else
+    {
+        // Протокол обмена данными по шине Spi.
+        // Первый байт - пустой(эхо - заполняется в прерывании, SPDR = SPDR).
+        puiResponse[uiLength++] = 0;
+    }
 
     // Следующие шесть байт - данные состояния дискретных входов.
     // Упакуем двухбитовые данные состояния измерительных каналов всех чипов в дискретные входы.

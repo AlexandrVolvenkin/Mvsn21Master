@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\Projects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.general.xcl" --backend -f "D:\Projects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.general.xcl" --backend -f "D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\Projects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Projects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Projects\CurrentProjects\CautoProjects\Mvsn21\Mvsn21\settings\Mvsn21.Debug.driver.xcl" 
 }

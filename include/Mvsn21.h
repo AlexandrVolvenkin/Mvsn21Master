@@ -134,6 +134,7 @@ private:
     static TChannelRemap m_axMeasurementChannelRemap[DISCRETE_INPUT_NUMBER];
 
 public:
+    static uint8_t m_uiStartSkippedCyclesNumber;
     static TSameStateCheck m_axSameStateCheck[MEASURE_CHANNEL_NUMBER];
 //    static uint8_t m_aucRtuCoilsArray[COILS_WORK_ARRAY_LENGTH];
     static uint8_t m_aucRtuDiscreteInputsArray[DISCRETE_INPUTS_ARRAY_LENGTH];
